@@ -1,0 +1,40 @@
+{
+  "source": "Comunicato Ufficiale n. 1 del 23/09/2026, FIP CR Sardegna",
+  "team": "CUS Cagliari",
+  "fip_team": "CUS CAGLIARI",
+  "venues": {
+    "palacus": {"name": "PALACUS", "address": "Via Is Mirrionis 3-9, Cagliari"},
+    "esperia": {"name": "Palestra Esperia", "address": "Via Pessagno snc, Cagliari"},
+    "simula": {"name": "Palestra Luca Simula", "address": "Via Poligono 2, Sassari"},
+    "anton": {"name": "Pala Antonianum", "address": "Via Mons. Angioni 46, Quartu Sant'Elena"},
+    "aversano": {"name": "PalAversano", "address": "Loc. Sciamain, Calasetta"},
+    "ptorres": {"name": "Palazzetto dello Sport", "address": "Via Palladio, Porto Torres"},
+    "selena": {"name": "Palestra S. Elena", "address": "Via Pessina 29, Quartu Sant'Elena"},
+    "carbonia": {"name": "Palazzetto dello Sport", "address": "Via Delle Cernitrici, Carbonia"},
+    "coni": {"name": "Palestra Coni", "address": "Via Lazio, Nuoro"}
+  },
+  "games": [
+    {"round": "A1", "n": 6, "date": "2026-10-03", "time": "20:00", "home": "Basket S. Orsola", "away": "CUS Cagliari", "venue": "simula"},
+    {"round": "A2", "n": 7, "date": "2026-10-11", "time": "18:00", "home": "CUS Cagliari", "away": "C.M.B. Porto Torres", "venue": "palacus"},
+    {"round": "A3", "n": 17, "date": "2026-10-17", "time": "18:00", "home": "Olimpia Cagliari", "away": "CUS Cagliari", "venue": "esperia"},
+    {"round": "A4", "n": 24, "date": "2026-10-25", "time": "18:00", "home": "CUS Cagliari", "away": "Pol. Dinamo", "venue": "palacus"},
+    {"round": "A5", "n": 27, "date": "2026-10-31", "time": "17:30", "home": "SEF Torres", "away": "CUS Cagliari", "venue": "simula"},
+    {"round": "A6", "n": 31, "date": "2026-11-08", "time": "18:00", "home": "CUS Cagliari", "away": "Basket Ferrini", "venue": "palacus"},
+    {"round": "A7", "n": 39, "date": "2026-11-14", "time": "18:30", "home": "CUS Cagliari", "away": "Scuola Basket Carbonia", "venue": "palacus"},
+    {"round": "A8", "n": 46, "date": "2026-11-22", "time": "18:00", "home": "CUS Cagliari", "away": "Pall. Nuoro", "venue": "palacus"},
+    {"round": "A9", "n": 54, "date": "2026-11-29", "time": "18:30", "home": "Basket Antonianum", "away": "CUS Cagliari", "venue": "anton"},
+    {"round": "A10", "n": 59, "date": "2026-12-05", "time": "18:00", "home": "Calasetta Basket", "away": "CUS Cagliari", "venue": "aversano"},
+    {"round": "A11", "n": 64, "date": "2026-12-13", "time": "18:00", "home": "CUS Cagliari", "away": "Fisiokons Aurea Sassari", "venue": "palacus"},
+    {"round": "R1", "n": 69, "date": "2026-12-20", "time": "18:00", "home": "CUS Cagliari", "away": "Basket S. Orsola", "venue": "palacus"},
+    {"round": "R2", "n": 77, "date": "2027-01-10", "time": "18:00", "home": "C.M.B. Porto Torres", "away": "CUS Cagliari", "venue": "ptorres"},
+    {"round": "R3", "n": 83, "date": "2027-01-17", "time": "18:00", "home": "CUS Cagliari", "away": "Olimpia Cagliari", "venue": "palacus"},
+    {"round": "R4", "n": 85, "date": "2027-01-23", "time": "18:00", "home": "Pol. Dinamo", "away": "CUS Cagliari", "venue": "simula"},
+    {"round": "R5", "n": 95, "date": "2027-01-31", "time": "18:00", "home": "CUS Cagliari", "away": "SEF Torres", "venue": "palacus"},
+    {"round": "R6", "n": 102, "date": "2027-02-06", "time": "19:00", "home": "Basket Ferrini", "away": "CUS Cagliari", "venue": "selena"},
+    {"round": "R7", "n": 108, "date": "2027-02-14", "time": "18:00", "home": "Scuola Basket Carbonia", "away": "CUS Cagliari", "venue": "carbonia"},
+    {"round": "R8", "n": 109, "date": "2027-02-27", "time": "19:00", "home": "Pall. Nuoro", "away": "CUS Cagliari", "venue": "coni"},
+    {"round": "R9", "n": 115, "date": "2027-03-07", "time": "18:00", "home": "CUS Cagliari", "away": "Basket Antonianum", "venue": "palacus"},
+    {"round": "R10", "n": 125, "date": "2027-03-14", "time": "18:00", "home": "CUS Cagliari", "away": "Calasetta Basket", "venue": "palacus"},
+    {"round": "R11", "n": 128, "date": "2027-03-20", "time": "20:00", "home": "Fisiokons Aurea Sassari", "away": "CUS Cagliari", "venue": "simula"}
+  ]
+}

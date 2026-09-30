@@ -1,0 +1,26 @@
+[project]
+name = "fip-calendar"
+version = "0.1.0"
+description = "Keeps the CUS Cagliari Serie C 2026/27 calendar in sync with fip.it"
+requires-python = ">=3.12"
+dependencies = ["beautifulsoup4>=4.13"]
+
+[project.scripts]
+fip-calendar = "fip_calendar.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]

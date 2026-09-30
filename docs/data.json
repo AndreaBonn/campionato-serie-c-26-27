@@ -1,0 +1,710 @@
+{
+  "games": [
+    {
+      "round": "A1",
+      "n": 6,
+      "home": "Basket S. Orsola",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2026-10-03",
+      "time": "20:00",
+      "venue": {
+        "name": "Palestra Luca Simula",
+        "address": "Via Poligono 2 07100 SASSARI (SS)"
+      },
+      "official": {
+        "date": "2026-10-03",
+        "time": "20:00",
+        "venue": {
+          "name": "Palestra Luca Simula",
+          "address": "Via Poligono 2, Sassari"
+        }
+      },
+      "changes": [],
+      "status": "designata",
+      "status_text": "Gara designata: la designazione è visibile",
+      "referees": [
+        "FIORIN GIANMARCO di CABRAS (OR)",
+        "ATZENI GIANLUCA di ARBUS (SU)"
+      ],
+      "score": null
+    },
+    {
+      "round": "A2",
+      "n": 7,
+      "home": "CUS Cagliari",
+      "away": "C.M.B. Porto Torres",
+      "is_home": true,
+      "date": "2026-10-11",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-10-11",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A3",
+      "n": 17,
+      "home": "Olimpia Cagliari",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2026-10-18",
+      "time": "19:00",
+      "venue": {
+        "name": "Palestra Esperia",
+        "address": "Via Pessagno snc 09126 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-10-17",
+        "time": "18:00",
+        "venue": {
+          "name": "Palestra Esperia",
+          "address": "Via Pessagno snc, Cagliari"
+        }
+      },
+      "changes": [
+        "date",
+        "time"
+      ],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A4",
+      "n": 24,
+      "home": "CUS Cagliari",
+      "away": "Pol. Dinamo",
+      "is_home": true,
+      "date": "2026-10-25",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-10-25",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A5",
+      "n": 27,
+      "home": "SEF Torres",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2026-10-31",
+      "time": "17:30",
+      "venue": {
+        "name": "Palestra Luca Simula",
+        "address": "Via Poligono 2 07100 SASSARI (SS)"
+      },
+      "official": {
+        "date": "2026-10-31",
+        "time": "17:30",
+        "venue": {
+          "name": "Palestra Luca Simula",
+          "address": "Via Poligono 2, Sassari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A6",
+      "n": 31,
+      "home": "CUS Cagliari",
+      "away": "Basket Ferrini",
+      "is_home": true,
+      "date": "2026-11-08",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-11-08",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A7",
+      "n": 39,
+      "home": "CUS Cagliari",
+      "away": "Scuola Basket Carbonia",
+      "is_home": true,
+      "date": "2026-11-14",
+      "time": "18:30",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-11-14",
+        "time": "18:30",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A8",
+      "n": 46,
+      "home": "CUS Cagliari",
+      "away": "Pall. Nuoro",
+      "is_home": true,
+      "date": "2026-11-22",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-11-22",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A9",
+      "n": 54,
+      "home": "Basket Antonianum",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2026-11-29",
+      "time": "18:30",
+      "venue": {
+        "name": "Pala Antonianum",
+        "address": "Via Mons. Angioni 46 09045 QUARTU SANT'ELENA (CA)"
+      },
+      "official": {
+        "date": "2026-11-29",
+        "time": "18:30",
+        "venue": {
+          "name": "Pala Antonianum",
+          "address": "Via Mons. Angioni 46, Quartu Sant'Elena"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A10",
+      "n": 59,
+      "home": "Calasetta Basket",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2026-12-05",
+      "time": "18:00",
+      "venue": {
+        "name": "PalAversano",
+        "address": "Loc. Sciamain 09011 CALASETTA (SU)"
+      },
+      "official": {
+        "date": "2026-12-05",
+        "time": "18:00",
+        "venue": {
+          "name": "PalAversano",
+          "address": "Loc. Sciamain, Calasetta"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "A11",
+      "n": 64,
+      "home": "CUS Cagliari",
+      "away": "Fisiokons Aurea Sassari",
+      "is_home": true,
+      "date": "2026-12-13",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-12-13",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R1",
+      "n": 69,
+      "home": "CUS Cagliari",
+      "away": "Basket S. Orsola",
+      "is_home": true,
+      "date": "2026-12-20",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2026-12-20",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R2",
+      "n": 77,
+      "home": "C.M.B. Porto Torres",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-01-10",
+      "time": "18:00",
+      "venue": {
+        "name": "Palazzetto dello Sport",
+        "address": "Via Palladio 07046 PORTO TORRES (SS)"
+      },
+      "official": {
+        "date": "2027-01-10",
+        "time": "18:00",
+        "venue": {
+          "name": "Palazzetto dello Sport",
+          "address": "Via Palladio, Porto Torres"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R3",
+      "n": 83,
+      "home": "CUS Cagliari",
+      "away": "Olimpia Cagliari",
+      "is_home": true,
+      "date": "2027-01-17",
+      "time": "19:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2027-01-17",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [
+        "time"
+      ],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R4",
+      "n": 85,
+      "home": "Pol. Dinamo",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-01-23",
+      "time": "18:00",
+      "venue": {
+        "name": "Palestra Luca Simula",
+        "address": "Via Poligono 2 07100 SASSARI (SS)"
+      },
+      "official": {
+        "date": "2027-01-23",
+        "time": "18:00",
+        "venue": {
+          "name": "Palestra Luca Simula",
+          "address": "Via Poligono 2, Sassari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R5",
+      "n": 95,
+      "home": "CUS Cagliari",
+      "away": "SEF Torres",
+      "is_home": true,
+      "date": "2027-01-31",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2027-01-31",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R6",
+      "n": 102,
+      "home": "Basket Ferrini",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-02-06",
+      "time": "19:00",
+      "venue": {
+        "name": "Palestra S. Elena",
+        "address": "Via Pessina 29 09045 QUARTU SANT'ELENA (CA)"
+      },
+      "official": {
+        "date": "2027-02-06",
+        "time": "19:00",
+        "venue": {
+          "name": "Palestra S. Elena",
+          "address": "Via Pessina 29, Quartu Sant'Elena"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R7",
+      "n": 108,
+      "home": "Scuola Basket Carbonia",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-02-14",
+      "time": "18:00",
+      "venue": {
+        "name": "PALAZZETTO DELLO SPORT",
+        "address": "Via Delle Cernitrici 09013 CARBONIA (SU)"
+      },
+      "official": {
+        "date": "2027-02-14",
+        "time": "18:00",
+        "venue": {
+          "name": "Palazzetto dello Sport",
+          "address": "Via Delle Cernitrici, Carbonia"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R8",
+      "n": 109,
+      "home": "Pall. Nuoro",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-02-27",
+      "time": "19:00",
+      "venue": {
+        "name": "Palestra Coni",
+        "address": "Via Lazio 08100 NUORO (NU)"
+      },
+      "official": {
+        "date": "2027-02-27",
+        "time": "19:00",
+        "venue": {
+          "name": "Palestra Coni",
+          "address": "Via Lazio, Nuoro"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R9",
+      "n": 115,
+      "home": "CUS Cagliari",
+      "away": "Basket Antonianum",
+      "is_home": true,
+      "date": "2027-03-07",
+      "time": "18:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2027-03-07",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R10",
+      "n": 125,
+      "home": "CUS Cagliari",
+      "away": "Calasetta Basket",
+      "is_home": true,
+      "date": "2027-03-14",
+      "time": "19:00",
+      "venue": {
+        "name": "PALACUS",
+        "address": "Via Is Mirrionis 3 - 9 09123 CAGLIARI (CA)"
+      },
+      "official": {
+        "date": "2027-03-14",
+        "time": "18:00",
+        "venue": {
+          "name": "PALACUS",
+          "address": "Via Is Mirrionis 3-9, Cagliari"
+        }
+      },
+      "changes": [
+        "time"
+      ],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    },
+    {
+      "round": "R11",
+      "n": 128,
+      "home": "Fisiokons Aurea Sassari",
+      "away": "CUS Cagliari",
+      "is_home": false,
+      "date": "2027-03-20",
+      "time": "20:00",
+      "venue": {
+        "name": "Palestra Luca Simula",
+        "address": "Via Poligono 2 07100 SASSARI (SS)"
+      },
+      "official": {
+        "date": "2027-03-20",
+        "time": "20:00",
+        "venue": {
+          "name": "Palestra Luca Simula",
+          "address": "Via Poligono 2, Sassari"
+        }
+      },
+      "changes": [],
+      "status": "non-designata",
+      "status_text": "Gara non ancora designata",
+      "referees": [],
+      "score": null
+    }
+  ],
+  "standings": [
+    {
+      "position": 1,
+      "team": "PALL. NUORO",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 2,
+      "team": "SCUOLA BASKET CARBONIA",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 3,
+      "team": "SEF TORRES",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 4,
+      "team": "BASKET ANTONIANUM",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 5,
+      "team": "POL. DINAMO",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 6,
+      "team": "BASKET FERRINI",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 7,
+      "team": "CUS CAGLIARI",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 8,
+      "team": "FISIOKONS AUREA SASSARI",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 9,
+      "team": "OLIMPIA CAGLIARI",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 10,
+      "team": "C.M.B. PORTO TORRES",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 11,
+      "team": "CAMPING LA SALINA CALASETTA",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    },
+    {
+      "position": 12,
+      "team": "BASKET S. ORSOLA",
+      "points": 0,
+      "played": 0,
+      "won": 0,
+      "lost": 0,
+      "points_for": 0,
+      "points_against": 0
+    }
+  ],
+  "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
+  "updated_at": "2026-09-30T13:45:14+00:00"
+}

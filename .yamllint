@@ -1,0 +1,9 @@
+---
+extends: default
+rules:
+  # action refs are pinned to 40-char SHAs, which do not fit in 80 columns
+  line-length:
+    max: 120
+  # "on:" is the GitHub Actions trigger key, not a boolean
+  truthy:
+    check-keys: false
