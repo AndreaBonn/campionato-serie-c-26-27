@@ -15,14 +15,20 @@ h1{margin:0;font-size:clamp(28px,6vw,44px);line-height:1.05;font-weight:800;lett
 /* the crest PNG has an opaque white background: multiply blends it into the page */
 .brand img{width:clamp(64px,14vw,96px);height:auto;flex:none;mix-blend-mode:multiply}
 .sub{color:var(--mut);margin:6px 0 20px}
-.next{background:var(--ink);color:#fff;border-radius:6px;padding:18px 20px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.next{background:var(--ink);color:#fff;border-radius:6px;padding:18px 20px;margin-bottom:20px;display:grid;grid-template-columns:1fr auto;gap:4px 24px}
 .next small{display:block;color:#b8c2d6;font-size:14px}
-.next .m{font-size:clamp(20px,4vw,28px);font-weight:800;line-height:1.15}
-.next .w{text-align:right;font-variant-numeric:tabular-nums}
+.next .m{grid-column:1;font-size:clamp(20px,4vw,28px);font-weight:800;line-height:1.15}
+.next .info{grid-column:1;margin-top:4px}
+.next .info small+small{margin-top:2px}
+.next .w{grid-column:2;grid-row:1/span 3;align-self:center;text-align:right;font-variant-numeric:tabular-nums}
 .next .w b{font-size:30px;font-weight:800;display:block;line-height:1}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
 .bar button,.retry{font:inherit;font-size:14px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:4px;cursor:pointer}
 .bar button[aria-pressed=true]{background:var(--ink);color:#fff}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;margin-left:8px;min-height:32px}
+.chk input{width:18px;height:18px;margin:0;accent-color:var(--ink)}
+.chk input:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+@media(max-width:480px){.chk{margin-left:0}}
 button:focus-visible,a:focus-visible{outline:3px solid var(--home);outline-offset:2px}
 .note{font-size:13px;color:var(--mut);margin:0 0 8px}
 .state{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px;margin:12px 0}
@@ -87,7 +93,15 @@ tr.me td{font-weight:800;background:#e8eef8}
 .notice a{color:#78350f;font-weight:600}
 footer{margin-top:28px;font-size:13px;color:var(--mut)}
 footer a{color:var(--ink)}
-@media(max-width:480px){.g{grid-template-columns:52px 1fr;padding:10px}.d b{font-size:24px}.next .w{text-align:left}}
+summary.add{display:inline-block;font-size:15px;font-weight:600;background:var(--ink);color:#fff;padding:8px 16px;border-radius:4px;cursor:pointer;list-style:none}
+summary.add::-webkit-details-marker{display:none}
+summary.add::after{content:" ▾"}
+details[open]>summary.add::after{content:" ▴"}
+summary.add:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.subwrap{margin:0 0 16px}
+.subwrap .subbox{margin:8px 0 0}
+@media(max-width:480px){.g{grid-template-columns:52px 1fr;padding:10px}.d b{font-size:24px}
+.next{padding:14px 16px;column-gap:12px}.next .m{font-size:20px}.next .w{grid-row:1/span 2;align-self:start}.next .w b{font-size:26px}.next .info{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -96,20 +110,24 @@ footer a{color:var(--ink)}
 <img src="logo-cus.png" alt="Stemma del CUS Cagliari" width="96" height="96" onerror="this.remove()">
 <h1>CUS Cagliari Basket</h1>
 </div>
-<p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare. Il CUS Cagliari è neopromosso, come la C.M.B. Porto Torres; la SEF Torres è campione in carica.</p>
+<p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare.</p>
 <p class="note" id="checked" hidden></p>
 <div class="next" id="next" hidden></div>
 <section class="box" id="form" hidden></section>
+<details class="subwrap">
+<summary class="add">Aggiungi al tuo calendario</summary>
 <section class="subbox" aria-labelledby="sub-title">
 <p><strong id="sub-title">Calendario sempre aggiornato.</strong> Aggiungi le partite al tuo calendario come abbonamento: gli spostamenti decisi dalla FIP, gli arbitri e i risultati arrivano da soli.</p>
 <div class="copy"><input id="icsurl" readonly aria-label="Indirizzo del calendario in abbonamento"><button id="copy">Copia indirizzo</button></div>
 <p class="note" id="copied" aria-live="polite"></p>
 <p class="note"><strong>Google Calendar</strong> (da computer): Altri calendari, pulsante +, Da URL, incolla l'indirizzo. Il calendario compare anche sul telefono. <strong>iPhone, Mac e Outlook</strong>: <a id="webcal" href="calendario.ics">apri nell'app Calendario</a>. Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore. Preferisci un file da importare una volta? <a href="calendario.ics" download>Scarica il .ics</a>, ma gli eventi importati non seguono le variazioni.</p>
 </section>
+</details>
 <div class="bar" role="group" aria-label="Filtro partite">
 <button data-f="all" aria-pressed="true">Tutte</button>
 <button data-f="home" aria-pressed="false">In casa</button>
 <button data-f="away" aria-pressed="false">In trasferta</button>
+<label class="chk"><input type="checkbox" id="future" checked>Solo partite da giocare</label>
 </div>
 <div id="list"><p class="state">Caricamento dei dati FIP in corso…</p></div>
 <section class="box" id="standings" hidden></section>
@@ -184,25 +202,33 @@ function card(m){
  <a href="${gcal(m)}" target="_blank" rel="noopener">Aggiungi a Google Calendar</a></div>
  <div class="meta">${label(m)}, gara n. ${m.n}${statusLabel(m)?", "+esc(statusLabel(m)):""}</div></div></article>`;
 }
-function render(f){
+// Still to be played: no result yet and scheduled from today on (a recovery keeps its new date)
+const upcoming=m=>!m.score&&toDate(m.date,m.time)>=today;
+function render(f,onlyUpcoming){
  let out="",mon="",s=0;
+ const shown=G.filter(m=>(f==="all"||(f==="home")===m.is_home)&&(!onlyUpcoming||upcoming(m)));
+ // breaks already behind us are skipped together with the past games
+ if(onlyUpcoming) while(s<S.length&&new Date(S[s][0]+"T00:00:00")<today) s++;
  const head=d=>{const k=d.toLocaleDateString("it-IT",{month:"long",year:"numeric"});
   if(k!==mon){mon=k;out+=`<h2>${k}</h2>`}};
- G.filter(m=>f==="all"||(f==="home")===m.is_home).forEach(m=>{
+ shown.forEach(m=>{
   for(;s<S.length&&S[s][0]<m.date;s++){head(new Date(S[s][0]+"T12:00:00"));out+=`<p class="sosta">${S[s][1]}</p>`}
   head(toDate(m.date,m.time)); out+=card(m);
  });
- document.getElementById("list").innerHTML=out;
+ document.getElementById("list").innerHTML=out||`<p class="state">Nessuna partita da giocare con questo filtro. Disattiva «Solo partite da giocare» per vedere anche quelle già disputate.</p>`;
 }
+const onlyUpcoming=()=>document.getElementById("future").checked;
+const refresh=()=>{if(G.length) render(document.querySelector(".bar button[data-f][aria-pressed=true]").dataset.f,onlyUpcoming())};
 function renderNext(){
- const m=G.find(m=>toDate(m.date,m.time)>=today), el=document.getElementById("next");
+ const m=G.find(upcoming), el=document.getElementById("next");
  el.hidden=false;
  if(!m){el.innerHTML="<div class='m'>Stagione regolare conclusa</div>";return}
- const dt=toDate(m.date,m.time), days=Math.round((dt-today)/864e5);
+ // calendar days, not hours: a game tonight is "Oggi"; round() absorbs the 23/25 h DST days
+ const dt=toDate(m.date,m.time), days=Math.round((toDate(m.date,"00:00")-today)/864e5);
  const refs=m.referees.length?`<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>`:"";
  const moved=m.changes.length?`<small>Modificata rispetto al comunicato ufficiale</small>`:"";
- el.innerHTML=`<div><small>Prossima partita</small><div class="m">${esc(m.home)} - ${esc(m.away)}</div>
- <small>${fmtLong(dt)}, ore ${esc(m.time)}, ${esc(m.venue.name)}</small>${moved}${refs}</div>
+ el.innerHTML=`<small>Prossima partita</small><div class="m">${esc(m.home)} - ${esc(m.away)}</div>
+ <div class="info"><small>${fmtLong(dt)}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}</div>
  <div class="w"><b>${days===0?"Oggi":days}</b><small>${days===0?"":days===1?"giorno":"giorni"}</small></div>`;
 }
 function renderStandings(rows){
@@ -300,17 +326,19 @@ async function load(){
   const r=await fetch("data.json",{cache:"no-cache"});
   if(!r.ok) throw new Error("Il server ha risposto con il codice "+r.status);
   const data=await r.json();
-  G=data.games;
+  // chronological order: a rescheduled game moves to its new date
+  G=[...data.games].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
   if(data.fip_url) document.getElementById("fiplink").href=data.fip_url;
   if(data.updated_at) document.getElementById("upd").textContent=" (ultima variazione rilevata il "+new Date(data.updated_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+")";
-  renderNext(); render(document.querySelector(".bar button[aria-pressed=true]").dataset.f);
+  renderNext(); refresh();
   renderForm(); renderStandings(data.standings); renderLeague(data.rounds); renderNotices(data.notices);
  }catch(err){showError(err)}
 }
 document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".bar button[data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));
- if(G.length) render(b.dataset.f);
+ refresh();
 });
+document.getElementById("future").onchange=refresh;
 setupSubscription();
 load();
 </script>
