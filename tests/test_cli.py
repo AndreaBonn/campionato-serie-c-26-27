@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from urllib.error import URLError
 
 import pytest
 
@@ -88,3 +89,43 @@ def test_write_ics_if_changed_ignores_dtstamp_only_difference(tmp_path: Path) ->
 
     assert changed is False
     assert target.read_bytes().decode("utf-8") == old
+
+
+def _patch_main_paths(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    calendar = tmp_path / "calendario.json"
+    calendar.write_text(json.dumps({"games": []}))
+    monkeypatch.setattr(cli, "CALENDAR_PATH", calendar)
+    monkeypatch.setattr(cli, "OUTPUT_PATH", tmp_path / "data.json")
+    monkeypatch.setattr(cli, "ICS_PATH", tmp_path / "calendario.ics")
+    status = tmp_path / "status.json"
+    monkeypatch.setattr(cli, "STATUS_PATH", status)
+    return status
+
+
+def test_main_successful_sync_records_check_time(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    status = _patch_main_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "collect_notices", lambda path: [])
+
+    assert cli.main() == 0
+
+    checked_at = json.loads(status.read_text())["checked_at"]
+    assert checked_at == json.loads((tmp_path / "data.json").read_text())["updated_at"]
+
+
+def test_main_failed_sync_keeps_previous_check_time(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    status = _patch_main_paths(tmp_path, monkeypatch)
+    status.write_text(json.dumps({"checked_at": NOW}))
+
+    def fip_down(games: list[dict[str, object]]) -> None:
+        raise URLError("fip.it unreachable")
+
+    monkeypatch.setattr(cli, "collect", fip_down)
+
+    assert cli.main() == 1
+    assert json.loads(status.read_text()) == {"checked_at": NOW}

@@ -17,6 +17,7 @@ from fip_calendar.config import (
     PAGE_URL,
     REQUEST_DELAY_S,
     SECOND_HALF_CODE,
+    STATUS_PATH,
 )
 from fip_calendar.fetch import fetch_posts, fetch_round, round_url
 from fip_calendar.ics import build_ics
@@ -109,10 +110,13 @@ def main() -> int:
     data[NOTICES_KEY] = collect_notices(OUTPUT_PATH)
     data["fip_url"] = round_url(half_code=FIRST_HALF_CODE, round_number=1)
     now = datetime.now(tz=UTC)
-    changed = write_if_changed(path=OUTPUT_PATH, data=data, now=now.isoformat(timespec="seconds"))
+    checked_at = now.isoformat(timespec="seconds")
+    changed = write_if_changed(path=OUTPUT_PATH, data=data, now=checked_at)
     # rebuilt on every run so a fix to ics.py reaches subscribers even when FIP data is unchanged
     ics = build_ics(data["games"], now.strftime("%Y%m%dT%H%M%SZ"), PAGE_URL)
     ics_changed = write_ics_if_changed(path=ICS_PATH, text=ics)
+    # written last: it certifies that fip.it was read and both outputs are on disk
+    STATUS_PATH.write_text(json.dumps({"checked_at": checked_at}) + "\n", encoding="utf-8")
     logger.info(
         "data.json %s, calendario.ics %s",
         "updated" if changed else "unchanged",

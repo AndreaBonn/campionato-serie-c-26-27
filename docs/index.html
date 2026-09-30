@@ -97,13 +97,14 @@ footer a{color:var(--ink)}
 <h1>CUS Cagliari Basket</h1>
 </div>
 <p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare. Il CUS Cagliari è neopromosso, come la C.M.B. Porto Torres; la SEF Torres è campione in carica.</p>
+<p class="note" id="checked" hidden></p>
 <div class="next" id="next" hidden></div>
 <section class="box" id="form" hidden></section>
 <section class="subbox" aria-labelledby="sub-title">
 <p><strong id="sub-title">Calendario sempre aggiornato.</strong> Aggiungi le partite al tuo calendario come abbonamento: gli spostamenti decisi dalla FIP, gli arbitri e i risultati arrivano da soli.</p>
 <div class="copy"><input id="icsurl" readonly aria-label="Indirizzo del calendario in abbonamento"><button id="copy">Copia indirizzo</button></div>
 <p class="note" id="copied" aria-live="polite"></p>
-<p class="note"><strong>Google Calendar</strong> (da computer): Altri calendari, pulsante +, Da URL, incolla l'indirizzo. Il calendario compare anche sul telefono. <strong>iPhone, Mac e Outlook</strong>: <a id="webcal" href="calendario.ics">apri nell'app Calendario</a>. Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore. Per vedere le partite in grigio, assegna il grigio a questo calendario. Preferisci un file da importare una volta? <a href="calendario.ics" download>Scarica il .ics</a>, ma gli eventi importati non seguono le variazioni.</p>
+<p class="note"><strong>Google Calendar</strong> (da computer): Altri calendari, pulsante +, Da URL, incolla l'indirizzo. Il calendario compare anche sul telefono. <strong>iPhone, Mac e Outlook</strong>: <a id="webcal" href="calendario.ics">apri nell'app Calendario</a>. Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore. Preferisci un file da importare una volta? <a href="calendario.ics" download>Scarica il .ics</a>, ma gli eventi importati non seguono le variazioni.</p>
 </section>
 <div class="bar" role="group" aria-label="Filtro partite">
 <button data-f="all" aria-pressed="true">Tutte</button>
@@ -280,7 +281,20 @@ function showError(err){
  document.getElementById("list").innerHTML=`<div class="state err"><p><strong>Impossibile caricare i dati delle partite.</strong> ${cause}${local}</p><button class="retry" id="retry">Riprova</button></div>`;
  document.getElementById("retry").onclick=load;
 }
+async function loadStatus(){
+ // optional: without status.json (local run, first deploy) the line stays hidden
+ try{
+  const r=await fetch("status.json",{cache:"no-cache"});
+  if(!r.ok) return;
+  const s=await r.json();
+  if(!s.checked_at) return;
+  const el=document.getElementById("checked");
+  el.textContent="Ultimo controllo riuscito su fip.it: "+new Date(s.checked_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+".";
+  el.hidden=false;
+ }catch(err){console.warn("status.json non disponibile",err)}
+}
 async function load(){
+ loadStatus();
  document.getElementById("list").innerHTML='<p class="state">Caricamento dei dati FIP in corso…</p>';
  try{
   const r=await fetch("data.json",{cache:"no-cache"});

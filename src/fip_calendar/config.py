@@ -31,3 +31,5 @@ NOTICE_SEARCH_TERMS = ("formula", "playoff", "playout")
 # Posts before the 2026/27 calendar (23/09/2026) belong to the previous season
 NOTICE_SINCE = "2026-09-23T00:00:00"
 NOTICE_SEARCH_LIMIT = 20
+# Last successful sync; not committed, published with the Pages artifact on every run
+STATUS_PATH = ROOT / "docs" / "status.json"
