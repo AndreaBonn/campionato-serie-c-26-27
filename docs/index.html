@@ -12,7 +12,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",sys
 .wrap{max-width:860px;margin:0 auto;padding:24px 16px 48px}
 h1{margin:0;font-size:clamp(28px,6vw,44px);line-height:1.05;font-weight:800;letter-spacing:-.02em}
 .brand{display:flex;align-items:center;gap:16px}
-.brand img{width:clamp(56px,12vw,84px);height:auto;flex:none}
+/* the crest PNG has an opaque white background: multiply blends it into the page */
+.brand img{width:clamp(64px,14vw,96px);height:auto;flex:none;mix-blend-mode:multiply}
 .sub{color:var(--mut);margin:6px 0 20px}
 .next{background:var(--ink);color:#fff;border-radius:6px;padding:18px 20px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
 .next small{display:block;color:#b8c2d6;font-size:14px}
@@ -71,7 +72,7 @@ footer a{color:var(--ink)}
 <body>
 <div class="wrap">
 <div class="brand">
-<img src="logo-cus-cagliari.png" alt="Stemma del CUS Cagliari" width="84" height="100" onerror="this.remove()">
+<img src="logo-cus.png" alt="Stemma del CUS Cagliari" width="96" height="96" onerror="this.remove()">
 <h1>CUS Cagliari Basket</h1>
 </div>
 <p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare. Il CUS Cagliari è neopromosso, come la C.M.B. Porto Torres; la SEF Torres è campione in carica.</p>
