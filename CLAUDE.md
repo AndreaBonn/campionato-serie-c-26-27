@@ -10,9 +10,12 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 - `changes` lists fields that differ from the baseline (`date`, `time`, `venue`, `home`).
 - `docs/data.json` is generated; it is rewritten only when content changes (`updated_at` excluded from the comparison).
 - A referee slot can contain the placeholder "Designazione in attesa di conferma.": it is filtered out.
+- `docs/calendario.ics` (subscribable feed, `ics.py`) is regenerated only when data.json changes or the file is missing: after changing `ics.py`, delete the file and run `uv run fip-calendar`.
+- `data.json` also carries every league game per round (`rounds`) and FIP Sardegna posts about format/playoff (`notices`, `notices.py`); if the WordPress API is down the previous notices are kept.
+- Schedule: every 4 hours, plus hourly on Sat/Sun 15-23 UTC (covers 17-24 Italian time in both CEST and CET).
 
 ## Commands
 
-- `uv run fip-calendar`: fetch fip.it (22 requests, 1 s apart) and update `docs/data.json`
+- `uv run fip-calendar`: fetch fip.it (22 requests, 1 s apart) and FIP Sardegna posts (3 searches), update `docs/data.json` and `docs/calendario.ics`
 - `uv run pytest`, `uv run ruff check .`, `uv run mypy`
 - Tests run against saved pages in `tests/fixtures/`: when fip.it changes layout, save the new page there and reproduce first.

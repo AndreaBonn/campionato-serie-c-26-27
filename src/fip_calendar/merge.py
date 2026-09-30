@@ -17,6 +17,10 @@ def _split_venue(venue: str) -> dict[str, str]:
     return {"name": name.strip(), "address": address.strip()}
 
 
+def _score(match: FipMatch) -> dict[str, int] | None:
+    return {"home": match.score[0], "away": match.score[1]} if match.score else None
+
+
 def _changes(
     official: dict[str, Any], match: FipMatch, venue: dict[str, str], home_swapped: bool
 ) -> list[str]:
@@ -47,7 +51,6 @@ def merge_game(
     changes = _changes(
         official=official, match=match, venue=venue, home_swapped=is_home != base_is_home
     )
-    score = {"home": match.score[0], "away": match.score[1]} if match.score else None
     return {
         "round": base["round"],
         "n": base["n"],
@@ -62,14 +65,37 @@ def merge_game(
         "status": match.status,
         "status_text": match.status_text,
         "referees": list(match.referees),
-        "score": score,
+        "score": _score(match),
+    }
+
+
+def _round_game(match: FipMatch) -> dict[str, Any]:
+    return {
+        "n": match.number,
+        "home": match.home,
+        "away": match.away,
+        "date": match.date,
+        "time": match.time,
+        "status": match.status,
+        "score": _score(match),
     }
 
 
 def build_data(
-    calendar: dict[str, Any], matches: dict[int, FipMatch], standings: list[Standing]
+    calendar: dict[str, Any], rounds: dict[str, list[FipMatch]], standings: list[Standing]
 ) -> dict[str, Any]:
-    """Build the JSON document the page reads."""
+    """Build the JSON document the page reads.
+
+    Parameters
+    ----------
+    calendar : dict
+        Official baseline (`fip_team`, `venues`, `games` with a `round` code each).
+    rounds : dict
+        Every fip.it game of each round, keyed by round code ('A1'..'R11').
+    standings : list of Standing
+        Official standings table.
+    """
+    matches = {m.number: m for games in rounds.values() for m in games}
     games = []
     for base in calendar["games"]:
         match = matches.get(base["n"])
@@ -80,4 +106,11 @@ def build_data(
                 base=base, venues=calendar["venues"], match=match, fip_team=calendar["fip_team"]
             )
         )
-    return {"games": games, "standings": [asdict(s) for s in standings]}
+    league = [
+        {
+            "round": code,
+            "games": [_round_game(m) for m in sorted(round_games, key=lambda m: m.number)],
+        }
+        for code, round_games in rounds.items()
+    ]
+    return {"games": games, "rounds": league, "standings": [asdict(s) for s in standings]}

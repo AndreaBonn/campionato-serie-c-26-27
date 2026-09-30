@@ -2,13 +2,15 @@
 
 Pagina web con le 22 partite del CUS Cagliari nella Serie C regionale sarda, che si aggiorna da sola leggendo il sito della FIP.
 
-Ogni 4 ore un job di GitHub Actions legge le pagine dei risultati su fip.it e aggiorna:
+Ogni 4 ore, e ogni ora il sabato e la domenica dalle 17 a mezzanotte, un job di GitHub Actions legge le pagine dei risultati su fip.it e aggiorna:
 
 - giorno, ora e campo di ogni gara, segnalando quando cambiano rispetto al comunicato ufficiale;
 - gli arbitri, appena la FIP li pubblica;
-- i risultati e la classifica ufficiale.
+- i risultati e la classifica ufficiale, con i risultati di tutto il girone per giornata;
+- il calendario in abbonamento `calendario.ics`, da aggiungere a Google Calendar o all'app Calendario;
+- le comunicazioni della FIP Sardegna su formula, playoff e playout.
 
-La pagina mostra anche la prossima partita, le soste e i link per Google Maps e Google Calendar, e permette di scaricare tutte le gare in un file `.ics`.
+La pagina mostra anche la prossima partita, le soste e i link per Google Maps e Google Calendar, l'andamento del CUS e, nelle gare di ritorno, il risultato dell'andata.
 
 ## Come è fatto
 
@@ -18,9 +20,10 @@ La pagina mostra anche la prossima partita, le soste e i link per Google Maps e 
 | `src/fip_calendar/` | Lettura di fip.it e confronto con il comunicato |
 | `docs/index.html` | La pagina pubblicata |
 | `docs/data.json` | Dati generati dal job: non modificarlo a mano |
+| `docs/calendario.ics` | Calendario in abbonamento generato dal job: non modificarlo a mano |
 | `.github/workflows/sync-fip.yml` | Job programmato e pubblicazione su GitHub Pages |
 
-`docs/data.json` viene riscritto e committato solo quando i dati FIP cambiano, quindi la cronologia git mostra ogni variazione.
+`docs/data.json` e `docs/calendario.ics` vengono riscritti e committati solo quando i dati FIP cambiano, quindi la cronologia git mostra ogni variazione.
 
 ## Uso in locale
 

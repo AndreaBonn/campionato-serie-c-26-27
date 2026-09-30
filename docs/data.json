@@ -583,6 +583,1306 @@
       "score": null
     }
   ],
+  "rounds": [
+    {
+      "round": "A1",
+      "games": [
+        {
+          "n": 1,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-10-03",
+          "time": "18:00",
+          "status": "designata",
+          "score": null
+        },
+        {
+          "n": 2,
+          "home": "BASKET FERRINI",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-10-03",
+          "time": "19:00",
+          "status": "designata",
+          "score": null
+        },
+        {
+          "n": 3,
+          "home": "PALL. NUORO",
+          "away": "SEF TORRES",
+          "date": "2026-10-03",
+          "time": "19:00",
+          "status": "designata",
+          "score": null
+        },
+        {
+          "n": 4,
+          "home": "POL. DINAMO",
+          "away": "BASKET ANTONIANUM",
+          "date": "2026-10-03",
+          "time": "17:30",
+          "status": "designata",
+          "score": null
+        },
+        {
+          "n": 5,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2026-10-03",
+          "time": "18:00",
+          "status": "designata",
+          "score": null
+        },
+        {
+          "n": 6,
+          "home": "BASKET S. ORSOLA",
+          "away": "CUS CAGLIARI",
+          "date": "2026-10-03",
+          "time": "20:00",
+          "status": "designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A2",
+      "games": [
+        {
+          "n": 7,
+          "home": "CUS CAGLIARI",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-10-11",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 8,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "PALL. NUORO",
+          "date": "2026-10-10",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 9,
+          "home": "BASKET ANTONIANUM",
+          "away": "BASKET FERRINI",
+          "date": "2026-10-11",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 10,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "POL. DINAMO",
+          "date": "2026-10-10",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 11,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-10-10",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 12,
+          "home": "SEF TORRES",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-10-10",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A3",
+      "games": [
+        {
+          "n": 13,
+          "home": "BASKET FERRINI",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-10-17",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 14,
+          "home": "BASKET S. ORSOLA",
+          "away": "SEF TORRES",
+          "date": "2026-10-17",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 15,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-10-17",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 16,
+          "home": "PALL. NUORO",
+          "away": "BASKET ANTONIANUM",
+          "date": "2026-10-17",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 17,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "CUS CAGLIARI",
+          "date": "2026-10-18",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 18,
+          "home": "POL. DINAMO",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-10-17",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A4",
+      "games": [
+        {
+          "n": 19,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-10-24",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 20,
+          "home": "SEF TORRES",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2026-10-24",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 21,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "PALL. NUORO",
+          "date": "2026-10-24",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 22,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "BASKET FERRINI",
+          "date": "2026-10-24",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 23,
+          "home": "BASKET ANTONIANUM",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-10-25",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 24,
+          "home": "CUS CAGLIARI",
+          "away": "POL. DINAMO",
+          "date": "2026-10-25",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A5",
+      "games": [
+        {
+          "n": 25,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-11-01",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 26,
+          "home": "BASKET FERRINI",
+          "away": "POL. DINAMO",
+          "date": "2026-10-31",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 27,
+          "home": "SEF TORRES",
+          "away": "CUS CAGLIARI",
+          "date": "2026-10-31",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 28,
+          "home": "PALL. NUORO",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-10-31",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 29,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-10-31",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 30,
+          "home": "BASKET S. ORSOLA",
+          "away": "BASKET ANTONIANUM",
+          "date": "2026-10-31",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A6",
+      "games": [
+        {
+          "n": 31,
+          "home": "CUS CAGLIARI",
+          "away": "BASKET FERRINI",
+          "date": "2026-11-08",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 32,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-11-07",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 33,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-11-08",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 34,
+          "home": "BASKET ANTONIANUM",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2026-11-08",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 35,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "SEF TORRES",
+          "date": "2026-11-07",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 36,
+          "home": "POL. DINAMO",
+          "away": "PALL. NUORO",
+          "date": "2026-11-07",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A7",
+      "games": [
+        {
+          "n": 37,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-11-14",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 38,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "POL. DINAMO",
+          "date": "2026-11-14",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 39,
+          "home": "CUS CAGLIARI",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-11-14",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 40,
+          "home": "SEF TORRES",
+          "away": "BASKET ANTONIANUM",
+          "date": "2026-11-14",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 41,
+          "home": "PALL. NUORO",
+          "away": "BASKET FERRINI",
+          "date": "2026-11-14",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 42,
+          "home": "BASKET S. ORSOLA",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-11-14",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A8",
+      "games": [
+        {
+          "n": 43,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2026-11-21",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 44,
+          "home": "BASKET ANTONIANUM",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-11-22",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 45,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "SEF TORRES",
+          "date": "2026-11-21",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 46,
+          "home": "CUS CAGLIARI",
+          "away": "PALL. NUORO",
+          "date": "2026-11-22",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 47,
+          "home": "POL. DINAMO",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-11-21",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 48,
+          "home": "BASKET FERRINI",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-11-21",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A9",
+      "games": [
+        {
+          "n": 49,
+          "home": "SEF TORRES",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-11-28",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 50,
+          "home": "BASKET S. ORSOLA",
+          "away": "BASKET FERRINI",
+          "date": "2026-11-28",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 51,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-11-28",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 52,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "PALL. NUORO",
+          "date": "2026-11-28",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 53,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "POL. DINAMO",
+          "date": "2026-11-28",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 54,
+          "home": "BASKET ANTONIANUM",
+          "away": "CUS CAGLIARI",
+          "date": "2026-11-29",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A10",
+      "games": [
+        {
+          "n": 55,
+          "home": "BASKET FERRINI",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2026-12-05",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 56,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2026-12-06",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 57,
+          "home": "PALL. NUORO",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-12-05",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 58,
+          "home": "POL. DINAMO",
+          "away": "SEF TORRES",
+          "date": "2026-12-05",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 59,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "CUS CAGLIARI",
+          "date": "2026-12-05",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 60,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "BASKET ANTONIANUM",
+          "date": "2026-12-05",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "A11",
+      "games": [
+        {
+          "n": 61,
+          "home": "BASKET S. ORSOLA",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-12-12",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 62,
+          "home": "SEF TORRES",
+          "away": "BASKET FERRINI",
+          "date": "2026-12-12",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 63,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "PALL. NUORO",
+          "date": "2026-12-12",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 64,
+          "home": "CUS CAGLIARI",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2026-12-13",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 65,
+          "home": "BASKET ANTONIANUM",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-12-13",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 66,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "POL. DINAMO",
+          "date": "2026-12-12",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R1",
+      "games": [
+        {
+          "n": 67,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2026-12-19",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 68,
+          "home": "SEF TORRES",
+          "away": "PALL. NUORO",
+          "date": "2026-12-19",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 69,
+          "home": "CUS CAGLIARI",
+          "away": "BASKET S. ORSOLA",
+          "date": "2026-12-20",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 70,
+          "home": "BASKET ANTONIANUM",
+          "away": "POL. DINAMO",
+          "date": "2026-12-20",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 71,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "BASKET FERRINI",
+          "date": "2026-12-19",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 72,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2026-12-19",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R2",
+      "games": [
+        {
+          "n": 73,
+          "home": "PALL. NUORO",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2027-01-09",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 74,
+          "home": "POL. DINAMO",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2027-01-09",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 75,
+          "home": "BASKET S. ORSOLA",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-01-09",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 76,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "SEF TORRES",
+          "date": "2027-01-09",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 77,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "CUS CAGLIARI",
+          "date": "2027-01-10",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 78,
+          "home": "BASKET FERRINI",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-01-09",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R3",
+      "games": [
+        {
+          "n": 79,
+          "home": "SEF TORRES",
+          "away": "BASKET S. ORSOLA",
+          "date": "2027-01-16",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 80,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "BASKET FERRINI",
+          "date": "2027-01-16",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 81,
+          "home": "BASKET ANTONIANUM",
+          "away": "PALL. NUORO",
+          "date": "2027-01-17",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 82,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "POL. DINAMO",
+          "date": "2027-01-17",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 83,
+          "home": "CUS CAGLIARI",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-01-17",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 84,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2027-01-16",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R4",
+      "games": [
+        {
+          "n": 85,
+          "home": "POL. DINAMO",
+          "away": "CUS CAGLIARI",
+          "date": "2027-01-23",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 86,
+          "home": "BASKET S. ORSOLA",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2027-01-23",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 87,
+          "home": "BASKET FERRINI",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2027-01-23",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 88,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-01-23",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 89,
+          "home": "PALL. NUORO",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2027-01-23",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 90,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "SEF TORRES",
+          "date": "2027-01-24",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R5",
+      "games": [
+        {
+          "n": 91,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "PALL. NUORO",
+          "date": "2027-01-30",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 92,
+          "home": "POL. DINAMO",
+          "away": "BASKET FERRINI",
+          "date": "2027-01-30",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 93,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2027-01-30",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 94,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-01-30",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 95,
+          "home": "CUS CAGLIARI",
+          "away": "SEF TORRES",
+          "date": "2027-01-31",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 96,
+          "home": "BASKET ANTONIANUM",
+          "away": "BASKET S. ORSOLA",
+          "date": "2027-01-31",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R6",
+      "games": [
+        {
+          "n": 97,
+          "home": "PALL. NUORO",
+          "away": "POL. DINAMO",
+          "date": "2027-02-06",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 98,
+          "home": "BASKET S. ORSOLA",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2027-02-06",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 99,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2027-02-06",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 100,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-02-06",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 101,
+          "home": "SEF TORRES",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2027-02-06",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 102,
+          "home": "BASKET FERRINI",
+          "away": "CUS CAGLIARI",
+          "date": "2027-02-06",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R7",
+      "games": [
+        {
+          "n": 103,
+          "home": "BASKET ANTONIANUM",
+          "away": "SEF TORRES",
+          "date": "2027-02-14",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 104,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "BASKET S. ORSOLA",
+          "date": "2027-02-14",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 105,
+          "home": "POL. DINAMO",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2027-02-13",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 106,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-02-13",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 107,
+          "home": "BASKET FERRINI",
+          "away": "PALL. NUORO",
+          "date": "2027-02-13",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 108,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "CUS CAGLIARI",
+          "date": "2027-02-14",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R8",
+      "games": [
+        {
+          "n": 109,
+          "home": "PALL. NUORO",
+          "away": "CUS CAGLIARI",
+          "date": "2027-02-27",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 110,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "BASKET FERRINI",
+          "date": "2027-02-27",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 111,
+          "home": "BASKET S. ORSOLA",
+          "away": "POL. DINAMO",
+          "date": "2027-02-27",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 112,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2027-02-27",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 113,
+          "home": "SEF TORRES",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2027-02-27",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 114,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-02-27",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R9",
+      "games": [
+        {
+          "n": 115,
+          "home": "CUS CAGLIARI",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-03-07",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 116,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "SEF TORRES",
+          "date": "2027-03-06",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 117,
+          "home": "BASKET FERRINI",
+          "away": "BASKET S. ORSOLA",
+          "date": "2027-03-06",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 118,
+          "home": "POL. DINAMO",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-03-06",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 119,
+          "home": "PALL. NUORO",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2027-03-06",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 120,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2027-03-06",
+          "time": "20:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R10",
+      "games": [
+        {
+          "n": 121,
+          "home": "BASKET ANTONIANUM",
+          "away": "FISIOKONS AUREA SASSARI",
+          "date": "2027-03-14",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 122,
+          "home": "SCUOLA BASKET CARBONIA",
+          "away": "C.M.B. PORTO TORRES",
+          "date": "2027-03-13",
+          "time": "18:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 123,
+          "home": "SEF TORRES",
+          "away": "POL. DINAMO",
+          "date": "2027-03-13",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 124,
+          "home": "BASKET S. ORSOLA",
+          "away": "PALL. NUORO",
+          "date": "2027-03-13",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 125,
+          "home": "CUS CAGLIARI",
+          "away": "CAMPING LA SALINA CALASETTA",
+          "date": "2027-03-14",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 126,
+          "home": "OLIMPIA CAGLIARI",
+          "away": "BASKET FERRINI",
+          "date": "2027-03-13",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    },
+    {
+      "round": "R11",
+      "games": [
+        {
+          "n": 127,
+          "home": "BASKET FERRINI",
+          "away": "SEF TORRES",
+          "date": "2027-03-20",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 128,
+          "home": "FISIOKONS AUREA SASSARI",
+          "away": "CUS CAGLIARI",
+          "date": "2027-03-20",
+          "time": "20:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 129,
+          "home": "CAMPING LA SALINA CALASETTA",
+          "away": "BASKET S. ORSOLA",
+          "date": "2027-03-20",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 130,
+          "home": "C.M.B. PORTO TORRES",
+          "away": "BASKET ANTONIANUM",
+          "date": "2027-03-21",
+          "time": "18:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 131,
+          "home": "PALL. NUORO",
+          "away": "OLIMPIA CAGLIARI",
+          "date": "2027-03-20",
+          "time": "19:00",
+          "status": "non-designata",
+          "score": null
+        },
+        {
+          "n": 132,
+          "home": "POL. DINAMO",
+          "away": "SCUOLA BASKET CARBONIA",
+          "date": "2027-03-20",
+          "time": "17:30",
+          "status": "non-designata",
+          "score": null
+        }
+      ]
+    }
+  ],
   "standings": [
     {
       "position": 1,
@@ -705,6 +2005,7 @@
       "points_against": 0
     }
   ],
+  "notices": [],
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-09-30T13:45:14+00:00"
+  "updated_at": "2026-09-30T15:44:37+00:00"
 }

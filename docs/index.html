@@ -21,10 +21,8 @@ h1{margin:0;font-size:clamp(28px,6vw,44px);line-height:1.05;font-weight:800;lett
 .next .w{text-align:right;font-variant-numeric:tabular-nums}
 .next .w b{font-size:30px;font-weight:800;display:block;line-height:1}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
-.bar button,.dl,.retry{font:inherit;font-size:14px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:4px;cursor:pointer}
+.bar button,.retry{font:inherit;font-size:14px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:4px;cursor:pointer}
 .bar button[aria-pressed=true]{background:var(--ink);color:#fff}
-.dl{margin-left:auto;background:var(--ink);color:#fff}
-.dl:disabled{opacity:.4;cursor:not-allowed}
 button:focus-visible,a:focus-visible{outline:3px solid var(--home);outline-offset:2px}
 .note{font-size:13px;color:var(--mut);margin:0 0 8px}
 .state{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px;margin:12px 0}
@@ -43,7 +41,7 @@ h2{font-size:17px;text-transform:capitalize;margin:26px 0 8px;padding-bottom:4px
 .home .tag{background:var(--home)}
 .tag.chg{background:var(--chg)}
 .score{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-left:4px}
-.score.w{color:var(--win)}.score.l{color:var(--loss)}
+.score.win{color:var(--win)}.score.loss{color:var(--loss)}
 .v{font-size:14px;color:var(--mut)}
 .v strong{color:var(--ink)}
 .was{font-size:13px;background:var(--chg-bg);color:#78350f;padding:4px 8px;border-radius:3px;margin-top:4px}
@@ -56,6 +54,7 @@ h2{font-size:17px;text-transform:capitalize;margin:26px 0 8px;padding-bottom:4px
 .sosta b{color:var(--ink)}
 .box{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
 .box h2{margin-top:0;text-transform:none}
+#form{margin:0 0 20px}
 .box p{margin:0 0 8px;font-size:15px}
 .scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
@@ -64,6 +63,28 @@ th:nth-child(2),td:nth-child(2){text-align:left;white-space:normal}
 th{font-size:12px;color:var(--mut);font-weight:600}
 tr.me td{font-weight:800;background:#e8eef8}
 .warn{font-size:13px;color:var(--mut);border-left:3px solid var(--home);padding-left:10px}
+.subbox{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ink);border-radius:4px;padding:12px 16px;margin:0 0 16px}
+.subbox p{margin:0 0 6px;font-size:15px}
+.subbox .note{margin:0 0 4px}
+.subbox a{color:var(--ink);font-weight:600}
+.copy{display:flex;gap:8px;margin:8px 0 4px}
+.copy input{flex:1;min-width:0;font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:4px;color:var(--ink);background:var(--bg)}
+.copy button{font:inherit;font-size:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;padding:6px 14px;border-radius:4px;cursor:pointer;flex:none}
+.copy input:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.leg{font-size:13px;color:var(--mut);margin-top:2px}
+.stats{display:flex;flex-wrap:wrap;gap:12px 28px;margin:4px 0 10px}
+.stats div{min-width:110px}
+.stats b{display:block;font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:13px;color:var(--mut)}
+.badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:14px}
+.badge{display:inline-block;width:28px;height:24px;line-height:24px;text-align:center;font-weight:800;color:#fff;border-radius:3px}
+.badge.win{background:var(--win)}.badge.loss{background:var(--loss)}
+.round-pick{margin:0 0 10px}
+.round-pick select{font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--ink);border-radius:4px;color:var(--ink);background:var(--card)}
+.round-pick select:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.notice{background:var(--chg-bg);color:#78350f;border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:14px}
+.notice ul{margin:6px 0 0;padding-left:18px}
+.notice a{color:#78350f;font-weight:600}
 footer{margin-top:28px;font-size:13px;color:var(--mut)}
 footer a{color:var(--ink)}
 @media(max-width:480px){.g{grid-template-columns:52px 1fr;padding:10px}.d b{font-size:24px}.next .w{text-align:left}}
@@ -77,21 +98,28 @@ footer a{color:var(--ink)}
 </div>
 <p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare. Il CUS Cagliari è neopromosso, come la C.M.B. Porto Torres; la SEF Torres è campione in carica.</p>
 <div class="next" id="next" hidden></div>
+<section class="box" id="form" hidden></section>
+<section class="subbox" aria-labelledby="sub-title">
+<p><strong id="sub-title">Calendario sempre aggiornato.</strong> Aggiungi le partite al tuo calendario come abbonamento: gli spostamenti decisi dalla FIP, gli arbitri e i risultati arrivano da soli.</p>
+<div class="copy"><input id="icsurl" readonly aria-label="Indirizzo del calendario in abbonamento"><button id="copy">Copia indirizzo</button></div>
+<p class="note" id="copied" aria-live="polite"></p>
+<p class="note"><strong>Google Calendar</strong> (da computer): Altri calendari, pulsante +, Da URL, incolla l'indirizzo. Il calendario compare anche sul telefono. <strong>iPhone, Mac e Outlook</strong>: <a id="webcal" href="calendario.ics">apri nell'app Calendario</a>. Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore. Per vedere le partite in grigio, assegna il grigio a questo calendario. Preferisci un file da importare una volta? <a href="calendario.ics" download>Scarica il .ics</a>, ma gli eventi importati non seguono le variazioni.</p>
+</section>
 <div class="bar" role="group" aria-label="Filtro partite">
 <button data-f="all" aria-pressed="true">Tutte</button>
 <button data-f="home" aria-pressed="false">In casa</button>
 <button data-f="away" aria-pressed="false">In trasferta</button>
-<button class="dl" id="ics" disabled>Scarica il calendario (.ics)</button>
 </div>
-<p class="note">Il link Aggiungi a Google Calendar non permette di scegliere il colore dell'evento. Per vedere tutte le partite in grigio, importa il file .ics in un calendario dedicato e assegna il grigio a quel calendario. Gli eventi importati non si aggiornano da soli: se una gara viene spostata, modifica l'evento nel tuo calendario.</p>
 <div id="list"><p class="state">Caricamento dei dati FIP in corso…</p></div>
 <section class="box" id="standings" hidden></section>
+<section class="box" id="league" hidden></section>
 <section class="box">
 <h2>Dopo la stagione regolare</h2>
+<div id="notices"></div>
 <p>La stagione regolare termina il 20 marzo 2027. Nel 2025/26 le prime otto classificate hanno disputato i playoff, con serie al meglio delle tre gare, e la vincitrice si è giocata la promozione in Serie B Interregionale. Le ultime tre hanno disputato i playout per evitare la retrocessione in Divisione Regionale 1.</p>
 <p class="warn">La formula descritta è quella della stagione 2025/26. Quella del 2026/27 non compare nel comunicato e al 30 settembre 2026 la FIP Sardegna non l'ha ancora resa nota.</p>
 </section>
-<footer>Fonte del calendario: Comunicato Ufficiale n. 1 del 23 settembre 2026, Comitato Regionale FIP Sardegna. Orari, campi, arbitri, risultati e classifica vengono aggiornati ogni 4 ore dal sito <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a><span id="upd"></span>. Negli eventi di calendario la durata è fissata a 2 ore: è una stima, perché la FIP non la indica.<br>
+<footer>Fonte del calendario: Comunicato Ufficiale n. 1 del 23 settembre 2026, Comitato Regionale FIP Sardegna. Orari, campi, arbitri, risultati e classifica vengono aggiornati ogni 4 ore, e ogni ora il sabato e la domenica dalle 17 a mezzanotte, dal sito <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a><span id="upd"></span>. Negli eventi di calendario la durata è fissata a 2 ore: è una stima, perché la FIP non la indica.<br>
 Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunicazioni ufficiali sono pubblicate anche sul sito del <a href="https://sardegna.fip.it/calendari-definitivi-stagione-sportiva-2026-27/" target="_blank" rel="noopener">Comitato Regionale FIP Sardegna</a>.</footer>
 </div>
 <script>
@@ -132,7 +160,7 @@ function teams(m){
 function score(m){
  if(!m.score) return "";
  const mine=m.is_home?m.score.home:m.score.away, theirs=m.is_home?m.score.away:m.score.home;
- return ` <span class="score ${mine>theirs?"w":"l"}">${m.score.home}-${m.score.away}</span>`;
+ return ` <span class="score ${mine>theirs?"win":"loss"}">${m.score.home}-${m.score.away}</span>`;
 }
 function was(m){
  if(!m.changes.length) return "";
@@ -150,7 +178,7 @@ function card(m){
  <div class="d"><span>${fmtDay(dt)}</span><b>${dt.getDate()}</b><i>${esc(m.time)}</i></div>
  <div><div class="t"><span class="tag">${m.is_home?"Casa":"Trasferta"}</span>${tag}${teams(m)}${score(m)}</div>
  <div class="v"><strong>${esc(m.venue.name)}</strong>, ${esc(m.venue.address)}</div>
- ${was(m)}${referees(m)}
+ ${was(m)}${referees(m)}${firstLeg(m)}
  <div class="l"><a href="${maps(m)}" target="_blank" rel="noopener">Apri in Google Maps</a>
  <a href="${gcal(m)}" target="_blank" rel="noopener">Aggiungi a Google Calendar</a></div>
  <div class="meta">${label(m)}, gara n. ${m.n}${statusLabel(m)?", "+esc(statusLabel(m)):""}</div></div></article>`;
@@ -184,17 +212,67 @@ function renderStandings(rows){
  el.innerHTML=`<h2>Classifica</h2><div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
  <p class="meta">Classifica ufficiale FIP. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor.</p>`;
 }
-function downloadIcs(){
- const e=s=>s.replace(/[\\;,]/g,c=>"\\"+c);
- const now=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
- const ev=G.map(m=>["BEGIN:VEVENT","UID:cus-gara"+m.n+"@calendario-cus","DTSTAMP:"+now,
-  "DTSTART;TZID=Europe/Rome:"+stamp(m),"DTEND;TZID=Europe/Rome:"+stamp(m,2),
-  "SUMMARY:"+e(title(m)),"LOCATION:"+e(place(m)),
-  "DESCRIPTION:"+e("Serie C, "+label(m)+", gara n. "+m.n),"END:VEVENT"].join("\r\n"));
- const txt=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//CUS Cagliari Basket//IT","X-WR-CALNAME:CUS Cagliari Basket","X-WR-TIMEZONE:Europe/Rome",...ev,"END:VCALENDAR"].join("\r\n");
- const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([txt],{type:"text/calendar"}));
- a.download="cus-cagliari-calendario.ics"; a.click();
+const opponent=m=>m.is_home?m.away:m.home;
+const won=m=>(m.is_home?m.score.home-m.score.away:m.score.away-m.score.home)>0;
+const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
+function firstLeg(m){
+ if(m.round[0]!=="R") return "";
+ const a=G.find(x=>x.round[0]==="A"&&opponent(x)===opponent(m));
+ if(!a||!a.score) return "";
+ return `<div class="leg">All'andata: ${esc(a.home)} - ${esc(a.away)} ${a.score.home}-${a.score.away}</div>`;
+}
+function renderForm(){
+ const el=document.getElementById("form"), played=G.filter(m=>m.score);
+ if(!played.length){el.hidden=true;return}
+ const wins=played.filter(won).length, n=played.length;
+ const pf=played.reduce((s,m)=>s+(m.is_home?m.score.home:m.score.away),0);
+ const pa=played.reduce((s,m)=>s+(m.is_home?m.score.away:m.score.home),0);
+ const count=(k,one,many)=>k+" "+(k===1?one:many);
+ const split=h=>{const g=played.filter(m=>m.is_home===h), w=g.filter(won).length;return count(w,"vittoria","vittorie")+" e "+count(g.length-w,"sconfitta","sconfitte")};
+ const last=played.slice(-5).map(m=>won(m)?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
+ el.hidden=false;
+ el.innerHTML=`<h2>Andamento del CUS</h2><div class="stats">
+ <div><b>${wins}-${n-wins}</b><span>vittorie e sconfitte</span></div>
+ <div><b>${dec(pf/n)}</b><span>punti fatti a partita</span></div>
+ <div><b>${dec(pa/n)}</b><span>punti subiti a partita</span></div></div>
+ <div class="badges">Ultime ${Math.min(5,n)}: ${last}</div>
+ <p class="meta">In casa ${split(true)}; in trasferta ${split(false)}.</p>`;
+}
+function roundTable(r){
+ const byTime=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
+ const rows=[...r.games].sort(byTime).map(g=>{
+  const me=g.home===FIP_TEAM||g.away===FIP_TEAM, res=g.score?`${g.score.home}-${g.score.away}`:esc(g.time);
+  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}</td><td>${res}</td></tr>`}).join("");
+ return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function renderLeague(rounds){
+ const el=document.getElementById("league");
+ if(!rounds||!rounds.length){el.hidden=true;return}
+ const lastPlayed=rounds.map(r=>r.games.some(g=>g.score)).lastIndexOf(true);
+ const upcoming=rounds.findIndex(r=>r.games.some(g=>toDate(g.date,g.time)>=today));
+ const pick=lastPlayed>=0?lastPlayed:Math.max(upcoming,0);
+ const opts=rounds.map((r,i)=>`<option value="${i}" ${i===pick?"selected":""}>${label(r)}</option>`).join("");
+ el.hidden=false;
+ el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><label for="round-select">Giornata </label><select id="round-select">${opts}</select></div><div id="round-table">${roundTable(rounds[pick])}</div>
+ <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP. Senza risultato è indicato l'orario d'inizio.</p>`;
+ document.getElementById("round-select").onchange=e=>{document.getElementById("round-table").innerHTML=roundTable(rounds[+e.target.value])};
+}
+function renderNotices(list){
+ const el=document.getElementById("notices");
+ list=(list||[]).filter(n=>String(n.link).startsWith("https://sardegna.fip.it/"));
+ if(!list.length){el.innerHTML="";return}
+ const items=list.map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a> (${esc(new Date(n.date+"T12:00:00").toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"}))})</li>`).join("");
+ el.innerHTML=`<div class="notice"><strong>La FIP Sardegna ha pubblicato nuove comunicazioni su formula, playoff o playout.</strong> Verifica se la formula descritta qui sotto è cambiata:<ul>${items}</ul></div>`;
+}
+function setupSubscription(){
+ const url=new URL("calendario.ics",location.href).href, input=document.getElementById("icsurl");
+ input.value=url;
+ document.getElementById("webcal").href=url.replace(/^https?:/,"webcal:");
+ document.getElementById("copy").onclick=async()=>{
+  const out=document.getElementById("copied");
+  try{await navigator.clipboard.writeText(url);out.textContent="Indirizzo copiato."}
+  catch{input.select();out.textContent="Copia non riuscita: l'indirizzo è selezionato, copialo con Ctrl+C."}
+ };
 }
 function showError(err){
  const cause=err instanceof TypeError?"Connessione non riuscita: controlla la rete e riprova.":esc(err.message)+".";
@@ -211,15 +289,15 @@ async function load(){
   G=data.games;
   if(data.fip_url) document.getElementById("fiplink").href=data.fip_url;
   if(data.updated_at) document.getElementById("upd").textContent=" (ultima variazione rilevata il "+new Date(data.updated_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+")";
-  document.getElementById("ics").disabled=false;
-  renderNext(); render(document.querySelector(".bar button[aria-pressed=true]").dataset.f); renderStandings(data.standings);
+  renderNext(); render(document.querySelector(".bar button[aria-pressed=true]").dataset.f);
+  renderForm(); renderStandings(data.standings); renderLeague(data.rounds); renderNotices(data.notices);
  }catch(err){showError(err)}
 }
 document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".bar button[data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));
  if(G.length) render(b.dataset.f);
 });
-document.getElementById("ics").onclick=downloadIcs;
+setupSubscription();
 load();
 </script>
 </body>

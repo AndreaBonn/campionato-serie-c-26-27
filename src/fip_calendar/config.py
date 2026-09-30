@@ -18,6 +18,16 @@ FIP_QUERY = {
 FIRST_HALF_CODE = 1  # fip.it uses codice_ar=1 for andata, 0 for ritorno
 SECOND_HALF_CODE = 0
 
-USER_AGENT = "campionato-serie-c-26-27 calendar sync (personal, 6 runs/day)"
+USER_AGENT = "campionato-serie-c-26-27 calendar sync (personal project)"
 REQUEST_TIMEOUT_S = 30
 REQUEST_DELAY_S = 1.0
+
+PAGE_URL = "https://andreabonn.github.io/campionato-serie-c-26-27/"
+ICS_PATH = ROOT / "docs" / "calendario.ics"
+
+FIP_SARDEGNA_POSTS_URL = "https://sardegna.fip.it/wp-json/wp/v2/posts"
+# Full-text searches that may surface the 2026/27 format; titles are filtered afterwards
+NOTICE_SEARCH_TERMS = ("formula", "playoff", "playout")
+# Posts before the 2026/27 calendar (23/09/2026) belong to the previous season
+NOTICE_SINCE = "2026-09-23T00:00:00"
+NOTICE_SEARCH_LIMIT = 20

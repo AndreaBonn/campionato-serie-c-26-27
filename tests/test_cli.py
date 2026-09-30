@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from fip_calendar.cli import round_to_page, write_if_changed
+import pytest
+
+from fip_calendar import cli
+from fip_calendar.cli import previous_notices, round_to_page, write_if_changed
 
 NOW = "2026-10-01T08:00:00+00:00"
 LATER = "2026-10-01T12:00:00+00:00"
@@ -39,3 +42,49 @@ def test_write_if_changed_different_data_updates_timestamp(tmp_path: Path) -> No
 
     assert changed is True
     assert json.loads(target.read_text()) == {"games": [2], "updated_at": LATER}
+
+
+def test_previous_notices_reads_them_from_existing_data(tmp_path: Path) -> None:
+    target = tmp_path / "data.json"
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    target.write_text(json.dumps({"games": [], "notices": [notice]}))
+
+    assert previous_notices(target) == [notice]
+
+
+def test_previous_notices_missing_file_returns_empty(tmp_path: Path) -> None:
+    assert previous_notices(tmp_path / "data.json") == []
+
+
+def test_collect_notices_unexpected_payload_keeps_previous(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    target = tmp_path / "data.json"
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    target.write_text(json.dumps({"notices": [notice]}))
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: {"code": "rest_error"})
+
+    assert cli.collect_notices(target) == [notice]
+
+
+def test_write_ics_if_changed_rewrites_when_content_differs(tmp_path: Path) -> None:
+    target = tmp_path / "calendario.ics"
+    target.write_text("BEGIN:VCALENDAR\r\nDTSTAMP:20260101T000000Z\r\nOLD\r\nEND:VCALENDAR\r\n")
+
+    changed = cli.write_ics_if_changed(
+        path=target, text="BEGIN:VCALENDAR\r\nDTSTAMP:20261001T000000Z\r\nNEW\r\nEND:VCALENDAR\r\n"
+    )
+
+    assert changed is True
+    assert "NEW" in target.read_text()
+
+
+def test_write_ics_if_changed_ignores_dtstamp_only_difference(tmp_path: Path) -> None:
+    target = tmp_path / "calendario.ics"
+    old = "BEGIN:VCALENDAR\r\nDTSTAMP:20260101T000000Z\r\nSAME\r\nEND:VCALENDAR\r\n"
+    target.write_text(old, newline="")
+
+    changed = cli.write_ics_if_changed(path=target, text=old.replace("20260101", "20261001"))
+
+    assert changed is False
+    assert target.read_bytes().decode("utf-8") == old

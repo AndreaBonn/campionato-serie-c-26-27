@@ -109,7 +109,7 @@ def test_build_data_missing_fip_match_raises() -> None:
     calendar = {"fip_team": TEAM, "venues": VENUES, "games": [BASE]}
 
     with pytest.raises(MergeError):
-        build_data(calendar=calendar, matches={}, standings=[])
+        build_data(calendar=calendar, rounds={"R1": []}, standings=[])
 
 
 def test_build_data_includes_games_and_standings() -> None:
@@ -118,8 +118,41 @@ def test_build_data_includes_games_and_standings() -> None:
         position=1, team=TEAM, points=2, played=1, won=1, lost=0, points_for=70, points_against=60
     )
 
-    data = build_data(calendar=calendar, matches={69: FIP}, standings=[row])
+    data = build_data(calendar=calendar, rounds={"R1": [FIP]}, standings=[row])
 
     assert [g["n"] for g in data["games"]] == [69]
     assert data["standings"][0]["team"] == TEAM
     assert data["standings"][0]["points"] == 2
+
+
+def test_build_data_lists_every_game_of_each_round_in_calendar_order() -> None:
+    calendar = {"fip_team": TEAM, "venues": VENUES, "games": [BASE]}
+    other = replace(FIP, number=67, home="SEF TORRES", away="PALL. NUORO", score=(80, 75))
+
+    data = build_data(calendar=calendar, rounds={"R1": [FIP, other]}, standings=[])
+
+    assert data["rounds"] == [
+        {
+            "round": "R1",
+            "games": [
+                {
+                    "n": 67,
+                    "home": "SEF TORRES",
+                    "away": "PALL. NUORO",
+                    "date": "2026-12-20",
+                    "time": "18:00",
+                    "status": "non-designata",
+                    "score": {"home": 80, "away": 75},
+                },
+                {
+                    "n": 69,
+                    "home": "CUS CAGLIARI",
+                    "away": "BASKET S. ORSOLA",
+                    "date": "2026-12-20",
+                    "time": "18:00",
+                    "status": "non-designata",
+                    "score": None,
+                },
+            ],
+        }
+    ]
