@@ -36,10 +36,25 @@ def round_to_page(round_code: str) -> tuple[int, int]:
     return half, int(round_code[1:])
 
 
+def read_json(path: Path) -> dict[str, Any] | None:
+    """Read a generated JSON file; a missing or corrupted one reads as None."""
+    if not path.exists():
+        return None
+    try:
+        content = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as err:
+        logger.warning("%s is not valid JSON, treating it as absent: %s", path, err)
+        return None
+    if not isinstance(content, dict):
+        logger.warning("%s does not hold a JSON object, treating it as absent", path)
+        return None
+    return content
+
+
 def write_if_changed(path: Path, data: dict[str, Any], now: str) -> bool:
     """Write data with a timestamp, only if it differs from the file on disk."""
-    if path.exists():
-        previous = json.loads(path.read_text(encoding="utf-8"))
+    previous = read_json(path)
+    if previous is not None:
         previous.pop(TIMESTAMP_KEY, None)
         if previous == data:
             return False
@@ -52,15 +67,17 @@ def write_if_changed(path: Path, data: dict[str, Any], now: str) -> bool:
 
 def previous_notices(path: Path) -> list[dict[str, str]]:
     """Notices already published, reused when FIP Sardegna cannot be reached."""
-    if not path.exists():
-        return []
-    notices: list[dict[str, str]] = json.loads(path.read_text(encoding="utf-8")).get(
-        NOTICES_KEY, []
-    )
+    previous = read_json(path)
+    notices: list[dict[str, str]] = previous.get(NOTICES_KEY, []) if previous else []
     return notices
 
 
 def collect(games: list[dict[str, Any]]) -> tuple[dict[str, list[FipMatch]], list[Standing]]:
+    """Read the fip.it page of every calendar round, pausing between requests.
+
+    Every round page carries the current standings table, so the one from the
+    last page read is returned.
+    """
     rounds: dict[str, list[FipMatch]] = {}
     standings: list[Standing] = []
     for game in games:

@@ -14,6 +14,7 @@ from fip_calendar.config import (
 
 
 def round_url(half_code: int, round_number: int) -> str:
+    """fip.it/risultati address of one round of the CUS Cagliari girone."""
     query = {**FIP_QUERY, "codice_ar": str(half_code), "giornata": str(round_number)}
     return f"{FIP_RESULTS_URL}?{urlencode(query)}"
 

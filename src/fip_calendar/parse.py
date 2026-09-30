@@ -1,5 +1,6 @@
 import re
 from dataclasses import dataclass
+from datetime import date
 
 from bs4 import BeautifulSoup, Tag
 
@@ -50,13 +51,25 @@ def clean(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().replace("( ", "(")
 
 
+def parse_int(text: str, what: str) -> int:
+    """Read an integer from the page, reporting a layout change as ParseError."""
+    try:
+        return int(text)
+    except ValueError as err:
+        raise ParseError(f"non-numeric {what}: {text!r}") from err
+
+
 def parse_italian_date(text: str) -> str:
-    """Convert '20 Dicembre 2026' to '2026-12-20'."""
+    """Convert '20 Dicembre 2026' to '2026-12-20'; impossible dates raise ParseError."""
     parts = clean(text).split(" ")
     month = MONTHS.get(parts[1].lower()) if len(parts) == 3 else None
     if month is None:
         raise ParseError(f"unrecognised date: {text!r}")
-    return f"{int(parts[2]):04d}-{month:02d}-{int(parts[0]):02d}"
+    day, year = parse_int(parts[0], "day"), parse_int(parts[2], "year")
+    try:
+        return date(year, month, day).isoformat()
+    except ValueError as err:
+        raise ParseError(f"impossible date: {text!r}") from err
 
 
 def _text(node: Tag, selector: str) -> str:
@@ -104,7 +117,7 @@ def _parse_match(node: Tag) -> FipMatch:
     venues = _info_values(node, ".col1", VENUE_LABEL)
     status, status_text = _status(node)
     return FipMatch(
-        number=int(_text(node, ".ref")),
+        number=parse_int(_text(node, ".ref"), "game number"),
         home=teams[0],
         away=teams[1],
         date=parse_italian_date(_text(node, ".datetime .date")),
@@ -136,6 +149,7 @@ def parse_standings(html: str) -> list[Standing]:
         cells = [clean(td.get_text()) for td in row.select("td")]
         if len(cells) != STANDING_COLUMNS:
             raise ParseError(f"unexpected standings row: {cells}")
-        numbers = [int(c) for c in cells[2:]]
-        standings.append(Standing(int(cells[0]), cells[1], *numbers))
+        numbers = [parse_int(c, "standings value") for c in cells[2:]]
+        position = parse_int(cells[0], "standings position")
+        standings.append(Standing(position, cells[1], *numbers))
     return standings

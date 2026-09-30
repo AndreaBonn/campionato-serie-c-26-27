@@ -156,3 +156,65 @@ def test_build_data_lists_every_game_of_each_round_in_calendar_order() -> None:
             ],
         }
     ]
+
+
+def test_merge_game_time_change_alone_is_flagged() -> None:
+    later = replace(FIP, time="20:30")
+
+    game = merge_game(base=BASE, venues=VENUES, match=later, fip_team=TEAM)
+
+    assert game["changes"] == ["time"]
+
+
+def test_merge_game_away_game_keeps_official_names_and_orientation() -> None:
+    away_base = {**BASE, "home": "Basket S. Orsola", "away": "CUS Cagliari", "venue": "simula"}
+    away_fip = replace(FIP, home="BASKET S. ORSOLA", away="CUS CAGLIARI", venue="")
+
+    game = merge_game(base=away_base, venues=VENUES, match=away_fip, fip_team=TEAM)
+
+    assert (game["home"], game["away"], game["is_home"], game["changes"]) == (
+        "Basket S. Orsola",
+        "CUS Cagliari",
+        False,
+        [],
+    )
+
+
+def test_merge_game_fip_venue_without_address_keeps_whole_name() -> None:
+    bare = replace(FIP, venue="PALACUS")
+
+    game = merge_game(base=BASE, venues=VENUES, match=bare, fip_team=TEAM)
+
+    assert game["venue"] == {"name": "PALACUS", "address": ""}
+
+
+def test_merge_game_venue_name_ignores_repeated_inner_spaces() -> None:
+    at_simula = {**BASE, "venue": "simula"}
+    spaced = replace(FIP, venue="PALESTRA  LUCA   SIMULA, Via Poligono 2 07100 SASSARI (SS)")
+
+    assert merge_game(base=at_simula, venues=VENUES, match=spaced, fip_team=TEAM)["changes"] == []
+
+
+def test_build_data_empty_calendar_and_rounds_gives_empty_document() -> None:
+    calendar = {"fip_team": TEAM, "venues": VENUES, "games": []}
+
+    assert build_data(calendar=calendar, rounds={}, standings=[]) == {
+        "games": [],
+        "rounds": [],
+        "standings": [],
+    }
+
+
+def test_merge_game_unknown_calendar_venue_raises_merge_error() -> None:
+    typo = {**BASE, "venue": "palacuss"}
+
+    with pytest.raises(MergeError):
+        merge_game(base=typo, venues=VENUES, match=FIP, fip_team=TEAM)
+
+
+def test_merge_game_team_name_case_change_on_fip_still_matches() -> None:
+    recased = replace(FIP, home="Cus Cagliari")
+
+    game = merge_game(base=BASE, venues=VENUES, match=recased, fip_team=TEAM)
+
+    assert (game["is_home"], game["changes"]) == (True, [])

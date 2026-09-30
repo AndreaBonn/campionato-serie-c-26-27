@@ -77,6 +77,7 @@ def _event(game: dict[str, Any], dtstamp: str, page_url: str) -> list[str]:
     if game["score"]:
         summary += f" {game['score']['home']}-{game['score']['away']}"
     venue = game["venue"]
+    location = ", ".join(part for part in (venue["name"], venue["address"]) if part)
     return [
         "BEGIN:VEVENT",
         f"UID:cus-gara{game['n']}@{UID_DOMAIN}",
@@ -84,7 +85,7 @@ def _event(game: dict[str, Any], dtstamp: str, page_url: str) -> list[str]:
         f"DTSTART;TZID=Europe/Rome:{start.strftime(LOCAL_FORMAT)}",
         f"DTEND;TZID=Europe/Rome:{(start + GAME_DURATION).strftime(LOCAL_FORMAT)}",
         f"SUMMARY:{escape_text(summary)}",
-        f"LOCATION:{escape_text(venue['name'] + ', ' + venue['address'])}",
+        f"LOCATION:{escape_text(location)}",
         f"DESCRIPTION:{escape_text(_description(game, page_url))}",
         f"URL:{page_url}",
         "END:VEVENT",

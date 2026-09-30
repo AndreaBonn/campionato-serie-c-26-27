@@ -1,6 +1,8 @@
 from typing import Any
 
-from fip_calendar.ics import build_ics, fold_line
+import pytest
+
+from fip_calendar.ics import build_ics, escape_text, fold_line, round_label
 
 PAGE_URL = "https://example.org/calendario/"
 STAMP = "20261001T080000Z"
@@ -93,3 +95,70 @@ def test_fold_line_splits_long_lines_under_75_octets() -> None:
 
 def test_fold_line_short_line_is_unchanged() -> None:
     assert fold_line("SUMMARY:breve") == "SUMMARY:breve"
+
+
+def test_fold_line_exactly_75_octets_is_unchanged() -> None:
+    line = "X" * 75
+
+    assert fold_line(line) == line
+
+
+def test_fold_line_76_octets_moves_last_char_to_continuation() -> None:
+    assert fold_line("X" * 76) == "X" * 75 + "\r\n X"
+
+
+@pytest.mark.parametrize(
+    ("raw", "escaped"),
+    [
+        ("a\\b", "a\\\\b"),
+        ("a;b", "a\\;b"),
+        ("a,b", "a\\,b"),
+        ("a\nb", "a\\nb"),
+        ("Sant’Elena: ore 18", "Sant’Elena: ore 18"),
+    ],
+)
+def test_escape_text_escapes_rfc5545_special_characters(raw: str, escaped: str) -> None:
+    assert escape_text(raw) == escaped
+
+
+@pytest.mark.parametrize(
+    ("code", "label"),
+    [("A1", "1ª giornata di andata"), ("R11", "11ª giornata di ritorno")],
+)
+def test_round_label_names_round_and_half(code: str, label: str) -> None:
+    assert round_label(code) == label
+
+
+def test_build_ics_without_games_is_a_valid_empty_calendar() -> None:
+    ics = build_ics(games=[], dtstamp=STAMP, page_url=PAGE_URL)
+
+    assert "BEGIN:VEVENT" not in ics
+    assert ics.endswith("END:VTIMEZONE\r\nEND:VCALENDAR\r\n")
+
+
+def test_build_ics_one_event_per_game_with_distinct_uids() -> None:
+    games = [game(), game(n=18, round="A4", date="2026-10-25")]
+
+    lines = unfold(build_ics(games=games, dtstamp=STAMP, page_url=PAGE_URL))
+
+    assert [line for line in lines if line.startswith("UID:")] == [
+        "UID:cus-gara17@campionato-serie-c-26-27",
+        "UID:cus-gara18@campionato-serie-c-26-27",
+    ]
+
+
+def test_build_ics_every_physical_line_fits_75_octets() -> None:
+    long_venue = {"name": "Palazzetto dello Sport", "address": "Via Palladio " * 10}
+
+    ics = build_ics(games=[game(venue=long_venue)], dtstamp=STAMP, page_url=PAGE_URL)
+
+    assert max(len(line.encode("utf-8")) for line in ics.split("\r\n")) <= 75
+    assert "Via Palladio Via Palladio" in "".join(unfold(ics))
+
+
+def test_build_ics_location_without_address_has_no_trailing_separator() -> None:
+    bare = game(venue={"name": "PALACUS", "address": ""})
+
+    lines = unfold(build_ics(games=[bare], dtstamp=STAMP, page_url=PAGE_URL))
+
+    assert "LOCATION:PALACUS" in lines

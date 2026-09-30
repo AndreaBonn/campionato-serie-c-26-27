@@ -40,11 +40,15 @@ def merge_game(
     base: dict[str, Any], venues: dict[str, dict[str, str]], match: FipMatch, fip_team: str
 ) -> dict[str, Any]:
     """Combine one game of the official calendar with its current fip.it state."""
-    if fip_team not in (match.home, match.away):
+    # case-insensitive like the calendar-side comparison below, so a recased FIP name still matches
+    team_key = fip_team.casefold()
+    if team_key not in (match.home.casefold(), match.away.casefold()):
         raise MergeError(f"game {match.number} does not involve {fip_team}")
-    base_is_home = base["home"].casefold() == fip_team.casefold()
+    if base["venue"] not in venues:
+        raise MergeError(f"game {base['n']} uses unknown venue {base['venue']!r}")
+    base_is_home = base["home"].casefold() == team_key
     team, opponent = (base["home"], base["away"]) if base_is_home else (base["away"], base["home"])
-    is_home = match.home == fip_team
+    is_home = match.home.casefold() == team_key
     official = {"date": base["date"], "time": base["time"], "venue": venues[base["venue"]]}
     # an empty venue on fip.it means "not published", not "moved": keep the official one
     venue = _split_venue(match.venue) if match.venue else official["venue"]

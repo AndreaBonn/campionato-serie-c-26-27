@@ -6,6 +6,7 @@ from fip_calendar.parse import (
     FipMatch,
     ParseError,
     Standing,
+    clean,
     parse_italian_date,
     parse_matches,
     parse_standings,
@@ -141,3 +142,89 @@ def test_parse_italian_date_converts_to_iso(text: str, expected: str) -> None:
 def test_parse_italian_date_unknown_month_raises() -> None:
     with pytest.raises(ParseError):
         parse_italian_date("20 Brumaio 2026")
+
+
+def match_block(teams: int = 2, ref: str = "69", date: str = "20 Dicembre 2026") -> str:
+    names = "".join(f'<span class="team__name">SQUADRA {i}</span>' for i in range(teams))
+    return (
+        '<div class="results-matches__match">'
+        f'<span class="ref">{ref}</span>'
+        f'<div class="teams">{names}</div>'
+        f'<div class="datetime"><span class="date">{date}</span>'
+        '<span class="time">18:00</span></div>'
+        "</div>"
+    )
+
+
+def standings_table(*rows: list[str]) -> str:
+    body = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in row) + "</tr>" for row in rows)
+    return f'<table class="results-ranking-full"><tbody>{body}</tbody></table>'
+
+
+STANDING_ROW = ["1", "CUS CAGLIARI", "2", "1", "1", "0", "70", "60"]
+
+
+def test_parse_matches_minimal_block_without_optional_fields_has_empty_defaults() -> None:
+    [match] = parse_matches(match_block())
+
+    assert (match.venue, match.status, match.status_text, match.referees, match.score) == (
+        "",
+        "",
+        "",
+        (),
+        None,
+    )
+
+
+def test_parse_matches_block_with_one_team_raises() -> None:
+    with pytest.raises(ParseError):
+        parse_matches(match_block(teams=1))
+
+
+def test_parse_matches_block_without_game_number_raises() -> None:
+    html = match_block().replace('<span class="ref">69</span>', "")
+
+    with pytest.raises(ParseError):
+        parse_matches(html)
+
+
+def test_parse_matches_non_numeric_game_number_raises_parse_error() -> None:
+    with pytest.raises(ParseError):
+        parse_matches(match_block(ref="n.d."))
+
+
+def test_parse_standings_row_with_wrong_column_count_raises() -> None:
+    with pytest.raises(ParseError):
+        parse_standings(standings_table(STANDING_ROW[:7]))
+
+
+def test_parse_standings_skips_expandable_detail_rows() -> None:
+    html = standings_table(STANDING_ROW).replace(
+        "</tbody>", '<tr data-row="1"><td>dettaglio</td></tr></tbody>'
+    )
+
+    assert [s.team for s in parse_standings(html)] == ["CUS CAGLIARI"]
+
+
+def test_parse_standings_non_numeric_points_raise_parse_error() -> None:
+    with pytest.raises(ParseError):
+        parse_standings(standings_table([*STANDING_ROW[:2], "-", *STANDING_ROW[3:]]))
+
+
+def test_clean_collapses_whitespace_and_province_spacing() -> None:
+    assert clean("  ROSSI\n  MARIO di CAGLIARI ( CA) ") == "ROSSI MARIO di CAGLIARI (CA)"
+
+
+def test_parse_italian_date_without_year_raises() -> None:
+    with pytest.raises(ParseError):
+        parse_italian_date("20 Dicembre")
+
+
+def test_parse_italian_date_non_numeric_year_raises_parse_error() -> None:
+    with pytest.raises(ParseError):
+        parse_italian_date("20 Dicembre duemila")
+
+
+def test_parse_italian_date_impossible_day_raises_parse_error() -> None:
+    with pytest.raises(ParseError):
+        parse_italian_date("32 Dicembre 2026")

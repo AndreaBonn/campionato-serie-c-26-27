@@ -1,5 +1,7 @@
 from typing import Any
 
+import pytest
+
 from fip_calendar.notices import select_notices
 
 SINCE = "2026-09-23T00:00:00"
@@ -82,3 +84,35 @@ def test_select_notices_drops_links_outside_fip_sardegna() -> None:
     ]
 
     assert select_notices(posts=posts, since=SINCE) == []
+
+
+def test_select_notices_post_published_exactly_at_since_is_kept() -> None:
+    posts = [post("Serie C: formula", date=SINCE)]
+
+    assert len(select_notices(posts=posts, since=SINCE)) == 1
+
+
+def test_select_notices_accepts_hyphenated_play_off_wording() -> None:
+    posts = [post("Serie C regionale, date dei play-off")]
+
+    assert len(select_notices(posts=posts, since=SINCE)) == 1
+
+
+@pytest.mark.parametrize(
+    "link",
+    [
+        "https://sardegna.fip.it.example.com/formula/",
+        "http://sardegna.fip.it/formula/",
+        "https://fip.it/formula/",
+    ],
+)
+def test_select_notices_drops_lookalike_and_insecure_links(link: str) -> None:
+    posts = [
+        {"date": "2026-10-20T10:00:00", "title": {"rendered": "Serie C formula"}, "link": link}
+    ]
+
+    assert select_notices(posts=posts, since=SINCE) == []
+
+
+def test_select_notices_no_posts_returns_empty() -> None:
+    assert select_notices(posts=[], since=SINCE) == []
