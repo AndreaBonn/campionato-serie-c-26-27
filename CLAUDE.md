@@ -15,8 +15,17 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 - `docs/status.json` (`checked_at`) is written on every successful run, is gitignored and reaches the site only through the Pages artifact: a failed run skips the deploy, so the page keeps showing the last successful check. A FIP Sardegna posts outage does not count as a failure.
 - Schedule: every 4 hours, plus hourly on Sat/Sun 15-23 UTC (covers 17-24 Italian time in both CEST and CET).
 
+## Web app
+
+- Installable: `docs/manifest.webmanifest`, icons in `docs/icons/` and `docs/favicon.ico`, service worker `docs/sw.js`.
+- Icons are generated from `docs/logo-cus.png`: after replacing the crest run `uv run --script scripts/make_icons.py`. The apple-touch icon must stay opaque (iOS fills transparency with black).
+- `sw.js` is network first: the cache answers only when the network fails, so fip.it data is never served stale while online.
+- App version = hash of `docs/` minus FIP data (`appversion.py`), stamped into `sw.js` by `uv run fip-calendar-stamp-sw` in the workflow just before the Pages upload. The repo copy must keep `const VERSION = "dev";`: running the stamp locally rewrites it (restore it), and a second stamp fails on purpose. Not the commit SHA: the data commit every 4 hours would announce a new version each time.
+- Update notice (`update.js`, rules in `update-rules.js`): a new worker waits; "Aggiorna" sends `SKIP_WAITING` and every open tab reloads once on `controllerchange`; "Più tardi" hides it until the next opening (startup or return to foreground, server checked at most every 10 minutes). Nothing is shown on a first visit.
+
 ## Commands
 
 - `uv run fip-calendar`: fetch fip.it (22 requests, 1 s apart) and FIP Sardegna posts (3 searches), update `docs/data.json` and `docs/calendario.ics`
-- `uv run pytest`, `uv run ruff check .`, `uv run mypy`
+- `uv run pytest`, `uv run ruff check .`, `uv run mypy`; `npm test` for the page's JS rules (`node --test`, no dependencies)
+- `scripts/make_icons.py` has its own environment (PEP 723) and is excluded from the project mypy: `uv run --no-project --with pillow --with mypy mypy --strict scripts/make_icons.py`
 - Tests run against saved pages in `tests/fixtures/`: when fip.it changes layout, save the new page there and reproduce first.
