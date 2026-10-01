@@ -709,8 +709,8 @@
           "n": 13,
           "home": "BASKET FERRINI",
           "away": "FISIOKONS AUREA SASSARI",
-          "date": "2026-10-17",
-          "time": "19:00",
+          "date": "2026-10-18",
+          "time": "18:30",
           "status": "non-designata",
           "score": null
         },
@@ -1122,8 +1122,8 @@
           "n": 55,
           "home": "BASKET FERRINI",
           "away": "OLIMPIA CAGLIARI",
-          "date": "2026-12-05",
-          "time": "19:00",
+          "date": "2026-12-06",
+          "time": "18:30",
           "status": "non-designata",
           "score": null
         },
@@ -1344,8 +1344,8 @@
           "n": 78,
           "home": "BASKET FERRINI",
           "away": "BASKET ANTONIANUM",
-          "date": "2027-01-09",
-          "time": "19:00",
+          "date": "2027-01-10",
+          "time": "18:30",
           "status": "non-designata",
           "score": null
         }
@@ -2007,5 +2007,5 @@
   ],
   "notices": [],
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-09-30T15:44:37+00:00"
+  "updated_at": "2026-10-01T05:50:13+00:00"
 }
