@@ -50,8 +50,8 @@
         }
       },
       "changes": [],
-      "status": "non-designata",
-      "status_text": "Gara non ancora designata",
+      "status": "designata-nonvisibile",
+      "status_text": "Gara designata: la designazione non è ancora visibile",
       "referees": [],
       "score": null
     },
@@ -456,8 +456,8 @@
       "home": "Scuola Basket Carbonia",
       "away": "CUS Cagliari",
       "is_home": false,
-      "date": "2027-02-14",
-      "time": "18:00",
+      "date": "2027-02-13",
+      "time": "18:30",
       "venue": {
         "name": "PALAZZETTO DELLO SPORT",
         "address": "Via Delle Cernitrici 09013 CARBONIA (SU)"
@@ -470,7 +470,10 @@
           "address": "Via Delle Cernitrici, Carbonia"
         }
       },
-      "changes": [],
+      "changes": [
+        "date",
+        "time"
+      ],
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
@@ -652,7 +655,7 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-11",
           "time": "18:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         },
         {
@@ -661,7 +664,7 @@
           "away": "PALL. NUORO",
           "date": "2026-10-10",
           "time": "18:30",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         },
         {
@@ -670,7 +673,7 @@
           "away": "BASKET FERRINI",
           "date": "2026-10-11",
           "time": "18:30",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         },
         {
@@ -679,7 +682,7 @@
           "away": "POL. DINAMO",
           "date": "2026-10-10",
           "time": "20:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         },
         {
@@ -697,7 +700,7 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-10-10",
           "time": "17:30",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         }
       ]
@@ -1639,8 +1642,8 @@
           "n": 108,
           "home": "SCUOLA BASKET CARBONIA",
           "away": "CUS CAGLIARI",
-          "date": "2027-02-14",
-          "time": "18:00",
+          "date": "2027-02-13",
+          "time": "18:30",
           "status": "non-designata",
           "score": null
         }
@@ -2007,5 +2010,5 @@
   ],
   "notices": [],
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-01T05:50:13+00:00"
+  "updated_at": "2026-10-02T05:35:10+00:00"
 }
