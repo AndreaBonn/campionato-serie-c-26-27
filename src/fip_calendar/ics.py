@@ -46,11 +46,11 @@ def escape_text(value: str) -> str:
 
 def fold_line(line: str) -> str:
     """Fold a content line at 75 octets without splitting a UTF-8 character."""
-    parts, current, limit = [], "", MAX_LINE_OCTETS
+    parts, current = [], ""
     for char in line:
-        if len((current + char).encode("utf-8")) > limit:
+        if len((current + char).encode("utf-8")) > MAX_LINE_OCTETS:
             parts.append(current)
-            current, limit = " ", MAX_LINE_OCTETS
+            current = " "
         current += char
     parts.append(current)
     return CRLF.join(parts)
