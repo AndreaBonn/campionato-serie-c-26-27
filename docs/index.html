@@ -171,31 +171,14 @@ Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunic
 <script type="module">
 import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
-const C="CUS Cagliari", FIP_TEAM="CUS CAGLIARI";
+import {esc,toDate,roundLabel as label,changeSummary,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound} from "./page-rules.js";
+const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
 ["2026-12-21","<b>Sosta per le festività.</b> Nessuna partita dal 21 dicembre all'8 gennaio."],
 ["2027-02-15","<b>Sosta.</b> Nessuna partita nel fine settimana del 20 e 21 febbraio."]];
-const CHANGE_LABEL={date:"giorno",time:"orario",venue:"campo",home:"inversione di campo"};
-// Page wording for fip.it statuses; designated referees are shown on their own line
-const STATUS_LABEL={"non-designata":"arbitri non ancora designati","designata":"","designata-nonvisibile":"","omologata":"risultato omologato"};
 let G=[];
 
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const enc=encodeURIComponent, pad=n=>String(n).padStart(2,"0");
-const toDate=(d,t)=>new Date(d+"T"+t+":00");
-// Local wall-clock stamp for TZID=Europe/Rome; Date handles the rollover past midnight
-const stamp=(m,plus=0)=>{const d=toDate(m.date,m.time); d.setHours(d.getHours()+plus);
- return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+"T"+pad(d.getHours())+pad(d.getMinutes())+"00"};
-const title=m=>m.home+" - "+m.away;
-const place=m=>m.venue.name+", "+m.venue.address;
-const label=m=>m.round.slice(1)+"ª giornata di "+(m.round[0]=="A"?"andata":"ritorno");
-const listIt=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" e "+a[a.length-1];
-const statusLabel=m=>resultNote(m.status)?.label??(m.status in STATUS_LABEL?STATUS_LABEL[m.status]:m.status_text.toLowerCase());
-const maps=m=>"https://www.google.com/maps/search/?api=1&query="+enc(place(m));
-const gcal=m=>"https://calendar.google.com/calendar/render?action=TEMPLATE&text="+enc(title(m))
- +"&dates="+stamp(m)+"/"+stamp(m,2)+"&ctz=Europe/Rome&location="+enc(place(m))
- +"&details="+enc("Serie C, "+label(m)+", gara n. "+m.n);
 const fmtDay=d=>d.toLocaleDateString("it-IT",{weekday:"short"}).replace(".","");
 const fmtLong=d=>d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
 const fmtShort=(d,t)=>toDate(d,t).toLocaleDateString("it-IT",{weekday:"short",day:"numeric",month:"short"})+", ore "+t;
@@ -213,7 +196,7 @@ function score(m){
 }
 function was(m){
  if(!m.changes.length) return "";
- const o=m.official, what=listIt(m.changes.map(c=>CHANGE_LABEL[c]||c));
+ const o=m.official, what=changeSummary(m.changes);
  return `<div class="was">Modificata dalla FIP (${esc(what)}). Nel comunicato ufficiale: ${esc(fmtShort(o.date,o.time))}, ${esc(o.venue.name)}.</div>`;
 }
 function referees(m){
@@ -232,17 +215,12 @@ function card(m){
  <a href="${gcal(m)}" target="_blank" rel="noopener">Aggiungi a Google Calendar</a></div>
  <div class="meta">${label(m)}, gara n. ${m.n}${statusLabel(m)?", "+esc(statusLabel(m)):""}</div></div></article>`;
 }
-// Still to be played: no result yet and scheduled from today on (a recovery keeps its new date)
-const upcoming=m=>!m.score&&toDate(m.date,m.time)>=today;
 function render(f,onlyUpcoming){
- let out="",mon="",s=0;
- const shown=G.filter(m=>(f==="all"||(f==="home")===m.is_home)&&(!onlyUpcoming||upcoming(m)));
- // breaks already behind us are skipped together with the past games
- if(onlyUpcoming) while(s<S.length&&new Date(S[s][0]+"T00:00:00")<today) s++;
+ let out="",mon="";
  const head=d=>{const k=d.toLocaleDateString("it-IT",{month:"long",year:"numeric"});
   if(k!==mon){mon=k;out+=`<h2>${k}</h2>`}};
- shown.forEach(m=>{
-  for(;s<S.length&&S[s][0]<m.date;s++){head(new Date(S[s][0]+"T12:00:00"));out+=`<p class="sosta">${S[s][1]}</p>`}
+ withBreaks(filterGames(G,f,onlyUpcoming,today),S,today,onlyUpcoming).forEach(({game:m,date,text})=>{
+  if(!m){head(new Date(date+"T12:00:00"));out+=`<p class="sosta">${text}</p>`;return}
   head(toDate(m.date,m.time)); out+=card(m);
  });
  document.getElementById("list").innerHTML=out||`<p class="state">Nessuna partita da giocare con questo filtro. Disattiva «Solo partite da giocare» per vedere anche quelle già disputate.</p>`;
@@ -250,11 +228,10 @@ function render(f,onlyUpcoming){
 const onlyUpcoming=()=>document.getElementById("future").checked;
 const refresh=()=>{if(G.length) render(document.querySelector(".bar button[data-f][aria-pressed=true]").dataset.f,onlyUpcoming())};
 function renderNext(){
- const m=G.find(upcoming), el=document.getElementById("next");
+ const m=G.find(x=>isUpcoming(x,today)), el=document.getElementById("next");
  el.hidden=false;
  if(!m){el.innerHTML="<div class='m'>Stagione regolare conclusa</div>";return}
- // calendar days, not hours: a game tonight is "Oggi"; round() absorbs the 23/25 h DST days
- const dt=toDate(m.date,m.time), days=Math.round((toDate(m.date,"00:00")-today)/864e5);
+ const dt=toDate(m.date,m.time), days=daysUntil(m,today);
  const refs=m.referees.length?`<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>`:"";
  const moved=m.changes.length?`<small>Modificata rispetto al comunicato ufficiale</small>`:"";
  el.innerHTML=`<small>Prossima partita</small><div class="m">${esc(m.home)} - ${esc(m.away)}</div>
@@ -269,31 +246,25 @@ function renderStandings(rows){
  el.innerHTML=`<h2>Classifica</h2><div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
  <p class="meta">Classifica ufficiale FIP. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor.</p>`;
 }
-const opponent=m=>m.is_home?m.away:m.home;
-const won=m=>(m.is_home?m.score.home-m.score.away:m.score.away-m.score.home)>0;
 const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
 function firstLeg(m){
- if(m.round[0]!=="R") return "";
- const a=G.find(x=>x.round[0]==="A"&&opponent(x)===opponent(m));
- if(!a||!a.score) return "";
+ const a=firstLegOf(m,G);
+ if(!a) return "";
  return `<div class="leg">All'andata: ${esc(a.home)} - ${esc(a.away)} ${a.score.home}-${a.score.away}</div>`;
 }
 function renderForm(){
- const el=document.getElementById("form"), played=G.filter(m=>m.score);
- if(!played.length){el.hidden=true;return}
- const wins=played.filter(won).length, n=played.length;
- const pf=played.reduce((s,m)=>s+(m.is_home?m.score.home:m.score.away),0);
- const pa=played.reduce((s,m)=>s+(m.is_home?m.score.away:m.score.home),0);
+ const el=document.getElementById("form"), f=formSummary(G);
+ if(!f){el.hidden=true;return}
  const count=(k,one,many)=>k+" "+(k===1?one:many);
- const split=h=>{const g=played.filter(m=>m.is_home===h), w=g.filter(won).length;return count(w,"vittoria","vittorie")+" e "+count(g.length-w,"sconfitta","sconfitte")};
- const last=played.slice(-5).map(m=>won(m)?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
+ const split=r=>count(r.won,"vittoria","vittorie")+" e "+count(r.lost,"sconfitta","sconfitte");
+ const last=f.last.map(w=>w?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
  el.hidden=false;
  el.innerHTML=`<h2>Andamento del CUS</h2><div class="stats">
- <div><b>${wins}-${n-wins}</b><span>vittorie e sconfitte</span></div>
- <div><b>${dec(pf/n)}</b><span>punti fatti a partita</span></div>
- <div><b>${dec(pa/n)}</b><span>punti subiti a partita</span></div></div>
- <div class="badges">Ultime ${Math.min(5,n)}: ${last}</div>
- <p class="meta">In casa ${split(true)}; in trasferta ${split(false)}.</p>`;
+ <div><b>${f.won}-${f.lost}</b><span>vittorie e sconfitte</span></div>
+ <div><b>${dec(f.avgFor)}</b><span>punti fatti a partita</span></div>
+ <div><b>${dec(f.avgAgainst)}</b><span>punti subiti a partita</span></div></div>
+ <div class="badges">Ultime ${f.last.length}: ${last}</div>
+ <p class="meta">In casa ${split(f.home)}; in trasferta ${split(f.away)}.</p>`;
 }
 function roundTable(r){
  const byTime=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
@@ -306,9 +277,7 @@ function roundTable(r){
 function renderLeague(rounds){
  const el=document.getElementById("league");
  if(!rounds||!rounds.length){el.hidden=true;return}
- const lastPlayed=rounds.map(r=>r.games.some(g=>g.score)).lastIndexOf(true);
- const upcoming=rounds.findIndex(r=>r.games.some(g=>toDate(g.date,g.time)>=today));
- const pick=lastPlayed>=0?lastPlayed:Math.max(upcoming,0);
+ const pick=pickRound(rounds,today);
  const opts=rounds.map((r,i)=>`<option value="${i}" ${i===pick?"selected":""}>${label(r)}</option>`).join("");
  el.hidden=false;
  el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><label for="round-select">Giornata </label><select id="round-select">${opts}</select></div><div id="round-table">${roundTable(rounds[pick])}</div>
