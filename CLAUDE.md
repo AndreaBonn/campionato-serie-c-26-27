@@ -11,7 +11,8 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 - `docs/data.json` is generated; it is rewritten only when content changes (`updated_at` excluded from the comparison).
 - A referee slot can contain the placeholder "Designazione in attesa di conferma.": it is filtered out.
 - `docs/calendario.ics` (subscribable feed, `ics.py`) is regenerated only when data.json changes or the file is missing: after changing `ics.py`, delete the file and run `uv run fip-calendar`.
-- `data.json` also carries every league game per round (`rounds`) and FIP Sardegna posts about format/playoff (`notices`, `notices.py`); if the WordPress API is down the previous notices are kept.
+- `data.json` also carries every league game per round (`rounds`) and FIP Sardegna notices (`notices`, `notices.py`) from three sources, each tagged with `kind`: keyword searches on format/playoff (`formula`), the "C REGIONALE" category (`serie-c`) and the `comunicato` post type filtered on Serie C (`comunicato`, where other regions publish Giudice Sportivo decisions; empty for Sardegna as of 2026-10-02). If the WordPress API is down the previous notices are kept.
+- The baseline PDF is `data/1-CM-calendario-definitivo.pdf`; `source_*` fields in the baseline JSON record where it was published and when it was last checked against the site.
 - `docs/status.json` (`checked_at`) is written on every successful run, is gitignored and reaches the site only through the Pages artifact: a failed run skips the deploy, so the page keeps showing the last successful check. A FIP Sardegna posts outage does not count as a failure.
 - Schedule: every 4 hours, plus hourly on Sat/Sun 15-23 UTC (covers 17-24 Italian time in both CEST and CET).
 

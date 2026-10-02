@@ -28,6 +28,11 @@ ICS_PATH = ROOT / "docs" / "calendario.ics"
 FIP_SARDEGNA_POSTS_URL = "https://sardegna.fip.it/wp-json/wp/v2/posts"
 # Full-text searches that may surface the 2026/27 format; titles are filtered afterwards
 NOTICE_SEARCH_TERMS = ("formula", "playoff", "playout")
+# WordPress category "C REGIONALE": every post filed there is about our league
+NOTICE_CATEGORY_ID = 50
+# Post type of the official comunicati. Other regional committees publish Giudice Sportivo
+# decisions there; Sardegna had none at all on 2026-10-02 (X-WP-Total: 0)
+FIP_SARDEGNA_COMUNICATI_URL = "https://sardegna.fip.it/wp-json/wp/v2/comunicato"
 # Posts before the 2026/27 calendar (23/09/2026) belong to the previous season
 NOTICE_SINCE = "2026-09-23T00:00:00"
 NOTICE_SEARCH_LIMIT = 20

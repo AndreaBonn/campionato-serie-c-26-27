@@ -1,5 +1,9 @@
 {
   "source": "Comunicato Ufficiale n. 1 del 23/09/2026, FIP CR Sardegna",
+  "source_file": "1-CM-calendario-definitivo.pdf",
+  "source_url": "https://sardegna.fip.it/wp-content/uploads/2026/09/1-CM-calendario-definitivo.pdf",
+  "source_page": "https://sardegna.fip.it/calendari-definitivi-stagione-sportiva-2026-27/",
+  "source_checked": "2026-10-02: latest file on source_page (post of 29/09/2026), same sha256 as data/1-CM-calendario-definitivo.pdf",
   "team": "CUS Cagliari",
   "fip_team": "CUS CAGLIARI",
   "venues": {

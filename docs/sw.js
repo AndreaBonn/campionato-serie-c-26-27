@@ -10,6 +10,8 @@ const SHELL = [
   "index.html",
   "update.js",
   "update-rules.js",
+  "result-rules.js",
+  "notice-rules.js",
   "logo-cus.png",
   "manifest.webmanifest",
   "icons/icon-192.png",

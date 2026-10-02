@@ -7,7 +7,13 @@ import pytest
 
 from fip_calendar import fetch
 from fip_calendar.config import REQUEST_TIMEOUT_S, USER_AGENT
-from fip_calendar.fetch import fetch_posts, fetch_round, round_url
+from fip_calendar.fetch import (
+    fetch_category_posts,
+    fetch_comunicati,
+    fetch_posts,
+    fetch_round,
+    round_url,
+)
 
 
 class FakeResponse:
@@ -112,3 +118,39 @@ def test_fetch_posts_asks_only_recent_matching_posts_with_needed_fields(
         "per_page": "20",
         "_fields": "date,title,link",
     }
+
+
+def test_fetch_category_posts_asks_recent_posts_of_that_category(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake = FakeUrlopen(b"[]")
+    monkeypatch.setattr(fetch, "urlopen", fake)
+
+    fetch_category_posts(category=50, after="2026-09-23T00:00:00")
+
+    [(request, _)] = fake.requests
+    assert request.full_url.startswith("https://sardegna.fip.it/wp-json/wp/v2/posts?")
+    assert query_of(request.full_url) == {
+        "categories": "50",
+        "after": "2026-09-23T00:00:00",
+        "per_page": "20",
+        "_fields": "date,title,link",
+    }
+
+
+def test_fetch_comunicati_asks_the_comunicato_post_type(monkeypatch: pytest.MonkeyPatch) -> None:
+    items = [{"date": "2026-10-20T10:00:00", "title": {"rendered": "N. 1"}, "link": "x"}]
+    fake = FakeUrlopen(json.dumps(items).encode())
+    monkeypatch.setattr(fetch, "urlopen", fake)
+
+    assert fetch_comunicati(after="2026-09-23T00:00:00") == items
+
+    [(request, timeout)] = fake.requests
+    assert request.full_url.startswith("https://sardegna.fip.it/wp-json/wp/v2/comunicato?")
+    assert query_of(request.full_url) == {
+        "after": "2026-09-23T00:00:00",
+        "per_page": "20",
+        "_fields": "date,title,link",
+    }
+    assert request.get_header("User-agent") == USER_AGENT
+    assert timeout == REQUEST_TIMEOUT_S

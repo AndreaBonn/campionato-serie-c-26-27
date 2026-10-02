@@ -11,6 +11,7 @@ from fip_calendar.config import (
     CALENDAR_PATH,
     FIRST_HALF_CODE,
     ICS_PATH,
+    NOTICE_CATEGORY_ID,
     NOTICE_SEARCH_TERMS,
     NOTICE_SINCE,
     OUTPUT_PATH,
@@ -19,10 +20,21 @@ from fip_calendar.config import (
     SECOND_HALF_CODE,
     STATUS_PATH,
 )
-from fip_calendar.fetch import fetch_posts, fetch_round, round_url
+from fip_calendar.fetch import (
+    fetch_category_posts,
+    fetch_comunicati,
+    fetch_posts,
+    fetch_round,
+    round_url,
+)
 from fip_calendar.ics import build_ics
 from fip_calendar.merge import MergeError, build_data
-from fip_calendar.notices import select_notices
+from fip_calendar.notices import (
+    KIND_COMUNICATO,
+    KIND_LEAGUE,
+    merge_notices,
+    select_notices,
+)
 from fip_calendar.parse import FipMatch, ParseError, Standing, parse_matches, parse_standings
 
 logger = logging.getLogger("fip_calendar")
@@ -91,10 +103,20 @@ def collect(games: list[dict[str, Any]]) -> tuple[dict[str, list[FipMatch]], lis
 
 
 def collect_notices(fallback_path: Path) -> list[dict[str, str]]:
-    """Format announcements are a side feature: an outage keeps the last known list."""
+    """FIP Sardegna notices are a side feature: an outage keeps the last known list.
+
+    Three sources, merged with the format searches first so a post found twice keeps
+    the more specific kind: keyword searches, the "C REGIONALE" category, the comunicati.
+    """
     try:
         posts = [p for term in NOTICE_SEARCH_TERMS for p in fetch_posts(term, NOTICE_SINCE)]
-        return select_notices(posts=posts, since=NOTICE_SINCE)
+        league = fetch_category_posts(NOTICE_CATEGORY_ID, NOTICE_SINCE)
+        comunicati = fetch_comunicati(NOTICE_SINCE)
+        return merge_notices(
+            select_notices(posts=posts, since=NOTICE_SINCE),
+            select_notices(posts=league, since=NOTICE_SINCE, kind=KIND_LEAGUE),
+            select_notices(posts=comunicati, since=NOTICE_SINCE, kind=KIND_COMUNICATO),
+        )
     except (URLError, ValueError, KeyError, TypeError) as err:
         # TypeError: the API answered with an error object instead of a list of posts
         logger.warning("FIP Sardegna posts unavailable, keeping previous notices: %s", err)

@@ -51,6 +51,7 @@ h2{font-size:17px;text-transform:capitalize;margin:26px 0 8px;padding-bottom:4px
 .tag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--away);padding:1px 8px;border-radius:3px;margin-right:6px;vertical-align:2px}
 .home .tag{background:var(--home)}
 .tag.chg{background:var(--chg)}
+.tag.prov{background:var(--mut);margin:0 0 0 6px}.tag.prov.alert{background:var(--chg)}
 .score{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-left:4px}
 .score.win{color:var(--win)}.score.loss{color:var(--loss)}
 .v{font-size:14px;color:var(--mut)}
@@ -73,6 +74,7 @@ th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white
 th:nth-child(2),td:nth-child(2){text-align:left;white-space:normal}
 th{font-size:12px;color:var(--mut);font-weight:600}
 tr.me td{font-weight:800;background:#e8eef8}
+td small.prov{display:block;font-size:11px;font-weight:600;color:var(--mut)}td small.prov.alert{color:var(--chg)}
 .warn{font-size:13px;color:var(--mut);border-left:3px solid var(--home);padding-left:10px}
 .subbox{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ink);border-radius:4px;padding:12px 16px;margin:0 0 16px}
 .subbox p{margin:0 0 6px;font-size:15px}
@@ -163,10 +165,12 @@ body:has(.update-notice:not([hidden])) .wrap{padding-bottom:180px}
 <p>La stagione regolare termina il 20 marzo 2027. Nel 2025/26 le prime otto classificate hanno disputato i playoff, con serie al meglio delle tre gare, e la vincitrice si è giocata la promozione in Serie B Interregionale. Le ultime tre hanno disputato i playout per evitare la retrocessione in Divisione Regionale 1.</p>
 <p class="warn">La formula descritta è quella della stagione 2025/26. Quella del 2026/27 non compare nel comunicato e al 30 settembre 2026 la FIP Sardegna non l'ha ancora resa nota.</p>
 </section>
-<footer>Fonte del calendario: Comunicato Ufficiale n. 1 del 23 settembre 2026, Comitato Regionale FIP Sardegna. Orari, campi, arbitri, risultati e classifica vengono aggiornati ogni 4 ore, e ogni ora il sabato e la domenica dalle 17 a mezzanotte, dal sito <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a><span id="upd"></span>.<br>
+<footer>Fonte del calendario: Comunicato Ufficiale n. 1 del 23 settembre 2026, Comitato Regionale FIP Sardegna, file <a href="https://sardegna.fip.it/wp-content/uploads/2026/09/1-CM-calendario-definitivo.pdf" target="_blank" rel="noopener">1-CM-calendario-definitivo.pdf</a> (ripubblicato il 29 settembre come calendario definitivo). Orari, campi, arbitri, risultati e classifica vengono aggiornati ogni 4 ore, e ogni ora il sabato e la domenica dalle 17 a mezzanotte, dal sito <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a><span id="upd"></span>.<br>
 Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunicazioni ufficiali sono pubblicate anche sul sito del <a href="https://sardegna.fip.it/calendari-definitivi-stagione-sportiva-2026-27/" target="_blank" rel="noopener">Comitato Regionale FIP Sardegna</a>.</footer>
 </div>
-<script>
+<script type="module">
+import {resultNote} from "./result-rules.js";
+import {noticeHeadline,noticePrefix} from "./notice-rules.js";
 const C="CUS Cagliari", FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
@@ -187,7 +191,7 @@ const title=m=>m.home+" - "+m.away;
 const place=m=>m.venue.name+", "+m.venue.address;
 const label=m=>m.round.slice(1)+"ª giornata di "+(m.round[0]=="A"?"andata":"ritorno");
 const listIt=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" e "+a[a.length-1];
-const statusLabel=m=>m.status in STATUS_LABEL?STATUS_LABEL[m.status]:m.status_text.toLowerCase();
+const statusLabel=m=>resultNote(m.status)?.label??(m.status in STATUS_LABEL?STATUS_LABEL[m.status]:m.status_text.toLowerCase());
 const maps=m=>"https://www.google.com/maps/search/?api=1&query="+enc(place(m));
 const gcal=m=>"https://calendar.google.com/calendar/render?action=TEMPLATE&text="+enc(title(m))
  +"&dates="+stamp(m)+"/"+stamp(m,2)+"&ctz=Europe/Rome&location="+enc(place(m))
@@ -204,7 +208,8 @@ function teams(m){
 function score(m){
  if(!m.score) return "";
  const mine=m.is_home?m.score.home:m.score.away, theirs=m.is_home?m.score.away:m.score.home;
- return ` <span class="score ${mine>theirs?"win":"loss"}">${m.score.home}-${m.score.away}</span>`;
+ const note=resultNote(m.status), prov=note?` <span class="tag prov${note.warn?" alert":""}">${esc(note.tag)}</span>`:"";
+ return ` <span class="score ${mine>theirs?"win":"loss"}">${m.score.home}-${m.score.away}</span>${prov}`;
 }
 function was(m){
  if(!m.changes.length) return "";
@@ -293,7 +298,8 @@ function renderForm(){
 function roundTable(r){
  const byTime=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
  const rows=[...r.games].sort(byTime).map(g=>{
-  const me=g.home===FIP_TEAM||g.away===FIP_TEAM, res=g.score?`${g.score.home}-${g.score.away}`:esc(g.time);
+  const me=g.home===FIP_TEAM||g.away===FIP_TEAM, note=resultNote(g.status);
+  const res=g.score?`${g.score.home}-${g.score.away}`+(note?`<small class="prov${note.warn?" alert":""}">${esc(note.tag)}</small>`:""):esc(g.time);
   return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}</td><td>${res}</td></tr>`}).join("");
  return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
@@ -306,15 +312,16 @@ function renderLeague(rounds){
  const opts=rounds.map((r,i)=>`<option value="${i}" ${i===pick?"selected":""}>${label(r)}</option>`).join("");
  el.hidden=false;
  el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><label for="round-select">Giornata </label><select id="round-select">${opts}</select></div><div id="round-table">${roundTable(rounds[pick])}</div>
- <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP. Senza risultato è indicato l'orario d'inizio.</p>`;
+ <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP. Senza risultato è indicato l'orario d'inizio; un risultato non ancora omologato dal Giudice Sportivo è segnalato sotto il punteggio.</p>`;
  document.getElementById("round-select").onchange=e=>{document.getElementById("round-table").innerHTML=roundTable(rounds[+e.target.value])};
 }
 function renderNotices(list){
  const el=document.getElementById("notices");
  list=(list||[]).filter(n=>String(n.link).startsWith("https://sardegna.fip.it/"));
  if(!list.length){el.innerHTML="";return}
- const items=list.map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a> (${esc(new Date(n.date+"T12:00:00").toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"}))})</li>`).join("");
- el.innerHTML=`<div class="notice"><strong>La FIP Sardegna ha pubblicato nuove comunicazioni su formula, playoff o playout.</strong> Verifica se la formula descritta qui sotto è cambiata:<ul>${items}</ul></div>`;
+ const items=list.map(n=>`<li>${esc(noticePrefix(n.kind))}<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a> (${esc(new Date(n.date+"T12:00:00").toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"}))})</li>`).join("");
+ const h=noticeHeadline(list);
+ el.innerHTML=`<div class="notice"><strong>${esc(h.title)}</strong>${h.hint?" "+esc(h.hint):""}<ul>${items}</ul></div>`;
 }
 function setupSubscription(){
  const url=new URL("calendario.ics",location.href).href, input=document.getElementById("icsurl");

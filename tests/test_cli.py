@@ -6,7 +6,12 @@ import pytest
 
 from fip_calendar import cli
 from fip_calendar.cli import previous_notices, round_to_page, write_if_changed
-from fip_calendar.config import NOTICE_SEARCH_TERMS, NOTICE_SINCE, REQUEST_DELAY_S
+from fip_calendar.config import (
+    NOTICE_CATEGORY_ID,
+    NOTICE_SEARCH_TERMS,
+    NOTICE_SINCE,
+    REQUEST_DELAY_S,
+)
 from fip_calendar.fetch import round_url
 from fip_calendar.merge import MergeError
 from fip_calendar.parse import ParseError
@@ -14,6 +19,21 @@ from fip_calendar.parse import ParseError
 NOW = "2026-10-01T08:00:00+00:00"
 LATER = "2026-10-01T12:00:00+00:00"
 FIXTURES = Path(__file__).parent / "fixtures"
+
+
+@pytest.fixture(autouse=True)
+def no_extra_notice_sources(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep the category and comunicati requests off the network unless a test sets them."""
+    monkeypatch.setattr(cli, "fetch_category_posts", lambda category, after: [])
+    monkeypatch.setattr(cli, "fetch_comunicati", lambda after: [])
+
+
+def wp_item(title: str, slug: str) -> dict[str, object]:
+    return {
+        "date": "2026-10-20T10:00:00",
+        "title": {"rendered": title},
+        "link": f"https://sardegna.fip.it/{slug}/",
+    }
 
 
 def test_round_to_page_maps_first_and_second_half() -> None:
@@ -303,3 +323,62 @@ def test_write_if_changed_overwrites_json_that_is_not_an_object(tmp_path: Path) 
 
     assert changed is True
     assert json.loads(target.read_text()) == {"games": [1], "updated_at": NOW}
+
+
+def test_collect_notices_reads_league_category_and_comunicati_since_season_start(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    asked: list[tuple[str, object]] = []
+
+    def category(category: int, after: str) -> list[dict[str, object]]:
+        asked.append(("category", (category, after)))
+        return [wp_item("Serie C, si parte", "si-parte")]
+
+    def comunicati(after: str) -> list[dict[str, object]]:
+        asked.append(("comunicati", after))
+        return [wp_item("N. 1 – giudice sportivo – serie c", "comunicato/n-1")]
+
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [])
+    monkeypatch.setattr(cli, "fetch_category_posts", category)
+    monkeypatch.setattr(cli, "fetch_comunicati", comunicati)
+
+    notices = cli.collect_notices(tmp_path / "data.json")
+
+    assert asked == [
+        ("category", (NOTICE_CATEGORY_ID, NOTICE_SINCE)),
+        ("comunicati", NOTICE_SINCE),
+    ]
+    assert sorted((n["link"], n["kind"]) for n in notices) == [
+        ("https://sardegna.fip.it/comunicato/n-1/", "comunicato"),
+        ("https://sardegna.fip.it/si-parte/", "serie-c"),
+    ]
+
+
+def test_collect_notices_formula_post_also_in_category_is_listed_once_as_formula(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    item = wp_item("Serie C: formula dei playoff", "formula")
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [item])
+    monkeypatch.setattr(cli, "fetch_category_posts", lambda category, after: [item])
+
+    notices = cli.collect_notices(tmp_path / "data.json")
+
+    assert [(n["link"], n["kind"]) for n in notices] == [
+        ("https://sardegna.fip.it/formula/", "formula")
+    ]
+
+
+def test_collect_notices_comunicati_outage_keeps_previous(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    target = tmp_path / "data.json"
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    target.write_text(json.dumps({"notices": [notice]}))
+
+    def offline(after: str) -> list[dict[str, object]]:
+        raise URLError("comunicato endpoint unreachable")
+
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [])
+    monkeypatch.setattr(cli, "fetch_comunicati", offline)
+
+    assert cli.collect_notices(target) == [notice]
