@@ -44,6 +44,9 @@ def merge_game(
     team_key = fip_team.casefold()
     if team_key not in (match.home.casefold(), match.away.casefold()):
         raise MergeError(f"game {match.number} does not involve {fip_team}")
+    # the calendar is hand-transcribed: a typo in our name would silently swap the teams
+    if team_key not in (base["home"].casefold(), base["away"].casefold()):
+        raise MergeError(f"calendar game {base['n']} does not involve {fip_team}")
     if base["venue"] not in venues:
         raise MergeError(f"game {base['n']} uses unknown venue {base['venue']!r}")
     base_is_home = base["home"].casefold() == team_key

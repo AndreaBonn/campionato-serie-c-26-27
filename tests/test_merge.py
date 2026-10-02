@@ -218,3 +218,10 @@ def test_merge_game_team_name_case_change_on_fip_still_matches() -> None:
     game = merge_game(base=BASE, venues=VENUES, match=recased, fip_team=TEAM)
 
     assert (game["is_home"], game["changes"]) == (True, [])
+
+
+def test_merge_game_calendar_game_without_team_raises_merge_error() -> None:
+    typo = {**BASE, "home": "CUS Cagliri"}
+
+    with pytest.raises(MergeError):
+        merge_game(base=typo, venues=VENUES, match=FIP, fip_team=TEAM)
