@@ -10,7 +10,12 @@ fip-calendar = "fip_calendar.cli:main"
 fip-calendar-stamp-sw = "fip_calendar.appversion:main"
 
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pytest-cov>=7.1.0",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -27,3 +32,12 @@ strict = true
 files = ["src", "tests"]
 # standalone PEP 723 script with its own Pillow environment, type-checked there (see CLAUDE.md)
 exclude = ["^scripts/make_icons\\.py$"]
+
+[tool.coverage.run]
+branch = true
+source = ["fip_calendar"]
+
+[tool.coverage.report]
+show_missing = true
+# the entry-point guard only calls main(), which the tests call directly
+exclude_also = ['if __name__ == "__main__":']

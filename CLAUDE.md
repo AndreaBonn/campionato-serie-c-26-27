@@ -27,6 +27,6 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 ## Commands
 
 - `uv run fip-calendar`: fetch fip.it (22 requests, 1 s apart) and FIP Sardegna posts (3 searches), update `docs/data.json` and `docs/calendario.ics`
-- `uv run pytest`, `uv run ruff check .`, `uv run mypy`; `npm test` for the page's JS rules (`node --test`, no dependencies)
+- `uv run pytest` (`--cov` for line and branch coverage), `uv run ruff check .`, `uv run mypy`; `npm test` for the page's JS rules (`node --test`, no dependencies)
 - `scripts/make_icons.py` has its own environment (PEP 723) and is excluded from the project mypy: `uv run --no-project --with pillow --with mypy mypy --strict scripts/make_icons.py`
 - Tests run against saved pages in `tests/fixtures/`: when fip.it changes layout, save the new page there and reproduce first.
