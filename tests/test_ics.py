@@ -162,3 +162,17 @@ def test_build_ics_location_without_address_has_no_trailing_separator() -> None:
     lines = unfold(build_ics(games=[bare], dtstamp=STAMP, page_url=PAGE_URL))
 
     assert "LOCATION:PALACUS" in lines
+
+
+def test_build_ics_description_is_one_escaped_line_with_every_part_in_order() -> None:
+    referees = ["ROSSI MARIO di CAGLIARI (CA)", "BIANCHI LUCA di SASSARI (SS)"]
+    changed = game(changes=["time"], referees=referees)
+
+    lines = unfold(build_ics(games=[changed], dtstamp=STAMP, page_url=PAGE_URL))
+
+    assert (
+        "DESCRIPTION:Serie C regionale\\, 3ª giornata di andata\\, gara n. 17"
+        "\\nArbitri: ROSSI MARIO di CAGLIARI (CA)\; BIANCHI LUCA di SASSARI (SS)"
+        "\\nModificata dalla FIP rispetto al comunicato ufficiale"
+        f"\\nAggiornamenti: {PAGE_URL}"
+    ) in lines

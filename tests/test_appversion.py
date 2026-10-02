@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from fip_calendar import appversion
 from fip_calendar.appversion import PLACEHOLDER, app_version, stamp_service_worker
 
 SW = f"const VERSION = {PLACEHOLDER};\nconst CACHE = `cus-basket-${{VERSION}}`;\n"
@@ -68,7 +69,7 @@ def test_stamp_service_worker_writes_version_into_worker(tmp_path: Path) -> None
 
     stamp_service_worker(path=docs / "sw.js", version="abc123")
 
-    assert (docs / "sw.js").read_text().startswith('const VERSION = "abc123";')
+    assert (docs / "sw.js").read_text() == SW.replace(PLACEHOLDER, '"abc123"', 1)
 
 
 def test_stamp_service_worker_without_placeholder_raises(tmp_path: Path) -> None:
@@ -77,3 +78,35 @@ def test_stamp_service_worker_without_placeholder_raises(tmp_path: Path) -> None
 
     with pytest.raises(ValueError):
         stamp_service_worker(path=worker, version="abc123")
+
+
+def test_app_version_changes_when_worker_code_changes(tmp_path: Path) -> None:
+    docs = make_docs(tmp_path)
+    before = app_version(docs)
+
+    (docs / "sw.js").write_text(SW + "self.skipWaiting();\n")
+
+    assert app_version(docs) != before
+
+
+def test_app_version_hashes_worker_without_version_line_as_it_is(tmp_path: Path) -> None:
+    docs = make_docs(tmp_path)
+    (docs / "sw.js").write_text("// no version line\nconst CACHE = 'a';\n")
+    before = app_version(docs)
+
+    (docs / "sw.js").write_text("// no version line\nconst CACHE = 'b';\n")
+
+    assert app_version(docs) != before
+
+
+def test_main_stamps_worker_with_current_app_version(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    docs = make_docs(tmp_path)
+    version = app_version(docs)
+    monkeypatch.setattr(appversion, "ROOT", tmp_path)
+
+    assert appversion.main() == 0
+
+    assert (docs / "sw.js").read_text().startswith(f'const VERSION = "{version}";')
+    assert version in capsys.readouterr().out

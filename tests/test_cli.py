@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from pathlib import Path
 from urllib.error import URLError
 
@@ -382,3 +383,52 @@ def test_collect_notices_comunicati_outage_keeps_previous(
     monkeypatch.setattr(cli, "fetch_comunicati", offline)
 
     assert cli.collect_notices(target) == [notice]
+
+
+@pytest.mark.parametrize(
+    "failure",
+    [
+        # an HTML maintenance page instead of JSON
+        json.JSONDecodeError("Expecting value", "<html>", 0),
+        # an item without the `link` field
+        KeyError("link"),
+    ],
+)
+def test_collect_notices_malformed_answer_keeps_previous(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure: Exception
+) -> None:
+    target = tmp_path / "data.json"
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    target.write_text(json.dumps({"notices": [notice]}))
+
+    def broken(term: str, after: str) -> list[dict[str, object]]:
+        raise failure
+
+    monkeypatch.setattr(cli, "fetch_posts", broken)
+
+    assert cli.collect_notices(target) == [notice]
+
+
+def test_main_unchanged_data_still_advances_check_time(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    status = _patch_main_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "collect_notices", lambda path: [])
+
+    class Clock(datetime):
+        """Two runs of the sync, four hours apart."""
+
+        @classmethod
+        def now(cls, tz: object = None) -> "Clock":
+            return next(runs)
+
+    runs = iter([Clock.fromisoformat(NOW), Clock.fromisoformat(LATER)])
+    monkeypatch.setattr(cli, "datetime", Clock)
+    cli.main()
+
+    cli.main()
+
+    assert json.loads(status.read_text()) == {"checked_at": LATER}
+    assert json.loads((tmp_path / "data.json").read_text())["updated_at"] == NOW
