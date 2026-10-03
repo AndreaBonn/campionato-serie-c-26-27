@@ -691,7 +691,7 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-10-10",
           "time": "18:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null
         },
         {
@@ -2010,5 +2010,5 @@
   ],
   "notices": [],
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-02T05:35:10+00:00"
+  "updated_at": "2026-10-03T05:17:02+00:00"
 }
