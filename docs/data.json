@@ -21,13 +21,16 @@
         }
       },
       "changes": [],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "FIORIN GIANMARCO di CABRAS (OR)",
         "ATZENI GIANLUCA di ARBUS (SU)"
       ],
-      "score": null
+      "score": {
+        "home": 62,
+        "away": 55
+      }
     },
     {
       "round": "A2",
@@ -620,8 +623,11 @@
           "away": "SEF TORRES",
           "date": "2026-10-03",
           "time": "19:00",
-          "status": "designata",
-          "score": null
+          "status": "ufficioso",
+          "score": {
+            "home": 77,
+            "away": 71
+          }
         },
         {
           "n": 4,
@@ -653,8 +659,11 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-03",
           "time": "20:00",
-          "status": "designata",
-          "score": null
+          "status": "ufficioso",
+          "score": {
+            "home": 62,
+            "away": 55
+          }
         }
       ]
     },
@@ -2022,5 +2031,5 @@
   ],
   "notices": [],
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-03T18:51:15+00:00"
+  "updated_at": "2026-10-03T22:28:20+00:00"
 }
