@@ -85,6 +85,18 @@ td small.prov{display:block;font-size:11px;font-weight:600;color:var(--mut)}td s
 .copy button{font:inherit;font-size:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;padding:6px 14px;border-radius:4px;cursor:pointer;flex:none}
 .copy input:focus-visible{outline:3px solid var(--home);outline-offset:2px}
 .leg{font-size:13px;color:var(--mut);margin-top:2px}
+.crest{width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:6px;mix-blend-mode:multiply}
+.crest.away{margin:0 0 0 6px}
+td .crest{width:22px;height:22px}
+.tm{display:flex;align-items:center}
+.tm .crest{flex:none;display:inline-block}
+.next .crest{width:36px;height:36px;background:#fff;border-radius:4px;padding:2px;mix-blend-mode:normal}
+.opp{font-size:14px;margin-top:4px}
+.opp .badge,.next .badge{width:20px;height:18px;line-height:18px;font-size:11px}
+.sanc{font-size:13px;border-left:3px solid var(--loss);padding-left:10px;margin-top:6px}
+.sanc ul{margin:2px 0 0;padding-left:18px}
+.zone{margin:0 0 10px;padding-left:18px;font-size:15px}
+tr.cut td{border-bottom:2px solid var(--ink)}
 .stats{display:flex;flex-wrap:wrap;gap:12px 28px;margin:4px 0 10px}
 .stats div{min-width:110px}
 .stats b{display:block;font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
@@ -171,22 +183,43 @@ Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunic
 <script type="module">
 import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
-import {esc,toDate,roundLabel as label,changeSummary,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound} from "./page-rules.js";
+import {esc,toDate,roundLabel as label,changeSummary,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
 ["2026-12-21","<b>Sosta per le festività.</b> Nessuna partita dal 21 dicembre all'8 gennaio."],
 ["2027-02-15","<b>Sosta.</b> Nessuna partita nel fine settimana del 20 e 21 febbraio."]];
-let G=[];
+let G=[], R=[], ST=[], LG={};
 
 const fmtDay=d=>d.toLocaleDateString("it-IT",{weekday:"short"}).replace(".","");
 const fmtLong=d=>d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
 const fmtShort=(d,t)=>toDate(d,t).toLocaleDateString("it-IT",{weekday:"short",day:"numeric",month:"short"})+", ore "+t;
 const today=new Date(); today.setHours(0,0,0,0);
+const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
+const count=(k,one,many)=>k+" "+(k===1?one:many);
+const badges=list=>list.map(w=>w?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
+function crest(team,cls=""){
+ const file=logoOf(LG,team);
+ return file?`<img class="crest ${cls}" src="${esc(file)}" alt="" width="28" height="28" loading="lazy">`:"";
+}
+// FIP names of the two teams, the keys of the crests: logo home team - away team logo
+const fipHome=m=>m.is_home?FIP_TEAM:m.fip_opponent, fipAway=m=>m.is_home?m.fip_opponent:FIP_TEAM;
+const withCrests=(m,inner)=>`${crest(fipHome(m))}${inner}${crest(fipAway(m),"away")}`;
+// record of the opponent from every league result, for a game still to be played
+function opponent(m){
+ const p=m.score?null:teamProfile(m.fip_opponent,R,ST);
+ if(!p) return "";
+ const pos=p.position?`${p.position}ª in classifica, `:"";
+ return `${pos}${count(p.won,"vinta","vinte")} e ${count(p.lost,"persa","perse")}, ${dec(p.avgFor)} punti fatti e ${dec(p.avgAgainst)} subiti a partita. Ultime: ${badges(p.last)}`;
+}
+function sanctions(m){
+ if(!m.sanctions?.length) return "";
+ return `<div class="sanc"><strong>Provvedimenti del Giudice Sportivo su questa gara</strong><ul>${m.sanctions.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`;
+}
 
 function teams(m){
  const h=m.is_home?`<strong>${esc(m.home)}</strong>`:esc(m.home), a=m.is_home?esc(m.away):`<strong>${esc(m.away)}</strong>`;
- return `${h}<em>-</em>${a}`;
+ return withCrests(m,`${h}<em>-</em>${a}`);
 }
 function score(m){
  if(!m.score) return "";
@@ -204,13 +237,17 @@ function referees(m){
  if(m.status==="designata-nonvisibile") return `<div class="ref pend">Arbitri designati; i nomi non sono ancora stati pubblicati.</div>`;
  return "";
 }
+function oppCard(m){
+ const line=opponent(m);
+ return line?`<div class="opp">Avversario: ${line}</div>`:"";
+}
 function card(m){
  const dt=toDate(m.date,m.time), tag=m.changes.length?`<span class="tag chg">Variata</span>`:"";
  return `<article class="g ${m.is_home?"home":""} ${dt<today?"past":""} ${m.score?"played":""}">
  <div class="d"><span>${fmtDay(dt)}</span><b>${dt.getDate()}</b><i>${esc(m.time)}</i></div>
  <div><div class="t"><span class="tag">${m.is_home?"Casa":"Trasferta"}</span>${tag}${teams(m)}${score(m)}</div>
  <div class="v"><strong>${esc(m.venue.name)}</strong>, ${esc(m.venue.address)}</div>
- ${was(m)}${referees(m)}${firstLeg(m)}
+ ${was(m)}${referees(m)}${oppCard(m)}${firstLeg(m)}${sanctions(m)}
  <div class="l"><a href="${maps(m)}" target="_blank" rel="noopener">Apri in Google Maps</a>
  <a href="${gcal(m)}" target="_blank" rel="noopener">Aggiungi a Google Calendar</a></div>
  <div class="meta">${label(m)}, gara n. ${m.n}${statusLabel(m)?", "+esc(statusLabel(m)):""}</div></div></article>`;
@@ -234,19 +271,22 @@ function renderNext(){
  const dt=toDate(m.date,m.time), days=daysUntil(m,today);
  const refs=m.referees.length?`<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>`:"";
  const moved=m.changes.length?`<small>Modificata rispetto al comunicato ufficiale</small>`:"";
- el.innerHTML=`<small>Prossima partita</small><div class="m">${esc(m.home)} - ${esc(m.away)}</div>
- <div class="info"><small>${fmtLong(dt)}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}</div>
+ const opp=opponent(m), oppLine=opp?`<small>Avversario: ${opp}</small>`:"";
+ el.innerHTML=`<small>Prossima partita</small><div class="m">${withCrests(m,`${esc(m.home)} - ${esc(m.away)}`)}</div>
+ <div class="info"><small>${fmtLong(dt)}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}${oppLine}</div>
  <div class="w"><b>${days===0?"Oggi":days}</b><small>${days===0?"":days===1?"giorno":"giorni"}</small></div>`;
 }
 function renderStandings(rows){
  const el=document.getElementById("standings");
  el.hidden=false;
  if(!rows.some(r=>r.played>0)){el.innerHTML="<h2>Classifica</h2><p>La classifica sarà disponibile dopo la prima giornata.</p>";return}
- const body=rows.map(r=>`<tr class="${r.team===FIP_TEAM?"me":""}"><td>${r.position}</td><td>${esc(r.team)}</td><td>${r.points}</td><td>${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.points_for}</td><td>${r.points_against}</td></tr>`).join("");
- el.innerHTML=`<h2>Classifica</h2><div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
- <p class="meta">Classifica ufficiale FIP. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor.</p>`;
+ const z=zoneStatus(rows,FIP_TEAM), zone=z?`<ul class="zone">${zoneLines(z).map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:"";
+ // lines under the 8th (playoff) and the 9th (above the last three, playout)
+ const cut=r=>r.position===8||r.position===rows.length-3;
+ const body=rows.map(r=>`<tr class="${r.team===FIP_TEAM?"me":""} ${cut(r)?"cut":""}"><td>${r.position}</td><td><span class="tm">${crest(r.team)||'<span class="crest"></span>'}<span>${esc(r.team)}</span></span></td><td>${r.points}</td><td>${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.points_for}</td><td>${r.points_against}</td></tr>`).join("");
+ el.innerHTML=`<h2>Classifica</h2>${zone}<div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
+ <p class="meta">Classifica ufficiale FIP: conta solo i risultati omologati dal Giudice Sportivo. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le linee separano le prime 8 e le ultime 3: nel 2025/26 erano le squadre ammesse a playoff e playout, la formula 2026/27 non è ancora nota. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor; gli stemmi sono quelli caricati dalle società sul sito FIP.</p>`;
 }
-const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
 function firstLeg(m){
  const a=firstLegOf(m,G);
  if(!a) return "";
@@ -255,9 +295,8 @@ function firstLeg(m){
 function renderForm(){
  const el=document.getElementById("form"), f=formSummary(G);
  if(!f){el.hidden=true;return}
- const count=(k,one,many)=>k+" "+(k===1?one:many);
  const split=r=>count(r.won,"vittoria","vittorie")+" e "+count(r.lost,"sconfitta","sconfitte");
- const last=f.last.map(w=>w?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
+ const last=badges(f.last);
  el.hidden=false;
  el.innerHTML=`<h2>Andamento del CUS</h2><div class="stats">
  <div><b>${f.won}-${f.lost}</b><span>vittorie e sconfitte</span></div>
@@ -329,6 +368,7 @@ async function load(){
   const data=await r.json();
   // chronological order: a rescheduled game moves to its new date
   G=[...data.games].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  R=data.rounds||[]; ST=data.standings||[]; LG=data.logos||{};
   if(data.fip_url) document.getElementById("fiplink").href=data.fip_url;
   if(data.updated_at) document.getElementById("upd").textContent=" (ultima variazione rilevata il "+new Date(data.updated_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+")";
   renderNext(); refresh();

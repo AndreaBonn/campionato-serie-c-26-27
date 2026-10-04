@@ -6,6 +6,8 @@ from fip_calendar.config import ROOT
 
 # written by fip-calendar on every sync: a data update is not a new app version
 DATA_FILES = frozenset({"data.json", "calendario.ics", "status.json"})
+# crests copied from fip.it by the same sync (logos.py)
+DATA_DIRS = frozenset({"logos"})
 PLACEHOLDER = '"dev"'
 VERSION_LINE = "const VERSION = {};"
 VERSION_LENGTH = 12
@@ -20,7 +22,7 @@ def app_version(docs: Path) -> str:
     """
     digest = hashlib.sha256()
     for path in sorted(p for p in docs.rglob("*") if p.is_file()):
-        if path.name in DATA_FILES:
+        if path.name in DATA_FILES or path.relative_to(docs).parts[0] in DATA_DIRS:
             continue
         content = path.read_bytes()
         if path.name == WORKER_NAME:

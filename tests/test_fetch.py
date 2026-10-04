@@ -6,10 +6,11 @@ from urllib.request import Request
 import pytest
 
 from fip_calendar import fetch
-from fip_calendar.config import REQUEST_TIMEOUT_S, USER_AGENT
+from fip_calendar.config import LOGO_MAX_BYTES, REQUEST_TIMEOUT_S, USER_AGENT
 from fip_calendar.fetch import (
     fetch_category_posts,
     fetch_comunicati,
+    fetch_logo,
     fetch_posts,
     fetch_round,
     round_url,
@@ -17,8 +18,9 @@ from fip_calendar.fetch import (
 
 
 class FakeResponse:
-    def __init__(self, body: bytes) -> None:
+    def __init__(self, body: bytes, final_url: str = "") -> None:
         self.body = body
+        self.final_url = final_url
 
     def __enter__(self) -> "FakeResponse":
         return self
@@ -26,20 +28,24 @@ class FakeResponse:
     def __exit__(self, *exc: object) -> None:
         return None
 
-    def read(self) -> bytes:
-        return self.body
+    def read(self, limit: int = -1) -> bytes:
+        return self.body if limit < 0 else self.body[:limit]
+
+    def geturl(self) -> str:
+        return self.final_url
 
 
 class FakeUrlopen:
     """Stands in for the network: records each request and answers with a fixed body."""
 
-    def __init__(self, body: bytes) -> None:
+    def __init__(self, body: bytes, redirect_to: str | None = None) -> None:
         self.body = body
+        self.redirect_to = redirect_to
         self.requests: list[tuple[Request, float]] = []
 
     def __call__(self, request: Request, timeout: float) -> FakeResponse:
         self.requests.append((request, timeout))
-        return FakeResponse(self.body)
+        return FakeResponse(self.body, final_url=self.redirect_to or request.full_url)
 
 
 def query_of(url: str) -> dict[str, str]:
@@ -154,3 +160,45 @@ def test_fetch_comunicati_asks_the_comunicato_post_type(monkeypatch: pytest.Monk
     }
     assert request.get_header("User-agent") == USER_AGENT
     assert timeout == REQUEST_TIMEOUT_S
+
+
+def test_fetch_logo_returns_image_bytes_with_user_agent(monkeypatch: pytest.MonkeyPatch) -> None:
+    fake = FakeUrlopen(b"\x89PNG...")
+    monkeypatch.setattr(fetch, "urlopen", fake)
+
+    body = fetch_logo("https://backend.fip.it/x/logo.png")
+
+    request, timeout = fake.requests[0]
+    assert body == b"\x89PNG..."
+    assert request.full_url == "https://backend.fip.it/x/logo.png"
+    assert request.get_header("User-agent") == USER_AGENT
+    assert timeout == REQUEST_TIMEOUT_S
+
+
+def test_fetch_logo_oversized_body_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(fetch, "urlopen", FakeUrlopen(b"x" * (LOGO_MAX_BYTES + 1)))
+
+    with pytest.raises(ValueError, match="larger than"):
+        fetch_logo("https://backend.fip.it/x/huge.jpg")
+
+
+def test_fetch_logo_body_at_the_limit_is_accepted(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(fetch, "urlopen", FakeUrlopen(b"x" * LOGO_MAX_BYTES))
+
+    assert len(fetch_logo("https://backend.fip.it/x/big.jpg")) == LOGO_MAX_BYTES
+
+
+def test_fetch_logo_redirect_off_the_fip_backend_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(fetch, "urlopen", FakeUrlopen(b"png", redirect_to="https://evil.example/x"))
+
+    with pytest.raises(ValueError, match="redirected"):
+        fetch_logo("https://backend.fip.it/x/logo.png")
+
+
+def test_fetch_logo_redirect_within_the_fip_backend_is_followed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake = FakeUrlopen(b"png", redirect_to="https://backend.fip.it/storage/logo.png")
+    monkeypatch.setattr(fetch, "urlopen", fake)
+
+    assert fetch_logo("https://backend.fip.it/x/logo.png") == b"png"

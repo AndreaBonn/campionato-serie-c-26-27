@@ -15,7 +15,7 @@ from fip_calendar.config import (
 )
 from fip_calendar.fetch import round_url
 from fip_calendar.merge import MergeError
-from fip_calendar.parse import ParseError
+from fip_calendar.parse import FipMatch, ParseError
 
 NOW = "2026-10-01T08:00:00+00:00"
 LATER = "2026-10-01T12:00:00+00:00"
@@ -133,6 +133,8 @@ def _patch_main_paths(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(cli, "ICS_PATH", tmp_path / "calendario.ics")
     status = tmp_path / "status.json"
     monkeypatch.setattr(cli, "STATUS_PATH", status)
+    # sync_logos deletes crests no team uses: never let it see the real docs/logos
+    monkeypatch.setattr(cli, "LOGOS_DIR", tmp_path / "logos")
     return status
 
 
@@ -432,3 +434,48 @@ def test_main_unchanged_data_still_advances_check_time(
 
     assert json.loads(status.read_text()) == {"checked_at": LATER}
     assert json.loads((tmp_path / "data.json").read_text())["updated_at"] == NOW
+
+
+def test_collect_logos_reuses_published_entries_without_downloading(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    logos_dir = tmp_path / "logos"
+    logos_dir.mkdir()
+    (logos_dir / "cus-cagliari.png").write_bytes(b"png")
+    url = "https://backend.fip.it/blobs/cus.jpg"
+    entry = {"file": "logos/cus-cagliari.png", "source": url}
+    published = tmp_path / "data.json"
+    published.write_text(json.dumps({"logos": {"CUS CAGLIARI": entry}}))
+    monkeypatch.setattr(cli, "LOGOS_DIR", logos_dir)
+    monkeypatch.setattr(cli, "fetch_logo", lambda u: pytest.fail(f"downloaded {u}"))
+    cus = FipMatch(
+        number=69, home="CUS CAGLIARI", away="BASKET S. ORSOLA", date="2026-12-20",
+        time="18:00", venue="", status="", status_text="", referees=(), score=None,
+        home_logo=url,
+    )  # fmt: skip
+
+    logos = cli.collect_logos(rounds={"R1": [cus]}, fallback_path=published)
+
+    assert logos["CUS CAGLIARI"] == entry
+
+
+def test_collect_logos_without_published_data_starts_empty(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(cli, "LOGOS_DIR", tmp_path / "logos")
+
+    assert cli.collect_logos(rounds={}, fallback_path=tmp_path / "missing.json") == {}
+
+
+def test_main_successful_sync_publishes_logos(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_main_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "collect_notices", lambda path: [])
+    monkeypatch.setattr(cli, "collect_logos", lambda rounds, fallback_path: {"X": {"file": "f"}})
+
+    cli.main()
+
+    assert json.loads((tmp_path / "data.json").read_text())["logos"] == {"X": {"file": "f"}}

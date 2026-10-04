@@ -13,6 +13,11 @@ from fip_calendar.parse import (
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
+CUS_LOGO = (
+    "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBB"
+    "a1lJIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--5740682d9093bb8ba3cf3f497433939726351c60/"
+    "cus%20cagliari%20logo_page-0001.jpg"
+)
 
 
 def load(name: str) -> str:
@@ -45,6 +50,7 @@ def test_parse_matches_undesignated_game_has_schedule_and_no_referees() -> None:
         status_text="Gara non ancora designata",
         referees=(),
         score=None,
+        home_logo=CUS_LOGO,
     )
 
 
@@ -228,3 +234,41 @@ def test_parse_italian_date_non_numeric_year_raises_parse_error() -> None:
 def test_parse_italian_date_impossible_day_raises_parse_error() -> None:
     with pytest.raises(ParseError):
         parse_italian_date("32 Dicembre 2026")
+
+
+def test_parse_matches_reads_crest_of_teams_that_uploaded_one() -> None:
+    matches = parse_matches(load("serie-c-ritorno-1-non-designata.html"))
+
+    game = by_number(matches, 67)
+
+    assert game.home_logo.startswith("https://backend.fip.it/")
+    assert game.home_logo.endswith("/logo%201.png")
+    assert game.away_logo.endswith("PORTO%20TORRES%202.jpg")
+
+
+def test_parse_matches_team_without_crest_has_empty_logo() -> None:
+    matches = parse_matches(load("serie-c-ritorno-1-non-designata.html"))
+
+    game = by_number(matches, 68)
+
+    assert (game.home_logo, game.away_logo) == ("", "")
+
+
+def test_parse_matches_homologated_game_lists_sanctions() -> None:
+    matches = parse_matches(load("serie-a-andata-1-omologata.html"))
+
+    game = by_number(matches, 3)
+
+    assert len(game.sanctions) == 1
+    assert game.sanctions[0].startswith(
+        "soc. UNIVERSO TREVISO BASKET S.r.l:ammenda di Euro 1.200,00"
+    )
+
+
+def test_parse_matches_game_without_sanctions_has_none() -> None:
+    matches = parse_matches(load("serie-a-andata-1-omologata.html"))
+
+    sanctioned = [m.number for m in matches if m.sanctions]
+
+    assert len(sanctioned) == 2
+    assert all(m.sanctions == () for m in matches if m.number not in sanctioned)

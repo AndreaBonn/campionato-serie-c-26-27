@@ -11,6 +11,7 @@ from fip_calendar.config import (
     CALENDAR_PATH,
     FIRST_HALF_CODE,
     ICS_PATH,
+    LOGOS_DIR,
     NOTICE_CATEGORY_ID,
     NOTICE_SEARCH_TERMS,
     NOTICE_SINCE,
@@ -23,11 +24,13 @@ from fip_calendar.config import (
 from fip_calendar.fetch import (
     fetch_category_posts,
     fetch_comunicati,
+    fetch_logo,
     fetch_posts,
     fetch_round,
     round_url,
 )
 from fip_calendar.ics import build_ics
+from fip_calendar.logos import Logos, logo_sources, sync_logos
 from fip_calendar.merge import MergeError, build_data
 from fip_calendar.notices import (
     KIND_COMUNICATO,
@@ -40,6 +43,7 @@ from fip_calendar.parse import FipMatch, ParseError, Standing, parse_matches, pa
 logger = logging.getLogger("fip_calendar")
 TIMESTAMP_KEY = "updated_at"
 NOTICES_KEY = "notices"
+LOGOS_KEY = "logos"
 
 
 def round_to_page(round_code: str) -> tuple[int, int]:
@@ -82,6 +86,18 @@ def previous_notices(path: Path) -> list[dict[str, str]]:
     previous = read_json(path)
     notices: list[dict[str, str]] = previous.get(NOTICES_KEY, []) if previous else []
     return notices
+
+
+def collect_logos(rounds: dict[str, list[FipMatch]], fallback_path: Path) -> Logos:
+    """Copy new or changed crests into LOGOS_DIR; the entries already published are reused."""
+    previous = read_json(fallback_path)
+    known = previous.get(LOGOS_KEY) if previous else None
+    return sync_logos(
+        sources=logo_sources(rounds),
+        previous=known if isinstance(known, dict) else {},
+        directory=LOGOS_DIR,
+        download=fetch_logo,
+    )
 
 
 def collect(games: list[dict[str, Any]]) -> tuple[dict[str, list[FipMatch]], list[Standing]]:
@@ -147,6 +163,7 @@ def main() -> int:
         logger.error("sync with fip.it failed, data.json left untouched: %s", err)
         return 1
     data[NOTICES_KEY] = collect_notices(OUTPUT_PATH)
+    data[LOGOS_KEY] = collect_logos(rounds=rounds, fallback_path=OUTPUT_PATH)
     data["fip_url"] = round_url(half_code=FIRST_HALF_CODE, round_number=1)
     now = datetime.now(tz=UTC)
     checked_at = now.isoformat(timespec="seconds")

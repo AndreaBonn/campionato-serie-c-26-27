@@ -12,13 +12,17 @@ import {
   gcalUrl,
   isUpcoming,
   listIt,
+  logoOf,
   mapsUrl,
   pickRound,
   place,
   roundLabel,
   statusLabel,
+  teamProfile,
   withBreaks,
   won,
+  zoneLines,
+  zoneStatus,
 } from "../../docs/page-rules.js";
 
 // the page runs in Italian browsers: dates are local wall-clock times in Rome
@@ -231,4 +235,115 @@ test("round picked before any result: the first still to come, else the first", 
 
   assert.equal(pickRound(rounds, TODAY), 1);
   assert.equal(pickRound([round("A1", game({ date: "2026-11-01" }))], TODAY), 0);
+});
+
+
+const leagueGame = (home, away, score, date = "2026-10-03") => ({ n: 1, home, away, date, time: "18:00", status: "ufficioso", score });
+const row = (position, team, points, played = 1) => ({ position, team, points, played, won: 0, lost: 0, points_for: 0, points_against: 0 });
+
+test("team profile: record, averages and last results of any team, oldest first", () => {
+  const rounds = [
+    round("A1", leagueGame("POL. DINAMO", "PALL. NUORO", { home: 80, away: 70 }, "2026-10-03")),
+    round("A2", leagueGame("SEF TORRES", "POL. DINAMO", { home: 75, away: 60 }, "2026-10-10")),
+    round("A3", leagueGame("POL. DINAMO", "CUS CAGLIARI", null, "2026-10-17")),
+  ];
+  const standings = [row(1, "SEF TORRES", 2), row(2, "POL. DINAMO", 2, 2)];
+
+  assert.deepEqual(teamProfile("POL. DINAMO", rounds, standings), {
+    position: 2,
+    won: 1,
+    lost: 1,
+    avgFor: 70,
+    avgAgainst: 72.5,
+    last: [true, false],
+  });
+});
+
+test("team profile: position unknown while FIP has not ranked any game", () => {
+  const rounds = [round("A1", leagueGame("POL. DINAMO", "PALL. NUORO", { home: 80, away: 70 }))];
+
+  assert.equal(teamProfile("POL. DINAMO", rounds, [row(5, "POL. DINAMO", 0, 0)]).position, null);
+});
+
+test("team profile is null before the team's first result", () => {
+  const rounds = [round("A1", leagueGame("POL. DINAMO", "PALL. NUORO", null))];
+
+  assert.equal(teamProfile("POL. DINAMO", rounds, []), null);
+});
+
+const table = (cusIndex, points) => points.map((p, i) => row(i + 1, i === cusIndex ? "CUS CAGLIARI" : "T" + i, p));
+const POINTS = [20, 18, 16, 14, 12, 10, 8, 8, 6, 4, 2, 0];
+
+test("zone status inside the playoff spots: margin over the 9th and over the playout", () => {
+  assert.deepEqual(zoneStatus(table(5, POINTS), "CUS CAGLIARI"), {
+    position: 6,
+    playoff: { inside: true, margin: 4 },
+    playout: { inside: false, margin: 6, firstOut: 10 },
+  });
+});
+
+test("zone status in the playout: negative margins to the 8th and to safety", () => {
+  assert.deepEqual(zoneStatus(table(10, POINTS), "CUS CAGLIARI"), {
+    position: 11,
+    playoff: { inside: false, margin: -6 },
+    playout: { inside: true, margin: -4, firstOut: 10 },
+  });
+});
+
+test("zone status reads positions, not the order of the rows", () => {
+  const shuffled = table(7, POINTS).reverse();
+
+  assert.deepEqual(zoneStatus(shuffled, "CUS CAGLIARI").playoff, { inside: true, margin: 2 });
+});
+
+test("zone status is null before FIP ranks any game or for a team not in the table", () => {
+  assert.equal(zoneStatus(table(0, POINTS).map((r) => ({ ...r, played: 0 })), "CUS CAGLIARI"), null);
+  assert.equal(zoneStatus(table(0, POINTS), "OTHER"), null);
+});
+
+test("zone lines: margins in standings points, singular for one point, ties named", () => {
+  assert.deepEqual(zoneLines({ position: 6, playoff: { inside: true, margin: 4 }, playout: { inside: false, margin: 1, firstOut: 10 } }), [
+    "In zona playoff, con 4 punti in classifica di vantaggio sulla 9ª.",
+    "Fuori dalla zona playout, con 1 punto in classifica di vantaggio sulla 10ª.",
+  ]);
+  assert.deepEqual(zoneLines({ position: 9, playoff: { inside: false, margin: 0 }, playout: { inside: false, margin: 0, firstOut: 10 } }), [
+    "Fuori dalla zona playoff, a pari punti con l'8ª.",
+    "Fuori dalla zona playout, a pari punti con la 10ª.",
+  ]);
+  assert.deepEqual(zoneLines({ position: 11, playoff: { inside: false, margin: -6 }, playout: { inside: true, margin: -2, firstOut: 10 } }), [
+    "Fuori dalla zona playoff, a 6 punti in classifica dall'8ª.",
+    "In zona playout, a 2 punti in classifica dalla 9ª.",
+  ]);
+  assert.deepEqual(zoneLines({ position: 8, playoff: { inside: true, margin: 0 }, playout: { inside: true, margin: 0, firstOut: 10 } }), [
+    "In zona playoff, a pari punti con la 9ª.",
+    "In zona playout, a pari punti con la 9ª.",
+  ]);
+});
+
+test("logo of a team: the copied crest, only for a plain logos/ file name", () => {
+  const logos = {
+    "CUS CAGLIARI": { file: "logos/cus-cagliari.png", source: "https://backend.fip.it/x" },
+    EVIL: { file: "https://evil.example/x.png" },
+    UP: { file: "logos/../index.html" },
+  };
+
+  assert.equal(logoOf(logos, "CUS CAGLIARI"), "logos/cus-cagliari.png");
+  assert.equal(logoOf(logos, "EVIL"), null);
+  assert.equal(logoOf(logos, "UP"), null);
+  assert.equal(logoOf(logos, "POL. DINAMO"), null);
+  assert.equal(logoOf(undefined, "CUS CAGLIARI"), null);
+});
+
+
+test("zone status with 13 teams: the playout starts at the 11th, the line names it", () => {
+  const z = zoneStatus(table(9, [...POINTS, 0]), "CUS CAGLIARI");
+
+  assert.deepEqual(z.playout, { inside: false, margin: 2, firstOut: 11 });
+  assert.equal(zoneLines(z)[1], "Fuori dalla zona playout, con 2 punti in classifica di vantaggio sulla 11ª.");
+});
+
+test("zone lines in the playout name the last safe position of the table", () => {
+  const z = zoneStatus(table(11, [...POINTS, 0]), "CUS CAGLIARI");
+
+  assert.equal(zoneLines(z)[1], "In zona playout, a 4 punti in classifica dalla 10ª.");
 });

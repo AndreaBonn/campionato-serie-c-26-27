@@ -73,6 +73,9 @@ def merge_game(
         "status_text": match.status_text,
         "referees": list(match.referees),
         "score": _score(match),
+        "sanctions": list(match.sanctions),
+        # FIP spelling, the key into standings, rounds and logos
+        "fip_opponent": match.away if is_home else match.home,
     }
 
 

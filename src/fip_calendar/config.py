@@ -38,3 +38,12 @@ NOTICE_SINCE = "2026-09-23T00:00:00"
 NOTICE_SEARCH_LIMIT = 20
 # Last successful sync; not committed, published with the Pages artifact on every run
 STATUS_PATH = ROOT / "docs" / "status.json"
+
+# Club crests, copied from fip.it into the repository so the page never hotlinks FIP
+LOGOS_DIR = ROOT / "docs" / "logos"
+# fip.it serves crests from its Rails backend; any other host in an <img> is ignored
+LOGO_SOURCE_PREFIX = "https://backend.fip.it/"
+# FIP crests are A4 page scans of up to 2 MB; anything far larger is not a crest
+LOGO_MAX_BYTES = 8_000_000
+# shown at 24-40 CSS px: 128 px stays sharp on 3x screens
+LOGO_MAX_SIDE_PX = 128

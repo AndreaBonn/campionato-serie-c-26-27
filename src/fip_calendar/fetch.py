@@ -8,6 +8,8 @@ from fip_calendar.config import (
     FIP_RESULTS_URL,
     FIP_SARDEGNA_COMUNICATI_URL,
     FIP_SARDEGNA_POSTS_URL,
+    LOGO_MAX_BYTES,
+    LOGO_SOURCE_PREFIX,
     NOTICE_SEARCH_LIMIT,
     REQUEST_TIMEOUT_S,
     USER_AGENT,
@@ -27,6 +29,21 @@ def fetch_round(half_code: int, round_number: int) -> str:
     with urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:
         body: bytes = response.read()
     return body.decode("utf-8")
+
+
+def fetch_logo(url: str) -> bytes:
+    """Download one crest image, refusing bodies larger than LOGO_MAX_BYTES."""
+    request = Request(url)
+    request.add_header("User-Agent", USER_AGENT)
+    with urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:
+        # urlopen follows redirects: the host check made on the page URL must hold for the last hop
+        final_url = response.geturl()
+        if not final_url.startswith(LOGO_SOURCE_PREFIX):
+            raise ValueError(f"crest redirected off the FIP backend: {url} -> {final_url}")
+        body: bytes = response.read(LOGO_MAX_BYTES + 1)
+    if len(body) > LOGO_MAX_BYTES:
+        raise ValueError(f"crest larger than {LOGO_MAX_BYTES} bytes: {url}")
+    return body
 
 
 def _fetch_wp_items(url: str, after: str, filters: dict[str, str]) -> list[dict[str, Any]]:

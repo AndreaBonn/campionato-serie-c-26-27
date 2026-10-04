@@ -110,3 +110,22 @@ def test_main_stamps_worker_with_current_app_version(
 
     assert (docs / "sw.js").read_text().startswith(f'const VERSION = "{version}";')
     assert version in capsys.readouterr().out
+
+
+def test_app_version_ignores_crests_copied_from_fip(tmp_path: Path) -> None:
+    docs = make_docs(tmp_path)
+    before = app_version(docs)
+
+    (docs / "logos").mkdir()
+    (docs / "logos" / "cus-cagliari.png").write_bytes(b"png")
+
+    assert app_version(docs) == before
+
+
+def test_app_version_still_tracks_a_page_file_named_like_the_crest_folder(tmp_path: Path) -> None:
+    docs = make_docs(tmp_path)
+    before = app_version(docs)
+
+    (docs / "icons" / "logos").write_bytes(b"not a crest")
+
+    assert app_version(docs) != before

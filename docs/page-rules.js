@@ -98,3 +98,67 @@ export function pickRound(rounds, today) {
   const upcoming = rounds.findIndex((r) => r.games.some((g) => toDate(g.date, g.time) >= today));
   return lastPlayed >= 0 ? lastPlayed : Math.max(upcoming, 0);
 }
+
+const byStart = (a, b) => (a.date + a.time).localeCompare(b.date + b.time);
+
+// Any team's record from the league results, including results not homologated yet (like the
+// CUS form): FIP standings only count homologated games. Position stays null until FIP ranks one.
+export function teamProfile(team, rounds, standings) {
+  const games = rounds.flatMap((r) => r.games).filter((g) => g.score && (g.home === team || g.away === team)).sort(byStart);
+  if (!games.length) return null;
+  const own = (g) => (g.home === team ? g.score.home : g.score.away);
+  const their = (g) => (g.home === team ? g.score.away : g.score.home);
+  const wins = games.map((g) => own(g) > their(g));
+  const sum = (points) => games.reduce((total, g) => total + points(g), 0);
+  const row = standings.some((r) => r.played > 0) ? standings.find((r) => r.team === team) : undefined;
+  return {
+    position: row ? row.position : null,
+    won: wins.filter(Boolean).length,
+    lost: wins.filter((w) => !w).length,
+    avgFor: sum(own) / games.length,
+    avgAgainst: sum(their) / games.length,
+    last: wins.slice(-FORM_GAMES),
+  };
+}
+
+// 2025/26 format (the 2026/27 one is not published yet): the top 8 to the playoffs, the last 3 to the playout
+const PLAYOFF_SPOTS = 8;
+const PLAYOUT_SPOTS = 3;
+
+// Standings-point margins from the official table. Positive: ahead of the first team on the other
+// side of the line; negative: behind the last team on the good side.
+export function zoneStatus(standings, team) {
+  const rows = [...standings].sort((a, b) => a.position - b.position);
+  const i = rows.findIndex((r) => r.team === team);
+  if (i < 0 || !rows.some((r) => r.played > 0) || rows.length <= PLAYOFF_SPOTS + PLAYOUT_SPOTS) return null;
+  const gap = (k) => rows[i].points - rows[k].points;
+  const lastSafe = rows.length - PLAYOUT_SPOTS - 1;
+  return {
+    position: i + 1,
+    playoff: i < PLAYOFF_SPOTS ? { inside: true, margin: gap(PLAYOFF_SPOTS) } : { inside: false, margin: gap(PLAYOFF_SPOTS - 1) },
+    // firstOut: 1-based position of the first playout team, which moves with the number of teams
+    playout: { inside: i > lastSafe, margin: i > lastSafe ? gap(lastSafe) : gap(lastSafe + 1), firstOut: lastSafe + 2 },
+  };
+}
+
+const standingPoints = (n) => n + (n === 1 ? " punto" : " punti") + " in classifica";
+
+function playoffLine({ inside, margin }) {
+  if (inside) return margin > 0 ? `In zona playoff, con ${standingPoints(margin)} di vantaggio sulla 9ª.` : "In zona playoff, a pari punti con la 9ª.";
+  return margin < 0 ? `Fuori dalla zona playoff, a ${standingPoints(-margin)} dall'8ª.` : "Fuori dalla zona playoff, a pari punti con l'8ª.";
+}
+
+function playoutLine({ inside, margin, firstOut }) {
+  const safe = `${firstOut - 1}ª`, out = `${firstOut}ª`;
+  if (inside) return margin < 0 ? `In zona playout, a ${standingPoints(-margin)} dalla ${safe}.` : `In zona playout, a pari punti con la ${safe}.`;
+  return margin > 0 ? `Fuori dalla zona playout, con ${standingPoints(margin)} di vantaggio sulla ${out}.` : `Fuori dalla zona playout, a pari punti con la ${out}.`;
+}
+
+export const zoneLines = (z) => [playoffLine(z.playoff), playoutLine(z.playout)];
+
+// Crest copied into docs/logos by the sync; anything but a plain file there is ignored
+const LOGO_FILE = /^logos\/[a-z0-9-]+\.png$/;
+export function logoOf(logos, team) {
+  const file = logos && Object.hasOwn(logos, team) ? logos[team].file : null;
+  return typeof file === "string" && LOGO_FILE.test(file) ? file : null;
+}

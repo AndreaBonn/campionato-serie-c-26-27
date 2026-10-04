@@ -32,6 +32,11 @@ class FipMatch:
     status_text: str
     referees: tuple[str, ...]
     score: tuple[int, int] | None
+    # disciplinary measures of the Giudice Sportivo, published once the result is homologated
+    sanctions: tuple[str, ...] = ()
+    # crest URLs on backend.fip.it; empty when the club never uploaded one
+    home_logo: str = ""
+    away_logo: str = ""
 
 
 @dataclass(frozen=True)
@@ -110,10 +115,25 @@ def _score(node: Tag) -> tuple[int, int] | None:
     return int(points[0]), int(points[1])
 
 
+def _logos(node: Tag) -> tuple[str, str]:
+    urls = []
+    for team in node.select(".teams .team"):
+        img = team.select_one(".team__flag img")
+        src = img.get("src") if img else None
+        urls.append(src.strip() if isinstance(src, str) else "")
+    return (urls[0], urls[1]) if len(urls) == 2 else ("", "")
+
+
+def _sanctions(node: Tag) -> tuple[str, ...]:
+    texts = (clean(p.get_text()) for p in node.select(".value--provvedimento"))
+    return tuple(t for t in texts if t)
+
+
 def _parse_match(node: Tag) -> FipMatch:
     teams = [clean(t.get_text()) for t in node.select(".teams .team__name")]
     if len(teams) != 2:
         raise ParseError(f"expected 2 teams, found {teams}")
+    home_logo, away_logo = _logos(node)
     venues = _info_values(node, ".col1", VENUE_LABEL)
     status, status_text = _status(node)
     return FipMatch(
@@ -127,6 +147,9 @@ def _parse_match(node: Tag) -> FipMatch:
         status_text=status_text,
         referees=_referees(node),
         score=_score(node),
+        sanctions=_sanctions(node),
+        home_logo=home_logo,
+        away_logo=away_logo,
     )
 
 

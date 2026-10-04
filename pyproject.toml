@@ -3,7 +3,10 @@ name = "fip-calendar"
 version = "0.1.0"
 description = "Keeps the CUS Cagliari Serie C 2026/27 calendar in sync with fip.it"
 requires-python = ">=3.12"
-dependencies = ["beautifulsoup4>=4.13"]
+dependencies = [
+    "beautifulsoup4>=4.13",
+    "pillow>=11",
+]
 
 [project.scripts]
 fip-calendar = "fip_calendar.cli:main"

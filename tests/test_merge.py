@@ -225,3 +225,26 @@ def test_merge_game_calendar_game_without_team_raises_merge_error() -> None:
 
     with pytest.raises(MergeError):
         merge_game(base=typo, venues=VENUES, match=FIP, fip_team=TEAM)
+
+
+def test_merge_game_keeps_opponent_fip_name_for_home_and_away_games() -> None:
+    home = merge_game(base=BASE, venues=VENUES, match=FIP, fip_team=TEAM)
+    swapped = replace(FIP, home="BASKET S. ORSOLA", away="CUS CAGLIARI")
+    away = merge_game(base=BASE, venues=VENUES, match=swapped, fip_team=TEAM)
+
+    assert home["fip_opponent"] == "BASKET S. ORSOLA"
+    assert away["fip_opponent"] == "BASKET S. ORSOLA"
+
+
+def test_merge_game_copies_sanctions() -> None:
+    sanctioned = replace(FIP, sanctions=("soc. CUS CAGLIARI: ammenda di Euro 100,00",))
+
+    game = merge_game(base=BASE, venues=VENUES, match=sanctioned, fip_team=TEAM)
+
+    assert game["sanctions"] == ["soc. CUS CAGLIARI: ammenda di Euro 100,00"]
+
+
+def test_merge_game_without_sanctions_has_empty_list() -> None:
+    game = merge_game(base=BASE, venues=VENUES, match=FIP, fip_team=TEAM)
+
+    assert game["sanctions"] == []
