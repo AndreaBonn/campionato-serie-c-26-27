@@ -77,10 +77,14 @@ def test_build_ics_description_lists_referees_and_change() -> None:
 
 
 def test_build_ics_description_omits_referees_when_not_designated() -> None:
-    ics = build_ics(games=[game()], dtstamp=STAMP, page_url=PAGE_URL)
+    # read unfolded: a fold inside the word would make a `not in` on the raw text pass vacuously
+    [description] = [
+        line for line in unfold(build_ics(games=[game()], dtstamp=STAMP, page_url=PAGE_URL))
+        if line.startswith("DESCRIPTION:")
+    ]  # fmt: skip
 
-    assert "Arbitri" not in ics
-    assert "Serie C regionale" in ics
+    assert "Arbitri" not in description
+    assert "Serie C regionale" in description
 
 
 def test_fold_line_splits_long_lines_under_75_octets() -> None:

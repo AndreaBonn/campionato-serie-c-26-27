@@ -347,3 +347,36 @@ test("zone lines in the playout name the last safe position of the table", () =>
 
   assert.equal(zoneLines(z)[1], "In zona playout, a 4 punti in classifica dalla 10ª.");
 });
+
+test("only upcoming: a break starting today is still ahead and stays", () => {
+  const next = game({ date: "2026-11-15" });
+
+  const items = withBreaks([next], [["2026-11-10", "today"]], TODAY, true);
+
+  assert.deepEqual(items, [{ date: "2026-11-10", text: "today" }, { game: next }]);
+});
+
+test("round picked: with only the first round played, the first round", () => {
+  const rounds = [round("A1", played(1, 0, { date: "2026-11-01" })), round("A2", game({ date: "2026-11-15" }))];
+
+  assert.equal(pickRound(rounds, TODAY), 0);
+});
+
+test("team profile: last results in date order, also when a postponed game is played later", () => {
+  const rounds = [
+    round("A1", leagueGame("POL. DINAMO", "PALL. NUORO", { home: 60, away: 70 }, "2026-10-24")),
+    round("A2", leagueGame("POL. DINAMO", "SEF TORRES", { home: 80, away: 70 }, "2026-10-10")),
+  ];
+
+  assert.deepEqual(teamProfile("POL. DINAMO", rounds, []).last, [true, false]);
+});
+
+test("zone status is null when every team of the table is in a zone", () => {
+  assert.equal(zoneStatus(table(5, POINTS.slice(0, 11)), "CUS CAGLIARI"), null);
+});
+
+test("logo of a team: nothing before logos/ and nothing after .png", () => {
+  const logos = { NESTED: { file: "x/logos/a.png" }, SUFFIXED: { file: "logos/a.png.svg" } };
+
+  assert.deepEqual([logoOf(logos, "NESTED"), logoOf(logos, "SUFFIXED")], [null, null]);
+});

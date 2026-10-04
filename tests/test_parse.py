@@ -272,3 +272,37 @@ def test_parse_matches_game_without_sanctions_has_none() -> None:
 
     assert len(sanctioned) == 2
     assert all(m.sanctions == () for m in matches if m.number not in sanctioned)
+
+
+def block_with(inner: str) -> str:
+    """A minimal match block (see match_block) with extra markup inside it."""
+    return match_block().removesuffix("</div>") + inner + "</div>"
+
+
+def test_parse_matches_empty_referee_slot_is_not_a_name() -> None:
+    info = '<div class="info"><span class="label">Arbitro</span><span class="value">{}</span></div>'
+    html = block_with(f'<div class="col2">{info.format("  ")}{info.format("ROSSI MARIO")}</div>')
+
+    [match] = parse_matches(html)
+
+    assert match.referees == ("ROSSI MARIO",)
+
+
+def test_parse_matches_empty_sanction_paragraph_is_skipped() -> None:
+    html = block_with(
+        '<p class="value--provvedimento"> </p><p class="value--provvedimento">ammenda</p>'
+    )
+
+    [match] = parse_matches(html)
+
+    assert match.sanctions == ("ammenda",)
+
+
+def test_parse_matches_crest_url_is_trimmed() -> None:
+    team = '<div class="team"><span class="team__flag"><img src="{}"></span></div>'
+    teams = team.format("\n https://backend.fip.it/a.png ") + team.format("")
+    html = block_with(f'<div class="teams">{teams}</div>')
+
+    [match] = parse_matches(html)
+
+    assert (match.home_logo, match.away_logo) == ("https://backend.fip.it/a.png", "")

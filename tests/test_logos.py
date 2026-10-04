@@ -219,3 +219,72 @@ def test_sync_logos_leaves_no_temporary_file_behind(tmp_path: Path) -> None:
     )
 
     assert sorted(p.name for p in tmp_path.iterdir()) == ["cus-cagliari.png"]
+
+
+def test_sync_logos_same_source_but_file_gone_is_downloaded_again(tmp_path: Path) -> None:
+    previous = {"CUS CAGLIARI": {"file": "logos/cus-cagliari.png", "source": CUS_URL}}
+    downloads: list[str] = []
+
+    def download(url: str) -> bytes:
+        downloads.append(url)
+        return crest()
+
+    logos = sync_logos(
+        sources={"CUS CAGLIARI": CUS_URL}, previous=previous, directory=tmp_path, download=download
+    )
+
+    assert (downloads, logos) == ([CUS_URL], previous)
+    assert Image.open(tmp_path / "cus-cagliari.png").format == "PNG"
+
+
+def test_sync_logos_failed_download_with_previous_file_gone_drops_the_team(tmp_path: Path) -> None:
+    previous = {"CUS CAGLIARI": {"file": "logos/cus-cagliari.png", "source": DINAMO_URL}}
+
+    def offline(url: str) -> bytes:
+        raise URLError("offline")
+
+    logos = sync_logos(
+        sources={"CUS CAGLIARI": CUS_URL}, previous=previous, directory=tmp_path, download=offline
+    )
+
+    assert logos == {}
+
+
+def test_sync_logos_decompression_bomb_leaves_team_without_crest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Pillow refuses images over twice MAX_IMAGE_PIXELS with an error that is not an OSError
+    monkeypatch.setattr(Image, "MAX_IMAGE_PIXELS", 1_000)
+
+    logos = sync_logos(
+        sources={"CUS CAGLIARI": CUS_URL},
+        previous={},
+        directory=tmp_path,
+        download=lambda u: crest(),
+    )
+
+    assert logos == {}
+
+
+def test_shrink_logo_applies_exif_orientation_before_cropping() -> None:
+    # a wide crest stored sideways: EXIF orientation 6 means "rotate 90 degrees to display"
+    image = Image.new("RGB", (300, 100), (255, 255, 255))
+    image.paste((28, 63, 122), (50, 20, 250, 80))
+    exif = Image.Exif()
+    exif[0x0112] = 6
+    out = BytesIO()
+    image.save(out, format="JPEG", exif=exif)
+
+    with Image.open(BytesIO(shrink_logo(out.getvalue()))) as shrunk:
+        assert shrunk.height > shrunk.width
+
+
+def test_shrink_logo_transparent_background_counts_as_white_page() -> None:
+    # transparent pixels often hold black RGB: without the alpha mask they would be the crest
+    image = Image.new("RGBA", (300, 300), (0, 0, 0, 0))
+    image.paste((28, 63, 122, 255), (100, 100, 200, 220))
+    out = BytesIO()
+    image.save(out, format="PNG")
+
+    with Image.open(BytesIO(shrink_logo(out.getvalue()))) as shrunk:
+        assert shrunk.size == (100, 120)

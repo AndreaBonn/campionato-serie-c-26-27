@@ -129,3 +129,13 @@ def test_app_version_still_tracks_a_page_file_named_like_the_crest_folder(tmp_pa
     (docs / "icons" / "logos").write_bytes(b"not a crest")
 
     assert app_version(docs) != before
+
+
+def test_app_version_changes_when_a_file_is_renamed(tmp_path: Path) -> None:
+    # the page loads its files by name: a rename is a new release even with the same bytes
+    docs = make_docs(tmp_path)
+    before = app_version(docs)
+
+    (docs / "index.html").rename(docs / "index2.html")
+
+    assert app_version(docs) != before

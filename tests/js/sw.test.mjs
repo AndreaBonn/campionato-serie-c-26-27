@@ -11,13 +11,16 @@ const PAGE = `${ORIGIN}/campionato-serie-c-26-27/data.json`;
 function loadWorker({ network = () => Promise.resolve(new Response("live")), stored = {} } = {}) {
   const handlers = {};
   const storage = new Map(Object.entries(stored).map(([name, entries]) => [name, new Map(entries)]));
-  const calls = { fetch: [], skipWaiting: 0, claimed: 0 };
+  const calls = { fetch: [], skipWaiting: 0, claimed: 0, shell: [] };
   const cacheFor = (name) => {
     if (!storage.has(name)) storage.set(name, new Map());
     const entries = storage.get(name);
     return {
       put: async (request, response) => entries.set(request.url, response),
-      addAll: async (requests) => requests.forEach((r) => entries.set(r.url, new Response("shell"))),
+      addAll: async (requests) => {
+        calls.shell.push(...requests);
+        requests.forEach((r) => entries.set(r.url, new Response("shell")));
+      },
     };
   };
   const worker = {
@@ -164,4 +167,42 @@ test("activate drops the caches of previous versions and claims open pages", asy
 
   assert.deepEqual([...storage.keys()], ["cus-basket-dev"]);
   assert.equal(calls.claimed, 1);
+});
+
+// Every module the page runs: <script src> and inline module of index.html, plus their static imports.
+function pageModules() {
+  const read = (name) => readFileSync(new URL(`../../docs/${name}`, import.meta.url), "utf8");
+  const importsOf = (code) => [...code.matchAll(/from "\.\/([\w-]+\.js)"/g)].map((m) => m[1]);
+  const html = read("index.html");
+  const pending = [...[...html.matchAll(/<script[^>]*src="([\w-]+\.js)"/g)].map((m) => m[1]), ...importsOf(html)];
+  const seen = new Set();
+  while (pending.length) {
+    const name = pending.pop();
+    if (!seen.has(name)) {
+      seen.add(name);
+      pending.push(...importsOf(read(name)));
+    }
+  }
+  return seen;
+}
+
+test("install caches every module the page runs, so the app opens offline", async () => {
+  const { handlers, storage } = loadWorker();
+
+  await dispatchLifecycle(handlers.install);
+
+  const modules = pageModules();
+  const cached = storage.get("cus-basket-dev");
+  const missing = [...modules].filter((name) => !cached.has(new URL(name, PAGE).href));
+  // reached only through update.js: the import graph was really walked
+  assert.ok(modules.has("update-rules.js"));
+  assert.deepEqual(missing, []);
+});
+
+test("install bypasses the HTTP cache, which could still hold the previous release", async () => {
+  const { handlers, calls } = loadWorker();
+
+  await dispatchLifecycle(handlers.install);
+
+  assert.deepEqual(new Set(calls.shell.map((r) => r.cache)), new Set(["reload"]));
 });

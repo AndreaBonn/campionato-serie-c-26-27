@@ -15,7 +15,7 @@ from fip_calendar.config import (
 )
 from fip_calendar.fetch import round_url
 from fip_calendar.merge import MergeError
-from fip_calendar.parse import FipMatch, ParseError
+from fip_calendar.parse import FipMatch, ParseError, parse_standings
 
 NOW = "2026-10-01T08:00:00+00:00"
 LATER = "2026-10-01T12:00:00+00:00"
@@ -479,3 +479,51 @@ def test_main_successful_sync_publishes_logos(
     cli.main()
 
     assert json.loads((tmp_path / "data.json").read_text())["logos"] == {"X": {"file": "f"}}
+
+
+def test_collect_returns_the_standings_of_the_last_page_read(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # a Serie A page after a Serie C one: the two tables differ, so the order shows
+    pages = {
+        (1, 1): "serie-c-andata-1-designata-parziale.html",
+        (0, 1): "serie-a-andata-2-designata.html",
+    }
+    last_page = (FIXTURES / pages[(0, 1)]).read_text(encoding="utf-8")
+    monkeypatch.setattr(
+        cli,
+        "fetch_round",
+        lambda half_code, round_number: (FIXTURES / pages[(half_code, round_number)]).read_text(
+            encoding="utf-8"
+        ),
+    )
+    monkeypatch.setattr("fip_calendar.cli.time.sleep", lambda seconds: None)
+
+    _, standings = cli.collect([{"round": "A1"}, {"round": "R1"}])
+
+    assert standings == parse_standings(last_page)
+
+
+def test_collect_logos_published_logos_not_an_object_reads_as_none(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    published = tmp_path / "data.json"
+    published.write_text(json.dumps({"logos": ["logos/cus-cagliari.png"]}))
+    monkeypatch.setattr(cli, "LOGOS_DIR", tmp_path / "logos")
+
+    assert cli.collect_logos(rounds={}, fallback_path=published) == {}
+
+
+def test_main_successful_sync_publishes_fip_sardegna_notices(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_main_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    item = wp_item("Serie C regionale: formula playoff", "formula-c")
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [item])
+
+    cli.main()
+
+    notices = json.loads((tmp_path / "data.json").read_text())["notices"]
+    assert [n["link"] for n in notices] == ["https://sardegna.fip.it/formula-c/"]
