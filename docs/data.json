@@ -30,7 +30,9 @@
       "score": {
         "home": 62,
         "away": 55
-      }
+      },
+      "sanctions": [],
+      "fip_opponent": "BASKET S. ORSOLA"
     },
     {
       "round": "A2",
@@ -56,7 +58,9 @@
       "status": "designata-nonvisibile",
       "status_text": "Gara designata: la designazione non è ancora visibile",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "C.M.B. PORTO TORRES"
     },
     {
       "round": "A3",
@@ -85,7 +89,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "OLIMPIA CAGLIARI"
     },
     {
       "round": "A4",
@@ -111,7 +117,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "POL. DINAMO"
     },
     {
       "round": "A5",
@@ -137,7 +145,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "SEF TORRES"
     },
     {
       "round": "A6",
@@ -163,7 +173,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "BASKET FERRINI"
     },
     {
       "round": "A7",
@@ -189,7 +201,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "SCUOLA BASKET CARBONIA"
     },
     {
       "round": "A8",
@@ -215,7 +229,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "PALL. NUORO"
     },
     {
       "round": "A9",
@@ -241,7 +257,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "BASKET ANTONIANUM"
     },
     {
       "round": "A10",
@@ -267,7 +285,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "CAMPING LA SALINA CALASETTA"
     },
     {
       "round": "A11",
@@ -293,7 +313,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "FISIOKONS AUREA SASSARI"
     },
     {
       "round": "R1",
@@ -319,7 +341,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "BASKET S. ORSOLA"
     },
     {
       "round": "R2",
@@ -345,7 +369,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "C.M.B. PORTO TORRES"
     },
     {
       "round": "R3",
@@ -373,7 +399,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "OLIMPIA CAGLIARI"
     },
     {
       "round": "R4",
@@ -399,7 +427,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "POL. DINAMO"
     },
     {
       "round": "R5",
@@ -425,7 +455,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "SEF TORRES"
     },
     {
       "round": "R6",
@@ -451,7 +483,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "BASKET FERRINI"
     },
     {
       "round": "R7",
@@ -480,7 +514,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "SCUOLA BASKET CARBONIA"
     },
     {
       "round": "R8",
@@ -506,7 +542,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "PALL. NUORO"
     },
     {
       "round": "R9",
@@ -532,7 +570,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "BASKET ANTONIANUM"
     },
     {
       "round": "R10",
@@ -560,7 +600,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "CAMPING LA SALINA CALASETTA"
     },
     {
       "round": "R11",
@@ -586,7 +628,9 @@
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
-      "score": null
+      "score": null,
+      "sanctions": [],
+      "fip_opponent": "FISIOKONS AUREA SASSARI"
     }
   ],
   "rounds": [
@@ -2030,6 +2074,24 @@
     }
   ],
   "notices": [],
+  "logos": {
+    "C.M.B. PORTO TORRES": {
+      "file": "logos/c-m-b-porto-torres.png",
+      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaU1WIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--fd7d460538775f0c2a7db0b7eed84d1f0feba44d/LOGO%20SOCIETARIO%20A.%20DIL.%20CENTRO%20MINIBASKET%20PORTO%20TORRES%202.jpg"
+    },
+    "CUS CAGLIARI": {
+      "file": "logos/cus-cagliari.png",
+      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa1lJIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--5740682d9093bb8ba3cf3f497433939726351c60/cus%20cagliari%20logo_page-0001.jpg"
+    },
+    "FISIOKONS AUREA SASSARI": {
+      "file": "logos/fisiokons-aurea-sassari.png",
+      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdU1UIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--b7a77a971dc42c153a68efbd66ecb6f52e44319c/logo%201.png"
+    },
+    "POL. DINAMO": {
+      "file": "logos/pol-dinamo.png",
+      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbElJIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--5d42c9b9e16f75acff8149edac0b6dafe3a59b90/dinamo%20sassari_page-0001.jpg"
+    }
+  },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-03T22:28:20+00:00"
+  "updated_at": "2026-10-04T18:22:56+00:00"
 }
