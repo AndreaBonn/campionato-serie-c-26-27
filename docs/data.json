@@ -55,9 +55,12 @@
         }
       },
       "changes": [],
-      "status": "designata-nonvisibile",
-      "status_text": "Gara designata: la designazione non è ancora visibile",
-      "referees": [],
+      "status": "designata",
+      "status_text": "Gara designata: la designazione è visibile",
+      "referees": [
+        "SEU CLAUDIA di QUARTUCCIU (CA)",
+        "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)"
+      ],
       "score": null,
       "sanctions": [],
       "fip_opponent": "C.M.B. PORTO TORRES"
@@ -720,7 +723,7 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-11",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null
         },
         {
@@ -738,7 +741,7 @@
           "away": "BASKET FERRINI",
           "date": "2026-10-11",
           "time": "18:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null
         },
         {
@@ -2093,5 +2096,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-05T17:09:05+00:00"
+  "updated_at": "2026-10-06T11:16:25+00:00"
 }
