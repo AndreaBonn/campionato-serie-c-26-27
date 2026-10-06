@@ -27,6 +27,7 @@ from fip_calendar.fetch import (
     fetch_logo,
     fetch_posts,
     fetch_round,
+    round_pdf_url,
     round_url,
 )
 from fip_calendar.ics import build_ics
@@ -50,6 +51,11 @@ def round_to_page(round_code: str) -> tuple[int, int]:
     """Map a calendar round ('A5', 'R11') to fip.it (codice_ar, giornata)."""
     half = FIRST_HALF_CODE if round_code.startswith("A") else SECOND_HALF_CODE
     return half, int(round_code[1:])
+
+
+def with_round_pdfs(league: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Copy of the league rounds, each with the link to its official FIP PDF."""
+    return [{**r, "pdf_url": round_pdf_url(*round_to_page(r["round"]))} for r in league]
 
 
 def read_json(path: Path) -> dict[str, Any] | None:
@@ -162,6 +168,7 @@ def main() -> int:
     except (URLError, ParseError, MergeError) as err:
         logger.error("sync with fip.it failed, data.json left untouched: %s", err)
         return 1
+    data["rounds"] = with_round_pdfs(data["rounds"])
     data[NOTICES_KEY] = collect_notices(OUTPUT_PATH)
     data[LOGOS_KEY] = collect_logos(rounds=rounds, fallback_path=OUTPUT_PATH)
     data["fip_url"] = round_url(half_code=FIRST_HALF_CODE, round_number=1)

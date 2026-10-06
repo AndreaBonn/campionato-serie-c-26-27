@@ -15,6 +15,8 @@ FIP_QUERY = {
     "codice_fase": "1",
     "codice_girone": "85305",
 }
+# Printable report of one round (results, referees, standings), the "Scarica giornata" button
+FIP_ROUND_PDF_URL = "https://backend.fip.it/api/v1/giornata.pdf"
 FIRST_HALF_CODE = 1  # fip.it uses codice_ar=1 for andata, 0 for ritorno
 SECOND_HALF_CODE = 0
 

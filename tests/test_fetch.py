@@ -13,6 +13,7 @@ from fip_calendar.fetch import (
     fetch_logo,
     fetch_posts,
     fetch_round,
+    round_pdf_url,
     round_url,
 )
 
@@ -65,6 +66,22 @@ def test_round_url_targets_serie_c_girone_with_half_and_round() -> None:
         "codice_fase": "1",
         "codice_girone": "85305",
         "codice_ar": "0",
+        "giornata": "11",
+    }
+
+
+def test_round_pdf_url_targets_fip_backend_report_of_one_round() -> None:
+    url = round_pdf_url(half_code=0, round_number=11)
+
+    assert url.startswith("https://backend.fip.it/api/v1/giornata.pdf?")
+    assert query_of(url) == {
+        "regione_codice": "SA",
+        "comitato_codice": "RSA",
+        "sesso": "M",
+        "codice_campionato": "C1",
+        "codice_fase": "1",
+        "codice_girone": "85305",
+        "codice_andata_ritorno": "0",
         "giornata": "11",
     }
 

@@ -6,6 +6,7 @@ from urllib.request import Request, urlopen
 from fip_calendar.config import (
     FIP_QUERY,
     FIP_RESULTS_URL,
+    FIP_ROUND_PDF_URL,
     FIP_SARDEGNA_COMUNICATI_URL,
     FIP_SARDEGNA_POSTS_URL,
     LOGO_MAX_BYTES,
@@ -20,6 +21,13 @@ def round_url(half_code: int, round_number: int) -> str:
     """fip.it/risultati address of one round of the CUS Cagliari girone."""
     query = {**FIP_QUERY, "codice_ar": str(half_code), "giornata": str(round_number)}
     return f"{FIP_RESULTS_URL}?{urlencode(query)}"
+
+
+def round_pdf_url(half_code: int, round_number: int) -> str:
+    """Official FIP PDF of one round; the API names the half codice_andata_ritorno."""
+    girone = {k: v for k, v in FIP_QUERY.items() if k != "group"}
+    query = {**girone, "codice_andata_ritorno": str(half_code), "giornata": str(round_number)}
+    return f"{FIP_ROUND_PDF_URL}?{urlencode(query)}"
 
 
 def fetch_round(half_code: int, round_number: int) -> str:

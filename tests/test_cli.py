@@ -6,14 +6,14 @@ from urllib.error import URLError
 import pytest
 
 from fip_calendar import cli
-from fip_calendar.cli import previous_notices, round_to_page, write_if_changed
+from fip_calendar.cli import previous_notices, round_to_page, with_round_pdfs, write_if_changed
 from fip_calendar.config import (
     NOTICE_CATEGORY_ID,
     NOTICE_SEARCH_TERMS,
     NOTICE_SINCE,
     REQUEST_DELAY_S,
 )
-from fip_calendar.fetch import round_url
+from fip_calendar.fetch import round_pdf_url, round_url
 from fip_calendar.merge import MergeError
 from fip_calendar.parse import FipMatch, ParseError, parse_standings
 
@@ -29,6 +29,13 @@ def no_extra_notice_sources(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(cli, "fetch_comunicati", lambda after: [])
 
 
+def empty_data(
+    calendar: dict[str, object], rounds: dict[str, object], standings: list[object]
+) -> dict[str, list[object]]:
+    """Stand-in for merge.build_data: same keys, no games."""
+    return {"games": [], "rounds": []}
+
+
 def wp_item(title: str, slug: str) -> dict[str, object]:
     return {
         "date": "2026-10-20T10:00:00",
@@ -40,6 +47,18 @@ def wp_item(title: str, slug: str) -> dict[str, object]:
 def test_round_to_page_maps_first_and_second_half() -> None:
     assert round_to_page("A5") == (1, 5)
     assert round_to_page("R11") == (0, 11)
+
+
+def test_with_round_pdfs_links_each_round_to_its_fip_report() -> None:
+    league = [{"round": "A1", "games": []}, {"round": "R11", "games": []}]
+
+    linked = with_round_pdfs(league)
+
+    assert [r["pdf_url"] for r in linked] == [
+        round_pdf_url(half_code=1, round_number=1),
+        round_pdf_url(half_code=0, round_number=11),
+    ]
+    assert linked[1]["games"] == [] and league[0] == {"round": "A1", "games": []}
 
 
 def test_write_if_changed_writes_new_file_with_timestamp(tmp_path: Path) -> None:
@@ -143,7 +162,7 @@ def test_main_successful_sync_records_check_time(
 ) -> None:
     status = _patch_main_paths(tmp_path, monkeypatch)
     monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
-    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "build_data", empty_data)
     monkeypatch.setattr(cli, "collect_notices", lambda path: [])
 
     assert cli.main() == 0
@@ -178,13 +197,15 @@ def test_main_successful_sync_writes_feed_and_fip_link(
 ) -> None:
     _patch_main_paths(tmp_path, monkeypatch)
     monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
-    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    one_round = {"games": [], "rounds": [{"round": "A1", "games": []}]}
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: one_round)
     monkeypatch.setattr(cli, "collect_notices", lambda path: [])
 
     cli.main()
 
     data = json.loads((tmp_path / "data.json").read_text())
     assert data["fip_url"] == round_url(half_code=1, round_number=1)
+    assert data["rounds"][0]["pdf_url"] == round_pdf_url(half_code=1, round_number=1)
     assert (tmp_path / "calendario.ics").read_bytes().startswith(b"BEGIN:VCALENDAR\r\n")
 
 
@@ -416,7 +437,7 @@ def test_main_unchanged_data_still_advances_check_time(
 ) -> None:
     status = _patch_main_paths(tmp_path, monkeypatch)
     monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
-    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "build_data", empty_data)
     monkeypatch.setattr(cli, "collect_notices", lambda path: [])
 
     class Clock(datetime):
@@ -472,7 +493,7 @@ def test_main_successful_sync_publishes_logos(
 ) -> None:
     _patch_main_paths(tmp_path, monkeypatch)
     monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
-    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "build_data", empty_data)
     monkeypatch.setattr(cli, "collect_notices", lambda path: [])
     monkeypatch.setattr(cli, "collect_logos", lambda rounds, fallback_path: {"X": {"file": "f"}})
 
@@ -519,7 +540,7 @@ def test_main_successful_sync_publishes_fip_sardegna_notices(
 ) -> None:
     _patch_main_paths(tmp_path, monkeypatch)
     monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
-    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: {"games": []})
+    monkeypatch.setattr(cli, "build_data", empty_data)
     item = wp_item("Serie C regionale: formula playoff", "formula-c")
     monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [item])
 

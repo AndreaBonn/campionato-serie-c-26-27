@@ -107,6 +107,7 @@ tr.cut td{border-bottom:2px solid var(--ink)}
 .round-pick{margin:0 0 10px}
 .round-pick select{font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--ink);border-radius:4px;color:var(--ink);background:var(--card)}
 .round-pick select:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.round-pdf a{color:var(--ink);font-weight:600}
 .notice{background:var(--chg-bg);color:#78350f;border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:14px}
 .notice ul{margin:6px 0 0;padding-left:18px}
 .notice a{color:#78350f;font-weight:600}
@@ -311,7 +312,8 @@ function roundTable(r){
   const me=g.home===FIP_TEAM||g.away===FIP_TEAM, note=resultNote(g.status);
   const res=g.score?`${g.score.home}-${g.score.away}`+(note?`<small class="prov${note.warn?" alert":""}">${esc(note.tag)}</small>`:""):esc(g.time);
   return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}</td><td>${res}</td></tr>`}).join("");
- return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+ const pdf=String(r.pdf_url||"").startsWith("https://backend.fip.it/")?`<p class="meta round-pdf"><a href="${esc(r.pdf_url)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
+ return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>${pdf}`;
 }
 function renderLeague(rounds){
  const el=document.getElementById("league");
