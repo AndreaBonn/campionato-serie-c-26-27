@@ -1,8 +1,16 @@
 from collections import Counter
 from dataclasses import dataclass
+from datetime import date
 from typing import TypedDict
 
-from fip_calendar.config import PLAYBASKET_TEAM_ALIASES
+from fip_calendar.config import (
+    BOXSCORE_RETRY_DAYS,
+    BOXSCORE_STATUS_COMPLETE,
+    BOXSCORE_STATUS_INCOMPLETE,
+    BOXSCORE_STATUS_PARTIAL,
+    BOXSCORE_STATUS_UNMATCHED,
+    PLAYBASKET_TEAM_ALIASES,
+)
 from fip_calendar.playbasket import PbHeader
 
 TEAM_ALIASES = {name.casefold(): team.casefold() for name, team in PLAYBASKET_TEAM_ALIASES.items()}
@@ -18,6 +26,46 @@ class FipGame(TypedDict):
     home: str
     away: str
     score: FipScore | None
+
+
+class ScheduledGame(FipGame):
+    date: str
+
+
+class RoundDict(TypedDict):
+    round: str
+    games: list[ScheduledGame]
+
+
+class PlayerDict(TypedDict):
+    id: str
+    number: str
+    name: str
+    role: str
+    age: str
+    pts: int | None
+
+
+class TeamBoxscore(TypedDict):
+    team: str
+    players: list[PlayerDict]
+
+
+class BoxscoreEntry(TypedDict):
+    round: str
+    status: str
+    fip_score: FipScore
+    mn: int | None
+    url: str | None
+    home: TeamBoxscore | None
+    away: TeamBoxscore | None
+
+
+@dataclass(frozen=True)
+class PendingGame:
+    round: str
+    game: ScheduledGame
+    mn: int
 
 
 @dataclass(frozen=True)
@@ -92,3 +140,61 @@ def match_round(fip_games: list[FipGame], pages: dict[int, PbHeader]) -> MatchRe
         else:
             unmatched[game["n"]] = reason
     return _resolve_shared(matches, unmatched)
+
+
+def classify(
+    totals: tuple[int, int] | None, fip_score: FipScore, game_date: date, today: date,
+) -> str:
+    """Classify a fresh attempt; None totals mean no matched page."""
+    if totals is None:
+        return BOXSCORE_STATUS_UNMATCHED
+    if totals == (fip_score["home"], fip_score["away"]):
+        return BOXSCORE_STATUS_COMPLETE
+    if (today - game_date).days <= BOXSCORE_RETRY_DAYS:
+        return BOXSCORE_STATUS_PARTIAL
+    return BOXSCORE_STATUS_INCOMPLETE
+
+
+def _needs_attempt(game: ScheduledGame, entry: BoxscoreEntry | None, today: date) -> bool:
+    if game["score"] is None:
+        return False
+    if entry is None or entry["fip_score"] != game["score"]:
+        return True
+    return entry["status"] in (BOXSCORE_STATUS_PARTIAL, BOXSCORE_STATUS_UNMATCHED) and (
+        today - date.fromisoformat(game["date"])
+    ).days <= BOXSCORE_RETRY_DAYS
+
+
+def select_pending(
+    rounds: list[RoundDict], previous: dict[str, BoxscoreEntry], today: date,
+) -> list[PendingGame]:
+    """Select played games in retry priority, without changing either input.
+
+    Parameters
+    ----------
+    rounds : list[RoundDict]
+        Schedule in natural round order; expected mn follows game number order.
+    previous : dict[str, BoxscoreEntry]
+        Saved attempts. Expired partial entries are frozen by collect_boxscores.
+    today : date
+        Current local date used for the inclusive retry window.
+
+    Returns
+    -------
+    list[PendingGame]
+        In-window games ordered oldest first, then old first attempts and score
+        corrections in schedule order. No budget is applied here.
+    """
+    pending = [
+        PendingGame(round=round_["round"], game=game, mn=mn)
+        for round_ in rounds
+        for mn, game in enumerate(sorted(round_["games"], key=lambda game: game["n"]), start=1)
+        if _needs_attempt(game=game, entry=previous.get(str(game["n"])), today=today)
+    ]
+    return sorted(pending, key=lambda item: _pending_priority(item=item, today=today))
+
+
+def _pending_priority(item: PendingGame, today: date) -> tuple[bool, date]:
+    game_date = date.fromisoformat(item.game["date"])
+    expired = (today - game_date).days > BOXSCORE_RETRY_DAYS
+    return expired, date.min if expired else game_date
