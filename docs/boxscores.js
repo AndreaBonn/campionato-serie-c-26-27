@@ -72,7 +72,10 @@ export function renderScorers(boxscores, rounds, fipTeam) {
 export async function loadBoxscores(apply) {
   try {
     const r = await fetch("boxscores.json", { cache: "no-cache" });
-    if (!r.ok) return;
+    if (!r.ok) {
+      console.warn(`boxscores.json non disponibile: HTTP ${r.status}`);
+      return;
+    }
     const data = await r.json();
     apply(data.boxscores || {});
   } catch (err) {
