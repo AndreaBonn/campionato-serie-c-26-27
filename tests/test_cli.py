@@ -1,3 +1,4 @@
+import http.client
 import json
 from datetime import datetime
 from pathlib import Path
@@ -605,3 +606,36 @@ def test_italian_date_after_midnight_in_rome_is_the_next_day() -> None:
     late_saturday_utc = datetime.fromisoformat("2026-10-03T22:30:00+00:00")
 
     assert cli.italian_date(late_saturday_utc).isoformat() == "2026-10-04"
+
+
+@pytest.mark.parametrize(
+    "failure", [TimeoutError("read timed out"), http.client.IncompleteRead(partial=b"")]
+)
+def test_collect_notices_read_failure_keeps_previous(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure: Exception
+) -> None:
+    target = tmp_path / "data.json"
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    target.write_text(json.dumps({"notices": [notice]}))
+
+    def stalled(term: str, after: str) -> list[dict[str, object]]:
+        raise failure
+
+    monkeypatch.setattr(cli, "fetch_posts", stalled)
+
+    assert cli.collect_notices(target) == [notice]
+
+
+def test_main_fip_read_timeout_fails_cleanly_without_outputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    status = _patch_main_paths(tmp_path, monkeypatch)
+
+    def fip_stalled(games: list[dict[str, object]]) -> None:
+        raise TimeoutError("read timed out")
+
+    monkeypatch.setattr(cli, "collect", fip_stalled)
+
+    assert cli.main() == 1
+    assert not status.exists()
+    assert not (tmp_path / "data.json").exists()

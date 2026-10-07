@@ -3,9 +3,9 @@ import logging
 import sys
 import time
 from datetime import UTC, date, datetime
+from http.client import HTTPException
 from pathlib import Path
 from typing import Any
-from urllib.error import URLError
 from zoneinfo import ZoneInfo
 
 from fip_calendar.boxscores import BoxscoreEntry, RoundDict
@@ -51,6 +51,9 @@ TIMESTAMP_KEY = "updated_at"
 NOTICES_KEY = "notices"
 LOGOS_KEY = "logos"
 BOXSCORES_KEY = "boxscores"
+# OSError covers URLError and the read timeouts urlopen raises outside it; HTTPException a
+# truncated body
+NETWORK_ERRORS = (OSError, HTTPException)
 # FIP dates are Italian: the 14-day retry window counts Italian calendar days
 LOCAL_TZ = ZoneInfo("Europe/Rome")
 
@@ -171,7 +174,7 @@ def collect_notices(fallback_path: Path) -> list[dict[str, str]]:
             select_notices(posts=league, since=NOTICE_SINCE, kind=KIND_LEAGUE),
             select_notices(posts=comunicati, since=NOTICE_SINCE, kind=KIND_COMUNICATO),
         )
-    except (URLError, ValueError, KeyError, TypeError) as err:
+    except (*NETWORK_ERRORS, ValueError, KeyError, TypeError) as err:
         # TypeError: the API answered with an error object instead of a list of posts
         logger.warning("FIP Sardegna posts unavailable, keeping previous notices: %s", err)
         return previous_notices(fallback_path)
@@ -197,7 +200,7 @@ def main() -> int:
     try:
         rounds, standings = collect(calendar["games"])
         data = build_data(calendar=calendar, rounds=rounds, standings=standings)
-    except (URLError, ParseError, MergeError) as err:
+    except (*NETWORK_ERRORS, ParseError, MergeError) as err:
         logger.error("sync with fip.it failed, data.json left untouched: %s", err)
         return 1
     data["rounds"] = with_round_pdfs(data["rounds"])
