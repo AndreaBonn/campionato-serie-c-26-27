@@ -401,6 +401,8 @@ async function loadStatus(){
  }catch(err){console.warn("status.json non disponibile",err)}
 }
 function applyBoxscores(boxscores){
+ // data.json failed: the page shows its error, box score sections stay hidden
+ if(!R.length) return;
  BX=boxscores;
  const select=document.getElementById("round-select");
  if(select) document.getElementById("round-table").innerHTML=roundTable(R[+select.value]);
