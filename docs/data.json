@@ -21,7 +21,7 @@
         }
       },
       "changes": [],
-      "status": "",
+      "status": "omologata",
       "status_text": "",
       "referees": [
         "FIORIN GIANMARCO di CABRAS (OR)",
@@ -653,7 +653,14 @@
           "score": {
             "home": 77,
             "away": 61
-          }
+          },
+          "referees": [
+            "FANCELLU MATTEO di SASSARI (SS)",
+            "GAVINI ANTONIO di SASSARI (SS)"
+          ],
+          "sanctions": [
+            "soc. CENTRO MINIBK P.TORRES A. DIL.:Ammenda di Euro 250.00 ritardato riconoscimento del responsabile dell’Ambulanza di servizio [art. 38,1b RG - art. 34 comma 4 R.E. gare]"
+          ]
         },
         {
           "n": 2,
@@ -661,11 +668,16 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-10-03",
           "time": "19:00",
-          "status": "",
+          "status": "omologata",
           "score": {
             "home": 88,
             "away": 70
-          }
+          },
+          "referees": [
+            "SEU CLAUDIA di QUARTUCCIU (CA)",
+            "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
+          ],
+          "sanctions": []
         },
         {
           "n": 3,
@@ -677,7 +689,14 @@
           "score": {
             "home": 77,
             "away": 71
-          }
+          },
+          "referees": [
+            "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
+            "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
+          ],
+          "sanctions": [
+            "soc. A.S.D. PALL. NUORO:Ammenda di Euro 250.00 ritardato riconoscimento del Medico di Servizio [art. 38,1b RG - art. 34 comma 4 R.E. gare]"
+          ]
         },
         {
           "n": 4,
@@ -685,11 +704,16 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-10-03",
           "time": "17:30",
-          "status": "",
+          "status": "omologata",
           "score": {
             "home": 69,
             "away": 66
-          }
+          },
+          "referees": [
+            "MAMELI MARCO di ITTIRI (SS)",
+            "PUGGIONI SAMUELE di SASSARI (SS)"
+          ],
+          "sanctions": []
         },
         {
           "n": 5,
@@ -697,11 +721,16 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-10-03",
           "time": "18:00",
-          "status": "",
+          "status": "omologata",
           "score": {
             "home": 81,
             "away": 70
-          }
+          },
+          "referees": [
+            "SEU ALESSANDRA di QUARTUCCIU (CA)",
+            "FARCI DANIELE di CAGLIARI (CA)"
+          ],
+          "sanctions": []
         },
         {
           "n": 6,
@@ -709,11 +738,16 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-03",
           "time": "20:00",
-          "status": "",
+          "status": "omologata",
           "score": {
             "home": 62,
             "away": 55
-          }
+          },
+          "referees": [
+            "FIORIN GIANMARCO di CABRAS (OR)",
+            "ATZENI GIANLUCA di ARBUS (SU)"
+          ],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=1"
@@ -728,7 +762,12 @@
           "date": "2026-10-11",
           "time": "18:00",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "SEU CLAUDIA di QUARTUCCIU (CA)",
+            "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)"
+          ],
+          "sanctions": []
         },
         {
           "n": 8,
@@ -737,7 +776,12 @@
           "date": "2026-10-10",
           "time": "18:30",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "SEU ALESSANDRA di QUARTUCCIU (CA)",
+            "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)"
+          ],
+          "sanctions": []
         },
         {
           "n": 9,
@@ -746,7 +790,12 @@
           "date": "2026-10-11",
           "time": "18:30",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "ATZENI GIANLUCA di ARBUS (SU)",
+            "FARCI DANIELE di CAGLIARI (CA)"
+          ],
+          "sanctions": []
         },
         {
           "n": 10,
@@ -755,7 +804,12 @@
           "date": "2026-10-10",
           "time": "20:00",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "FORTUNATO DIEGO di OLBIA (SS)",
+            "CRISTIANI NICOLAS di SASSARI (SS)"
+          ],
+          "sanctions": []
         },
         {
           "n": 11,
@@ -764,7 +818,12 @@
           "date": "2026-10-10",
           "time": "18:00",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
+            "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
+          ],
+          "sanctions": []
         },
         {
           "n": 12,
@@ -773,7 +832,12 @@
           "date": "2026-10-10",
           "time": "17:30",
           "status": "designata",
-          "score": null
+          "score": null,
+          "referees": [
+            "FANCELLU MATTEO di SASSARI (SS)",
+            "PUGGIONI SAMUELE di SASSARI (SS)"
+          ],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=2"
@@ -788,7 +852,9 @@
           "date": "2026-10-18",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 14,
@@ -797,7 +863,9 @@
           "date": "2026-10-17",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 15,
@@ -806,7 +874,9 @@
           "date": "2026-10-17",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 16,
@@ -815,7 +885,9 @@
           "date": "2026-10-17",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 17,
@@ -824,7 +896,9 @@
           "date": "2026-10-18",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 18,
@@ -833,7 +907,9 @@
           "date": "2026-10-17",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=3"
@@ -848,7 +924,9 @@
           "date": "2026-10-24",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 20,
@@ -857,7 +935,9 @@
           "date": "2026-10-24",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 21,
@@ -866,7 +946,9 @@
           "date": "2026-10-24",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 22,
@@ -875,7 +957,9 @@
           "date": "2026-10-24",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 23,
@@ -884,7 +968,9 @@
           "date": "2026-10-25",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 24,
@@ -893,7 +979,9 @@
           "date": "2026-10-25",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=4"
@@ -908,7 +996,9 @@
           "date": "2026-11-01",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 26,
@@ -917,7 +1007,9 @@
           "date": "2026-10-31",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 27,
@@ -926,7 +1018,9 @@
           "date": "2026-10-31",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 28,
@@ -935,7 +1029,9 @@
           "date": "2026-10-31",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 29,
@@ -944,7 +1040,9 @@
           "date": "2026-10-31",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 30,
@@ -953,7 +1051,9 @@
           "date": "2026-10-31",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=5"
@@ -968,7 +1068,9 @@
           "date": "2026-11-08",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 32,
@@ -977,7 +1079,9 @@
           "date": "2026-11-07",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 33,
@@ -986,7 +1090,9 @@
           "date": "2026-11-08",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 34,
@@ -995,7 +1101,9 @@
           "date": "2026-11-08",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 35,
@@ -1004,7 +1112,9 @@
           "date": "2026-11-07",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 36,
@@ -1013,7 +1123,9 @@
           "date": "2026-11-07",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=6"
@@ -1028,7 +1140,9 @@
           "date": "2026-11-14",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 38,
@@ -1037,7 +1151,9 @@
           "date": "2026-11-14",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 39,
@@ -1046,7 +1162,9 @@
           "date": "2026-11-14",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 40,
@@ -1055,7 +1173,9 @@
           "date": "2026-11-14",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 41,
@@ -1064,7 +1184,9 @@
           "date": "2026-11-14",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 42,
@@ -1073,7 +1195,9 @@
           "date": "2026-11-14",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=7"
@@ -1088,7 +1212,9 @@
           "date": "2026-11-21",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 44,
@@ -1097,7 +1223,9 @@
           "date": "2026-11-22",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 45,
@@ -1106,7 +1234,9 @@
           "date": "2026-11-21",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 46,
@@ -1115,7 +1245,9 @@
           "date": "2026-11-22",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 47,
@@ -1124,7 +1256,9 @@
           "date": "2026-11-21",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 48,
@@ -1133,7 +1267,9 @@
           "date": "2026-11-21",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=8"
@@ -1148,7 +1284,9 @@
           "date": "2026-11-28",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 50,
@@ -1157,7 +1295,9 @@
           "date": "2026-11-28",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 51,
@@ -1166,7 +1306,9 @@
           "date": "2026-11-28",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 52,
@@ -1175,7 +1317,9 @@
           "date": "2026-11-28",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 53,
@@ -1184,7 +1328,9 @@
           "date": "2026-11-28",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 54,
@@ -1193,7 +1339,9 @@
           "date": "2026-11-29",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=9"
@@ -1208,7 +1356,9 @@
           "date": "2026-12-06",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 56,
@@ -1217,7 +1367,9 @@
           "date": "2026-12-06",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 57,
@@ -1226,7 +1378,9 @@
           "date": "2026-12-05",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 58,
@@ -1235,7 +1389,9 @@
           "date": "2026-12-05",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 59,
@@ -1244,7 +1400,9 @@
           "date": "2026-12-05",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 60,
@@ -1253,7 +1411,9 @@
           "date": "2026-12-05",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=10"
@@ -1268,7 +1428,9 @@
           "date": "2026-12-12",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 62,
@@ -1277,7 +1439,9 @@
           "date": "2026-12-12",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 63,
@@ -1286,7 +1450,9 @@
           "date": "2026-12-12",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 64,
@@ -1295,7 +1461,9 @@
           "date": "2026-12-13",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 65,
@@ -1304,7 +1472,9 @@
           "date": "2026-12-13",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 66,
@@ -1313,7 +1483,9 @@
           "date": "2026-12-12",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=11"
@@ -1328,7 +1500,9 @@
           "date": "2026-12-19",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 68,
@@ -1337,7 +1511,9 @@
           "date": "2026-12-19",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 69,
@@ -1346,7 +1522,9 @@
           "date": "2026-12-20",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 70,
@@ -1355,7 +1533,9 @@
           "date": "2026-12-20",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 71,
@@ -1364,7 +1544,9 @@
           "date": "2026-12-19",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 72,
@@ -1373,7 +1555,9 @@
           "date": "2026-12-19",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=1"
@@ -1388,7 +1572,9 @@
           "date": "2027-01-09",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 74,
@@ -1397,7 +1583,9 @@
           "date": "2027-01-09",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 75,
@@ -1406,7 +1594,9 @@
           "date": "2027-01-09",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 76,
@@ -1415,7 +1605,9 @@
           "date": "2027-01-09",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 77,
@@ -1424,7 +1616,9 @@
           "date": "2027-01-10",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 78,
@@ -1433,7 +1627,9 @@
           "date": "2027-01-10",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=2"
@@ -1448,7 +1644,9 @@
           "date": "2027-01-16",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 80,
@@ -1457,7 +1655,9 @@
           "date": "2027-01-16",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 81,
@@ -1466,7 +1666,9 @@
           "date": "2027-01-17",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 82,
@@ -1475,7 +1677,9 @@
           "date": "2027-01-17",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 83,
@@ -1484,7 +1688,9 @@
           "date": "2027-01-17",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 84,
@@ -1493,7 +1699,9 @@
           "date": "2027-01-16",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=3"
@@ -1508,7 +1716,9 @@
           "date": "2027-01-23",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 86,
@@ -1517,7 +1727,9 @@
           "date": "2027-01-23",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 87,
@@ -1526,7 +1738,9 @@
           "date": "2027-01-23",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 88,
@@ -1535,7 +1749,9 @@
           "date": "2027-01-23",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 89,
@@ -1544,7 +1760,9 @@
           "date": "2027-01-23",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 90,
@@ -1553,7 +1771,9 @@
           "date": "2027-01-24",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=4"
@@ -1568,7 +1788,9 @@
           "date": "2027-01-30",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 92,
@@ -1577,7 +1799,9 @@
           "date": "2027-01-30",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 93,
@@ -1586,7 +1810,9 @@
           "date": "2027-01-30",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 94,
@@ -1595,7 +1821,9 @@
           "date": "2027-01-30",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 95,
@@ -1604,7 +1832,9 @@
           "date": "2027-01-31",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 96,
@@ -1613,7 +1843,9 @@
           "date": "2027-01-31",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=5"
@@ -1628,7 +1860,9 @@
           "date": "2027-02-06",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 98,
@@ -1637,7 +1871,9 @@
           "date": "2027-02-06",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 99,
@@ -1646,7 +1882,9 @@
           "date": "2027-02-06",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 100,
@@ -1655,7 +1893,9 @@
           "date": "2027-02-06",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 101,
@@ -1664,7 +1904,9 @@
           "date": "2027-02-06",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 102,
@@ -1673,7 +1915,9 @@
           "date": "2027-02-07",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=6"
@@ -1688,7 +1932,9 @@
           "date": "2027-02-14",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 104,
@@ -1697,7 +1943,9 @@
           "date": "2027-02-14",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 105,
@@ -1706,7 +1954,9 @@
           "date": "2027-02-13",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 106,
@@ -1715,7 +1965,9 @@
           "date": "2027-02-13",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 107,
@@ -1724,7 +1976,9 @@
           "date": "2027-02-14",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 108,
@@ -1733,7 +1987,9 @@
           "date": "2027-02-13",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=7"
@@ -1748,7 +2004,9 @@
           "date": "2027-02-27",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 110,
@@ -1757,7 +2015,9 @@
           "date": "2027-02-27",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 111,
@@ -1766,7 +2026,9 @@
           "date": "2027-02-27",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 112,
@@ -1775,7 +2037,9 @@
           "date": "2027-02-27",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 113,
@@ -1784,7 +2048,9 @@
           "date": "2027-02-27",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 114,
@@ -1793,7 +2059,9 @@
           "date": "2027-02-27",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=8"
@@ -1808,7 +2076,9 @@
           "date": "2027-03-07",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 116,
@@ -1817,7 +2087,9 @@
           "date": "2027-03-06",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 117,
@@ -1826,7 +2098,9 @@
           "date": "2027-03-06",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 118,
@@ -1835,7 +2109,9 @@
           "date": "2027-03-06",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 119,
@@ -1844,7 +2120,9 @@
           "date": "2027-03-06",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 120,
@@ -1853,7 +2131,9 @@
           "date": "2027-03-06",
           "time": "20:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=9"
@@ -1868,7 +2148,9 @@
           "date": "2027-03-14",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 122,
@@ -1877,7 +2159,9 @@
           "date": "2027-03-13",
           "time": "18:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 123,
@@ -1886,7 +2170,9 @@
           "date": "2027-03-13",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 124,
@@ -1895,7 +2181,9 @@
           "date": "2027-03-13",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 125,
@@ -1904,7 +2192,9 @@
           "date": "2027-03-14",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 126,
@@ -1913,7 +2203,9 @@
           "date": "2027-03-13",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=10"
@@ -1928,7 +2220,9 @@
           "date": "2027-03-20",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 128,
@@ -1937,7 +2231,9 @@
           "date": "2027-03-20",
           "time": "20:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 129,
@@ -1946,7 +2242,9 @@
           "date": "2027-03-20",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 130,
@@ -1955,7 +2253,9 @@
           "date": "2027-03-21",
           "time": "18:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 131,
@@ -1964,7 +2264,9 @@
           "date": "2027-03-20",
           "time": "19:00",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         },
         {
           "n": 132,
@@ -1973,7 +2275,9 @@
           "date": "2027-03-20",
           "time": "17:30",
           "status": "non-designata",
-          "score": null
+          "score": null,
+          "referees": [],
+          "sanctions": []
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=0&giornata=11"
@@ -2121,5 +2425,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-07T05:57:42+00:00"
+  "updated_at": "2026-10-07T11:16:37+00:00"
 }
