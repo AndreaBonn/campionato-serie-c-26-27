@@ -639,3 +639,23 @@ def test_main_fip_read_timeout_fails_cleanly_without_outputs(
     assert cli.main() == 1
     assert not status.exists()
     assert not (tmp_path / "data.json").exists()
+
+
+def test_main_box_score_bug_still_publishes_fip_data_and_check_time(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    status = _patch_main_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    monkeypatch.setattr(cli, "build_data", empty_data)
+    monkeypatch.setattr(cli, "collect_notices", lambda path: [])
+
+    def broken(**kwargs: object) -> dict[str, object]:
+        raise KeyError("fip_score")
+
+    monkeypatch.setattr(cli, "collect_boxscores", broken)
+
+    assert cli.main() == 0
+    assert status.exists()
+    assert (tmp_path / "data.json").exists()
+    assert not (tmp_path / "boxscores.json").exists()
+    assert "box scores not updated" in caplog.text

@@ -130,12 +130,18 @@ def italian_date(moment: datetime) -> date:
 
 def sync_boxscores(rounds: list[RoundDict], now: datetime) -> bool:
     """Read the pending playbasket.it box scores and write boxscores.json if they changed."""
-    boxscores = collect_boxscores(
-        rounds=rounds,
-        previous=previous_boxscores(BOXSCORES_PATH),
-        today=italian_date(now),
-        client=PlaybasketClient(fetch=fetch_playbasket_match, sleep=time.sleep),
-    )
+    try:
+        boxscores = collect_boxscores(
+            rounds=rounds,
+            previous=previous_boxscores(BOXSCORES_PATH),
+            today=italian_date(now),
+            client=PlaybasketClient(fetch=fetch_playbasket_match, sleep=time.sleep),
+        )
+    except Exception:
+        # boundary of a side feature: a playbasket bug must not cost the FIP data its deploy.
+        # Page-level outages are handled inside; anything reaching here is a bug, kept loud.
+        logger.exception("box scores not updated, boxscores.json left as it was")
+        return False
     return write_if_changed(
         path=BOXSCORES_PATH, data={BOXSCORES_KEY: boxscores}, now=now.isoformat(timespec="seconds")
     )
