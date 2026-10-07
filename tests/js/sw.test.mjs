@@ -206,3 +206,15 @@ test("install bypasses the HTTP cache, which could still hold the previous relea
 
   assert.deepEqual(new Set(calls.shell.map((r) => r.cache)), new Set(["reload"]));
 });
+
+test("install caches every stylesheet the page links, so the app opens styled offline", async () => {
+  const { handlers, storage } = loadWorker();
+
+  await dispatchLifecycle(handlers.install);
+
+  const html = readFileSync(new URL("../../docs/index.html", import.meta.url), "utf8");
+  const sheets = [...html.matchAll(/<link rel="stylesheet" href="([\w-]+\.css)"/g)].map((m) => m[1]);
+  const cached = storage.get("cus-basket-dev");
+  assert.deepEqual(sheets, ["styles.css"]);
+  assert.deepEqual(sheets.filter((name) => !cached.has(new URL(name, PAGE).href)), []);
+});

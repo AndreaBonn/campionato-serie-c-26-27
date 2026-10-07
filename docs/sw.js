@@ -8,6 +8,7 @@ const CACHE = `cus-basket-${VERSION}`;
 const SHELL = [
   "./",
   "index.html",
+  "styles.css",
   "update.js",
   "update-rules.js",
   "result-rules.js",
