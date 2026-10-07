@@ -13,7 +13,7 @@ const fmtDate = (d) => new Date(d + "T00:00:00").toLocaleDateString("it-IT", { w
 function summaryRow(p, withBoxscore) {
   const meta = [p.role, p.age].filter(Boolean).join(", ");
   const name = `${esc(p.name)}${meta ? `<small class="role">${esc(meta)}</small>` : ""}`;
-  return `<tr><td>${name}</td><td>${p.points}</td><td>${fmtAvg(p.average)}</td><td>${fmtAvg(p.homeAverage)}</td><td>${fmtAvg(p.awayAverage)}</td><td>${p.entered}/${p.listed} su ${withBoxscore}</td><td>${p.doubleDigit}</td><td>${fmtShare(p.teamShare)}</td></tr>`;
+  return `<tr><td>${name}</td><td>${p.points}</td><td>${fmtAvg(p.average)}</td><td>${fmtAvg(p.homeAverage)}</td><td>${fmtAvg(p.awayAverage)}</td><td>${p.entered}/${withBoxscore}</td><td>${p.doubleDigit}</td><td>${fmtShare(p.teamShare)}</td></tr>`;
 }
 
 function last5Item(g) {
