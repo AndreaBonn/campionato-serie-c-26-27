@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:cus-gara6@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261003T200000
 DTEND;TZID=Europe/Rome:20261003T220000
 SUMMARY:Basket S. Orsola - CUS Cagliari 62-55
@@ -38,7 +38,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara7@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261011T180000
 DTEND;TZID=Europe/Rome:20261011T200000
 SUMMARY:CUS Cagliari - C.M.B. Porto Torres
@@ -50,7 +50,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara17@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261018T190000
 DTEND;TZID=Europe/Rome:20261018T210000
 SUMMARY:Olimpia Cagliari - CUS Cagliari
@@ -62,7 +62,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara24@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261025T180000
 DTEND;TZID=Europe/Rome:20261025T200000
 SUMMARY:CUS Cagliari - Pol. Dinamo
@@ -73,7 +73,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara27@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261031T173000
 DTEND;TZID=Europe/Rome:20261031T193000
 SUMMARY:SEF Torres - CUS Cagliari
@@ -84,7 +84,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara31@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261108T180000
 DTEND;TZID=Europe/Rome:20261108T200000
 SUMMARY:CUS Cagliari - Basket Ferrini
@@ -95,7 +95,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara39@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261114T183000
 DTEND;TZID=Europe/Rome:20261114T203000
 SUMMARY:CUS Cagliari - Scuola Basket Carbonia
@@ -106,7 +106,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara46@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261122T180000
 DTEND;TZID=Europe/Rome:20261122T200000
 SUMMARY:CUS Cagliari - Pall. Nuoro
@@ -117,7 +117,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara54@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261129T183000
 DTEND;TZID=Europe/Rome:20261129T203000
 SUMMARY:Basket Antonianum - CUS Cagliari
@@ -129,7 +129,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara59@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261205T180000
 DTEND;TZID=Europe/Rome:20261205T200000
 SUMMARY:Calasetta Basket - CUS Cagliari
@@ -140,7 +140,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara64@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261213T180000
 DTEND;TZID=Europe/Rome:20261213T200000
 SUMMARY:CUS Cagliari - Fisiokons Aurea Sassari
@@ -151,7 +151,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara69@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20261220T180000
 DTEND;TZID=Europe/Rome:20261220T200000
 SUMMARY:CUS Cagliari - Basket S. Orsola
@@ -162,7 +162,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara77@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270110T180000
 DTEND;TZID=Europe/Rome:20270110T200000
 SUMMARY:C.M.B. Porto Torres - CUS Cagliari
@@ -173,7 +173,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara83@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270117T190000
 DTEND;TZID=Europe/Rome:20270117T210000
 SUMMARY:CUS Cagliari - Olimpia Cagliari
@@ -185,7 +185,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara85@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270123T180000
 DTEND;TZID=Europe/Rome:20270123T200000
 SUMMARY:Pol. Dinamo - CUS Cagliari
@@ -196,7 +196,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara95@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270131T180000
 DTEND;TZID=Europe/Rome:20270131T200000
 SUMMARY:CUS Cagliari - SEF Torres
@@ -207,18 +207,19 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara102@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
-DTSTART;TZID=Europe/Rome:20270206T190000
-DTEND;TZID=Europe/Rome:20270206T210000
+DTSTAMP:20261007T055742Z
+DTSTART;TZID=Europe/Rome:20270207T183000
+DTEND;TZID=Europe/Rome:20270207T203000
 SUMMARY:Basket Ferrini - CUS Cagliari
 LOCATION:Palestra S. Elena\, Via Pessina 29 09045 QUARTU SANT'ELENA (CA)
-DESCRIPTION:Serie C regionale\, 6ª giornata di ritorno\, gara n. 102\nAggi
- ornamenti: https://andreabonn.github.io/campionato-serie-c-26-27/
+DESCRIPTION:Serie C regionale\, 6ª giornata di ritorno\, gara n. 102\nModi
+ ficata dalla FIP rispetto al comunicato ufficiale\nAggiornamenti: https://
+ andreabonn.github.io/campionato-serie-c-26-27/
 URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara108@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270213T183000
 DTEND;TZID=Europe/Rome:20270213T203000
 SUMMARY:Scuola Basket Carbonia - CUS Cagliari
@@ -230,7 +231,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara109@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270227T190000
 DTEND;TZID=Europe/Rome:20270227T210000
 SUMMARY:Pall. Nuoro - CUS Cagliari
@@ -241,7 +242,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara115@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270307T180000
 DTEND;TZID=Europe/Rome:20270307T200000
 SUMMARY:CUS Cagliari - Basket Antonianum
@@ -252,7 +253,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara125@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270314T190000
 DTEND;TZID=Europe/Rome:20270314T210000
 SUMMARY:CUS Cagliari - Calasetta Basket
@@ -264,7 +265,7 @@ URL:https://andreabonn.github.io/campionato-serie-c-26-27/
 END:VEVENT
 BEGIN:VEVENT
 UID:cus-gara128@campionato-serie-c-26-27
-DTSTAMP:20261006T111625Z
+DTSTAMP:20261007T055742Z
 DTSTART;TZID=Europe/Rome:20270320T200000
 DTEND;TZID=Europe/Rome:20270320T220000
 SUMMARY:Fisiokons Aurea Sassari - CUS Cagliari

@@ -21,8 +21,8 @@
         }
       },
       "changes": [],
-      "status": "ufficioso",
-      "status_text": "Risultato ufficioso",
+      "status": "",
+      "status_text": "",
       "referees": [
         "FIORIN GIANMARCO di CABRAS (OR)",
         "ATZENI GIANLUCA di ARBUS (SU)"
@@ -468,8 +468,8 @@
       "home": "Basket Ferrini",
       "away": "CUS Cagliari",
       "is_home": false,
-      "date": "2027-02-06",
-      "time": "19:00",
+      "date": "2027-02-07",
+      "time": "18:30",
       "venue": {
         "name": "Palestra S. Elena",
         "address": "Via Pessina 29 09045 QUARTU SANT'ELENA (CA)"
@@ -482,7 +482,10 @@
           "address": "Via Pessina 29, Quartu Sant'Elena"
         }
       },
-      "changes": [],
+      "changes": [
+        "date",
+        "time"
+      ],
       "status": "non-designata",
       "status_text": "Gara non ancora designata",
       "referees": [],
@@ -646,7 +649,7 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-03",
           "time": "18:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 77,
             "away": 61
@@ -658,7 +661,7 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-10-03",
           "time": "19:00",
-          "status": "ufficioso",
+          "status": "",
           "score": {
             "home": 88,
             "away": 70
@@ -670,7 +673,7 @@
           "away": "SEF TORRES",
           "date": "2026-10-03",
           "time": "19:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 77,
             "away": 71
@@ -682,7 +685,7 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-10-03",
           "time": "17:30",
-          "status": "ufficioso",
+          "status": "",
           "score": {
             "home": 69,
             "away": 66
@@ -694,7 +697,7 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-10-03",
           "time": "18:00",
-          "status": "ufficioso",
+          "status": "",
           "score": {
             "home": 81,
             "away": 70
@@ -706,7 +709,7 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-03",
           "time": "20:00",
-          "status": "ufficioso",
+          "status": "",
           "score": {
             "home": 62,
             "away": 55
@@ -1667,8 +1670,8 @@
           "n": 102,
           "home": "BASKET FERRINI",
           "away": "CUS CAGLIARI",
-          "date": "2027-02-06",
-          "time": "19:00",
+          "date": "2027-02-07",
+          "time": "18:30",
           "status": "non-designata",
           "score": null
         }
@@ -1718,8 +1721,8 @@
           "n": 107,
           "home": "BASKET FERRINI",
           "away": "PALL. NUORO",
-          "date": "2027-02-13",
-          "time": "19:00",
+          "date": "2027-02-14",
+          "time": "18:00",
           "status": "non-designata",
           "score": null
         },
@@ -1979,123 +1982,123 @@
   "standings": [
     {
       "position": 1,
-      "team": "PALL. NUORO",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "C.M.B. PORTO TORRES",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 77,
+      "points_against": 61
     },
     {
       "position": 2,
-      "team": "SCUOLA BASKET CARBONIA",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "BASKET FERRINI",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 88,
+      "points_against": 70
     },
     {
       "position": 3,
-      "team": "SEF TORRES",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "CAMPING LA SALINA CALASETTA",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 81,
+      "points_against": 70
     },
     {
       "position": 4,
-      "team": "BASKET ANTONIANUM",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "BASKET S. ORSOLA",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 62,
+      "points_against": 55
     },
     {
       "position": 5,
-      "team": "POL. DINAMO",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "PALL. NUORO",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 77,
+      "points_against": 71
     },
     {
       "position": 6,
-      "team": "BASKET FERRINI",
-      "points": 0,
-      "played": 0,
-      "won": 0,
+      "team": "POL. DINAMO",
+      "points": 2,
+      "played": 1,
+      "won": 1,
       "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "points_for": 69,
+      "points_against": 66
     },
     {
       "position": 7,
-      "team": "CUS CAGLIARI",
+      "team": "BASKET ANTONIANUM",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 66,
+      "points_against": 69
     },
     {
       "position": 8,
-      "team": "FISIOKONS AUREA SASSARI",
+      "team": "SEF TORRES",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 71,
+      "points_against": 77
     },
     {
       "position": 9,
-      "team": "OLIMPIA CAGLIARI",
+      "team": "CUS CAGLIARI",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 55,
+      "points_against": 62
     },
     {
       "position": 10,
-      "team": "C.M.B. PORTO TORRES",
+      "team": "OLIMPIA CAGLIARI",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 70,
+      "points_against": 81
     },
     {
       "position": 11,
-      "team": "CAMPING LA SALINA CALASETTA",
+      "team": "SCUOLA BASKET CARBONIA",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 70,
+      "points_against": 88
     },
     {
       "position": 12,
-      "team": "BASKET S. ORSOLA",
+      "team": "FISIOKONS AUREA SASSARI",
       "points": 0,
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "lost": 0,
-      "points_for": 0,
-      "points_against": 0
+      "lost": 1,
+      "points_for": 61,
+      "points_against": 77
     }
   ],
   "notices": [],
@@ -2118,5 +2121,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-06T12:44:01+00:00"
+  "updated_at": "2026-10-07T05:57:42+00:00"
 }
