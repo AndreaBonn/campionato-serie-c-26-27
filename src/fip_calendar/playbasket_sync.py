@@ -126,7 +126,22 @@ def _freeze_expired(
                 and game["score"] == entry["fip_score"]
             ):
                 result[str(game["n"])] = {**entry, "status": BOXSCORE_STATUS_INCOMPLETE}
+                _log_incomplete(code=round_["round"], n=game["n"])
     return result
+
+
+def _log_incomplete(code: str, n: int) -> None:
+    logger.warning("playbasket: %s n=%d frozen as incomplete, points never matched FIP", code, n)
+
+
+def _warn_if_empty(item: PendingGame, page: _Page, mn: int) -> None:
+    """A matched page with no points at all points to changed markup, not a late entry."""
+    score = item.game["score"]
+    if page.totals() == (0, 0) and score is not None and (score["home"], score["away"]) != (0, 0):
+        logger.warning(
+            "playbasket: %s n=%d mn=%d: no player points on a matched page, layout changed?",
+            item.round, item.game["n"], mn,
+        )
 
 
 def _candidate_pages(pending: list[PendingGame], previous: dict[str, BoxscoreEntry]) -> list[int]:
@@ -198,16 +213,18 @@ def _finish_round(attempt: _RoundAttempt, today: date) -> dict[str, BoxscoreEntr
         )
         for n, reason in result.unmatched.items():
             logger.warning("playbasket: %s n=%d unmatched: %s", attempt.pending[0].round, n, reason)
-    return {
-        str(item.game["n"]): _make_entry(
-            item=item,
-            page=attempt.pages[matches[item.game["n"]]] if item.game["n"] in matches else None,
-            mn=matches.get(item.game["n"]),
-            today=today,
-        )
-        for item in attempt.pending
-        if item.game["n"] in matches or exhausted
-    }
+    entries = {}
+    for item in attempt.pending:
+        n = item.game["n"]
+        if n not in matches and not exhausted:
+            continue
+        page = attempt.pages[matches[n]] if n in matches else None
+        if page is not None:
+            _warn_if_empty(item=item, page=page, mn=matches[n])
+        entries[str(n)] = _make_entry(item=item, page=page, mn=matches.get(n), today=today)
+        if entries[str(n)]["status"] == BOXSCORE_STATUS_INCOMPLETE:
+            _log_incomplete(code=item.round, n=n)
+    return entries
 
 
 def _prepare_attempts(
