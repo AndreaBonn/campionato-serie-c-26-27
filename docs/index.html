@@ -129,6 +129,13 @@ tr.cut td{border-bottom:2px solid var(--ink)}
 .boxscore a.src{display:inline-block;margin-top:8px;color:var(--ink);font-weight:600;font-size:13px}
 .scorers-more summary{cursor:pointer;font-weight:600;color:var(--ink);margin:8px 0}
 .scorers-more summary:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.cus-players td:first-child,.cus-players th:first-child{text-align:left;white-space:normal}
+.cus-players small.role{display:block;font-size:12px;font-weight:400;color:var(--mut)}
+.cus-player{margin:4px 0}
+.cus-player summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.cus-player summary:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.cus-player p,.cus-player ul.last5{margin:6px 0;font-size:14px}
+.cus-player ul.last5{padding-left:18px}
 .notice{background:var(--chg-bg);color:#78350f;border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:14px}
 .notice ul{margin:6px 0 0;padding-left:18px}
 .notice a{color:#78350f;font-weight:600}
@@ -194,6 +201,7 @@ body:has(.update-notice:not([hidden])) .wrap{padding-bottom:180px}
 <section class="box" id="standings" hidden></section>
 <section class="box" id="league" hidden></section>
 <section class="box" id="scorers" hidden></section>
+<section class="box" id="cus-players" hidden></section>
 <section class="box">
 <h2>Dopo la stagione regolare</h2>
 <div id="notices"></div>
@@ -209,6 +217,7 @@ import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
 import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
 import {renderGameBoxscore,renderScorers,loadBoxscores} from "./boxscores.js";
+import {renderCusPlayers} from "./cus-stats.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
@@ -398,6 +407,9 @@ function applyBoxscores(boxscores){
  const scorersEl=document.getElementById("scorers");
  scorersEl.hidden=false;
  scorersEl.innerHTML=renderScorers(BX,R,FIP_TEAM);
+ const cusPlayersEl=document.getElementById("cus-players");
+ cusPlayersEl.hidden=false;
+ cusPlayersEl.innerHTML=renderCusPlayers(BX,R,FIP_TEAM);
 }
 async function load(){
  loadStatus();
