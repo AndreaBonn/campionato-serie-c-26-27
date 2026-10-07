@@ -3,7 +3,7 @@ from collections.abc import Callable
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import date
-from urllib.error import URLError
+from http.client import HTTPException
 
 from fip_calendar.boxscores import (
     BoxscoreEntry,
@@ -32,6 +32,9 @@ logger = logging.getLogger(__name__)
 HOME_SIDE = 0
 AWAY_SIDE = 1
 ROUND_HALVES = {"A": PLAYBASKET_FIRST_HALF, "R": PLAYBASKET_SECOND_HALF}
+# OSError covers URLError and the read timeouts urlopen raises outside it; HTTPException a
+# truncated body; UnicodeDecodeError a page that is not UTF-8
+PAGE_ERRORS = (OSError, HTTPException, UnicodeDecodeError, PlaybasketParseError)
 
 
 @dataclass(frozen=True)
@@ -175,7 +178,7 @@ def _request_until_found(item: PendingGame, attempt: _RoundAttempt, run: _Run) -
             continue
         try:
             attempt.pages[mn] = run.read_page(code=item.round, mn=mn)
-        except (URLError, PlaybasketParseError) as err:
+        except PAGE_ERRORS as err:
             logger.warning("playbasket: %s mn=%d failed: %s", item.round, mn, err)
             attempt.failed = True
             return
@@ -232,7 +235,8 @@ def collect_boxscores(
     """Return deterministic box scores using the schedule, saved state and local date.
 
     Fetch and sleep use client boundaries. Inputs stay untouched; expired partials
-    freeze without HTTP. A failed round retains its entire previous state. Budget
+    freeze without HTTP, even in a round whose pages failed; a failed round otherwise
+    keeps its previous state. Budget
     exhaustion preserves unvisited entries so old first attempts remain eligible.
     """
     pending = select_pending(rounds=rounds, previous=previous, today=today)
@@ -240,12 +244,8 @@ def collect_boxscores(
     run = _Run(client=client)
     for item in pending:
         _request_until_found(item=item, attempt=attempts[item.round], run=run)
-    failed = {code for code, attempt in attempts.items() if attempt.failed}
-    result = _freeze_expired(
-        rounds=[round_ for round_ in rounds if round_["round"] not in failed],
-        previous=previous,
-        today=today,
-    )
+    # freezing needs no page: a failed request elsewhere in the round must not delay it
+    result = _freeze_expired(rounds=rounds, previous=previous, today=today)
     for attempt in attempts.values():
         result.update(_finish_round(attempt=attempt, today=today))
     logger.info("playbasket: %d pages requested", run.requested)

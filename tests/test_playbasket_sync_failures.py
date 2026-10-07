@@ -71,7 +71,8 @@ def test_collect_boxscores_parse_failure_rolls_back_entire_round(
 
     result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
                                client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
-    assert result == previous
+    # game 3 is past its 14 days: it freezes whatever happens to the pages of the round
+    assert result == {"3": {**previous["3"], "status": "incomplete"}}
     assert calls == [1, 2]
     assert "A1" in caplog.text and "mn=2" in caplog.text
 
@@ -169,3 +170,35 @@ def test_collect_boxscores_corrected_score_retries_frozen_page_and_reuses_parsed
     }
     assert result["1"]["fip_score"] == {"home": 62, "away": 55}
     assert previous == original
+
+
+@pytest.mark.parametrize(
+    argnames="failure",
+    argvalues=[TimeoutError("read timed out"), ConnectionResetError("reset"),
+               UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start byte")],
+)
+def test_collect_boxscores_read_errors_keep_previous_state(failure: Exception) -> None:
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        raise failure
+
+    rounds = [make_round(code="A1", number=1, game_date="2026-10-17")]
+    previous = {"1": saved_entry(code="A1")}
+
+    result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
+                               client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+
+    assert result == previous
+
+
+def test_collect_boxscores_failed_page_still_freezes_expired_partial_of_the_round() -> None:
+    rounds = [make_round(code="A1", number=1)]
+    rounds[0]["games"] += make_round(code="A1", number=2, game_date="2026-10-17")["games"]
+    previous = {"1": saved_entry(code="A1")}
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        raise URLError(reason="offline")
+
+    result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
+                               client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+
+    assert result == {"1": {**previous["1"], "status": "incomplete"}}
