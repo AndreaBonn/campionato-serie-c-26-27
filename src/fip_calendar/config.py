@@ -49,3 +49,43 @@ LOGO_SOURCE_PREFIX = "https://backend.fip.it/"
 LOGO_MAX_BYTES = 8_000_000
 # shown at 24-40 CSS px: 128 px stays sharp on 3x screens
 LOGO_MAX_SIDE_PX = 128
+
+PLAYBASKET_MATCH_URL = "https://www.playbasket.it/sardegna/match.php"
+PLAYBASKET_QUERY = {
+    "lt": "2",
+    "lr": "SA",
+    "lp": "CA",
+    "lc": "C/M",
+    "lg": "1",
+    "season": "2027",
+    "lf": "M",
+}
+# third-party site: 5 s between pages, still under 5 minutes for a full 40-page run
+PLAYBASKET_DELAY_S = 5.0
+BOXSCORE_RETRY_DAYS = 14
+PLAYBASKET_MATCHES_PER_ROUND = 6
+PLAYBASKET_MAX_PAGES_PER_RUN = 40
+# Playbasket gtt uses 1/2 for andata/ritorno; FIP codice_ar uses 1/0.
+PLAYBASKET_FIRST_HALF = 1
+PLAYBASKET_SECOND_HALF = 2
+# Keep boxscores separate so they can load after the calendar's first render.
+BOXSCORES_PATH = ROOT / "docs" / "boxscores.json"
+BOXSCORE_STATUS_COMPLETE = "complete"
+BOXSCORE_STATUS_PARTIAL = "partial"
+BOXSCORE_STATUS_INCOMPLETE = "incomplete"
+BOXSCORE_STATUS_UNMATCHED = "unmatched"
+
+PLAYBASKET_TEAM_ALIASES: dict[str, str] = {
+    "CMB Porto Torres": "C.M.B. PORTO TORRES",
+    "Aurea Sassari": "FISIOKONS AUREA SASSARI",
+    "Ferrini Quartu S.Elena": "BASKET FERRINI",
+    "Scuola Basket Carbonia": "SCUOLA BASKET CARBONIA",
+    "Sirbones Nuoro": "PALL. NUORO",
+    "Sef Torres Sassari": "SEF TORRES",
+    "Dinamo Academy": "POL. DINAMO",
+    "Antonianum Quartu S.Elena": "BASKET ANTONIANUM",
+    "Calasetta Basket": "CAMPING LA SALINA CALASETTA",
+    "Olimpia Cagliari": "OLIMPIA CAGLIARI",
+    "S. Orsola Sassari": "BASKET S. ORSOLA",
+    "Cus Cagliari": "CUS CAGLIARI",
+}

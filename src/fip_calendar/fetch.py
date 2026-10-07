@@ -12,6 +12,8 @@ from fip_calendar.config import (
     LOGO_MAX_BYTES,
     LOGO_SOURCE_PREFIX,
     NOTICE_SEARCH_LIMIT,
+    PLAYBASKET_MATCH_URL,
+    PLAYBASKET_QUERY,
     REQUEST_TIMEOUT_S,
     USER_AGENT,
 )
@@ -33,6 +35,22 @@ def round_pdf_url(half_code: int, round_number: int) -> str:
 def fetch_round(half_code: int, round_number: int) -> str:
     """Download the fip.it/risultati page of one round. Network errors propagate."""
     request = Request(round_url(half_code=half_code, round_number=round_number))
+    request.add_header("User-Agent", USER_AGENT)
+    with urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:
+        body: bytes = response.read()
+    return body.decode("utf-8")
+
+
+def playbasket_match_url(half: int, round_number: int, mn: int) -> str:
+    """Build the Playbasket match page URL with urlencode."""
+    # Never reuse markup hrefs: html.parser decodes &gtn= as &gt plus n=, corrupting the URL.
+    query = {**PLAYBASKET_QUERY, "gtt": str(half), "gtn": str(round_number), "mn": str(mn)}
+    return f"{PLAYBASKET_MATCH_URL}?{urlencode(query)}"
+
+
+def fetch_playbasket_match(half: int, round_number: int, mn: int) -> str:
+    """Download the UTF-8 Playbasket match page. Network errors propagate."""
+    request = Request(playbasket_match_url(half=half, round_number=round_number, mn=mn))
     request.add_header("User-Agent", USER_AGENT)
     with urlopen(request, timeout=REQUEST_TIMEOUT_S) as response:
         body: bytes = response.read()

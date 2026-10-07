@@ -6,7 +6,13 @@ from urllib.request import Request
 import pytest
 
 from fip_calendar import fetch
-from fip_calendar.config import LOGO_MAX_BYTES, REQUEST_TIMEOUT_S, USER_AGENT
+from fip_calendar.config import (
+    LOGO_MAX_BYTES,
+    PLAYBASKET_FIRST_HALF,
+    PLAYBASKET_SECOND_HALF,
+    REQUEST_TIMEOUT_S,
+    USER_AGENT,
+)
 from fip_calendar.fetch import (
     fetch_category_posts,
     fetch_comunicati,
@@ -116,6 +122,58 @@ def test_fetch_round_network_error_propagates(monkeypatch: pytest.MonkeyPatch) -
 
     with pytest.raises(URLError):
         fetch_round(half_code=1, round_number=1)
+
+
+def test_playbasket_match_url_encodes_first_half_query_in_order() -> None:
+    url = fetch.playbasket_match_url(half=PLAYBASKET_FIRST_HALF, round_number=1, mn=6)
+
+    assert url == (
+        "https://www.playbasket.it/sardegna/match.php?"
+        "lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=1&mn=6"
+    )
+
+
+def test_playbasket_match_url_uses_second_half_code() -> None:
+    url = fetch.playbasket_match_url(half=PLAYBASKET_SECOND_HALF, round_number=3, mn=2)
+
+    assert "gtt=2&gtn=3&mn=2" in url
+
+
+def test_fetch_playbasket_match_requests_page_with_user_agent_and_timeout(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fake = FakeUrlopen(body=b"<html></html>")
+    monkeypatch.setattr(fetch, "urlopen", fake)
+
+    fetch.fetch_playbasket_match(half=PLAYBASKET_FIRST_HALF, round_number=1, mn=6)
+
+    [(request, timeout)] = fake.requests
+    assert (request.full_url, request.get_header("User-agent"), timeout) == (
+        fetch.playbasket_match_url(half=PLAYBASKET_FIRST_HALF, round_number=1, mn=6),
+        USER_AGENT,
+        REQUEST_TIMEOUT_S,
+    )
+
+
+def test_fetch_playbasket_match_returns_page_decoded_as_utf8(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(fetch, "urlopen", FakeUrlopen(body="Quartu Sant’Elena".encode()))
+
+    assert (
+        fetch.fetch_playbasket_match(half=PLAYBASKET_FIRST_HALF, round_number=1, mn=6)
+        == "Quartu Sant’Elena"
+    )
+
+
+def test_fetch_playbasket_match_network_error_propagates(monkeypatch: pytest.MonkeyPatch) -> None:
+    def unreachable(request: Request, timeout: float) -> FakeResponse:
+        raise URLError("playbasket.it unreachable")
+
+    monkeypatch.setattr(fetch, "urlopen", unreachable)
+
+    with pytest.raises(URLError, match="playbasket.it unreachable"):
+        fetch.fetch_playbasket_match(half=PLAYBASKET_FIRST_HALF, round_number=1, mn=6)
 
 
 def test_fetch_posts_returns_decoded_api_items(monkeypatch: pytest.MonkeyPatch) -> None:
