@@ -28,8 +28,9 @@ def game(number: int = 6) -> FipGame:
 
 
 def test_match_round_real_a1_matches_all_six_pages_without_mutation() -> None:
-    data = json.loads(s=(ROOT / "docs/data.json").read_text(encoding="utf-8"))
-    fip_games: list[FipGame] = next(r["games"] for r in data["rounds"] if r["round"] == "A1")
+    # frozen copy of round A1: docs/data.json follows fip.it and must not break the tests
+    rounds = json.loads(s=(ROOT / "tests/fixtures/rounds-a1.json").read_text(encoding="utf-8"))
+    fip_games: list[FipGame] = rounds[0]["games"]
     pages = {
         mn: parse_header(
             html=(ROOT / f"tests/fixtures/playbasket-a1-m{mn}.html").read_text(encoding="utf-8")

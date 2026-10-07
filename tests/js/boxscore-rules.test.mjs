@@ -30,7 +30,8 @@ test("partial box score: incomplete label, rows still shown", () => {
   const view = boxscoreView(entry("partial"), fipGame);
 
   assert.equal(view.label, "Tabellino incompleto");
-  assert.ok(view.home.players.length);
+  assert.deepEqual(view.home, { team: "BASKET S. ORSOLA", players: [player("173425", 9)] });
+  assert.deepEqual(view.away, { team: "CUS CAGLIARI", players: [player("195887", "-")] });
 });
 
 test("incomplete box score: same incomplete label as partial", () => {

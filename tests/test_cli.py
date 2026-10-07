@@ -6,7 +6,7 @@ from urllib.error import URLError
 
 import pytest
 
-from fip_calendar import cli
+from fip_calendar import cli, fetch
 from fip_calendar.cli import previous_notices, round_to_page, with_round_pdfs, write_if_changed
 from fip_calendar.config import (
     NOTICE_CATEGORY_ID,
@@ -28,6 +28,16 @@ def no_extra_notice_sources(monkeypatch: pytest.MonkeyPatch) -> None:
     """Keep the category and comunicati requests off the network unless a test sets them."""
     monkeypatch.setattr(cli, "fetch_category_posts", lambda category, after: [])
     monkeypatch.setattr(cli, "fetch_comunicati", lambda after: [])
+
+
+@pytest.fixture(autouse=True)
+def no_network(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Fail loudly if a test reaches the network instead of skipping it by accident."""
+
+    def refuse(*args: object, **kwargs: object) -> None:
+        raise AssertionError("test reached the network")
+
+    monkeypatch.setattr(fetch, "urlopen", refuse)
 
 
 def empty_data(
@@ -175,7 +185,12 @@ def test_main_successful_sync_records_check_time(
 
 @pytest.mark.parametrize(
     "failure",
-    [URLError("fip.it unreachable"), ParseError("layout changed"), MergeError("game 69 missing")],
+    [
+        URLError("fip.it unreachable"),
+        http.client.IncompleteRead(b"truncated page"),
+        ParseError("layout changed"),
+        MergeError("game 69 missing"),
+    ],
 )
 def test_main_failed_sync_leaves_outputs_and_check_time_untouched(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure: Exception

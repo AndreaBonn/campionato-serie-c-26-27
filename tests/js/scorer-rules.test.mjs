@@ -50,3 +50,24 @@ test("scorers: an unmatched or unknown game contributes no players", () => {
 
   assert.deepEqual(scorers(boxscores, rounds), []);
 });
+
+test("scorers: on equal points a player who entered with 0 ranks above one who never entered, whatever the roster order", () => {
+  const rounds = [round(1, "2026-10-03", "TEAM A", "TEAM B")];
+  const bench = player("n", "Bench", null);
+  const zero = player("z", "Zeta", 0);
+
+  for (const [home, away] of [[bench, zero], [zero, bench]]) {
+    const boxscores = { 1: { home: side(home), away: side(away) } };
+    assert.deepEqual(scorers(boxscores, rounds).map((r) => r.id), ["z", "n"]);
+  }
+});
+
+test("scorers: a game recovered out of number order does not move a player back to an older team", () => {
+  const rounds = [round(5, "2026-10-20", "X", "NEW CLUB"), round(9, "2026-09-15", "OLD CLUB", "Y")];
+  const boxscores = {
+    5: { home: side(), away: side(player("m1", "Moved", 6)) },
+    9: { home: side(player("m1", "Moved", 4)), away: side() },
+  };
+
+  assert.equal(scorers(boxscores, rounds)[0].team, "NEW CLUB");
+});

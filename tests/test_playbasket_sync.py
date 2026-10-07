@@ -13,8 +13,11 @@ TODAY = date(2026, 10, 7)
 
 
 def load_rounds() -> list[RoundDict]:
-    data = json.loads(s=(ROOT / "docs/data.json").read_text(encoding="utf-8"))
-    return [round_ for round_ in data["rounds"] if round_["round"] == "A1"]
+    # frozen copy of round A1: docs/data.json follows fip.it and must not break the tests
+    rounds: list[RoundDict] = json.loads(
+        s=(ROOT / "tests/fixtures/rounds-a1.json").read_text(encoding="utf-8")
+    )
+    return rounds
 
 
 class FixtureClient:
@@ -109,3 +112,43 @@ def test_collect_boxscores_searches_remaining_pages_when_hint_is_wrong() -> None
 @pytest.mark.parametrize(argnames="code,expected", argvalues=[("A5", (1, 5)), ("R3", (2, 3))])
 def test_parse_round_maps_half_and_number(code: str, expected: tuple[int, int]) -> None:
     assert parse_round(code=code) == expected
+
+
+def test_collect_boxscores_page_matching_a_later_game_is_not_requested_again() -> None:
+    first = "<title>S. Orsola Sassari - Cus Cagliari 62-55 [03/10/2026]</title>"
+    second = "<title>Olimpia Cagliari - Sef Torres Sassari 70-60 [03/10/2026]</title>"
+    rounds: list[RoundDict] = [
+        {
+            "round": "A1",
+            "games": [
+                {
+                    "n": 1,
+                    "home": "BASKET S. ORSOLA",
+                    "away": "CUS CAGLIARI",
+                    "score": {"home": 62, "away": 55},
+                    "date": "2026-10-03",
+                },
+                {
+                    "n": 2,
+                    "home": "OLIMPIA CAGLIARI",
+                    "away": "SEF TORRES",
+                    "score": {"home": 70, "away": 60},
+                    "date": "2026-10-03",
+                },
+            ],
+        }
+    ]
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        return second if mn == 1 else first
+
+    result = collect_boxscores(
+        rounds=rounds,
+        previous={},
+        today=TODAY,
+        client=PlaybasketClient(fetch=fetch, sleep=lambda _: None),
+    )
+    assert (result["1"]["mn"], result["2"]["mn"]) == (2, 1)
+    assert calls == [1, 2]

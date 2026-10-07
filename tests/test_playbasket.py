@@ -128,3 +128,10 @@ def test_parse_players_non_numeric_points_raises_parse_error() -> None:
     assert parse_players(html=player_table(info="", pts="12"), side=0)[0].pts == 12
     with pytest.raises(expected_exception=PlaybasketParseError):
         parse_players(html=player_table(info="", pts="invalid"), side=0)
+
+
+def test_parse_players_row_without_points_cell_raises_parse_error() -> None:
+    no_points = player_table(info="").replace('<td class="colfrozen divisore">12</td>', "")
+    assert parse_players(html=player_table(info=""), side=0)[0].pts == 12
+    with pytest.raises(expected_exception=PlaybasketParseError, match="missing points cell"):
+        parse_players(html=no_points, side=0)

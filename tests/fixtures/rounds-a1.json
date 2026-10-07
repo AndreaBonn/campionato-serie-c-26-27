@@ -1,0 +1,114 @@
+[
+  {
+    "round": "A1",
+    "games": [
+      {
+        "n": 1,
+        "home": "C.M.B. PORTO TORRES",
+        "away": "FISIOKONS AUREA SASSARI",
+        "date": "2026-10-03",
+        "time": "18:00",
+        "status": "omologata",
+        "score": {
+          "home": 77,
+          "away": 61
+        },
+        "referees": [
+          "FANCELLU MATTEO di SASSARI (SS)",
+          "GAVINI ANTONIO di SASSARI (SS)"
+        ],
+        "sanctions": [
+          "soc. CENTRO MINIBK P.TORRES A. DIL.:Ammenda di Euro 250.00 ritardato riconoscimento del responsabile dell’Ambulanza di servizio [art. 38,1b RG - art. 34 comma 4 R.E. gare]"
+        ]
+      },
+      {
+        "n": 2,
+        "home": "BASKET FERRINI",
+        "away": "SCUOLA BASKET CARBONIA",
+        "date": "2026-10-03",
+        "time": "19:00",
+        "status": "omologata",
+        "score": {
+          "home": 88,
+          "away": 70
+        },
+        "referees": [
+          "SEU CLAUDIA di QUARTUCCIU (CA)",
+          "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
+        ],
+        "sanctions": []
+      },
+      {
+        "n": 3,
+        "home": "PALL. NUORO",
+        "away": "SEF TORRES",
+        "date": "2026-10-03",
+        "time": "19:00",
+        "status": "omologata",
+        "score": {
+          "home": 77,
+          "away": 71
+        },
+        "referees": [
+          "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
+          "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
+        ],
+        "sanctions": [
+          "soc. A.S.D. PALL. NUORO:Ammenda di Euro 250.00 ritardato riconoscimento del Medico di Servizio [art. 38,1b RG - art. 34 comma 4 R.E. gare]"
+        ]
+      },
+      {
+        "n": 4,
+        "home": "POL. DINAMO",
+        "away": "BASKET ANTONIANUM",
+        "date": "2026-10-03",
+        "time": "17:30",
+        "status": "omologata",
+        "score": {
+          "home": 69,
+          "away": 66
+        },
+        "referees": [
+          "MAMELI MARCO di ITTIRI (SS)",
+          "PUGGIONI SAMUELE di SASSARI (SS)"
+        ],
+        "sanctions": []
+      },
+      {
+        "n": 5,
+        "home": "CAMPING LA SALINA CALASETTA",
+        "away": "OLIMPIA CAGLIARI",
+        "date": "2026-10-03",
+        "time": "18:00",
+        "status": "omologata",
+        "score": {
+          "home": 81,
+          "away": 70
+        },
+        "referees": [
+          "SEU ALESSANDRA di QUARTUCCIU (CA)",
+          "FARCI DANIELE di CAGLIARI (CA)"
+        ],
+        "sanctions": []
+      },
+      {
+        "n": 6,
+        "home": "BASKET S. ORSOLA",
+        "away": "CUS CAGLIARI",
+        "date": "2026-10-03",
+        "time": "20:00",
+        "status": "omologata",
+        "score": {
+          "home": 62,
+          "away": 55
+        },
+        "referees": [
+          "FIORIN GIANMARCO di CABRAS (OR)",
+          "ATZENI GIANLUCA di ARBUS (SU)"
+        ],
+        "sanctions": []
+      }
+    ],
+    "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=1"
+  }
+]

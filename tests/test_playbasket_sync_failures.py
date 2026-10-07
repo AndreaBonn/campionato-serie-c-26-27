@@ -203,3 +203,18 @@ def test_collect_boxscores_failed_page_still_freezes_expired_partial_of_the_roun
                                client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
 
     assert result == {"1": {**previous["1"], "status": "incomplete"}}
+
+
+def test_collect_boxscores_failed_round_requests_no_page_for_its_other_games() -> None:
+    rounds = [make_round(code="A1", number=1)]
+    rounds[0]["games"] += make_round(code="A1", number=2)["games"]
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        raise URLError(reason="offline")
+
+    result = collect_boxscores(rounds=rounds, previous={}, today=TODAY,
+                               client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+    assert result == {}
+    assert calls == [1]
