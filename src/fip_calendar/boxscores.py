@@ -10,6 +10,7 @@ from fip_calendar.config import (
     BOXSCORE_STATUS_PARTIAL,
     BOXSCORE_STATUS_UNMATCHED,
     PLAYBASKET_TEAM_ALIASES,
+    BoxscoreStatus,
 )
 from fip_calendar.playbasket import PbHeader
 
@@ -53,7 +54,7 @@ class TeamBoxscore(TypedDict):
 
 class BoxscoreEntry(TypedDict):
     round: str
-    status: str
+    status: BoxscoreStatus
     fip_score: FipScore
     mn: int | None
     url: str | None
@@ -144,7 +145,7 @@ def match_round(fip_games: list[FipGame], pages: dict[int, PbHeader]) -> MatchRe
 
 def classify(
     totals: tuple[int, int] | None, fip_score: FipScore, game_date: date, today: date,
-) -> str:
+) -> BoxscoreStatus:
     """Classify a fresh attempt; None totals mean no matched page."""
     if totals is None:
         return BOXSCORE_STATUS_UNMATCHED

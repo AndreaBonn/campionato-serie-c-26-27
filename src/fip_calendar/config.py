@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Final, Literal
 
 ROOT = Path(__file__).resolve().parents[2]
 CALENDAR_PATH = ROOT / "data" / "calendario-comunicato.json"
@@ -70,10 +71,12 @@ PLAYBASKET_FIRST_HALF = 1
 PLAYBASKET_SECOND_HALF = 2
 # Keep boxscores separate so they can load after the calendar's first render.
 BOXSCORES_PATH = ROOT / "docs" / "boxscores.json"
-BOXSCORE_STATUS_COMPLETE = "complete"
-BOXSCORE_STATUS_PARTIAL = "partial"
-BOXSCORE_STATUS_INCOMPLETE = "incomplete"
-BOXSCORE_STATUS_UNMATCHED = "unmatched"
+# a Literal, not str: a mistyped status would silently stop the 14-day retry rules
+BoxscoreStatus = Literal["complete", "partial", "incomplete", "unmatched"]
+BOXSCORE_STATUS_COMPLETE: Final[BoxscoreStatus] = "complete"
+BOXSCORE_STATUS_PARTIAL: Final[BoxscoreStatus] = "partial"
+BOXSCORE_STATUS_INCOMPLETE: Final[BoxscoreStatus] = "incomplete"
+BOXSCORE_STATUS_UNMATCHED: Final[BoxscoreStatus] = "unmatched"
 
 PLAYBASKET_TEAM_ALIASES: dict[str, str] = {
     "CMB Porto Torres": "C.M.B. PORTO TORRES",

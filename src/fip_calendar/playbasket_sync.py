@@ -144,12 +144,12 @@ def _warn_if_empty(item: PendingGame, page: _Page, mn: int) -> None:
         )
 
 
-def _candidate_pages(pending: list[PendingGame], previous: dict[str, BoxscoreEntry]) -> list[int]:
+def _candidate_pages(
+    code: str, pending: list[PendingGame], previous: dict[str, BoxscoreEntry]
+) -> list[int]:
     numbers = {str(item.game["n"]) for item in pending}
     frozen = {
-        entry["mn"]
-        for n, entry in previous.items()
-        if entry["round"] == pending[0].round and n not in numbers
+        entry["mn"] for n, entry in previous.items() if entry["round"] == code and n not in numbers
     }
     candidates = [item.mn for item in pending] + list(range(1, PLAYBASKET_MATCHES_PER_ROUND + 1))
     return [mn for mn in dict.fromkeys(candidates) if mn not in frozen]
@@ -236,7 +236,7 @@ def _prepare_attempts(
         grouped.setdefault(item.round, []).append(item)
     return {
         code: _RoundAttempt(
-            pending=items, candidates=_candidate_pages(pending=items, previous=previous)
+            pending=items, candidates=_candidate_pages(code=code, pending=items, previous=previous)
         )
         for code, items in grouped.items()
     }

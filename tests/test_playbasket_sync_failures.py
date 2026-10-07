@@ -6,6 +6,7 @@ from urllib.error import URLError
 import pytest
 
 from fip_calendar.boxscores import BoxscoreEntry, RoundDict
+from fip_calendar.config import BoxscoreStatus
 from fip_calendar.playbasket_sync import PlaybasketClient, collect_boxscores
 
 TODAY = date(2026, 10, 18)
@@ -24,7 +25,7 @@ def make_round(code: str, number: int, game_date: str = "2026-10-03") -> RoundDi
     }]}
 
 
-def saved_entry(code: str, status: str = "partial") -> BoxscoreEntry:
+def saved_entry(code: str, status: BoxscoreStatus = "partial") -> BoxscoreEntry:
     return {"round": code, "status": status, "fip_score": {"home": 62, "away": 55},
             "mn": 1, "url": "saved", "home": None, "away": None}
 

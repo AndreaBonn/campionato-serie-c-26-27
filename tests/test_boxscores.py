@@ -14,6 +14,7 @@ from fip_calendar.boxscores import (
     match_round,
     select_pending,
 )
+from fip_calendar.config import BoxscoreStatus
 from fip_calendar.playbasket import PbHeader, parse_header
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -166,7 +167,7 @@ def test_classify_totals_and_retry_boundary_return_status(
     ],
 )
 def test_select_pending_state_rules_preserve_inputs(
-    case: tuple[str | None, int, bool, bool], expected: list[int],
+    case: tuple[BoxscoreStatus | None, int, bool, bool], expected: list[int],
 ) -> None:
     status, day, changed, played = case
     rounds: list[RoundDict] = [{"round": "A1", "games": [
