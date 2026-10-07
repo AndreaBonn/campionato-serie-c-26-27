@@ -1,7 +1,7 @@
 // Pure rules of a playbasket.it box score: no DOM, no browser API, tested with node --test.
 
 // Statuses where the box score is matched but still short of the FIP score (boxscores.py)
-const INCOMPLETE_STATUSES = new Set(["partial", "incomplete"]);
+export const INCOMPLETE_STATUSES = new Set(["partial", "incomplete"]);
 const INCOMPLETE_LABEL = "Tabellino incompleto";
 // A player at referto who never entered the game (boxscores.py's None cell)
 const PTS_PLACEHOLDER = "-";

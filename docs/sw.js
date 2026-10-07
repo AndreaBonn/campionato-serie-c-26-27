@@ -14,6 +14,7 @@ const SHELL = [
   "notice-rules.js",
   "page-rules.js",
   "boxscore-rules.js",
+  "scorer-rules.js",
   "boxscores.js",
   "logo-cus.png",
   "manifest.webmanifest",
