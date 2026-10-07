@@ -53,6 +53,22 @@ jobs:
         with:
           path: docs
 
+  # a FIP rename (new sponsor) must not stop the sync: this job fails on its own,
+  # GitHub reports the failed run, and the deploy does not wait for it
+  alias-check:
+    needs: sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          # the data commit pushed by the sync job, not the commit that started the run
+          ref: main
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+      - run: uv sync --frozen
+      - run: uv run fip-calendar-check-aliases
+
   deploy:
     needs: sync
     runs-on: ubuntu-latest

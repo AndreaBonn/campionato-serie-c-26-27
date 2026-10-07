@@ -9,8 +9,8 @@ FIXTURES = ROOT / "tests" / "fixtures"
 
 
 def test_playbasket_team_aliases_match_all_fip_standings_teams() -> None:
-    data = json.loads((ROOT / "docs" / "data.json").read_text(encoding="utf-8"))
-    teams = {row["team"] for row in data["standings"]}
+    # frozen copy: the live standings are checked by the alias-check job of the workflow
+    teams = set(json.loads((FIXTURES / "standings-teams.json").read_text(encoding="utf-8")))
 
     assert set(config.PLAYBASKET_TEAM_ALIASES.values()) == teams
 
