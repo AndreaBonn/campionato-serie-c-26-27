@@ -154,6 +154,7 @@ def _patch_main_paths(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(cli, "STATUS_PATH", status)
     # sync_logos deletes crests no team uses: never let it see the real docs/logos
     monkeypatch.setattr(cli, "LOGOS_DIR", tmp_path / "logos")
+    monkeypatch.setattr(cli, "BOXSCORES_PATH", tmp_path / "boxscores.json")
     return status
 
 
@@ -548,3 +549,59 @@ def test_main_successful_sync_publishes_fip_sardegna_notices(
 
     notices = json.loads((tmp_path / "data.json").read_text())["notices"]
     assert [n["link"] for n in notices] == ["https://sardegna.fip.it/formula-c/"]
+
+
+BOXSCORE = {
+    "round": "A1",
+    "status": "complete",
+    "fip_score": {"home": 62, "away": 55},
+    "mn": 6,
+    "url": "https://www.playbasket.it/sardegna/match.php?mn=6",
+    "home": {"team": "S. Orsola Sassari", "players": []},
+    "away": {"team": "Cus Cagliari", "players": []},
+}
+
+
+def test_main_writes_box_scores_from_previous_state_and_league_rounds(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_main_paths(tmp_path, monkeypatch)
+    (tmp_path / "boxscores.json").write_text(json.dumps({"boxscores": {"1": BOXSCORE}}))
+    monkeypatch.setattr(cli, "collect", lambda games: ({}, []))
+    one_round = {"games": [], "rounds": [{"round": "A1", "games": []}]}
+    monkeypatch.setattr(cli, "build_data", lambda calendar, rounds, standings: one_round)
+    monkeypatch.setattr(cli, "collect_notices", lambda path: [])
+    seen: dict[str, object] = {}
+
+    def collect_boxscores(**kwargs: object) -> dict[str, object]:
+        seen.update(kwargs)
+        return {"6": BOXSCORE}
+
+    monkeypatch.setattr(cli, "collect_boxscores", collect_boxscores)
+
+    assert cli.main() == 0
+
+    written = json.loads((tmp_path / "boxscores.json").read_text())
+    assert written["boxscores"] == {"6": BOXSCORE}
+    assert seen["previous"] == {"1": BOXSCORE}
+    assert seen["rounds"] == [{"round": "A1", "games": [], "pdf_url": round_pdf_url(1, 1)}]
+
+
+def test_previous_boxscores_without_an_object_returns_empty(tmp_path: Path) -> None:
+    target = tmp_path / "boxscores.json"
+    target.write_text(json.dumps({"boxscores": ["not", "a", "dict"]}))
+
+    assert cli.previous_boxscores(target) == {}
+
+
+def test_previous_boxscores_reads_published_entries(tmp_path: Path) -> None:
+    target = tmp_path / "boxscores.json"
+    target.write_text(json.dumps({"boxscores": {"6": BOXSCORE}}))
+
+    assert cli.previous_boxscores(target) == {"6": BOXSCORE}
+
+
+def test_italian_date_after_midnight_in_rome_is_the_next_day() -> None:
+    late_saturday_utc = datetime.fromisoformat("2026-10-03T22:30:00+00:00")
+
+    assert cli.italian_date(late_saturday_utc).isoformat() == "2026-10-04"

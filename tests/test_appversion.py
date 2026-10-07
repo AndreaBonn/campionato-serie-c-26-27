@@ -51,6 +51,7 @@ def test_app_version_ignores_fip_data_updates(tmp_path: Path) -> None:
     (docs / "data.json").write_text('{"games": [1]}')
     (docs / "calendario.ics").write_text("BEGIN:VCALENDAR\r\nNEW")
     (docs / "status.json").write_text('{"checked_at": "y"}')
+    (docs / "boxscores.json").write_text('{"boxscores": {"6": {}}}')
 
     assert app_version(docs) == before
 

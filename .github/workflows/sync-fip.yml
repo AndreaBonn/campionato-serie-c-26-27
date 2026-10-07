@@ -38,13 +38,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          if [ -z "$(git status --porcelain -- docs/data.json docs/calendario.ics docs/logos)" ]; then
+          if [ -z "$(git status --porcelain -- docs/data.json docs/boxscores.json docs/calendario.ics docs/logos)" ]; then
             echo "No changes from fip.it"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- docs/data.json docs/calendario.ics docs/logos
+          git add -A -- docs/data.json docs/boxscores.json docs/calendario.ics docs/logos
           git commit -m "chore(data): sync with fip.it"
           git push "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" HEAD:main
       # after the data commit: the stamped sw.js is published, never committed

@@ -5,7 +5,7 @@ from pathlib import Path
 from fip_calendar.config import ROOT
 
 # written by fip-calendar on every sync: a data update is not a new app version
-DATA_FILES = frozenset({"data.json", "calendario.ics", "status.json"})
+DATA_FILES = frozenset({"data.json", "calendario.ics", "status.json", "boxscores.json"})
 # crests copied from fip.it by the same sync (logos.py)
 DATA_DIRS = frozenset({"logos"})
 PLACEHOLDER = '"dev"'

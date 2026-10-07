@@ -2,12 +2,15 @@ import json
 import logging
 import sys
 import time
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.error import URLError
+from zoneinfo import ZoneInfo
 
+from fip_calendar.boxscores import BoxscoreEntry, RoundDict
 from fip_calendar.config import (
+    BOXSCORES_PATH,
     CALENDAR_PATH,
     FIRST_HALF_CODE,
     ICS_PATH,
@@ -25,6 +28,7 @@ from fip_calendar.fetch import (
     fetch_category_posts,
     fetch_comunicati,
     fetch_logo,
+    fetch_playbasket_match,
     fetch_posts,
     fetch_round,
     round_pdf_url,
@@ -40,11 +44,15 @@ from fip_calendar.notices import (
     select_notices,
 )
 from fip_calendar.parse import FipMatch, ParseError, Standing, parse_matches, parse_standings
+from fip_calendar.playbasket_sync import PlaybasketClient, collect_boxscores
 
 logger = logging.getLogger("fip_calendar")
 TIMESTAMP_KEY = "updated_at"
 NOTICES_KEY = "notices"
 LOGOS_KEY = "logos"
+BOXSCORES_KEY = "boxscores"
+# FIP dates are Italian: the 14-day retry window counts Italian calendar days
+LOCAL_TZ = ZoneInfo("Europe/Rome")
 
 
 def round_to_page(round_code: str) -> tuple[int, int]:
@@ -103,6 +111,30 @@ def collect_logos(rounds: dict[str, list[FipMatch]], fallback_path: Path) -> Log
         previous=known if isinstance(known, dict) else {},
         directory=LOGOS_DIR,
         download=fetch_logo,
+    )
+
+
+def previous_boxscores(path: Path) -> dict[str, BoxscoreEntry]:
+    """Box scores already published: frozen games are never requested again."""
+    previous = read_json(path)
+    known = previous.get(BOXSCORES_KEY) if previous else None
+    return known if isinstance(known, dict) else {}
+
+
+def italian_date(moment: datetime) -> date:
+    return moment.astimezone(LOCAL_TZ).date()
+
+
+def sync_boxscores(rounds: list[RoundDict], now: datetime) -> bool:
+    """Read the pending playbasket.it box scores and write boxscores.json if they changed."""
+    boxscores = collect_boxscores(
+        rounds=rounds,
+        previous=previous_boxscores(BOXSCORES_PATH),
+        today=italian_date(now),
+        client=PlaybasketClient(fetch=fetch_playbasket_match, sleep=time.sleep),
+    )
+    return write_if_changed(
+        path=BOXSCORES_PATH, data={BOXSCORES_KEY: boxscores}, now=now.isoformat(timespec="seconds")
     )
 
 
@@ -178,12 +210,14 @@ def main() -> int:
     # rebuilt on every run so a fix to ics.py reaches subscribers even when FIP data is unchanged
     ics = build_ics(data["games"], now.strftime("%Y%m%dT%H%M%SZ"), PAGE_URL)
     ics_changed = write_ics_if_changed(path=ICS_PATH, text=ics)
-    # written last: it certifies that fip.it was read and both outputs are on disk
+    boxscores_changed = sync_boxscores(rounds=data["rounds"], now=now)
+    # written last: it certifies that fip.it was read and every output is on disk
     STATUS_PATH.write_text(json.dumps({"checked_at": checked_at}) + "\n", encoding="utf-8")
     logger.info(
-        "data.json %s, calendario.ics %s",
+        "data.json %s, calendario.ics %s, boxscores.json %s",
         "updated" if changed else "unchanged",
         "updated" if ics_changed else "unchanged",
+        "updated" if boxscores_changed else "unchanged",
     )
     return 0
 
