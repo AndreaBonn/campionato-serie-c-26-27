@@ -152,3 +152,50 @@ def test_collect_boxscores_page_matching_a_later_game_is_not_requested_again() -
     )
     assert (result["1"]["mn"], result["2"]["mn"]) == (2, 1)
     assert calls == [1, 2]
+
+
+def test_collect_boxscores_duplicate_page_read_later_keeps_the_first_match_and_warns(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    first = "<title>S. Orsola Sassari - Cus Cagliari 62-55 [03/10/2026]</title>"
+    second = "<title>Olimpia Cagliari - Sef Torres Sassari 70-60 [03/10/2026]</title>"
+    other = "<title>Unknown - Club 1-2 [03/10/2026]</title>"
+    # game 2's hint (mn=2) is wrong: its search reads mn=3, a duplicate of game 1's page
+    pages = {1: first, 2: other, 3: first, 4: second, 5: other, 6: other}
+    rounds: list[RoundDict] = [
+        {
+            "round": "A1",
+            "games": [
+                {
+                    "n": 1,
+                    "home": "BASKET S. ORSOLA",
+                    "away": "CUS CAGLIARI",
+                    "score": {"home": 62, "away": 55},
+                    "date": "2026-10-03",
+                },
+                {
+                    "n": 2,
+                    "home": "OLIMPIA CAGLIARI",
+                    "away": "SEF TORRES",
+                    "score": {"home": 70, "away": 60},
+                    "date": "2026-10-03",
+                },
+            ],
+        }
+    ]
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        return pages[mn]
+
+    result = collect_boxscores(
+        rounds=rounds,
+        previous={},
+        today=TODAY,
+        client=PlaybasketClient(fetch=fetch, sleep=lambda _: None),
+    )
+    assert calls == [1, 2, 3, 4]
+    assert (result["1"]["mn"], result["2"]["mn"]) == (1, 4)
+    assert "A1 n=1: kept mn=1, ambiguous pages: mn=1, mn=3" in caplog.text
+    assert "n=2: kept" not in caplog.text

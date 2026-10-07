@@ -7,6 +7,7 @@ from http.client import HTTPException
 
 from fip_calendar.boxscores import (
     BoxscoreEntry,
+    MatchResult,
     PendingGame,
     PlayerDict,
     RoundDict,
@@ -81,12 +82,21 @@ class _RoundAttempt:
     candidates: list[int]
     pages: dict[int, _Page] = field(default_factory=dict)
     failed: bool = False
+    # the first page matched to a game wins: a duplicate read later, while another game of
+    # the round is searched, must not undo it, or the outcome would depend on the search order
+    locked: dict[int, int] = field(default_factory=dict)
 
-    def matches(self) -> dict[int, int]:
+    def match_result(self) -> MatchResult:
         return match_round(
             fip_games=[item.game for item in self.pending],
             pages={mn: page.header for mn, page in self.pages.items()},
-        ).matches
+        )
+
+    def lock_matches(self, result: MatchResult) -> dict[int, int]:
+        """Lock every game of result the first time it matches; return all locked matches."""
+        for n, mn in result.matches.items():
+            self.locked.setdefault(n, mn)
+        return dict(self.locked)
 
 
 def parse_round(code: str) -> tuple[int, int]:
@@ -184,7 +194,7 @@ def _make_entry(
 
 
 def _request_until_found(item: PendingGame, attempt: _RoundAttempt, run: _Run) -> None:
-    if attempt.failed or item.game["n"] in attempt.matches():
+    if attempt.failed or item.game["n"] in attempt.lock_matches(result=attempt.match_result()):
         return
     for mn in attempt.candidates:
         if run.requested >= PLAYBASKET_MAX_PAGES_PER_RUN:
@@ -197,22 +207,22 @@ def _request_until_found(item: PendingGame, attempt: _RoundAttempt, run: _Run) -
             logger.warning("playbasket: %s mn=%d failed: %s", item.round, mn, err)
             attempt.failed = True
             return
-        if item.game["n"] in attempt.matches():
+        if item.game["n"] in attempt.lock_matches(result=attempt.match_result()):
             return
 
 
 def _finish_round(attempt: _RoundAttempt, today: date) -> dict[str, BoxscoreEntry]:
     if attempt.failed:
         return {}
-    matches = attempt.matches()
+    result = attempt.match_result()
+    matches = attempt.lock_matches(result=result)
     exhausted = len(attempt.pages) == len(attempt.candidates)
-    if exhausted:
-        result = match_round(
-            fip_games=[item.game for item in attempt.pending],
-            pages={mn: page.header for mn, page in attempt.pages.items()},
-        )
-        for n, reason in result.unmatched.items():
-            logger.warning("playbasket: %s n=%d unmatched: %s", attempt.pending[0].round, n, reason)
+    code = attempt.pending[0].round
+    for n, reason in result.unmatched.items():
+        if n in matches:
+            logger.warning("playbasket: %s n=%d: kept mn=%d, %s", code, n, matches[n], reason)
+        elif exhausted:
+            logger.warning("playbasket: %s n=%d unmatched: %s", code, n, reason)
     entries = {}
     for item in attempt.pending:
         n = item.game["n"]

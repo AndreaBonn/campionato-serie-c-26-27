@@ -101,6 +101,9 @@ def test_collect_boxscores_budget_stops_at_40_without_freezing_unvisited_games(
                            "fip_score": {"home": 62, "away": 55},
                            "mn": None, "url": None, "home": None, "away": None}
     assert "playbasket: 40 pages requested" in caplog.text
+    # A1 read every page and found no match; A7 was cut short by the budget, nothing to report yet
+    assert "playbasket: A1 n=1 unmatched" in caplog.text
+    assert "A7 n=7 unmatched" not in caplog.text
 
 
 def test_collect_boxscores_follows_global_pending_priority_between_rounds() -> None:
