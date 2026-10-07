@@ -113,6 +113,20 @@ tr.cut td{border-bottom:2px solid var(--ink)}
 .round-pick select{font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--ink);border-radius:4px;color:var(--ink);background:var(--card)}
 .round-pick select:focus-visible{outline:3px solid var(--home);outline-offset:2px}
 .round-pdf a{color:var(--ink);font-weight:600}
+.boxscore-row td{padding:0;border-bottom:1px solid var(--line)}
+.boxscore{padding:10px 8px}
+.boxscore summary{cursor:pointer;font-weight:600;color:var(--ink);list-style:none}
+.boxscore summary::-webkit-details-marker{display:none}
+.boxscore summary::after{content:" ▾"}
+.boxscore[open] summary::after{content:" ▴"}
+.boxscore summary:focus-visible{outline:3px solid var(--home);outline-offset:2px}
+.incomplete{color:var(--chg);font-weight:600;font-size:12px}
+.boxscore .teams{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
+.boxscore .teams>div{flex:1 1 220px;min-width:0}
+.bx caption{text-align:left;font-weight:700;color:var(--ink);padding-bottom:4px}
+.bx td:first-child,.bx th:first-child{text-align:left}
+.bx small.role{display:block;font-size:12px;font-weight:400;color:var(--mut)}
+.boxscore a.src{display:inline-block;margin-top:8px;color:var(--ink);font-weight:600;font-size:13px}
 .notice{background:var(--chg-bg);color:#78350f;border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:14px}
 .notice ul{margin:6px 0 0;padding-left:18px}
 .notice a{color:#78350f;font-weight:600}
@@ -190,12 +204,13 @@ Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunic
 import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
 import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
+import {renderGameBoxscore,loadBoxscores} from "./boxscores.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
 ["2026-12-21","<b>Sosta per le festività.</b> Nessuna partita dal 21 dicembre all'8 gennaio."],
 ["2027-02-15","<b>Sosta.</b> Nessuna partita nel fine settimana del 20 e 21 febbraio."]];
-let G=[], R=[], ST=[], LG={};
+let G=[], R=[], ST=[], LG={}, BX={};
 
 const fmtDay=d=>d.toLocaleDateString("it-IT",{weekday:"short"}).replace(".","");
 const fmtLong=d=>d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
@@ -320,7 +335,7 @@ function roundTable(r){
   const me=g.home===FIP_TEAM||g.away===FIP_TEAM, note=resultNote(g.status);
   const res=g.score?`${g.score.home}-${g.score.away}`+(note?`<small class="prov${note.warn?" alert":""}">${esc(note.tag)}</small>`:""):esc(g.time);
   const refs=g.referees?.length?`<small class="refs">Arbitri: ${g.referees.map(esc).join("; ")}</small>`:"";
-  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}${refs}</td><td>${res}</td></tr>`}).join("");
+  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}${refs}</td><td>${res}</td></tr>${renderGameBoxscore(BX,g)}`}).join("");
  const fined=r.games.filter(g=>g.sanctions?.length);
  const sanc=fined.length?`<div class="sanc"><strong>Provvedimenti del Giudice Sportivo</strong><ul>${fined.flatMap(g=>g.sanctions.map(t=>`<li><b>${esc(g.home)} - ${esc(g.away)}:</b> ${esc(t)}</li>`)).join("")}</ul></div>`:"";
  const pdf=String(r.pdf_url||"").startsWith("https://backend.fip.it/")?`<p class="meta round-pdf"><a href="${esc(r.pdf_url)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
@@ -372,6 +387,11 @@ async function loadStatus(){
   el.hidden=false;
  }catch(err){console.warn("status.json non disponibile",err)}
 }
+function applyBoxscores(boxscores){
+ BX=boxscores;
+ const select=document.getElementById("round-select");
+ if(select) document.getElementById("round-table").innerHTML=roundTable(R[+select.value]);
+}
 async function load(){
  loadStatus();
  document.getElementById("list").innerHTML='<p class="state">Caricamento dei dati FIP in corso…</p>';
@@ -394,7 +414,7 @@ document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{
 });
 document.getElementById("future").onchange=refresh;
 setupSubscription();
-load();
+load().then(()=>loadBoxscores(applyBoxscores));
 </script>
 <script type="module" src="update.js"></script>
 </body>
