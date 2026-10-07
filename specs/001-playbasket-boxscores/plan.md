@@ -13,12 +13,12 @@ un'analisi dei giocatori del CUS. Un guasto di playbasket non ferma mai la sync 
 
 Fase 1 (dati, nessuna UI)
 
-- [ ] D1. Dopo `uv run fip-calendar` con le 6 partite di A1 giocate, `jq '.boxscores | length' docs/data.json` vale 6 e ogni voce ha `status: "complete"`, `mn` e `url` uguale all'URL costruito per quel `mn`. Esempio: partita FIP `n=6` (BASKET S. ORSOLA - CUS CAGLIARI 62-55) → `mn=6`, somma dei punti di casa 62 e di trasferta 55.
-- [ ] D2. Una seconda esecuzione subito dopo non fa nessuna richiesta a playbasket (riga di log `playbasket: 0 pages requested`) e lascia `docs/data.json` invariato.
+- [ ] D1. Dopo `uv run fip-calendar` con le 6 partite di A1 giocate, `jq '.boxscores | length' docs/boxscores.json` vale 6 e ogni voce ha `status: "complete"`, `mn` e `url` uguale all'URL costruito per quel `mn`. Esempio: partita FIP `n=6` (BASKET S. ORSOLA - CUS CAGLIARI 62-55) → `mn=6`, somma dei punti di casa 62 e di trasferta 55.
+- [ ] D2. Una seconda esecuzione subito dopo non fa nessuna richiesta a playbasket (riga di log `playbasket: 0 pages requested`) e lascia `docs/boxscores.json` invariato.
 - [ ] D3. Partita con punteggio FIP, tabellino parziale e data entro 14 giorni: rimane `partial` e viene richiesta a ogni esecuzione. Oltre i 14 giorni diventa `incomplete` senza nuova richiesta e non viene più richiesta.
 - [ ] D4. Partita `complete` il cui punteggio FIP cambia (es. da 62-55 a 0-20 per omologazione a tavolino): alla sync successiva torna in lavorazione e lo stato si ricalcola sul nuovo punteggio.
 - [ ] D5. Nessuna voce senza abbinamento: se su playbasket nessuna pagina della giornata ha lo stesso punteggio, o il punteggio coincide ma i nomi non passano la tabella alias, la partita ha `status: "unmatched"`, `players` vuoti, e il log nomina la pagina e il nome sconosciuto.
-- [ ] D6. playbasket irraggiungibile (URLError su ogni pagina): la sync con fip.it scrive comunque `data.json`, `boxscores` resta identico all'esecuzione precedente, exit code 0, un `WARNING` per pagina fallita.
+- [ ] D6. playbasket irraggiungibile (URLError su ogni pagina): la sync con fip.it scrive comunque `data.json`, `boxscores.json` resta identico all'esecuzione precedente, exit code 0, un `WARNING` per pagina fallita.
 - [ ] D7. Fra due richieste a playbasket passano almeno 5 secondi (test con `sleep` iniettato: N richieste, N-1 pause da 5.0).
 - [ ] D8. Nessuna esecuzione supera il budget di pagine per run (`PLAYBASKET_MAX_PAGES_PER_RUN = 40`): con 15 giornate giocate e stato perso, la prima run chiede 40 pagine e le restanti arrivano nelle run successive.
 - [ ] D9. Ogni URL playbasket viene costruito dal codice con `&gtn=` letterale; nessun URL è letto da un `href` (test sull'URL esatto).
@@ -44,9 +44,9 @@ Fase 3 (analisi CUS)
 - A4. Finestra di 14 giorni contata sulla data FIP della partita, in ora italiana (`Europe/Rome`). Una partita mai tentata (nessuna voce in `boxscores`) viene tentata una volta anche se è già oltre i 14 giorni: serve a recuperare l'intero campionato (D4 dell'utente) se la funzione arriva in produzione tardi o se lo stato si perde. Dopo quel tentativo valgono le regole normali.
 - A5. Orientamento casa/ospite uguale fra FIP e playbasket. Una partita a campo invertito su playbasket non si abbina (finisce `unmatched` col log); non si gestisce lo scambio finché non succede.
 - A6. Su un tabellino `partial`/`incomplete` le statistiche usano i punti presenti e la pagina lo dice ("di cui N tabellini incompleti"). Le statistiche non escludono i parziali: un giocatore mancante non deve azzerare i punti degli altri.
-- A7. Le statistiche si calcolano nel JS della pagina con regole pure testate (motivazione in Disambiguazione). `data.json` conserva solo i tabellini come pubblicati e lo stato di abbinamento.
+- A7. Le statistiche si calcolano nel JS della pagina con regole pure testate (motivazione in Disambiguazione). `boxscores.json` conserva solo i tabellini come pubblicati e lo stato di abbinamento.
 - A8. Verificato in T001 (2026-10-07): `Content-type: text/html; charset=UTF-8`. Pagine playbasket in UTF-8: nessun `<meta charset>` nel fixture, da confermare in T001 con l'header `Content-Type` della risposta reale; se diverso si decodifica col charset dichiarato.
-- A9. Nessun campo che cambia a ogni run (niente `checked_at` per tabellino): altrimenti `data.json` cambierebbe ogni 4 ore e il workflow farebbe un commit dati a ogni run.
+- A9. Nessun campo che cambia a ogni run (niente `checked_at` per tabellino): altrimenti `boxscores.json` cambierebbe ogni 4 ore e il workflow farebbe un commit dati a ogni run.
 - A10. Decisione utente (R6, 2026-10-07): i tabellini vivono in un file separato `docs/boxscores.json` fin dalla fase 1, non in `data.json`. `data.json` blocca il primo render, i tabellini si caricano dopo; i commit dati restano leggibili; nessuna migrazione futura. Conseguenze: `boxscores.json` va in `DATA_FILES` di `appversion.py`, nel `git add`/`git status` del workflow e caricato dalla pagina con un fetch separato (assente o rotto → sezioni tabellini nascoste, il resto della pagina funziona). Scritto con la stessa regola di `write_if_changed` (timestamp escluso dal confronto).
 
 ## Disambiguazione
@@ -110,7 +110,7 @@ Il budget `PLAYBASKET_MAX_PAGES_PER_RUN = 40` (circa 4-5 min) chiude l'ultimo ca
 
 ## Fasi
 
-Tutte indipendentemente mergiabili: dopo la fase 1 `data.json` accumula i tabellini senza che la pagina cambi (e la raccolta parte prima che i 14 giorni di A1 scadano il 2026-10-17); dopo la fase 2 la pagina è completa per tabellini e marcatori anche se la fase 3 non arriva mai.
+Tutte indipendentemente mergiabili: dopo la fase 1 `boxscores.json` accumula i tabellini senza che la pagina cambi (e la raccolta parte prima che i 14 giorni di A1 scadano il 2026-10-17); dopo la fase 2 la pagina è completa per tabellini e marcatori anche se la fase 3 non arriva mai.
 
 ### Fase 1: raccolta e abbinamento (Python, nessuna UI)
 
