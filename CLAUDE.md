@@ -22,6 +22,7 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 
 ## Web app
 
+- Box scores, league scorers and the CUS players section load `boxscores.json` after the first render (`boxscores.js`, `cus-stats.js`); statistics are computed in the page from pure rules (`scorer-rules.js`, `cus-stats-rules.js`), so `boxscores.json` stays a faithful copy of playbasket.it. Averages count only games a player entered (points set, 0 included). Every new module imported by the page goes into the `SHELL` of `sw.js`.
 - Installable: `docs/manifest.webmanifest`, icons in `docs/icons/` and `docs/favicon.ico`, service worker `docs/sw.js`.
 - Icons are generated from `docs/logo-cus.png`: after replacing the crest run `uv run --script scripts/make_icons.py`. The apple-touch icon must stay opaque (iOS fills transparency with black).
 - `sw.js` is network first: the cache answers only when the network fails, so fip.it data is never served stale while online.
