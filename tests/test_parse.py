@@ -65,6 +65,15 @@ def test_parse_matches_played_game_has_score_and_referees() -> None:
     assert len(game.referees) == 3
 
 
+def test_parse_matches_played_game_without_badge_is_homologated() -> None:
+    # fip.it drops the status badge once a game is homologated without sanctions
+    matches = parse_matches(load("serie-a-andata-1-omologata.html"))
+
+    game = by_number(matches, 4)
+
+    assert (game.status, game.status_text, game.score) == ("omologata", "", (85, 73))
+
+
 def test_parse_matches_designated_game_lists_referees_without_score() -> None:
     matches = parse_matches(load("serie-a-andata-2-designata.html"))
 

@@ -9,6 +9,8 @@ MONTHS = {
     "luglio": 7, "agosto": 8, "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12,
 }  # fmt: skip
 STATUS_PREFIX = "match-status--"
+# fip.it drops the badge of a game homologated without sanctions: score and no badge means final
+HOMOLOGATED = "omologata"
 REFEREE_LABEL = "Arbitro"
 # FIP fills an undesignated referee slot with this text instead of leaving it empty
 PENDING_DESIGNATION = "Designazione in attesa"
@@ -136,6 +138,9 @@ def _parse_match(node: Tag) -> FipMatch:
     home_logo, away_logo = _logos(node)
     venues = _info_values(node, ".col1", VENUE_LABEL)
     status, status_text = _status(node)
+    score = _score(node)
+    if not status and score:
+        status = HOMOLOGATED
     return FipMatch(
         number=parse_int(_text(node, ".ref"), "game number"),
         home=teams[0],
@@ -146,7 +151,7 @@ def _parse_match(node: Tag) -> FipMatch:
         status=status,
         status_text=status_text,
         referees=_referees(node),
-        score=_score(node),
+        score=score,
         sanctions=_sanctions(node),
         home_logo=home_logo,
         away_logo=away_logo,

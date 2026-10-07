@@ -56,7 +56,10 @@ h2{font-size:17px;text-transform:capitalize;margin:26px 0 8px;padding-bottom:4px
 .score.win{color:var(--win)}.score.loss{color:var(--loss)}
 .v{font-size:14px;color:var(--mut)}
 .v strong{color:var(--ink)}
-.was{font-size:13px;background:var(--chg-bg);color:#78350f;padding:4px 8px;border-radius:3px;margin-top:4px}
+.was{font-size:13px;background:var(--chg-bg);color:#78350f;padding:6px 8px;border-radius:3px;margin-top:4px}
+.chg-row{display:flex;flex-wrap:wrap;gap:0 12px;margin-top:2px}
+.chg-lbl{font-weight:700;min-width:6.5em}
+.was strong{color:#451a03}.was del{text-decoration-thickness:1px}
 .ref{font-size:14px}
 .ref.pend{color:var(--mut)}
 .l{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin-top:4px}
@@ -74,6 +77,7 @@ th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white
 th:nth-child(2),td:nth-child(2){text-align:left;white-space:normal}
 th{font-size:12px;color:var(--mut);font-weight:600}
 tr.me td{font-weight:800;background:#e8eef8}
+td small.refs{display:block;font-size:12px;font-weight:400;color:var(--mut)}
 td small.prov{display:block;font-size:11px;font-weight:600;color:var(--mut)}td small.prov.alert{color:var(--chg)}
 .warn{font-size:13px;color:var(--mut);border-left:3px solid var(--home);padding-left:10px}
 .subbox{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ink);border-radius:4px;padding:12px 16px;margin:0 0 16px}
@@ -95,6 +99,7 @@ td .crest{width:22px;height:22px}
 .opp .badge,.next .badge{width:20px;height:18px;line-height:18px;font-size:11px}
 .sanc{font-size:13px;border-left:3px solid var(--loss);padding-left:10px;margin-top:6px}
 .sanc ul{margin:2px 0 0;padding-left:18px}
+#round-table .sanc{margin:10px 0}
 .zone{margin:0 0 10px;padding-left:18px;font-size:15px}
 tr.cut td{border-bottom:2px solid var(--ink)}
 .stats{display:flex;flex-wrap:wrap;gap:12px 28px;margin:4px 0 10px}
@@ -184,7 +189,7 @@ Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunic
 <script type="module">
 import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
-import {esc,toDate,roundLabel as label,changeSummary,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
+import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
@@ -194,6 +199,7 @@ let G=[], R=[], ST=[], LG={};
 
 const fmtDay=d=>d.toLocaleDateString("it-IT",{weekday:"short"}).replace(".","");
 const fmtLong=d=>d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
+const fmtWhen=(d,t)=>fmtLong(toDate(d,t))+", ore "+t;
 const fmtShort=(d,t)=>toDate(d,t).toLocaleDateString("it-IT",{weekday:"short",day:"numeric",month:"short"})+", ore "+t;
 const today=new Date(); today.setHours(0,0,0,0);
 const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
@@ -228,10 +234,12 @@ function score(m){
  const note=resultNote(m.status), prov=note?` <span class="tag prov${note.warn?" alert":""}">${esc(note.tag)}</span>`:"";
  return ` <span class="score ${mine>theirs?"win":"loss"}">${m.score.home}-${m.score.away}</span>${prov}`;
 }
+// new value in bold, the official calendar's one struck through, both spelled out
 function was(m){
- if(!m.changes.length) return "";
- const o=m.official, what=changeSummary(m.changes);
- return `<div class="was">Modificata dalla FIP (${esc(what)}). Nel comunicato ufficiale: ${esc(fmtShort(o.date,o.time))}, ${esc(o.venue.name)}.</div>`;
+ const rows=changeRows(m,fmtWhen);
+ if(!rows.length) return "";
+ const line=r=>`<div class="chg-row"><span class="chg-lbl">${esc(r.label)}</span><span>Adesso: <strong>${esc(r.now)}</strong></span><span>Prima: <del>${esc(r.before)}</del></span></div>`;
+ return `<div class="was"><strong>Spostata dalla FIP rispetto al comunicato ufficiale</strong>${rows.map(line).join("")}</div>`;
 }
 function referees(m){
  if(m.referees.length) return `<div class="ref">Arbitri: ${m.referees.map(esc).join("; ")}</div>`;
@@ -271,7 +279,7 @@ function renderNext(){
  if(!m){el.innerHTML="<div class='m'>Stagione regolare conclusa</div>";return}
  const dt=toDate(m.date,m.time), days=daysUntil(m,today);
  const refs=m.referees.length?`<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>`:"";
- const moved=m.changes.length?`<small>Modificata rispetto al comunicato ufficiale</small>`:"";
+ const rows=changeRows(m,fmtWhen), moved=rows.length?`<small>Spostata dalla FIP. ${rows.map(r=>`${esc(r.label)} prima: <del>${esc(r.before)}</del>`).join("; ")}</small>`:"";
  const opp=opponent(m), oppLine=opp?`<small>Avversario: ${opp}</small>`:"";
  el.innerHTML=`<small>Prossima partita</small><div class="m">${withCrests(m,`${esc(m.home)} - ${esc(m.away)}`)}</div>
  <div class="info"><small>${fmtLong(dt)}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}${oppLine}</div>
@@ -311,9 +319,12 @@ function roundTable(r){
  const rows=[...r.games].sort(byTime).map(g=>{
   const me=g.home===FIP_TEAM||g.away===FIP_TEAM, note=resultNote(g.status);
   const res=g.score?`${g.score.home}-${g.score.away}`+(note?`<small class="prov${note.warn?" alert":""}">${esc(note.tag)}</small>`:""):esc(g.time);
-  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}</td><td>${res}</td></tr>`}).join("");
+  const refs=g.referees?.length?`<small class="refs">Arbitri: ${g.referees.map(esc).join("; ")}</small>`:"";
+  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}${refs}</td><td>${res}</td></tr>`}).join("");
+ const fined=r.games.filter(g=>g.sanctions?.length);
+ const sanc=fined.length?`<div class="sanc"><strong>Provvedimenti del Giudice Sportivo</strong><ul>${fined.flatMap(g=>g.sanctions.map(t=>`<li><b>${esc(g.home)} - ${esc(g.away)}:</b> ${esc(t)}</li>`)).join("")}</ul></div>`:"";
  const pdf=String(r.pdf_url||"").startsWith("https://backend.fip.it/")?`<p class="meta round-pdf"><a href="${esc(r.pdf_url)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
- return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>${pdf}`;
+ return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>${sanc}${pdf}`;
 }
 function renderLeague(rounds){
  const el=document.getElementById("league");
@@ -322,7 +333,7 @@ function renderLeague(rounds){
  const opts=rounds.map((r,i)=>`<option value="${i}" ${i===pick?"selected":""}>${label(r)}</option>`).join("");
  el.hidden=false;
  el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><label for="round-select">Giornata </label><select id="round-select">${opts}</select></div><div id="round-table">${roundTable(rounds[pick])}</div>
- <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP. Senza risultato è indicato l'orario d'inizio; un risultato non ancora omologato dal Giudice Sportivo è segnalato sotto il punteggio.</p>`;
+ <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP, gli arbitri designati e i provvedimenti del Giudice Sportivo pubblicati con l'omologazione. Senza risultato è indicato l'orario d'inizio; un risultato non ancora omologato dal Giudice Sportivo è segnalato sotto il punteggio.</p>`;
  document.getElementById("round-select").onchange=e=>{document.getElementById("round-table").innerHTML=roundTable(rounds[+e.target.value])};
 }
 function renderNotices(list){

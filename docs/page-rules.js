@@ -1,7 +1,6 @@
 // Pure rules of the games page: no DOM, no browser API, tested with node --test.
 import { resultNote } from "./result-rules.js";
 
-const CHANGE_LABEL = { date: "giorno", time: "orario", venue: "campo", home: "inversione di campo" };
 // Page wording for fip.it statuses; designated referees are shown on their own line
 const STATUS_LABEL = {
   "non-designata": "arbitri non ancora designati",
@@ -30,8 +29,16 @@ export function calendarStamp(m, plusHours = 0) {
 // FIP publishes some venues without an address: no dangling comma then
 export const place = (m) => [m.venue.name, m.venue.address].filter(Boolean).join(", ");
 export const roundLabel = (m) => m.round.slice(1) + "ª giornata di " + (m.round[0] === "A" ? "andata" : "ritorno");
-export const listIt = (a) => (a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " e " + a[a.length - 1]);
-export const changeSummary = (changes) => listIt(changes.map((c) => ownLabel(CHANGE_LABEL, c) ?? c));
+// What FIP moved against the official calendar, current value first: { label, now, before }.
+// `when(date, time)` formats a schedule, so the page and the tests choose their own wording.
+export function changeRows(m, when) {
+  const c = m.changes, o = m.official, rows = [];
+  if (c.includes("date") || c.includes("time"))
+    rows.push({ label: c.includes("date") ? "Data e ora" : "Orario", now: when(m.date, m.time), before: when(o.date, o.time) });
+  if (c.includes("venue")) rows.push({ label: "Campo", now: m.venue.name, before: o.venue.name });
+  if (c.includes("home")) rows.push({ label: "Squadra di casa", now: m.home, before: m.away });
+  return rows;
+}
 export const statusLabel = (m) =>
   resultNote(m.status)?.label ?? ownLabel(STATUS_LABEL, m.status) ?? m.status_text.toLowerCase();
 

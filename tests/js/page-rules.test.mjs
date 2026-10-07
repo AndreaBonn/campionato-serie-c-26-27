@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import {
   calendarStamp,
-  changeSummary,
+  changeRows,
   daysUntil,
   esc,
   filterGames,
@@ -11,7 +11,6 @@ import {
   formSummary,
   gcalUrl,
   isUpcoming,
-  listIt,
   logoOf,
   mapsUrl,
   pickRound,
@@ -97,15 +96,30 @@ test("round label names round number and half", () => {
   assert.equal(roundLabel({ round: "R11" }), "11ª giornata di ritorno");
 });
 
-test("Italian list joins the last item with 'e'", () => {
-  assert.equal(listIt([]), "");
-  assert.equal(listIt(["giorno"]), "giorno");
-  assert.equal(listIt(["giorno", "orario", "campo"]), "giorno, orario e campo");
+const when = (d, t) => d + " " + t;
+const official = { date: "2026-11-14", time: "18:00", venue: { name: "Palestra Esperia", address: "Via Pessagno, Cagliari" } };
+
+test("change rows put the new value first and the official one second", () => {
+  const moved = game({ official, changes: ["date", "time"] });
+  assert.deepEqual(changeRows(moved, when), [{ label: "Data e ora", now: "2026-11-15 19:00", before: "2026-11-14 18:00" }]);
 });
 
-test("change summary uses page wording, unknown fields and inherited keys verbatim", () => {
-  assert.equal(changeSummary(["date", "home"]), "giorno e inversione di campo");
-  assert.equal(changeSummary(["referee", "toString"]), "referee e toString");
+test("change rows: time alone, venue and home swap each get their own row", () => {
+  const m = game({ official: { ...official, date: "2026-11-15", venue: { name: "PalaPirastu", address: "" } }, changes: ["time", "venue", "home"] });
+  assert.deepEqual(changeRows(m, when), [
+    { label: "Orario", now: "2026-11-15 19:00", before: "2026-11-15 18:00" },
+    { label: "Campo", now: "Palestra Esperia", before: "PalaPirastu" },
+    { label: "Squadra di casa", now: "Olimpia Cagliari", before: "CUS Cagliari" },
+  ]);
+});
+
+test("change rows: a new day alone still shows day and time", () => {
+  const m = game({ official: { ...official, time: "19:00" }, changes: ["date"] });
+  assert.deepEqual(changeRows(m, when), [{ label: "Data e ora", now: "2026-11-15 19:00", before: "2026-11-14 19:00" }]);
+});
+
+test("change rows are empty for a game played as scheduled", () => {
+  assert.deepEqual(changeRows(game({ official, changes: [] }), when), []);
 });
 
 test("status label: result notes first, then page wording, then FIP text", () => {

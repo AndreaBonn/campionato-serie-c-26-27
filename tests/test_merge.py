@@ -143,6 +143,8 @@ def test_build_data_lists_every_game_of_each_round_in_calendar_order() -> None:
                     "time": "18:00",
                     "status": "non-designata",
                     "score": {"home": 80, "away": 75},
+                    "referees": [],
+                    "sanctions": [],
                 },
                 {
                     "n": 69,
@@ -152,10 +154,30 @@ def test_build_data_lists_every_game_of_each_round_in_calendar_order() -> None:
                     "time": "18:00",
                     "status": "non-designata",
                     "score": None,
+                    "referees": [],
+                    "sanctions": [],
                 },
             ],
         }
     ]
+
+
+def test_build_data_round_games_carry_referees_and_sanctions() -> None:
+    calendar = {"fip_team": TEAM, "venues": VENUES, "games": [BASE]}
+    other = replace(
+        FIP,
+        number=67,
+        home="SEF TORRES",
+        away="PALL. NUORO",
+        referees=("ROSSI MARIO di CAGLIARI (CA)", "BIANCHI LUCA di SASSARI (SS)"),
+        sanctions=("soc. SEF TORRES: ammenda di Euro 250.00",),
+    )
+
+    data = build_data(calendar=calendar, rounds={"R1": [FIP, other]}, standings=[])
+
+    first = data["rounds"][0]["games"][0]
+    assert first["referees"] == ["ROSSI MARIO di CAGLIARI (CA)", "BIANCHI LUCA di SASSARI (SS)"]
+    assert first["sanctions"] == ["soc. SEF TORRES: ammenda di Euro 250.00"]
 
 
 def test_merge_game_time_change_alone_is_flagged() -> None:

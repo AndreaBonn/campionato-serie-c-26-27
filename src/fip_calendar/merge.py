@@ -88,6 +88,8 @@ def _round_game(match: FipMatch) -> dict[str, Any]:
         "time": match.time,
         "status": match.status,
         "score": _score(match),
+        "referees": list(match.referees),
+        "sanctions": list(match.sanctions),
     }
 
 
