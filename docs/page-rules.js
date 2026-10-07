@@ -132,6 +132,10 @@ export function teamProfile(team, rounds, standings) {
 const PLAYOFF_SPOTS = 8;
 const PLAYOUT_SPOTS = 3;
 
+// The standings table draws a line under the last playoff spot and under the last safe one
+export const isStandingsCut = (position, total) =>
+  position === PLAYOFF_SPOTS || position === total - PLAYOUT_SPOTS;
+
 // Standings-point margins from the official table. Positive: ahead of the first team on the other
 // side of the line; negative: behind the last team on the good side.
 export function zoneStatus(standings, team) {
@@ -169,3 +173,11 @@ export function logoOf(logos, team) {
   const file = logos && Object.hasOwn(logos, team) ? logos[team].file : null;
   return typeof file === "string" && LOGO_FILE.test(file) ? file : null;
 }
+
+// External links opened in a new tab: only the FIP hosts the sync reads, never an arbitrary href
+const FIP_PDF_PREFIX = "https://backend.fip.it/";
+const FIP_NOTICE_PREFIX = "https://sardegna.fip.it/";
+const hasPrefix = (url, prefix) => typeof url === "string" && url.startsWith(prefix);
+
+export const safeFipPdfUrl = (url) => (hasPrefix(url, FIP_PDF_PREFIX) ? url : null);
+export const isFipNoticeLink = (url) => hasPrefix(url, FIP_NOTICE_PREFIX);

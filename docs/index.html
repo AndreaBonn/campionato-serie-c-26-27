@@ -60,7 +60,7 @@ Tabellini: dati inseriti dagli utenti di <a href="https://www.playbasket.it/sard
 <script type="module">
 import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
-import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf} from "./page-rules.js";
+import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf,won,isStandingsCut,safeFipPdfUrl,isFipNoticeLink} from "./page-rules.js";
 import {renderGameBoxscore,renderScorers,loadBoxscores} from "./boxscores.js";
 import {renderCusPlayers} from "./cus-stats.js";
 const FIP_TEAM="CUS CAGLIARI";
@@ -103,9 +103,8 @@ function teams(m){
 }
 function score(m){
  if(!m.score) return "";
- const mine=m.is_home?m.score.home:m.score.away, theirs=m.is_home?m.score.away:m.score.home;
  const note=resultNote(m.status), prov=note?` <span class="tag prov${note.warn?" alert":""}">${esc(note.tag)}</span>`:"";
- return ` <span class="score ${mine>theirs?"win":"loss"}">${m.score.home}-${m.score.away}</span>${prov}`;
+ return ` <span class="score ${won(m)?"win":"loss"}">${m.score.home}-${m.score.away}</span>${prov}`;
 }
 // new value in bold, the official calendar's one struck through, both spelled out
 function was(m){
@@ -163,8 +162,7 @@ function renderStandings(rows){
  el.hidden=false;
  if(!rows.some(r=>r.played>0)){el.innerHTML="<h2>Classifica</h2><p>La classifica sarà disponibile dopo la prima giornata.</p>";return}
  const z=zoneStatus(rows,FIP_TEAM), zone=z?`<ul class="zone">${zoneLines(z).map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:"";
- // lines under the 8th (playoff) and the 9th (above the last three, playout)
- const cut=r=>r.position===8||r.position===rows.length-3;
+ const cut=r=>isStandingsCut(r.position,rows.length);
  const body=rows.map(r=>`<tr class="${r.team===FIP_TEAM?"me":""} ${cut(r)?"cut":""}"><td>${r.position}</td><td><span class="tm">${crest(r.team)||'<span class="crest"></span>'}<span>${esc(r.team)}</span></span></td><td>${r.points}</td><td>${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.points_for}</td><td>${r.points_against}</td></tr>`).join("");
  el.innerHTML=`<h2>Classifica</h2>${zone}<div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
  <p class="meta">Classifica ufficiale FIP: conta solo i risultati omologati dal Giudice Sportivo. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le linee separano le prime 8 e le ultime 3: nel 2025/26 erano le squadre ammesse a playoff e playout, la formula 2026/27 non è ancora nota. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor; gli stemmi sono quelli caricati dalle società sul sito FIP.</p>`;
@@ -196,7 +194,8 @@ function roundTable(r){
   return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}${refs}</td><td>${res}</td></tr>${renderGameBoxscore(BX,g)}`}).join("");
  const fined=r.games.filter(g=>g.sanctions?.length);
  const sanc=fined.length?`<div class="sanc"><strong>Provvedimenti del Giudice Sportivo</strong><ul>${fined.flatMap(g=>g.sanctions.map(t=>`<li><b>${esc(g.home)} - ${esc(g.away)}:</b> ${esc(t)}</li>`)).join("")}</ul></div>`:"";
- const pdf=String(r.pdf_url||"").startsWith("https://backend.fip.it/")?`<p class="meta round-pdf"><a href="${esc(r.pdf_url)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
+ const pdfUrl=safeFipPdfUrl(r.pdf_url);
+ const pdf=pdfUrl?`<p class="meta round-pdf"><a href="${esc(pdfUrl)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
  return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>${sanc}${pdf}`;
 }
 function renderLeague(rounds){
@@ -211,7 +210,7 @@ function renderLeague(rounds){
 }
 function renderNotices(list){
  const el=document.getElementById("notices");
- list=(list||[]).filter(n=>String(n.link).startsWith("https://sardegna.fip.it/"));
+ list=(list||[]).filter(n=>isFipNoticeLink(n.link));
  if(!list.length){el.innerHTML="";return}
  const items=list.map(n=>`<li>${esc(noticePrefix(n.kind))}<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a> (${esc(new Date(n.date+"T12:00:00").toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"}))})</li>`).join("");
  const h=noticeHeadline(list);

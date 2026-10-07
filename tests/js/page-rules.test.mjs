@@ -10,12 +10,15 @@ import {
   firstLegOf,
   formSummary,
   gcalUrl,
+  isFipNoticeLink,
+  isStandingsCut,
   isUpcoming,
   logoOf,
   mapsUrl,
   pickRound,
   place,
   roundLabel,
+  safeFipPdfUrl,
   statusLabel,
   teamProfile,
   withBreaks,
@@ -393,4 +396,29 @@ test("logo of a team: nothing before logos/ and nothing after .png", () => {
   const logos = { NESTED: { file: "x/logos/a.png" }, SUFFIXED: { file: "logos/a.png.svg" } };
 
   assert.deepEqual([logoOf(logos, "NESTED"), logoOf(logos, "SUFFIXED")], [null, null]);
+});
+
+test("standings cut: a line under the last playoff spot and above the last three", () => {
+  const cuts = (total) => Array.from({ length: total }, (_, i) => i + 1).filter((pos) => isStandingsCut(pos, total));
+
+  assert.deepEqual(cuts(12), [8, 9]);
+  assert.deepEqual(cuts(13), [8, 10]);
+});
+
+test("FIP round PDF: only a backend.fip.it address is linked", () => {
+  const pdf = "https://backend.fip.it/api/v1/giornata.pdf?girone=85305";
+
+  assert.equal(safeFipPdfUrl(pdf), pdf);
+  for (const bad of ["https://backend.fip.it.evil.example/x.pdf", "http://backend.fip.it/x.pdf",
+    "javascript:alert(1)//https://backend.fip.it/", "", null, undefined]) {
+    assert.equal(safeFipPdfUrl(bad), null, String(bad));
+  }
+});
+
+test("FIP Sardegna notice: only a sardegna.fip.it post is listed", () => {
+  assert.equal(isFipNoticeLink("https://sardegna.fip.it/2026/10/01/comunicato/"), true);
+  for (const bad of ["https://sardegna.fip.it.evil.example/", "http://sardegna.fip.it/x",
+    "https://www.fip.it/x", null, undefined]) {
+    assert.equal(isFipNoticeLink(bad), false, String(bad));
+  }
 });
