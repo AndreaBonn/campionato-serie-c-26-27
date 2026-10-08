@@ -23,6 +23,7 @@ Static page (GitHub Pages, `docs/`) for CUS Cagliari's Serie C 2026/27 games, ke
 
 ## Web app
 
+- `index.html` only wires state and events; rendering lives in modules that take their data as arguments: `games-view.js` (hero, last result, form strip, game list; one `ctx` object), `tables-view.js` (standings, round table), with display wording in `view-rules.js` (countdown, relative time, title-cased FIP names, crest initials, zone labels). FIP names are shown title-cased (`displayTeamName`): only the capitals change, never the name. Dark mode follows `prefers-color-scheme` through the tokens on `:root` in `styles.css`; crests get a white tile there instead of `mix-blend-mode: multiply`.
 - Box scores, league scorers and the CUS players section load `boxscores.json` after the first render (`boxscores.js`, `cus-stats.js`); statistics are computed in the page from pure rules (`scorer-rules.js`, `cus-stats-rules.js`), so `boxscores.json` stays a faithful copy of playbasket.it. Averages count only games a player entered (points set, 0 included). Every new module imported by the page goes into the `SHELL` of `sw.js`.
 - Installable: `docs/manifest.webmanifest`, icons in `docs/icons/` and `docs/favicon.ico`, service worker `docs/sw.js`.
 - Icons are generated from `docs/logo-cus.png`: after replacing the crest run `uv run --script scripts/make_icons.py`. The apple-touch icon must stay opaque (iOS fills transparency with black).
