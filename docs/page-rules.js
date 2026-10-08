@@ -51,8 +51,10 @@ export const gcalUrl = (m) =>
 // Still to be played: no result yet and scheduled from today on (a recovery keeps its new date)
 export const isUpcoming = (m, today) => !m.score && toDate(m.date, m.time) >= today;
 
-export const filterGames = (games, filter, onlyUpcoming, today) =>
-  games.filter((m) => (filter === "all" || (filter === "home") === m.is_home) && (!onlyUpcoming || isUpcoming(m, today)));
+// side: "all" | "home" | "away"; mode: "upcoming" | "played" (everything not upcoming) | "all"
+const inMode = (m, mode, today) => mode === "all" || (mode === "upcoming") === isUpcoming(m, today);
+export const onSide = (m, side) => side === "all" || (side === "home") === m.is_home;
+export const filterGames = (games, side, mode, today) => games.filter((m) => onSide(m, side) && inMode(m, mode, today));
 
 // Breaks [first day with no games, text] go before the first game after them; with only
 // upcoming games shown, breaks already behind us are skipped together with the past games.
@@ -129,8 +131,8 @@ export function teamProfile(team, rounds, standings) {
 }
 
 // 2025/26 format (the 2026/27 one is not published yet): the top 8 to the playoffs, the last 3 to the playout
-const PLAYOFF_SPOTS = 8;
-const PLAYOUT_SPOTS = 3;
+export const PLAYOFF_SPOTS = 8;
+export const PLAYOUT_SPOTS = 3;
 
 // The standings table draws a line under the last playoff spot and under the last safe one
 export const isStandingsCut = (position, total) =>

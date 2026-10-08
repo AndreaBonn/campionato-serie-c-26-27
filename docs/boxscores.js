@@ -1,7 +1,8 @@
-// Rendering of a game's box score inside the "Risultati del girone" round table, and of the
-// league scorers table: imperative shell over boxscore-rules.js / scorer-rules.js. No state
-// here: boxscores, rounds and the FIP team name all come from the caller.
+// Rendering of a game's box score (round table and CUS game card) and of the league scorers
+// table: imperative shell over boxscore-rules.js / scorer-rules.js. No state here: boxscores,
+// rounds, the FIP team name and the scorers filter all come from the caller.
 import { esc } from "./page-rules.js";
+import { displayTeamName } from "./view-rules.js";
 import { boxscoreView, INCOMPLETE_STATUSES } from "./boxscore-rules.js";
 import { scorers } from "./scorer-rules.js";
 
@@ -16,33 +17,46 @@ function playerRow(p) {
 
 function teamTable(team) {
   const rows = team.players.map(playerRow).join("") || `<tr><td colspan="2">Nessun giocatore a referto.</td></tr>`;
-  return `<table class="bx"><caption>${esc(team.team)}</caption><thead><tr><th>Giocatore</th><th>Punti</th></tr></thead><tbody>${rows}</tbody></table>`;
+  return `<table class="bx"><caption>${esc(displayTeamName(team.team))}</caption><thead><tr><th>Giocatore</th><th>Punti</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// One extra <tr> under the game's own row, or "" when there is nothing to show for it
-// (no box score yet, or playbasket.it never matched a page to this game).
-export function renderGameBoxscore(boxscores, game) {
+// { label, html } of a game's box score, or null when there is nothing to show for it (no box
+// score yet, or playbasket.it never matched a page to this game). The caller wraps it: an
+// expandable row in the round table, a disclosure in the CUS game card.
+export function renderBoxscoreBody(boxscores, game) {
   const view = boxscoreView(boxscores[String(game.n)], game);
-  if (!view) return "";
-  const label = view.label ? ` <span class="incomplete">${esc(view.label)}</span>` : "";
+  if (!view) return null;
   const link = view.url
     ? `<a class="src" href="${esc(view.url)}" target="_blank" rel="noopener">Tabellino su playbasket.it</a>`
     : "";
-  return `<tr class="boxscore-row"><td colspan="3"><details class="boxscore"><summary>Tabellino${label}</summary><div class="teams"><div>${teamTable(view.home)}</div><div>${teamTable(view.away)}</div></div>${link}</details></td></tr>`;
+  return {
+    label: view.label ? ` <span class="incomplete">${esc(view.label)}</span>` : "",
+    html: `<div class="teams"><div>${teamTable(view.home)}</div><div>${teamTable(view.away)}</div></div>${link}`,
+  };
 }
 
 const fmtAvg = (avg) =>
   avg === null ? AVG_PLACEHOLDER : avg.toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-// CUS rows get the same "me" highlight as the rest of the page (team is the FIP name).
+// CUS rows get the same "me" highlight as the rest of the page (team is the FIP name). The team
+// is written twice: its own column on wide screens, a line under the name on phones (styles.css).
 function scorerRow(r, position, fipTeam) {
-  return `<tr class="${r.team === fipTeam ? "me" : ""}"><td>${position}</td><td>${esc(r.name)}</td><td>${esc(r.team)}</td><td>${r.points}</td><td>${r.played}</td><td>${fmtAvg(r.average)}</td></tr>`;
+  const team = esc(displayTeamName(r.team));
+  return `<tr class="${r.team === fipTeam ? "me" : ""}"><td>${position}</td><td>${esc(r.name)}<small class="team-sm">${team}</small></td><td class="team-col">${team}</td><td>${r.points}</td><td>${r.played}</td><td>${fmtAvg(r.average)}</td></tr>`;
 }
 
-function scorersTable(rows, offset, fipTeam) {
-  const head = "<tr><th>#</th><th>Giocatore</th><th>Squadra</th><th>Punti</th><th>Partite</th><th>Media</th></tr>";
-  const body = rows.map((r, i) => scorerRow(r, offset + i + 1, fipTeam)).join("");
-  return `<div class="scroll"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+function scorersTable(rows, fipTeam) {
+  const head = '<tr><th>#</th><th>Giocatore</th><th class="team-col">Squadra</th><th>Punti</th><th>Partite</th><th>Media</th></tr>';
+  const body = rows.map((r) => scorerRow(r, r.rank, fipTeam)).join("");
+  return `<div class="scroll"><table class="scorers"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+}
+
+// Filter chips and team menu; the page re-renders the section on change (data-scorers*)
+function scorersFilter(rows, fipTeam, only) {
+  const chip = (team, text) => `<button type="button" data-scorers="${esc(team)}" aria-pressed="${only === (team || null)}">${text}</button>`;
+  const teams = [...new Set(rows.map((r) => r.team))].sort((a, b) => displayTeamName(a).localeCompare(displayTeamName(b)));
+  const options = teams.map((t) => `<option value="${esc(t)}"${t === only ? " selected" : ""}>${esc(displayTeamName(t))}</option>`).join("");
+  return `<div class="fchips" role="group" aria-label="Filtra i marcatori">${chip("", "Tutto il girone")}${chip(fipTeam, "Solo CUS")}<select data-scorers-team aria-label="Marcatori di una squadra"><option value="">Per squadra</option>${options}</select></div>`;
 }
 
 // Matched box scores still short of the FIP score, for the note under the table (plan.md A6)
@@ -51,19 +65,21 @@ const incompleteCount = (boxscores) => Object.values(boxscores).filter((e) => IN
 // League scorers table, rendered after "Risultati del girone". The caller decides when to show
 // the section (hidden until boxscores.json loads); here only the empty state before the first
 // box score, or the first SCORERS_VISIBLE rows plus a "Mostra tutti" disclosure for the rest.
-export function renderScorers(boxscores, rounds, fipTeam) {
-  const rows = scorers(boxscores, rounds);
-  if (!rows.length) {
+// With `only` (a FIP team name) every player of that team is listed, ranked in the whole league.
+export function renderScorers(boxscores, rounds, fipTeam, only = null) {
+  const all = scorers(boxscores, rounds).map((r, i) => ({ ...r, rank: i + 1 }));
+  if (!all.length) {
     return "<h2>Classifica marcatori</h2><p>La classifica marcatori sarà disponibile dopo il primo tabellino.</p>";
   }
-  const top = rows.slice(0, SCORERS_VISIBLE);
-  const rest = rows.slice(SCORERS_VISIBLE);
+  const rows = only ? all.filter((r) => r.team === only) : all;
+  const top = only ? rows : rows.slice(0, SCORERS_VISIBLE);
+  const rest = only ? [] : rows.slice(SCORERS_VISIBLE);
   const more = rest.length
-    ? `<details class="scorers-more"><summary>Mostra tutti</summary>${scorersTable(rest, top.length, fipTeam)}</details>`
+    ? `<details class="scorers-more"><summary>Mostra tutti</summary>${scorersTable(rest, fipTeam)}</details>`
     : "";
   const n = incompleteCount(boxscores);
-  const note = `<p class="meta">Punti dai tabellini inseriti dagli utenti di playbasket.it. Le partite contano solo se il giocatore è entrato in campo (punti indicati, anche 0).${n ? ` ${n} tabellini incompleti.` : ""}</p>`;
-  return `<h2>Classifica marcatori</h2>${scorersTable(top, 0, fipTeam)}${more}${note}`;
+  const note = `<details class="howto"><summary>Come si calcola</summary><p>Punti dai tabellini inseriti dagli utenti di playbasket.it. Le partite contano solo se il giocatore è entrato in campo (punti indicati, anche 0).${n ? ` ${n} tabellini incompleti.` : ""}</p></details>`;
+  return `<h2>Classifica marcatori</h2>${scorersFilter(all, fipTeam, only)}${scorersTable(top, fipTeam)}${more}${note}`;
 }
 
 // Loaded after the first render (plan.md A10): a missing or broken file leaves the round

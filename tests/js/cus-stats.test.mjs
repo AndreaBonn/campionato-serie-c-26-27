@@ -43,7 +43,7 @@ test("CUS players: summary row with Italian averages, entered/with box score and
   const html = renderCusPlayers(boxscores, rounds, TEAM);
 
   // 13 points over 2 games entered out of 3 box scores; 13 of the 81 CUS points in Rossi's box scores
-  assert.match(html, /<td>Rossi<small class="role">play, &#39;07<\/small><\/td><td>13<\/td><td>6,5<\/td>.*?<td>2\/3<\/td><td>1<\/td><td>16%<\/td>/);
+  assert.match(html, /<td><button[^>]*>Rossi<\/button><small class="role">play, &#39;07<\/small><\/td><td>13<\/td><td>6,5<\/td>.*?<td>2\/3<\/td><td class="opt">1<\/td><td class="opt">16%<\/td>/);
 });
 
 test("CUS players: last games show «assente», a dash for listed but not entered, the points otherwise", () => {
@@ -51,19 +51,19 @@ test("CUS players: last games show «assente», a dash for listed but not entere
   const boxscores = { 1: boxscore([player("Rossi", 12)]), 2: boxscore([player("Rossi", null)]),
     3: boxscore([player("Verdi", 4)]) };
   const html = renderCusPlayers(boxscores, rounds, TEAM);
-  const rossi = html.match(/<details class="cus-player"><summary>Rossi<\/summary>.*?<\/details>/)[0];
+  const rossi = html.match(/>Rossi<\/button>.*?<tr class="pl-detail"[^>]*>(.*?)<\/tr>/)[1];
 
-  assert.match(rossi, /<li>sab 3 ott vs OPPONENT 1: 12<\/li>/);
-  assert.match(rossi, /<li>sab 10 ott vs OPPONENT 2: -<\/li>/);
-  assert.match(rossi, /<li>sab 17 ott vs OPPONENT 3: assente<\/li>/);
+  assert.match(rossi, /<li>sab 3 ott vs Opponent 1: 12<\/li>/);
+  assert.match(rossi, /<li>sab 10 ott vs Opponent 2: -<\/li>/);
+  assert.match(rossi, /<li>sab 17 ott vs Opponent 3: assente<\/li>/);
 });
 
 test("CUS players: best game named, or a sentence when the player never scored", () => {
   const rounds = [round(1, "2026-10-03")];
   const html = renderCusPlayers({ 1: boxscore([player("Rossi", 12), player("Neri", null)]) }, rounds, TEAM);
 
-  assert.match(html, /<summary>Rossi<\/summary><p>Miglior partita: 12 punti contro OPPONENT 1, sab 3 ott\.<\/p>/);
-  assert.match(html, /<summary>Neri<\/summary><p>Miglior partita: nessuna partita con punti a referto\.<\/p>/);
+  assert.match(html, />Rossi<\/button>.*?<p>Miglior partita: 12 punti contro Opponent 1, sab 3 ott\.<\/p>/);
+  assert.match(html, />Neri<\/button>.*?<p>Miglior partita: nessuna partita con punti a referto\.<\/p>/);
 });
 
 test("CUS players: a dash for an average with no game behind it, no role line when none is published", () => {
@@ -71,11 +71,21 @@ test("CUS players: a dash for an average with no game behind it, no role line wh
     [round(1, "2026-10-03")], TEAM);
 
   // home games only: the away average has no game to divide by
-  assert.match(html, /<tr><td>Rossi<\/td><td>9<\/td><td>9,0<\/td><td>9,0<\/td><td>-<\/td>/);
+  assert.match(html, /<td><button[^>]*>Rossi<\/button><\/td><td>9<\/td><td>9,0<\/td><td class="opt">9,0<\/td><td class="opt">-<\/td>/);
 });
 
 test("CUS players: team share is a dash when no CUS point is recorded in the player's box scores", () => {
   const html = renderCusPlayers({ 1: boxscore([player("Rossi", null)], "partial") }, [round(1, "2026-10-03")], TEAM);
 
-  assert.match(html, /<td>0\/1<\/td><td>0<\/td><td>-<\/td><\/tr>/);
+  assert.match(html, /<td>0\/1<\/td><td class="opt">0<\/td><td class="opt">-<\/td><\/tr>/);
+});
+
+test("CUS players: each name toggles its own detail row, closed until opened", () => {
+  const html = renderCusPlayers({ 1: boxscore([player("Rossi", 12), player("Neri", 3)]) }, [round(1, "2026-10-03")], TEAM);
+  const buttons = [...html.matchAll(/<button type="button" class="pl-btn" aria-expanded="false" aria-controls="(pl-\d+)">/g)].map((m) => m[1]);
+  const details = [...html.matchAll(/<tr class="pl-detail" id="(pl-\d+)" hidden>/g)].map((m) => m[1]);
+
+  assert.deepEqual(buttons, ["pl-0", "pl-1"]);
+  assert.deepEqual(details, buttons);
+  assert.doesNotMatch(html, /<details class="cus-player">/);
 });

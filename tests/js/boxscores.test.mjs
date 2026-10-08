@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
 
-import { loadBoxscores, renderGameBoxscore, renderScorers } from "../../docs/boxscores.js";
+import { loadBoxscores, renderBoxscoreBody, renderScorers } from "../../docs/boxscores.js";
 
 const CUS = "CUS CAGLIARI";
 const player = (id, name, pts) => ({ id, number: "", name, role: "", age: "", pts });
@@ -23,6 +23,7 @@ const manyScorers = (n) => ({
   boxscores: { 1: entry({ home: side(...Array.from({ length: n }, (_, i) => player(`p${i}`, `P${i}`, 100 - i))), away: side() }) },
 });
 const rowsOf = (html) => html.match(/<tr class="[^"]*"><td>\d+<\/td>/g) ?? [];
+const namesOf = (html) => [...html.matchAll(/<tr class="[^"]*"><td>(\d+)<\/td><td>([^<]+)</g)].map((m) => m[1] + " " + m[2]);
 
 test("scorers: before the first box score the section explains when the table appears", () => {
   const html = renderScorers({}, [], CUS);
@@ -38,7 +39,7 @@ test("scorers: the first 20 rows are visible, the rest go under «Mostra tutti»
 
   assert.equal(rowsOf(visible).length, 20);
   assert.equal(rowsOf(more).length, 1);
-  assert.match(more, /<td>21<\/td><td>P20<\/td>/);
+  assert.match(more, /<td>21<\/td><td>P20<small/);
 });
 
 test("scorers: with exactly 20 players there is no «Mostra tutti»", () => {
@@ -67,8 +68,8 @@ test("scorers: CUS rows are highlighted, averages in Italian format, a dash for 
   };
   const html = renderScorers(boxscores, rounds, CUS);
 
-  assert.match(html, /<tr class="me"><td>1<\/td><td>Rossi<\/td><td>CUS CAGLIARI<\/td><td>13<\/td><td>2<\/td><td>6,5<\/td>/);
-  assert.match(html, /<tr class=""><td>2<\/td><td>Other<\/td><td>OPPONENT<\/td><td>0<\/td><td>0<\/td><td>-<\/td>/);
+  assert.match(html, /<tr class="me"><td>1<\/td><td>Rossi<small class="team-sm">CUS Cagliari<\/small><\/td><td class="team-col">CUS Cagliari<\/td><td>13<\/td><td>2<\/td><td>6,5<\/td>/);
+  assert.match(html, /<tr class=""><td>2<\/td><td>Other<small class="team-sm">Opponent<\/small><\/td><td class="team-col">Opponent<\/td><td>0<\/td><td>0<\/td><td>-<\/td>/);
 });
 
 test("scorers: names from playbasket.it are escaped", () => {
@@ -80,26 +81,45 @@ test("scorers: names from playbasket.it are escaped", () => {
   assert.doesNotMatch(html, /<img/);
 });
 
-test("game box score: nothing for a game without an entry or with an unmatched one", () => {
-  assert.equal(renderGameBoxscore({}, game(1)), "");
-  assert.equal(renderGameBoxscore({ 1: entry({ status: "unmatched", home: null, away: null, url: null }) }, game(1)), "");
+test("box score body: nothing for a game without an entry or with an unmatched one", () => {
+  assert.equal(renderBoxscoreBody({}, game(1)), null);
+  assert.equal(renderBoxscoreBody({ 1: entry({ status: "unmatched", home: null, away: null, url: null }) }, game(1)), null);
 });
 
-test("game box score: both rosters under the FIP names, a dash for who never entered, the source linked", () => {
-  const html = renderGameBoxscore({ 1: entry() }, game(1));
+test("box score body: both rosters under the FIP names, a dash for who never entered, the source linked", () => {
+  const { label, html } = renderBoxscoreBody({ 1: entry() }, game(1));
 
-  assert.match(html, /<caption>CUS CAGLIARI<\/caption>.*<td>Rossi<\/td><td>10<\/td>/);
-  assert.match(html, /<caption>OPPONENT<\/caption>.*<td>Bianchi<\/td><td>-<\/td>/);
+  assert.equal(label, "");
+  assert.match(html, /<caption>CUS Cagliari<\/caption>.*<td>Rossi<\/td><td>10<\/td>/);
+  assert.match(html, /<caption>Opponent<\/caption>.*<td>Bianchi<\/td><td>-<\/td>/);
   assert.match(html, /href="https:\/\/www\.playbasket\.it\/sardegna\/match\.php\?mn=1"/);
-  assert.doesNotMatch(html, /Tabellino incompleto/);
 });
 
-test("game box score: an incomplete one is labelled, an empty roster says so, a foreign link is dropped", () => {
-  const html = renderGameBoxscore({ 1: entry({ status: "partial", away: side(), url: "https://evil.example/" }) }, game(1));
+test("box score body: an incomplete one is labelled, an empty roster says so, a foreign link is dropped", () => {
+  const { label, html } = renderBoxscoreBody({ 1: entry({ status: "partial", away: side(), url: "https://evil.example/" }) }, game(1));
 
-  assert.match(html, /Tabellino incompleto/);
+  assert.match(label, /Tabellino incompleto/);
   assert.match(html, /Nessun giocatore a referto\./);
   assert.doesNotMatch(html, /evil\.example|Tabellino su playbasket/);
+});
+
+test("scorers filtered on a team: only its players, with their rank in the whole league", () => {
+  const rounds = [{ round: "A1", games: [game(1)] }];
+  const boxscores = { 1: entry({ home: side(player("a", "Rossi", 10), player("b", "Verdi", 2)), away: side(player("c", "Neri", 5)) }) };
+  const html = renderScorers(boxscores, rounds, CUS, "OPPONENT");
+
+  assert.deepEqual(namesOf(html), ["2 Neri"]);
+  assert.match(html, /<option value="OPPONENT" selected>Opponent<\/option>/);
+  assert.match(html, /data-scorers="" aria-pressed="false">Tutto il girone/);
+});
+
+test("scorers filtered on CUS: the «Solo CUS» chip is pressed, no «Mostra tutti» even past 20 rows", () => {
+  const { boxscores, rounds } = manyScorers(25);
+  const html = renderScorers(boxscores, rounds, CUS, CUS);
+
+  assert.equal(rowsOf(html).length, 25);
+  assert.match(html, /data-scorers="CUS CAGLIARI" aria-pressed="true">Solo CUS/);
+  assert.doesNotMatch(html, /Mostra tutti/);
 });
 
 const realFetch = globalThis.fetch;
@@ -139,7 +159,7 @@ test("load box scores: an HTTP error or a network failure leaves the page untouc
 
 test("game box score: role and age under the name when published, nothing when both are missing", () => {
   const withMeta = { ...player("h1", "Rossi", 10), role: "play", age: "'07" };
-  const html = renderGameBoxscore({ 1: entry({ home: side(withMeta) }) }, game(1));
+  const { html } = renderBoxscoreBody({ 1: entry({ home: side(withMeta) }) }, game(1));
 
   assert.match(html, /<td>Rossi<small class="role">play, &#39;07<\/small><\/td>/);
   assert.match(html, /<td>Bianchi<\/td>/);

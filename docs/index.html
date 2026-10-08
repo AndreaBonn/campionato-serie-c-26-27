@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CUS Cagliari Basket, calendario Serie C 2026/27</title>
-<meta name="theme-color" content="#1c3f7a">
+<meta name="theme-color" content="#1c3f7a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1a2e" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -19,30 +20,40 @@
 </div>
 </div>
 <div class="wrap">
-<div class="brand">
-<img src="logo-cus.png" alt="Stemma del CUS Cagliari" width="96" height="96" onerror="this.remove()">
-<h1>CUS Cagliari Basket</h1>
-</div>
-<p class="sub">Serie C regionale Sardegna 2026/27: girone unico a 12 squadre, 22 partite di stagione regolare.</p>
-<p class="note" id="checked" hidden></p>
+<header class="brand">
+<img src="logo-cus.png" alt="Stemma del CUS Cagliari" width="48" height="48" onerror="this.remove()">
+<div><h1>CUS Cagliari Basket</h1><p class="sub">Serie C regionale Sardegna 2026/27 · girone unico, 12 squadre, 22 partite</p></div>
+</header>
+<p class="note fresh" id="checked" hidden></p>
+<div class="offline" id="offline" role="status" hidden></div>
+<nav class="secnav" aria-label="Sezioni della pagina"><a href="#partite">Partite</a><a href="#standings">Classifica</a><a href="#league">Girone</a><a href="#scorers">Marcatori</a><a href="#cus-players">Giocatori CUS</a></nav>
 <div class="next" id="next" hidden></div>
-<section class="box" id="form" hidden></section>
+<div class="last" id="last" hidden></div>
+<div class="strip" id="form" hidden></div>
 <details class="subwrap">
 <summary class="add">Aggiungi al tuo calendario</summary>
 <section class="subbox" aria-labelledby="sub-title">
 <p><strong id="sub-title">Calendario sempre aggiornato.</strong> Aggiungi le partite al tuo calendario come abbonamento: gli spostamenti decisi dalla FIP, gli arbitri e i risultati arrivano da soli.</p>
 <div class="copy"><input id="icsurl" readonly aria-label="Indirizzo del calendario in abbonamento"><button id="copy">Copia indirizzo</button></div>
 <p class="note" id="copied" aria-live="polite"></p>
-<p class="note"><strong>Google Calendar</strong> (da computer): Altri calendari, pulsante +, Da URL, incolla l'indirizzo. Il calendario compare anche sul telefono. <strong>iPhone, Mac e Outlook</strong>: <a id="webcal" href="calendario.ics">apri nell'app Calendario</a>. Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore. Preferisci un file da importare una volta? <a href="calendario.ics" download>Scarica il .ics</a>, ma gli eventi importati non seguono le variazioni.</p>
+<div class="ptabs" role="tablist" aria-label="App del calendario">
+<button type="button" role="tab" id="tab-google" aria-selected="true" aria-controls="pane-google">Google Calendar</button>
+<button type="button" role="tab" id="tab-apple" aria-selected="false" aria-controls="pane-apple" tabindex="-1">iPhone, Mac e Outlook</button>
+<button type="button" role="tab" id="tab-file" aria-selected="false" aria-controls="pane-file" tabindex="-1">File da importare</button>
+</div>
+<div role="tabpanel" id="pane-google" aria-labelledby="tab-google"><ol class="psteps"><li>Da computer apri Google Calendar.</li><li>Accanto ad «Altri calendari» premi il pulsante +, poi «Da URL».</li><li>Incolla l'indirizzo copiato qui sopra.</li></ol><p class="note">Il calendario compare anche sul telefono.</p></div>
+<div role="tabpanel" id="pane-apple" aria-labelledby="tab-apple" hidden><p><a id="webcal" href="calendario.ics">Apri nell'app Calendario</a>.</p></div>
+<div role="tabpanel" id="pane-file" aria-labelledby="tab-file" hidden><p><a href="calendario.ics" download>Scarica il file .ics</a> e importalo una volta. Gli eventi importati non seguono le variazioni della FIP: per restare aggiornato usa l'abbonamento.</p></div>
+<p class="note">Ogni app aggiorna gli abbonamenti con i propri tempi: possono passare alcune ore.</p>
 </section>
 </details>
+<section id="partite" aria-label="Partite del CUS">
 <div class="bar" role="group" aria-label="Filtro partite">
-<button data-f="all" aria-pressed="true">Tutte</button>
-<button data-f="home" aria-pressed="false">In casa</button>
-<button data-f="away" aria-pressed="false">In trasferta</button>
-<label class="chk"><input type="checkbox" id="future" checked>Solo partite da giocare</label>
+<span class="seg" role="group" aria-label="Quali partite"><button data-mode="upcoming" aria-pressed="true">Prossime</button><button data-mode="played" aria-pressed="false">Giocate</button><button data-mode="all" aria-pressed="false">Tutte</button></span>
+<span class="seg" role="group" aria-label="Casa o trasferta"><button data-f="all" aria-pressed="true">Casa e trasferta</button><button data-f="home" aria-pressed="false">Casa</button><button data-f="away" aria-pressed="false">Trasferta</button></span>
 </div>
-<div id="list"><p class="state">Caricamento dei dati FIP in corso…</p></div>
+<div id="list"></div>
+</section>
 <section class="box" id="standings" hidden></section>
 <section class="box" id="league" hidden></section>
 <section class="box" id="scorers" hidden></section>
@@ -53,163 +64,86 @@
 <p>La stagione regolare termina il 20 marzo 2027. Nel 2025/26 le prime otto classificate hanno disputato i playoff, con serie al meglio delle tre gare, e la vincitrice si è giocata la promozione in Serie B Interregionale. Le ultime tre hanno disputato i playout per evitare la retrocessione in Divisione Regionale 1.</p>
 <p class="warn">La formula descritta è quella della stagione 2025/26. Quella del 2026/27 non compare nel comunicato e al 30 settembre 2026 la FIP Sardegna non l'ha ancora resa nota.</p>
 </section>
-<footer>Fonte del calendario: Comunicato Ufficiale n. 1 del 23 settembre 2026, Comitato Regionale FIP Sardegna, file <a href="https://sardegna.fip.it/wp-content/uploads/2026/09/1-CM-calendario-definitivo.pdf" target="_blank" rel="noopener">1-CM-calendario-definitivo.pdf</a> (ripubblicato il 29 settembre come calendario definitivo). Orari, campi, arbitri, risultati e classifica vengono aggiornati ogni 4 ore, e ogni ora il sabato e la domenica dalle 17 a mezzanotte, dal sito <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a><span id="upd"></span>.<br>
-Nel corso della stagione giorno e orario delle gare possono cambiare. Le comunicazioni ufficiali sono pubblicate anche sul sito del <a href="https://sardegna.fip.it/calendari-definitivi-stagione-sportiva-2026-27/" target="_blank" rel="noopener">Comitato Regionale FIP Sardegna</a>.<br>
-Tabellini: dati inseriti dagli utenti di <a href="https://www.playbasket.it/sardegna/serie-c" target="_blank" rel="noopener">playbasket.it</a>, riprodotti senza modifiche per uso non commerciale, secondo i <a href="https://www.playbasket.it/terms.php" target="_blank" rel="noopener">termini d'uso del sito</a>.</footer>
+<footer><strong>Fonti</strong>
+<ul class="srcs">
+<li>Calendario: <a href="https://sardegna.fip.it/wp-content/uploads/2026/09/1-CM-calendario-definitivo.pdf" target="_blank" rel="noopener">Comunicato Ufficiale n. 1</a> del 23 settembre 2026, Comitato Regionale FIP Sardegna, ripubblicato il 29 settembre come calendario definitivo.</li>
+<li>Orari, campi, arbitri, risultati e classifica: <a id="fiplink" href="https://fip.it/risultati/" target="_blank" rel="noopener">fip.it</a>, controllato ogni 4 ore e ogni ora il sabato e la domenica dalle 17 a mezzanotte<span id="upd"></span>.</li>
+<li>Tabellini: utenti di <a href="https://www.playbasket.it/sardegna/serie-c" target="_blank" rel="noopener">playbasket.it</a>, riprodotti senza modifiche per uso non commerciale (<a href="https://www.playbasket.it/terms.php" target="_blank" rel="noopener">termini d'uso</a>).</li>
+<li>Comunicazioni ufficiali: <a href="https://sardegna.fip.it/calendari-definitivi-stagione-sportiva-2026-27/" target="_blank" rel="noopener">Comitato Regionale FIP Sardegna</a>. Giorno e orario delle gare possono cambiare nel corso della stagione.</li>
+</ul></footer>
 </div>
 <script type="module">
-import {resultNote} from "./result-rules.js";
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
-import {esc,toDate,roundLabel as label,changeRows,statusLabel,mapsUrl as maps,gcalUrl as gcal,isUpcoming,filterGames,withBreaks,daysUntil,firstLegOf,formSummary,pickRound,teamProfile,zoneStatus,zoneLines,logoOf,won,isStandingsCut,safeFipPdfUrl,isFipNoticeLink} from "./page-rules.js";
-import {renderGameBoxscore,renderScorers,loadBoxscores} from "./boxscores.js";
+import {esc,roundLabel as label,place,formSummary,pickRound,isFipNoticeLink} from "./page-rules.js";
+import {relativeAge} from "./view-rules.js";
+import {renderStandings,renderRoundTable} from "./tables-view.js";
+import {fmtWhen,nextGame,renderList,renderNext,renderLast,renderForm} from "./games-view.js";
+import {renderScorers,loadBoxscores} from "./boxscores.js";
 import {renderCusPlayers} from "./cus-stats.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
 ["2026-12-21","<b>Sosta per le festività.</b> Nessuna partita dal 21 dicembre all'8 gennaio."],
 ["2027-02-15","<b>Sosta.</b> Nessuna partita nel fine settimana del 20 e 21 febbraio."]];
-let G=[], R=[], ST=[], LG={}, BX={};
-
-const fmtDay=d=>d.toLocaleDateString("it-IT",{weekday:"short"}).replace(".","");
-const fmtLong=d=>d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
-const fmtWhen=(d,t)=>fmtLong(toDate(d,t))+", ore "+t;
-const fmtShort=(d,t)=>toDate(d,t).toLocaleDateString("it-IT",{weekday:"short",day:"numeric",month:"short"})+", ore "+t;
+const SLOW_LOAD_MS=15000, CLOCK_TICK_MS=60000;
 const today=new Date(); today.setHours(0,0,0,0);
-const dec=n=>n.toLocaleString("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
-const count=(k,one,many)=>k+" "+(k===1?one:many);
-const badges=list=>list.map(w=>w?'<span class="badge win" title="Vittoria">V</span>':'<span class="badge loss" title="Sconfitta">P</span>').join("");
-function crest(team,cls=""){
- const file=logoOf(LG,team);
- return file?`<img class="crest ${cls}" src="${esc(file)}" alt="" width="28" height="28" loading="lazy">`:"";
-}
-// FIP names of the two teams, the keys of the crests: logo home team - away team logo
-const fipHome=m=>m.is_home?FIP_TEAM:m.fip_opponent, fipAway=m=>m.is_home?m.fip_opponent:FIP_TEAM;
-const withCrests=(m,inner)=>`${crest(fipHome(m))}${inner}${crest(fipAway(m),"away")}`;
-// record of the opponent from every league result, for a game still to be played
-function opponent(m){
- const p=m.score?null:teamProfile(m.fip_opponent,R,ST);
- if(!p) return "";
- const pos=p.position?`${p.position}ª in classifica, `:"";
- return `${pos}${count(p.won,"vinta","vinte")} e ${count(p.lost,"persa","perse")}, ${dec(p.avgFor)} punti fatti e ${dec(p.avgAgainst)} subiti a partita. Ultime: ${badges(p.last)}`;
-}
-function sanctions(m){
- if(!m.sanctions?.length) return "";
- return `<div class="sanc"><strong>Provvedimenti del Giudice Sportivo su questa gara</strong><ul>${m.sanctions.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`;
-}
+let R=[], checkedAt=null, side="all", mode="upcoming", scorersOnly=null;
+const ctx={games:[],rounds:[],standings:[],logos:{},boxscores:{},today,fipTeam:FIP_TEAM,breaks:S};
+const $=id=>document.getElementById(id);
 
-function teams(m){
- const h=m.is_home?`<strong>${esc(m.home)}</strong>`:esc(m.home), a=m.is_home?esc(m.away):`<strong>${esc(m.away)}</strong>`;
- return withCrests(m,`${h}<em>-</em>${a}`);
+const refresh=()=>{if(ctx.games.length) $("list").innerHTML=renderList(ctx,side,mode)};
+async function shareGame(m){
+ const text=`${m.home} - ${m.away}, ${fmtWhen(m.date,m.time)}, ${place(m)}`, url=location.href.split("#")[0], out=$("shared");
+ if(navigator.share){
+  try{await navigator.share({title:"Prossima partita del CUS",text,url})}
+  catch(err){if(err.name!=="AbortError") out.textContent="Condivisione non riuscita."}
+  return;
+ }
+ try{await navigator.clipboard.writeText(text+" "+url);out.textContent="Dettagli copiati: incollali nella chat."}
+ catch{out.textContent="Copia non riuscita."}
 }
-function score(m){
- if(!m.score) return "";
- const note=resultNote(m.status), prov=note?` <span class="tag prov${note.warn?" alert":""}">${esc(note.tag)}</span>`:"";
- return ` <span class="score ${won(m)?"win":"loss"}">${m.score.home}-${m.score.away}</span>${prov}`;
-}
-// new value in bold, the official calendar's one struck through, both spelled out
-function was(m){
- const rows=changeRows(m,fmtWhen);
- if(!rows.length) return "";
- const line=r=>`<div class="chg-row"><span class="chg-lbl">${esc(r.label)}</span><span>Adesso: <strong>${esc(r.now)}</strong></span><span>Prima: <del>${esc(r.before)}</del></span></div>`;
- return `<div class="was"><strong>Spostata dalla FIP rispetto al comunicato ufficiale</strong>${rows.map(line).join("")}</div>`;
-}
-function referees(m){
- if(m.referees.length) return `<div class="ref">Arbitri: ${m.referees.map(esc).join("; ")}</div>`;
- if(m.status==="designata-nonvisibile") return `<div class="ref pend">Arbitri designati; i nomi non sono ancora stati pubblicati.</div>`;
- return "";
-}
-function oppCard(m){
- const line=opponent(m);
- return line?`<div class="opp">Avversario: ${line}</div>`:"";
-}
-function card(m){
- const dt=toDate(m.date,m.time), tag=m.changes.length?`<span class="tag chg">Variata</span>`:"";
- return `<article class="g ${m.is_home?"home":""} ${dt<today?"past":""} ${m.score?"played":""}">
- <div class="d"><span>${fmtDay(dt)}</span><b>${dt.getDate()}</b><i>${esc(m.time)}</i></div>
- <div><div class="t"><span class="tag">${m.is_home?"Casa":"Trasferta"}</span>${tag}${teams(m)}${score(m)}</div>
- <div class="v"><strong>${esc(m.venue.name)}</strong>, ${esc(m.venue.address)}</div>
- ${was(m)}${referees(m)}${oppCard(m)}${firstLeg(m)}${sanctions(m)}
- <div class="l"><a href="${maps(m)}" target="_blank" rel="noopener">Apri in Google Maps</a>
- <a href="${gcal(m)}" target="_blank" rel="noopener">Aggiungi a Google Calendar</a></div>
- <div class="meta">${label(m)}, gara n. ${m.n}${statusLabel(m)?", "+esc(statusLabel(m)):""}</div></div></article>`;
-}
-function render(f,onlyUpcoming){
- let out="",mon="";
- const head=d=>{const k=d.toLocaleDateString("it-IT",{month:"long",year:"numeric"});
-  if(k!==mon){mon=k;out+=`<h2>${k}</h2>`}};
- withBreaks(filterGames(G,f,onlyUpcoming,today),S,today,onlyUpcoming).forEach(({game:m,date,text})=>{
-  if(!m){head(new Date(date+"T12:00:00"));out+=`<p class="sosta">${text}</p>`;return}
-  head(toDate(m.date,m.time)); out+=card(m);
- });
- document.getElementById("list").innerHTML=out||`<p class="state">Nessuna partita da giocare con questo filtro. Disattiva «Solo partite da giocare» per vedere anche quelle già disputate.</p>`;
-}
-const onlyUpcoming=()=>document.getElementById("future").checked;
-const refresh=()=>{if(G.length) render(document.querySelector(".bar button[data-f][aria-pressed=true]").dataset.f,onlyUpcoming())};
-function renderNext(){
- const m=G.find(x=>isUpcoming(x,today)), el=document.getElementById("next");
+function showNext(){
+ const el=$("next"), m=nextGame(ctx);
  el.hidden=false;
- if(!m){el.innerHTML="<div class='m'>Stagione regolare conclusa</div>";return}
- const dt=toDate(m.date,m.time), days=daysUntil(m,today);
- const refs=m.referees.length?`<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>`:"";
- const rows=changeRows(m,fmtWhen), moved=rows.length?`<small>Spostata dalla FIP. ${rows.map(r=>`${esc(r.label)} prima: <del>${esc(r.before)}</del>`).join("; ")}</small>`:"";
- const opp=opponent(m), oppLine=opp?`<small>Avversario: ${opp}</small>`:"";
- el.innerHTML=`<small>Prossima partita</small><div class="m">${withCrests(m,`${esc(m.home)} - ${esc(m.away)}`)}</div>
- <div class="info"><small>${fmtLong(dt)}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}${oppLine}</div>
- <div class="w"><b>${days===0?"Oggi":days}</b><small>${days===0?"":days===1?"giorno":"giorni"}</small></div>`;
+ el.innerHTML=renderNext(ctx);
+ if(m) $("share").onclick=()=>shareGame(m);
 }
-function renderStandings(rows){
- const el=document.getElementById("standings");
+function showLast(){
+ const el=$("last"), html=renderLast(ctx);
+ el.hidden=!html;
+ el.innerHTML=html;
+}
+function showForm(){
+ const el=$("form"), f=formSummary(ctx.games);
+ el.hidden=!f;
+ if(f) el.innerHTML=renderForm(f);
+}
+function renderStandingsBox(rows){
+ const el=$("standings");
  el.hidden=false;
- if(!rows.some(r=>r.played>0)){el.innerHTML="<h2>Classifica</h2><p>La classifica sarà disponibile dopo la prima giornata.</p>";return}
- const z=zoneStatus(rows,FIP_TEAM), zone=z?`<ul class="zone">${zoneLines(z).map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:"";
- const cut=r=>isStandingsCut(r.position,rows.length);
- const body=rows.map(r=>`<tr class="${r.team===FIP_TEAM?"me":""} ${cut(r)?"cut":""}"><td>${r.position}</td><td><span class="tm">${crest(r.team)||'<span class="crest"></span>'}<span>${esc(r.team)}</span></span></td><td>${r.points}</td><td>${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.points_for}</td><td>${r.points_against}</td></tr>`).join("");
- el.innerHTML=`<h2>Classifica</h2>${zone}<div class="scroll"><table><thead><tr><th>#</th><th>Squadra</th><th>Punti</th><th>G</th><th>V</th><th>P</th><th>PF</th><th>PS</th></tr></thead><tbody>${body}</tbody></table></div>
- <p class="meta">Classifica ufficiale FIP: conta solo i risultati omologati dal Giudice Sportivo. G: gare giocate, V: vinte, P: perse, PF: punti fatti, PS: punti subiti. Le linee separano le prime 8 e le ultime 3: nel 2025/26 erano le squadre ammesse a playoff e playout, la formula 2026/27 non è ancora nota. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor; gli stemmi sono quelli caricati dalle società sul sito FIP.</p>`;
+ el.innerHTML=renderStandings(rows,FIP_TEAM,ctx.logos);
 }
-function firstLeg(m){
- const a=firstLegOf(m,G);
- if(!a) return "";
- return `<div class="leg">All'andata: ${esc(a.home)} - ${esc(a.away)} ${a.score.home}-${a.score.away}</div>`;
-}
-function renderForm(){
- const el=document.getElementById("form"), f=formSummary(G);
- if(!f){el.hidden=true;return}
- const split=r=>count(r.won,"vittoria","vittorie")+" e "+count(r.lost,"sconfitta","sconfitte");
- const last=badges(f.last);
- el.hidden=false;
- el.innerHTML=`<h2>Andamento del CUS</h2><div class="stats">
- <div><b>${f.won}-${f.lost}</b><span>vittorie e sconfitte</span></div>
- <div><b>${dec(f.avgFor)}</b><span>punti fatti a partita</span></div>
- <div><b>${dec(f.avgAgainst)}</b><span>punti subiti a partita</span></div></div>
- <div class="badges">Ultime ${f.last.length}: ${last}</div>
- <p class="meta">In casa ${split(f.home)}; in trasferta ${split(f.away)}.</p>`;
-}
-function roundTable(r){
- const byTime=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
- const rows=[...r.games].sort(byTime).map(g=>{
-  const me=g.home===FIP_TEAM||g.away===FIP_TEAM, note=resultNote(g.status);
-  const res=g.score?`${g.score.home}-${g.score.away}`+(note?`<small class="prov${note.warn?" alert":""}">${esc(note.tag)}</small>`:""):esc(g.time);
-  const refs=g.referees?.length?`<small class="refs">Arbitri: ${g.referees.map(esc).join("; ")}</small>`:"";
-  return `<tr class="${me?"me":""}"><td>${esc(fmtShort(g.date,g.time).split(",")[0])}</td><td>${esc(g.home)} - ${esc(g.away)}${refs}</td><td>${res}</td></tr>${renderGameBoxscore(BX,g)}`}).join("");
- const fined=r.games.filter(g=>g.sanctions?.length);
- const sanc=fined.length?`<div class="sanc"><strong>Provvedimenti del Giudice Sportivo</strong><ul>${fined.flatMap(g=>g.sanctions.map(t=>`<li><b>${esc(g.home)} - ${esc(g.away)}:</b> ${esc(t)}</li>`)).join("")}</ul></div>`:"";
- const pdfUrl=safeFipPdfUrl(r.pdf_url);
- const pdf=pdfUrl?`<p class="meta round-pdf"><a href="${esc(pdfUrl)}" target="_blank" rel="noopener">Giornata nel PDF ufficiale FIP</a></p>`:"";
- return `<div class="scroll"><table><thead><tr><th>Data</th><th>Partita</th><th>Risultato</th></tr></thead><tbody>${rows}</tbody></table></div>${sanc}${pdf}`;
+function setRound(i){
+ const sel=$("round-select");
+ sel.value=String(i);
+ $("round-table").innerHTML=renderRoundTable(R[i],FIP_TEAM,ctx.boxscores);
+ $("round-prev").disabled=i===0; $("round-next").disabled=i===R.length-1;
 }
 function renderLeague(rounds){
- const el=document.getElementById("league");
+ const el=$("league");
  if(!rounds||!rounds.length){el.hidden=true;return}
  const pick=pickRound(rounds,today);
- const opts=rounds.map((r,i)=>`<option value="${i}" ${i===pick?"selected":""}>${label(r)}</option>`).join("");
+ const opts=rounds.map((r,i)=>`<option value="${i}">${label(r)}</option>`).join("");
  el.hidden=false;
- el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><label for="round-select">Giornata </label><select id="round-select">${opts}</select></div><div id="round-table">${roundTable(rounds[pick])}</div>
- <p class="meta">Tutte le gare della giornata, con i nomi registrati dalla FIP, gli arbitri designati e i provvedimenti del Giudice Sportivo pubblicati con l'omologazione. Senza risultato è indicato l'orario d'inizio; un risultato non ancora omologato dal Giudice Sportivo è segnalato sotto il punteggio.</p>`;
- document.getElementById("round-select").onchange=e=>{document.getElementById("round-table").innerHTML=roundTable(rounds[+e.target.value])};
+ el.innerHTML=`<h2>Risultati del girone</h2><div class="round-pick"><button type="button" class="navbtn" id="round-prev" aria-label="Giornata precedente">‹</button><label for="round-select">Giornata</label><select id="round-select">${opts}</select><button type="button" class="navbtn" id="round-next" aria-label="Giornata successiva">›</button></div><div id="round-table"></div>
+ <details class="howto"><summary>Come leggere i risultati</summary><p>Tutte le gare della giornata, con i nomi registrati dalla FIP. Tocca «Tabellino» o «Arbitri» per gli arbitri designati e i punti dei giocatori. Senza risultato è indicato l'orario d'inizio; un risultato non ancora omologato dal Giudice Sportivo è segnalato sotto il punteggio.</p></details>`;
+ $("round-select").onchange=e=>setRound(+e.target.value);
+ $("round-prev").onclick=()=>setRound(+$("round-select").value-1);
+ $("round-next").onclick=()=>setRound(+$("round-select").value+1);
+ setRound(pick);
 }
 function renderNotices(list){
- const el=document.getElementById("notices");
+ const el=$("notices");
  list=(list||[]).filter(n=>isFipNoticeLink(n.link));
  if(!list.length){el.innerHTML="";return}
  const items=list.map(n=>`<li>${esc(noticePrefix(n.kind))}<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a> (${esc(new Date(n.date+"T12:00:00").toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"}))})</li>`).join("");
@@ -217,20 +151,39 @@ function renderNotices(list){
  el.innerHTML=`<div class="notice"><strong>${esc(h.title)}</strong>${h.hint?" "+esc(h.hint):""}<ul>${items}</ul></div>`;
 }
 function setupSubscription(){
- const url=new URL("calendario.ics",location.href).href, input=document.getElementById("icsurl");
+ const url=new URL("calendario.ics",location.href).href, input=$("icsurl");
  input.value=url;
- document.getElementById("webcal").href=url.replace(/^https?:/,"webcal:");
- document.getElementById("copy").onclick=async()=>{
-  const out=document.getElementById("copied");
+ $("webcal").href=url.replace(/^https?:/,"webcal:");
+ $("copy").onclick=async()=>{
+  const out=$("copied");
   try{await navigator.clipboard.writeText(url);out.textContent="Indirizzo copiato."}
   catch{input.select();out.textContent="Copia non riuscita: l'indirizzo è selezionato, copialo con Ctrl+C."}
  };
+ const tabs=[...document.querySelectorAll(".ptabs [role=tab]")];
+ const select=t=>tabs.forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;$(x.getAttribute("aria-controls")).hidden=!on});
+ tabs.forEach((t,i)=>{
+  t.onclick=()=>select(t);
+  // arrow keys move between tabs, as in the WAI-ARIA tabs pattern
+  t.onkeydown=e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d) return;const n=tabs[(i+d+tabs.length)%tabs.length];select(n);n.focus()};
+ });
 }
 function showError(err){
  const cause=err instanceof TypeError?"Connessione non riuscita: controlla la rete e riprova.":esc(err.message)+".";
  const local=location.protocol==="file:"?" La pagina è aperta come file locale e il browser blocca la lettura dei dati: aprila dal sito pubblicato o tramite un server locale.":"";
- document.getElementById("list").innerHTML=`<div class="state err"><p><strong>Impossibile caricare i dati delle partite.</strong> ${cause}${local}</p><button class="retry" id="retry">Riprova</button></div>`;
- document.getElementById("retry").onclick=load;
+ $("list").innerHTML=`<div class="state err"><p><strong>Impossibile caricare i dati delle partite.</strong> ${cause}${local}</p><button class="retry" id="retry">Riprova</button></div>`;
+ $("retry").onclick=reload;
+}
+function renderChecked(){
+ const el=$("checked");
+ if(!checkedAt) return;
+ el.textContent="Dati FIP controllati "+relativeAge(checkedAt,new Date());
+ el.title="Ultimo controllo riuscito su fip.it: "+new Date(checkedAt).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"});
+ el.hidden=false;
+}
+function renderOffline(){
+ const el=$("offline");
+ el.hidden=navigator.onLine;
+ if(!navigator.onLine) el.textContent="Sei offline: stai vedendo i dati della tua ultima visita"+(checkedAt?`, controllati su fip.it ${relativeAge(checkedAt,new Date())}`:"")+".";
 }
 async function loadStatus(){
  // optional: without status.json (local run, first deploy) the line stays hidden
@@ -239,47 +192,74 @@ async function loadStatus(){
   if(!r.ok) return;
   const s=await r.json();
   if(!s.checked_at) return;
-  const el=document.getElementById("checked");
-  el.textContent="Ultimo controllo riuscito su fip.it: "+new Date(s.checked_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+".";
-  el.hidden=false;
+  checkedAt=s.checked_at; renderChecked(); renderOffline();
  }catch(err){console.warn("status.json non disponibile",err)}
+}
+// focus: the control that triggered a re-render gets it back, or keyboard users land on <body>
+function renderScorersBox(focus=null){
+ const el=$("scorers");
+ el.hidden=false;
+ el.innerHTML=renderScorers(ctx.boxscores,R,FIP_TEAM,scorersOnly);
+ if(focus) el.querySelector(focus)?.focus();
 }
 function applyBoxscores(boxscores){
  // data.json failed: the page shows its error, box score sections stay hidden
  if(!R.length) return;
- BX=boxscores;
- const select=document.getElementById("round-select");
- if(select) document.getElementById("round-table").innerHTML=roundTable(R[+select.value]);
- const scorersEl=document.getElementById("scorers");
- scorersEl.hidden=false;
- scorersEl.innerHTML=renderScorers(BX,R,FIP_TEAM);
- const cusPlayersEl=document.getElementById("cus-players");
+ ctx.boxscores=boxscores;
+ const select=$("round-select");
+ if(select) setRound(+select.value);
+ refresh(); showLast(); renderScorersBox();
+ const cusPlayersEl=$("cus-players");
  cusPlayersEl.hidden=false;
- cusPlayersEl.innerHTML=renderCusPlayers(BX,R,FIP_TEAM);
+ cusPlayersEl.innerHTML=renderCusPlayers(ctx.boxscores,R,FIP_TEAM);
+ syncNav();
 }
+const skeleton='<div class="loading"><span class="sr-only">Caricamento dei dati FIP in corso…</span>'+'<div class="skel" aria-hidden="true"><i></i><div><i></i><i></i><i></i></div></div>'.repeat(3)+'</div>';
 async function load(){
  loadStatus();
- document.getElementById("list").innerHTML='<p class="state">Caricamento dei dati FIP in corso…</p>';
+ $("list").innerHTML=skeleton;
+ const slow=setTimeout(()=>{const el=document.querySelector("#list .loading");if(el) el.insertAdjacentHTML("afterbegin",'<p class="note">Ci sta mettendo più del previsto: la rete è lenta.</p>')},SLOW_LOAD_MS);
  try{
   const r=await fetch("data.json",{cache:"no-cache"});
   if(!r.ok) throw new Error("Il server ha risposto con il codice "+r.status);
   const data=await r.json();
   // chronological order: a rescheduled game moves to its new date
-  G=[...data.games].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-  R=data.rounds||[]; ST=data.standings||[]; LG=data.logos||{};
-  if(data.fip_url) document.getElementById("fiplink").href=data.fip_url;
-  if(data.updated_at) document.getElementById("upd").textContent=" (ultima variazione rilevata il "+new Date(data.updated_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+")";
-  renderNext(); refresh();
-  renderForm(); renderStandings(data.standings); renderLeague(data.rounds); renderNotices(data.notices);
+  ctx.games=[...data.games].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  R=ctx.rounds=data.rounds||[]; ctx.standings=data.standings||[]; ctx.logos=data.logos||{};
+  if(data.fip_url) $("fiplink").href=data.fip_url;
+  if(data.updated_at) $("upd").textContent=" (ultima variazione rilevata il "+new Date(data.updated_at).toLocaleString("it-IT",{dateStyle:"long",timeStyle:"short"})+")";
+  showNext(); showLast(); refresh();
+  showForm(); renderStandingsBox(data.standings); renderLeague(data.rounds); renderNotices(data.notices);
+  syncNav();
  }catch(err){showError(err)}
+ finally{clearTimeout(slow)}
 }
-document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{
- document.querySelectorAll(".bar button[data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));
- refresh();
+const reload=()=>load().then(()=>loadBoxscores(applyBoxscores));
+// section links: hidden while their section is, the one on screen marked as current
+const navLinks=[...document.querySelectorAll(".secnav a")];
+function syncNav(){navLinks.forEach(a=>{a.hidden=document.querySelector(a.getAttribute("href")).hidden})}
+const spy=new IntersectionObserver(entries=>entries.forEach(e=>{
+ if(!e.isIntersecting) return;
+ navLinks.forEach(a=>a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+e.target.id));
+}),{rootMargin:"-30% 0px -60% 0px"});
+navLinks.forEach(a=>spy.observe(document.querySelector(a.getAttribute("href"))));
+const pressOnly=(attr,value)=>document.querySelectorAll(`.bar button[${attr}]`).forEach(x=>x.setAttribute("aria-pressed",x.getAttribute(attr)===value));
+document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{side=b.dataset.f;pressOnly("data-f",side);refresh()});
+document.querySelectorAll(".bar button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;pressOnly("data-mode",mode);refresh()});
+// rendered markup: disclosure rows (round table, CUS players) and the scorers filter
+document.addEventListener("click",e=>{
+ const t=e.target.closest(".tbx,.pl-btn");
+ if(t){const open=t.getAttribute("aria-expanded")!=="true";t.setAttribute("aria-expanded",open);$(t.getAttribute("aria-controls")).hidden=!open;return}
+ const f=e.target.closest("[data-scorers]");
+ if(f){scorersOnly=f.dataset.scorers||null;renderScorersBox(`[data-scorers="${CSS.escape(f.dataset.scorers)}"]`)}
 });
-document.getElementById("future").onchange=refresh;
+document.addEventListener("change",e=>{if(e.target.matches("[data-scorers-team]")){scorersOnly=e.target.value||null;renderScorersBox("[data-scorers-team]")}});
+addEventListener("offline",renderOffline);
+addEventListener("online",()=>{renderOffline();reload()});
+setInterval(renderChecked,CLOCK_TICK_MS);
 setupSubscription();
-load().then(()=>loadBoxscores(applyBoxscores));
+renderOffline();
+reload();
 </script>
 <script type="module" src="update.js"></script>
 </body>

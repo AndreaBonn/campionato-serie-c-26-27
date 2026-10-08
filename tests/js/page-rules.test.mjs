@@ -139,15 +139,19 @@ test("a game is upcoming from its day on until it has a result", () => {
   assert.equal(isUpcoming(played(70, 60), TODAY), false);
 });
 
-test("filter keeps home, away or all games, optionally only upcoming ones", () => {
+test("filter keeps home, away or all games, and upcoming, played or all of them", () => {
   const home = game({ n: 1, is_home: true });
   const away = game({ n: 2 });
   const past = game({ n: 3, is_home: true, date: "2026-10-01" });
-  const games = [home, away, past];
+  const result = played(70, 60, { n: 4, date: "2026-10-05" });
+  const games = [home, away, past, result];
 
-  assert.deepEqual(filterGames(games, "home", false, TODAY), [home, past]);
-  assert.deepEqual(filterGames(games, "away", false, TODAY), [away]);
-  assert.deepEqual(filterGames(games, "all", true, TODAY), [home, away]);
+  assert.deepEqual(filterGames(games, "home", "all", TODAY), [home, past]);
+  assert.deepEqual(filterGames(games, "away", "all", TODAY), [away, result]);
+  assert.deepEqual(filterGames(games, "all", "upcoming", TODAY), [home, away]);
+  // a past game still without a result is not upcoming any more: it goes with the played ones
+  assert.deepEqual(filterGames(games, "all", "played", TODAY), [past, result]);
+  assert.deepEqual(filterGames(games, "away", "played", TODAY), [result]);
 });
 
 const BREAKS = [
