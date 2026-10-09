@@ -196,6 +196,7 @@ details.sanc ul{margin:4px 0 0;padding-left:18px}
 footer{margin-top:28px;font-size:13px;color:var(--mut)}
 footer a{color:var(--ink)}
 .srcs{margin:4px 0 0;padding-left:18px}
+.repo{margin:16px 0 0;padding-top:12px;border-top:1px solid var(--line)}
 @media(prefers-color-scheme:dark){
  /* the crests are scans on white: a light tile instead of multiply, which would black them out */
  .brand img,.crest{mix-blend-mode:normal;background:#fff;border-radius:4px;padding:2px}
