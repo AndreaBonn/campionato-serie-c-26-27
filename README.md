@@ -5,6 +5,8 @@ Pagina web con le 22 partite del CUS Cagliari nella Serie C regionale sarda, agg
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 ![Python](https://img.shields.io/badge/python-%3E%3D3.12-3776ab)
 ![Sync](https://github.com/AndreaBonn/campionato-serie-c-26-27/actions/workflows/sync-fip.yml/badge.svg)
+[![Tests](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FAndreaBonn%2Fcampionato-serie-c-26-27%2Fbadges%2Ftests.json)](https://github.com/AndreaBonn/campionato-serie-c-26-27/actions/workflows/tests.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FAndreaBonn%2Fcampionato-serie-c-26-27%2Fbadges%2Fcoverage.json)](https://github.com/AndreaBonn/campionato-serie-c-26-27/actions/workflows/tests.yml)
 
 La pagina è pubblicata su **https://andreabonn.github.io/campionato-serie-c-26-27/** e si può installare sul telefono come app.
 

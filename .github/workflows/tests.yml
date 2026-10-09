@@ -1,0 +1,70 @@
+name: Tests and coverage badges
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-badges
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      # pushes the badge JSON to the `badges` branch, read by shields.io
+      contents: write
+    steps:
+      - name: Create the reports directory
+        run: |
+          echo "REPORTS=$RUNNER_TEMP/reports" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/reports"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+      - run: uv sync --frozen
+      - name: Python tests with coverage
+        run: >
+          uv run pytest -q --cov --cov-report=term
+          --cov-report=json:"$REPORTS/coverage.json" --junitxml="$REPORTS/pytest.xml"
+      # runs even when pytest failed, so the badge counts both suites
+      - name: JS tests
+        if: ${{ !cancelled() }}
+        run: >
+          node --test
+          --test-reporter=spec --test-reporter-destination=stdout
+          --test-reporter=junit --test-reporter-destination="$REPORTS/node.xml"
+          tests/js/*.test.mjs
+      # a red run still publishes: the badge must show the failure, not the last green
+      - name: Build badge files
+        if: ${{ !cancelled() }}
+        run: >
+          uv run fip-calendar-badges
+          --junit "$REPORTS/pytest.xml" --junit "$REPORTS/node.xml"
+          --coverage "$REPORTS/coverage.json" --out "$REPORTS/badges"
+      - name: Publish badge files to the badges branch
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        # one-commit orphan branch, replaced on every run: badge history has no value
+        run: |
+          # setup failed before any report: publish an error, never keep the last green
+          if [ ! -f "$REPORTS/badges/tests.json" ]; then
+            mkdir -p "$REPORTS/badges"
+            echo '{"schemaVersion": 1, "label": "tests", "message": "error", "color": "red"}' > "$REPORTS/badges/tests.json"
+            echo '{"schemaVersion": 1, "label": "coverage", "message": "unknown", "color": "lightgrey"}' > "$REPORTS/badges/coverage.json"
+          fi
+          cd "$REPORTS/badges"
+          git init -q -b badges
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests.json coverage.json
+          git commit -q -m "chore(badges): update from ${GITHUB_SHA::7}"
+          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" HEAD:badges
