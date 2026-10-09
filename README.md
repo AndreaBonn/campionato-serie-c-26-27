@@ -156,6 +156,12 @@ La pagina non ha login, form né segreti: mostra dati pubblici della FIP. Per se
 
 Il codice è rilasciato con licenza MIT, vedi [LICENSE](./LICENSE). Lo stemma del CUS Cagliari (`docs/logo-cus.png`) e il comunicato ufficiale FIP (`data/1-CM-calendario-definitivo.pdf`) restano dei rispettivi titolari e non sono coperti dalla licenza.
 
-## Supporta il progetto
+## Sostieni il progetto
 
 Se questo progetto ti è stato utile, lascia una stella su [GitHub](https://github.com/AndreaBonn/campionato-serie-c-26-27): aiuta altri a scoprirlo.
+
+Il calendario CUS Cagliari Basket è gratuito. Se ti è utile e vuoi contribuire, puoi lasciare un'offerta tramite PayPal. L'importo lo scegli tu ed è del tutto facoltativo.
+
+<p align="center">
+  <a href="https://paypal.me/AndreaBonacci19"><img src="https://img.shields.io/badge/Dona-PayPal-00457C?logo=paypal&logoColor=white&style=for-the-badge" alt="Dona con PayPal"></a>
+</p>
