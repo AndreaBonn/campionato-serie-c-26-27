@@ -89,8 +89,8 @@
         "date",
         "time"
       ],
-      "status": "non-designata",
-      "status_text": "Gara non ancora designata",
+      "status": "designata-nonvisibile",
+      "status_text": "Gara designata: la designazione non è ancora visibile",
       "referees": [],
       "score": null,
       "sanctions": [],
@@ -851,7 +851,7 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-18",
           "time": "18:30",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -862,7 +862,7 @@
           "away": "SEF TORRES",
           "date": "2026-10-17",
           "time": "20:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -873,7 +873,7 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-10-17",
           "time": "18:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -884,7 +884,7 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-10-17",
           "time": "19:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -895,7 +895,7 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-18",
           "time": "19:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -906,7 +906,7 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-17",
           "time": "17:30",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -2425,5 +2425,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-07T11:16:37+00:00"
+  "updated_at": "2026-10-09T06:07:06+00:00"
 }
