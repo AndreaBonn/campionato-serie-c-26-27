@@ -775,8 +775,11 @@
           "away": "PALL. NUORO",
           "date": "2026-10-10",
           "time": "18:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 73,
+            "away": 69
+          },
           "referees": [
             "SEU ALESSANDRA di QUARTUCCIU (CA)",
             "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)"
@@ -817,8 +820,11 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-10-10",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 78,
+            "away": 67
+          },
           "referees": [
             "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
@@ -831,8 +837,11 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-10-10",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 88,
+            "away": 83
+          },
           "referees": [
             "FANCELLU MATTEO di SASSARI (SS)",
             "PUGGIONI SAMUELE di SASSARI (SS)"
@@ -2425,5 +2434,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-10T05:51:01+00:00"
+  "updated_at": "2026-10-10T19:34:52+00:00"
 }
