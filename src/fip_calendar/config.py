@@ -81,7 +81,7 @@ BOXSCORE_STATUS_UNMATCHED: Final[BoxscoreStatus] = "unmatched"
 PLAYBASKET_TEAM_ALIASES: dict[str, str] = {
     "CMB Porto Torres": "C.M.B. PORTO TORRES",
     "Aurea Sassari": "FISIOKONS AUREA SASSARI",
-    "Ferrini Quartu S.Elena": "BASKET FERRINI",
+    "Ferrini Quartu S.Elena": "FERRINI PISANO ARREDAMENTI",
     "Scuola Basket Carbonia": "SCUOLA BASKET CARBONIA",
     "Sirbones Nuoro": "PALL. NUORO",
     "Sef Torres Sassari": "SEF TORRES",
