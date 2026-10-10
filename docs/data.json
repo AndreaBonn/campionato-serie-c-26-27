@@ -178,7 +178,7 @@
       "referees": [],
       "score": null,
       "sanctions": [],
-      "fip_opponent": "BASKET FERRINI"
+      "fip_opponent": "FERRINI PISANO ARREDAMENTI"
     },
     {
       "round": "A7",
@@ -491,7 +491,7 @@
       "referees": [],
       "score": null,
       "sanctions": [],
-      "fip_opponent": "BASKET FERRINI"
+      "fip_opponent": "FERRINI PISANO ARREDAMENTI"
     },
     {
       "round": "R7",
@@ -664,7 +664,7 @@
         },
         {
           "n": 2,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-10-03",
           "time": "19:00",
@@ -786,7 +786,7 @@
         {
           "n": 9,
           "home": "BASKET ANTONIANUM",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-10-11",
           "time": "18:30",
           "status": "designata",
@@ -847,7 +847,7 @@
       "games": [
         {
           "n": 13,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-18",
           "time": "18:30",
@@ -953,7 +953,7 @@
         {
           "n": 22,
           "home": "C.M.B. PORTO TORRES",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-10-24",
           "time": "18:00",
           "status": "non-designata",
@@ -1002,7 +1002,7 @@
         },
         {
           "n": 26,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "POL. DINAMO",
           "date": "2026-10-31",
           "time": "19:00",
@@ -1064,7 +1064,7 @@
         {
           "n": 31,
           "home": "CUS CAGLIARI",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-08",
           "time": "18:00",
           "status": "non-designata",
@@ -1180,7 +1180,7 @@
         {
           "n": 41,
           "home": "PALL. NUORO",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-14",
           "time": "19:00",
           "status": "non-designata",
@@ -1262,7 +1262,7 @@
         },
         {
           "n": 48,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-21",
           "time": "19:00",
@@ -1291,7 +1291,7 @@
         {
           "n": 50,
           "home": "BASKET S. ORSOLA",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-28",
           "time": "20:30",
           "status": "non-designata",
@@ -1351,7 +1351,7 @@
       "games": [
         {
           "n": 55,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-12-06",
           "time": "18:30",
@@ -1435,7 +1435,7 @@
         {
           "n": 62,
           "home": "SEF TORRES",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-12-12",
           "time": "18:00",
           "status": "non-designata",
@@ -1540,7 +1540,7 @@
         {
           "n": 71,
           "home": "SCUOLA BASKET CARBONIA",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-12-19",
           "time": "18:30",
           "status": "non-designata",
@@ -1622,7 +1622,7 @@
         },
         {
           "n": 78,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "BASKET ANTONIANUM",
           "date": "2027-01-10",
           "time": "18:30",
@@ -1651,7 +1651,7 @@
         {
           "n": 80,
           "home": "FISIOKONS AUREA SASSARI",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2027-01-16",
           "time": "20:30",
           "status": "non-designata",
@@ -1733,7 +1733,7 @@
         },
         {
           "n": 87,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "C.M.B. PORTO TORRES",
           "date": "2027-01-23",
           "time": "19:00",
@@ -1795,7 +1795,7 @@
         {
           "n": 92,
           "home": "POL. DINAMO",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2027-01-30",
           "time": "17:30",
           "status": "non-designata",
@@ -1910,7 +1910,7 @@
         },
         {
           "n": 102,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "CUS CAGLIARI",
           "date": "2027-02-07",
           "time": "18:30",
@@ -1971,7 +1971,7 @@
         },
         {
           "n": 107,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "PALL. NUORO",
           "date": "2027-02-14",
           "time": "18:00",
@@ -2011,7 +2011,7 @@
         {
           "n": 110,
           "home": "CAMPING LA SALINA CALASETTA",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2027-02-27",
           "time": "18:00",
           "status": "non-designata",
@@ -2093,7 +2093,7 @@
         },
         {
           "n": 117,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "BASKET S. ORSOLA",
           "date": "2027-03-06",
           "time": "19:00",
@@ -2199,7 +2199,7 @@
         {
           "n": 126,
           "home": "OLIMPIA CAGLIARI",
-          "away": "BASKET FERRINI",
+          "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2027-03-13",
           "time": "18:00",
           "status": "non-designata",
@@ -2215,7 +2215,7 @@
       "games": [
         {
           "n": 127,
-          "home": "BASKET FERRINI",
+          "home": "FERRINI PISANO ARREDAMENTI",
           "away": "SEF TORRES",
           "date": "2027-03-20",
           "time": "19:00",
@@ -2296,7 +2296,7 @@
     },
     {
       "position": 2,
-      "team": "BASKET FERRINI",
+      "team": "FERRINI PISANO ARREDAMENTI",
       "points": 2,
       "played": 1,
       "won": 1,
@@ -2425,5 +2425,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-09T06:07:06+00:00"
+  "updated_at": "2026-10-10T05:51:01+00:00"
 }
