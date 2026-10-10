@@ -1210,52 +1210,76 @@
     },
     "8": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 73,
         "away": 69
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 1,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=1",
+      "home": {
+        "team": "Scuola Basket Carbonia",
+        "players": []
+      },
+      "away": {
+        "team": "Sirbones Nuoro",
+        "players": []
+      }
     },
     "11": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 78,
         "away": 67
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 3,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=3",
+      "home": {
+        "team": "Olimpia Cagliari",
+        "players": []
+      },
+      "away": {
+        "team": "S. Orsola Sassari",
+        "players": []
+      }
     },
     "12": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 88,
         "away": 83
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 4,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=4",
+      "home": {
+        "team": "Sef Torres Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "Calasetta Basket",
+        "players": []
+      }
     },
     "10": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 86,
         "away": 76
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 2,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=2",
+      "home": {
+        "team": "Aurea Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "Dinamo Academy",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-10-10T22:59:40+00:00"
+  "updated_at": "2026-10-10T23:33:19+00:00"
 }
