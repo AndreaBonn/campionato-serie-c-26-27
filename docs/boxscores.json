@@ -1279,7 +1279,31 @@
         "team": "Dinamo Academy",
         "players": []
       }
+    },
+    "7": {
+      "round": "A2",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 58,
+        "away": 57
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "9": {
+      "round": "A2",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 54,
+        "away": 67
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-10-10T23:33:19+00:00"
+  "updated_at": "2026-10-11T19:45:44+00:00"
 }
