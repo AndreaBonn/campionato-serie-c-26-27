@@ -1282,28 +1282,40 @@
     },
     "7": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 58,
         "away": 57
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 5,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=5",
+      "home": {
+        "team": "Cus Cagliari",
+        "players": []
+      },
+      "away": {
+        "team": "CMB Porto Torres",
+        "players": []
+      }
     },
     "9": {
       "round": "A2",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 54,
         "away": 67
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 6,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=6",
+      "home": {
+        "team": "Antonianum Quartu S.Elena",
+        "players": []
+      },
+      "away": {
+        "team": "Ferrini Quartu S.Elena",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-10-11T19:45:44+00:00"
+  "updated_at": "2026-10-11T23:14:42+00:00"
 }
