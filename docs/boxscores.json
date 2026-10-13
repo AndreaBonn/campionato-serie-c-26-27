@@ -1414,7 +1414,7 @@
     },
     "11": {
       "round": "A2",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 78,
         "away": 67
@@ -1423,16 +1423,186 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=3",
       "home": {
         "team": "Olimpia Cagliari",
-        "players": []
+        "players": [
+          {
+            "id": "23247",
+            "number": "",
+            "name": "Angius Gianmarco",
+            "role": "centro",
+            "age": "'88",
+            "pts": 4
+          },
+          {
+            "id": "229541",
+            "number": "",
+            "name": "Cannas Francesco",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "155237",
+            "number": "",
+            "name": "Cesaraccio Marco",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 16
+          },
+          {
+            "id": "23146",
+            "number": "",
+            "name": "Chessa Stefano",
+            "role": "guardia",
+            "age": "'93",
+            "pts": 9
+          },
+          {
+            "id": "26909",
+            "number": "",
+            "name": "Cicotto Davide",
+            "role": "ala forte",
+            "age": "'96",
+            "pts": 0
+          },
+          {
+            "id": "119450",
+            "number": "",
+            "name": "Lombardi Matteo",
+            "role": "",
+            "age": "",
+            "pts": 4
+          },
+          {
+            "id": "212845",
+            "number": "",
+            "name": "Pala Riccardo",
+            "role": "",
+            "age": "",
+            "pts": 3
+          },
+          {
+            "id": "55403",
+            "number": "",
+            "name": "Picciau Riccardo",
+            "role": "guardia",
+            "age": "'97",
+            "pts": 17
+          },
+          {
+            "id": "118210",
+            "number": "",
+            "name": "Piras Davide",
+            "role": "play",
+            "age": "'03",
+            "pts": 17
+          },
+          {
+            "id": "229546",
+            "number": "",
+            "name": "Piras Diego",
+            "role": "",
+            "age": "",
+            "pts": 2
+          },
+          {
+            "id": "179368",
+            "number": "",
+            "name": "Sassaro Matteo",
+            "role": "play",
+            "age": "'07",
+            "pts": 6
+          }
+        ]
       },
       "away": {
         "team": "S. Orsola Sassari",
-        "players": []
+        "players": [
+          {
+            "id": "173425",
+            "number": "",
+            "name": "Angius Riccardo",
+            "role": "play",
+            "age": "'07",
+            "pts": 7
+          },
+          {
+            "id": "148057",
+            "number": "",
+            "name": "Aroni Alessandro",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 2
+          },
+          {
+            "id": "173424",
+            "number": "",
+            "name": "Camboni Marco",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 0
+          },
+          {
+            "id": "146918",
+            "number": "",
+            "name": "Carta Giovanni",
+            "role": "ala piccola",
+            "age": "'02",
+            "pts": 14
+          },
+          {
+            "id": "190287",
+            "number": "",
+            "name": "Casu Simone",
+            "role": "play",
+            "age": "'05",
+            "pts": 9
+          },
+          {
+            "id": "156043",
+            "number": "",
+            "name": "Cecchini Livio",
+            "role": "ala piccola",
+            "age": "'03",
+            "pts": 6
+          },
+          {
+            "id": "195887",
+            "number": "",
+            "name": "Giordo Alessandro",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 6
+          },
+          {
+            "id": "177124",
+            "number": "",
+            "name": "Gueye Moustapha",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 12
+          },
+          {
+            "id": "196061",
+            "number": "",
+            "name": "Petretto Federico",
+            "role": "",
+            "age": "U19",
+            "pts": null
+          },
+          {
+            "id": "173435",
+            "number": "",
+            "name": "Usai Giacomo",
+            "role": "play",
+            "age": "'08",
+            "pts": 11
+          }
+        ]
       }
     },
     "12": {
       "round": "A2",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 88,
         "away": 83
@@ -1441,16 +1611,186 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=4",
       "home": {
         "team": "Sef Torres Sassari",
-        "players": []
+        "players": [
+          {
+            "id": "157790",
+            "number": "",
+            "name": "Barabino Giovanni",
+            "role": "centro",
+            "age": "'04",
+            "pts": 0
+          },
+          {
+            "id": "196017",
+            "number": "",
+            "name": "Cuccu Andrea",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": 16
+          },
+          {
+            "id": "153172",
+            "number": "",
+            "name": "D'Elia Roberto",
+            "role": "play",
+            "age": "'05",
+            "pts": 24
+          },
+          {
+            "id": "18867",
+            "number": "",
+            "name": "De Rosas Matteo",
+            "role": "ala forte",
+            "age": "'06",
+            "pts": 4
+          },
+          {
+            "id": "135251",
+            "number": "",
+            "name": "Denti Michele",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 4
+          },
+          {
+            "id": "135269",
+            "number": "",
+            "name": "Fumanti Luca",
+            "role": "guardia",
+            "age": "'04",
+            "pts": 5
+          },
+          {
+            "id": "131126",
+            "number": "",
+            "name": "Giua Tommaso",
+            "role": "ala piccola",
+            "age": "'05",
+            "pts": 4
+          },
+          {
+            "id": "131134",
+            "number": "",
+            "name": "Motzo Tommaso",
+            "role": "play",
+            "age": "'05",
+            "pts": 12
+          },
+          {
+            "id": "150079",
+            "number": "",
+            "name": "Pitirra Emmanuele",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 16
+          },
+          {
+            "id": "195906",
+            "number": "",
+            "name": "Pitirra Nicola",
+            "role": "play",
+            "age": "'07",
+            "pts": 3
+          },
+          {
+            "id": "195885",
+            "number": "",
+            "name": "Pricchiazzi Edoardo",
+            "role": "ala piccola",
+            "age": "'08",
+            "pts": 0
+          },
+          {
+            "id": "214753",
+            "number": "",
+            "name": "Serra Alessandro",
+            "role": "play",
+            "age": "U19",
+            "pts": 0
+          }
+        ]
       },
       "away": {
         "team": "Calasetta Basket",
-        "players": []
+        "players": [
+          {
+            "id": "216684",
+            "number": "",
+            "name": "Bernardi Samuel Omar",
+            "role": "",
+            "age": "",
+            "pts": 8
+          },
+          {
+            "id": "147742",
+            "number": "",
+            "name": "Ceban Mihail",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 3
+          },
+          {
+            "id": "157455",
+            "number": "",
+            "name": "Granieri Giacomo",
+            "role": "play",
+            "age": "'06",
+            "pts": 17
+          },
+          {
+            "id": "190713",
+            "number": "",
+            "name": "Guadagno Riccardo",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 2
+          },
+          {
+            "id": "229547",
+            "number": "",
+            "name": "Hassan Waheid",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "205603",
+            "number": "",
+            "name": "Penoni Diego",
+            "role": "ala piccola",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "112562",
+            "number": "",
+            "name": "Tarahija Faris",
+            "role": "ala piccola",
+            "age": "'01",
+            "pts": 10
+          },
+          {
+            "id": "22785",
+            "number": "",
+            "name": "Werlich Alessandro",
+            "role": "ala piccola",
+            "age": "'95",
+            "pts": 23
+          },
+          {
+            "id": "100745",
+            "number": "",
+            "name": "Zucca Stefano",
+            "role": "guardia",
+            "age": "'02",
+            "pts": 20
+          }
+        ]
       }
     },
     "10": {
       "round": "A2",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 86,
         "away": 76
@@ -1459,11 +1799,189 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=2",
       "home": {
         "team": "Aurea Sassari",
-        "players": []
+        "players": [
+          {
+            "id": "87758",
+            "number": "",
+            "name": "Desole Aldo Vincenzo",
+            "role": "play",
+            "age": "'00",
+            "pts": 20
+          },
+          {
+            "id": "226708",
+            "number": "",
+            "name": "Efevberha Michael James",
+            "role": "guardia",
+            "age": "'84",
+            "pts": 31
+          },
+          {
+            "id": "195969",
+            "number": "",
+            "name": "Garau Vincenzo",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": 2
+          },
+          {
+            "id": "69189",
+            "number": "",
+            "name": "Langiu Luis Enrique",
+            "role": "guardia",
+            "age": "'00",
+            "pts": 7
+          },
+          {
+            "id": "176503",
+            "number": "",
+            "name": "Lizzeri Alessandro",
+            "role": "play",
+            "age": "'05",
+            "pts": 4
+          },
+          {
+            "id": "190289",
+            "number": "",
+            "name": "Macciocu Nicola",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 5
+          },
+          {
+            "id": "196073",
+            "number": "",
+            "name": "Mura Federico",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": null
+          },
+          {
+            "id": "133332",
+            "number": "",
+            "name": "Usai Andrea",
+            "role": "play",
+            "age": "'03",
+            "pts": 0
+          },
+          {
+            "id": "190241",
+            "number": "",
+            "name": "Vargiu Emanuele",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "131131",
+            "number": "",
+            "name": "Vasselli Marco",
+            "role": "ala forte",
+            "age": "'05",
+            "pts": 17
+          }
+        ]
       },
       "away": {
         "team": "Dinamo Academy",
-        "players": []
+        "players": [
+          {
+            "id": "195884",
+            "number": "",
+            "name": "Brunu Francesco",
+            "role": "play",
+            "age": "'08",
+            "pts": 9
+          },
+          {
+            "id": "195971",
+            "number": "",
+            "name": "Cipriano Michele",
+            "role": "ala forte",
+            "age": "U19",
+            "pts": 25
+          },
+          {
+            "id": "195905",
+            "number": "",
+            "name": "Correddu Edoardo",
+            "role": "guardia",
+            "age": "'08",
+            "pts": 1
+          },
+          {
+            "id": "185503",
+            "number": "",
+            "name": "Fara Paolo",
+            "role": "ala forte",
+            "age": "U19",
+            "pts": 5
+          },
+          {
+            "id": "214835",
+            "number": "",
+            "name": "Ganga Alessio",
+            "role": "play",
+            "age": "U19",
+            "pts": 10
+          },
+          {
+            "id": "223274",
+            "number": "",
+            "name": "Iaci Jimenez Fabio",
+            "role": "",
+            "age": "",
+            "pts": 0
+          },
+          {
+            "id": "229530",
+            "number": "",
+            "name": "Loriga Isaia",
+            "role": "",
+            "age": "'08",
+            "pts": 0
+          },
+          {
+            "id": "195889",
+            "number": "",
+            "name": "Moscaritolo Gabriele",
+            "role": "play",
+            "age": "'08",
+            "pts": 3
+          },
+          {
+            "id": "131132",
+            "number": "",
+            "name": "Raffo Edoardo",
+            "role": "ala piccola",
+            "age": "'05",
+            "pts": 6
+          },
+          {
+            "id": "75818",
+            "number": "",
+            "name": "Re Marco Antonio",
+            "role": "guardia",
+            "age": "'00",
+            "pts": 17
+          },
+          {
+            "id": "196074",
+            "number": "",
+            "name": "Secchi Alessandro",
+            "role": "",
+            "age": "",
+            "pts": 0
+          },
+          {
+            "id": "196016",
+            "number": "",
+            "name": "Zoccheddu Matteo",
+            "role": "",
+            "age": "",
+            "pts": 0
+          }
+        ]
       }
     },
     "7": {
@@ -1486,7 +2004,7 @@
     },
     "9": {
       "round": "A2",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 54,
         "away": 67
@@ -1495,13 +2013,207 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=2&mn=6",
       "home": {
         "team": "Antonianum Quartu S.Elena",
-        "players": []
+        "players": [
+          {
+            "id": "214794",
+            "number": "",
+            "name": "Campanelli Edoardo",
+            "role": "guardia",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "38254",
+            "number": "",
+            "name": "Jordan Russel Brent",
+            "role": "ala forte",
+            "age": "'83",
+            "pts": 10
+          },
+          {
+            "id": "26027",
+            "number": "",
+            "name": "Locci Marco",
+            "role": "play",
+            "age": "'95",
+            "pts": 4
+          },
+          {
+            "id": "15482",
+            "number": "",
+            "name": "Malpede Roberto Pasquale",
+            "role": "ala piccola",
+            "age": "'88",
+            "pts": 5
+          },
+          {
+            "id": "27287",
+            "number": "",
+            "name": "Mattana Alberto",
+            "role": "guardia",
+            "age": "'98",
+            "pts": 2
+          },
+          {
+            "id": "173324",
+            "number": "",
+            "name": "Mattana Roberto",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 7
+          },
+          {
+            "id": "205057",
+            "number": "",
+            "name": "Medda Tommaso",
+            "role": "guardia",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "212254",
+            "number": "",
+            "name": "Napoli Paolo",
+            "role": "guardia",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "173322",
+            "number": "",
+            "name": "Pirisi Gonariu",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 6
+          },
+          {
+            "id": "18717",
+            "number": "",
+            "name": "Ruggeri Romano",
+            "role": "play",
+            "age": "'73",
+            "pts": 7
+          },
+          {
+            "id": "35206",
+            "number": "",
+            "name": "Suriano Claudio",
+            "role": "ala forte",
+            "age": "'86",
+            "pts": 7
+          },
+          {
+            "id": "176016",
+            "number": "",
+            "name": "Tiragallo Niccolò",
+            "role": "ala forte",
+            "age": "'06",
+            "pts": 6
+          }
+        ]
       },
       "away": {
         "team": "Ferrini Quartu S.Elena",
-        "players": []
+        "players": [
+          {
+            "id": "62788",
+            "number": "",
+            "name": "Floridia Giuseppe",
+            "role": "ala piccola",
+            "age": "'99",
+            "pts": 17
+          },
+          {
+            "id": "23131",
+            "number": "",
+            "name": "Graviano Mauro",
+            "role": "play",
+            "age": "'89",
+            "pts": 10
+          },
+          {
+            "id": "176496",
+            "number": "",
+            "name": "Madau Lussorio",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 5
+          },
+          {
+            "id": "205676",
+            "number": "",
+            "name": "Murru Riccardo",
+            "role": "ala piccola",
+            "age": "'08",
+            "pts": 0
+          },
+          {
+            "id": "15398",
+            "number": "",
+            "name": "Pedrazzini Maurizio",
+            "role": "ala forte",
+            "age": "'70",
+            "pts": 3
+          },
+          {
+            "id": "196051",
+            "number": "",
+            "name": "Picci Lorenzo",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "176495",
+            "number": "",
+            "name": "Pisu Davide",
+            "role": "play",
+            "age": "'07",
+            "pts": 7
+          },
+          {
+            "id": "195902",
+            "number": "",
+            "name": "Puddu Mattia",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "18625",
+            "number": "",
+            "name": "Saba Stefano",
+            "role": "guardia",
+            "age": "'88",
+            "pts": 3
+          },
+          {
+            "id": "74083",
+            "number": "",
+            "name": "Saddi Gianluca",
+            "role": "centro",
+            "age": "'00",
+            "pts": 4
+          },
+          {
+            "id": "18640",
+            "number": "",
+            "name": "Salone Matteo",
+            "role": "ala piccola",
+            "age": "'93",
+            "pts": 5
+          },
+          {
+            "id": "67762",
+            "number": "",
+            "name": "Sanna Ludovico",
+            "role": "guardia",
+            "age": "'99",
+            "pts": 13
+          }
+        ]
       }
     }
   },
-  "updated_at": "2026-10-12T16:18:11+00:00"
+  "updated_at": "2026-10-13T02:01:47+00:00"
 }
