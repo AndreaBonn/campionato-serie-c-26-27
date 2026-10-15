@@ -138,19 +138,19 @@ const stubFetch = (respond) => {
 test("load box scores: the parsed dict reaches the page, an empty one when the key is missing", async () => {
   const applied = [];
   stubFetch(() => new Response(JSON.stringify({ boxscores: { 1: entry() } })));
-  await loadBoxscores((b) => applied.push(b));
+  assert.equal(await loadBoxscores((b) => applied.push(b)), true);
   stubFetch(() => new Response("{}"));
-  await loadBoxscores((b) => applied.push(b));
+  assert.equal(await loadBoxscores((b) => applied.push(b)), true);
 
   assert.deepEqual(applied, [{ 1: entry() }, {}]);
 });
 
-test("load box scores: an HTTP error or a network failure leaves the page untouched and logs why", async () => {
+test("load box scores: an HTTP error or a network failure leaves the page untouched, logs why and returns false", async () => {
   const applied = [];
   const httpWarnings = stubFetch(() => new Response("missing", { status: 404 }));
-  await loadBoxscores((b) => applied.push(b));
+  assert.equal(await loadBoxscores((b) => applied.push(b)), false);
   const networkWarnings = stubFetch(() => { throw new TypeError("offline"); });
-  await loadBoxscores((b) => applied.push(b));
+  assert.equal(await loadBoxscores((b) => applied.push(b)), false);
 
   assert.deepEqual(applied, []);
   assert.deepEqual(httpWarnings, ["boxscores.json non disponibile: HTTP 404"]);

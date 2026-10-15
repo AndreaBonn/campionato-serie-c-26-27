@@ -84,17 +84,20 @@ export function renderScorers(boxscores, rounds, fipTeam, only = null) {
 
 // Loaded after the first render (plan.md A10): a missing or broken file leaves the round
 // table without box scores, the rest of the page is unaffected. `apply` gets the parsed
-// boxscores dict so the page can re-render the round table it has open.
+// boxscores dict so the page can re-render the round table it has open; the return value
+// says whether the file was read (false: HTTP or network failure).
 export async function loadBoxscores(apply) {
   try {
     const r = await fetch("boxscores.json", { cache: "no-cache" });
     if (!r.ok) {
       console.warn(`boxscores.json non disponibile: HTTP ${r.status}`);
-      return;
+      return false;
     }
     const data = await r.json();
     apply(data.boxscores || {});
+    return true;
   } catch (err) {
     console.warn("boxscores.json non disponibile", err);
+    return false;
   }
 }
