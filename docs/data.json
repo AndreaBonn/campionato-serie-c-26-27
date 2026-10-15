@@ -894,7 +894,7 @@
           "status": "designata",
           "score": null,
           "referees": [
-            "FORTUNATO DIEGO di OLBIA (SS)",
+            "MASIA LEONARDO ANTONIO di PORTO TORRES (SS)",
             "FARCI DANIELE di CAGLIARI (CA)"
           ],
           "sanctions": []
@@ -922,8 +922,8 @@
           "status": "designata",
           "score": null,
           "referees": [
-            "FANCELLU MATTEO di SASSARI (SS)",
-            "MASIA LEONARDO ANTONIO di PORTO TORRES (SS)"
+            "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
+            "FORTUNATO DIEGO di OLBIA (SS)"
           ],
           "sanctions": []
         },
@@ -2469,5 +2469,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-14T04:51:29+00:00"
+  "updated_at": "2026-10-15T04:36:30+00:00"
 }
