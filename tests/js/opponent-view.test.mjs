@@ -23,8 +23,10 @@ test("card: heading with title-cased name, position, record and averages", () =>
   assert.match(html, /62,5 fatti, 62,5 subiti di media/);
 });
 
-test("card: one row per game, score from the team's side, unofficial results tagged", () => {
+test("card: one row per game, newest first, score from the team's side, unofficial results tagged", () => {
   const html = renderOpponent(TEAM, ctx());
+
+  assert.ok(html.indexOf("<td>2ª and.</td>") < html.indexOf("<td>1ª and.</td>"), "the latest round comes first");
 
   assert.match(html, /<td>1ª and\.<\/td><td>Pall\. Nuoro<\/td><td>Trasferta<\/td><td>70-60 <span class="vp win">V<\/span><\/td>/);
   assert.match(html, /<td>2ª and\.<\/td><td>SEF Torres<\/td><td>Casa<\/td><td>55-65 <span class="vp loss">P<\/span> <span class="tag prov">ufficioso<\/span><\/td>/);

@@ -26,7 +26,8 @@ function gameRow(g) {
 }
 
 function games(team, ctx) {
-  const rows = opponentGames(team, ctx.rounds);
+  // newest first, like a results page: the last game says most about the team now
+  const rows = opponentGames(team, ctx.rounds).reverse();
   if (!rows.length) return section("Partite giocate", empty("Nessuna partita giocata finora: i risultati compaiono qui dopo la prima giornata."));
   const headRow = "<tr><th>Giornata</th><th>Avversario</th><th>Campo</th><th>Punti fatti-subiti</th></tr>";
   return section("Partite giocate", `<div class="scroll"><table class="opp-games"><thead>${headRow}</thead><tbody>${rows.map(gameRow).join("")}</tbody></table></div>`);

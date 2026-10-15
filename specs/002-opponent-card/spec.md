@@ -7,7 +7,7 @@ Nell'hero "Prossima partita", nome e stemma dell'avversario aprono un `<dialog>`
 - R1. Nell'hero l'avversario (stemma + nome) è un `<button type="button">` con nome accessibile "Scheda avversario: <nome>"; lato CUS e card della lista invariati.
 - R2. Click o Invio aprono il dialog con `showModal()`; Esc, bottone "Chiudi" e click sul backdrop lo chiudono; il focus torna sul trigger.
 - R3. Testata: stemma, nome title-case, posizione (o "non ancora in classifica"), vinte/perse, medie fatti/subiti a 1 decimale, badge forma; fonte unica `teamProfile`.
-- R4. Tabella per partita in ordine cronologico: giornata, avversario, Casa/Trasferta, punteggio orientato propri-altrui, V/P; gare non omologate con il tag di `resultNote`.
+- R4. Tabella per partita dalla più recente alla prima di andata: giornata, avversario, Casa/Trasferta, punteggio orientato propri-altrui, V/P; gare non omologate con il tag di `resultNote`.
 - R5. Con 0 gare giocate: stato Empty "Nessuna partita giocata finora" con spiegazione, nessuna tabella vuota.
 - R6. Marcatori dell'avversario (punti, gare, media) da `scorers()` filtrato per squadra; stati distinti "in caricamento", "nessun tabellino disponibile", "tabellini non raggiungibili" (boxscores.json fallito e nessun tabellino già caricato), lista; il dialog aperto si aggiorna all'arrivo di boxscores.json.
 - R7. Provvedimenti attribuiti alla società dell'avversario, testo verbatim escapato con giornata e gara; le 3 sanzioni reali di A1/A2 attribuite al lato giusto (Porto Torres, Nuoro, Carbonia), la sanzione di Carbonia non compare sulla scheda di Nuoro.
