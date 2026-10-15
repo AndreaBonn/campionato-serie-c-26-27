@@ -73,6 +73,7 @@
 </ul>
 <p class="repo">Pagina non ufficiale · <a href="https://github.com/AndreaBonn/campionato-serie-c-26-27" target="_blank" rel="noopener">Codice su GitHub</a></p></footer>
 </div>
+<dialog id="opp-dlg" class="opp-dlg" aria-labelledby="opp-title"><div class="opp-in"><button type="button" class="opp-close" id="opp-close">Chiudi</button><div id="opp-body"></div></div></dialog>
 <script type="module">
 import {noticeHeadline,noticePrefix} from "./notice-rules.js";
 import {esc,roundLabel as label,place,formSummary,pickRound,isFipNoticeLink} from "./page-rules.js";
@@ -81,6 +82,7 @@ import {renderStandings,renderRoundTable} from "./tables-view.js";
 import {fmtWhen,nextGame,renderList,renderNext,renderLast,renderForm} from "./games-view.js";
 import {renderScorers,loadBoxscores} from "./boxscores.js";
 import {renderCusPlayers} from "./cus-stats.js";
+import {renderOpponent} from "./opponent-view.js";
 const FIP_TEAM="CUS CAGLIARI";
 // Weekends with no games in the whole league: [first day with no games, text]
 const S=[
@@ -89,7 +91,7 @@ const S=[
 const SLOW_LOAD_MS=15000, CLOCK_TICK_MS=60000;
 const today=new Date(); today.setHours(0,0,0,0);
 let R=[], checkedAt=null, side="all", mode="upcoming", scorersOnly=null;
-const ctx={games:[],rounds:[],standings:[],logos:{},boxscores:{},today,fipTeam:FIP_TEAM,breaks:S};
+const ctx={games:[],rounds:[],standings:[],logos:{},boxscores:{},boxscoresLoad:"loading",today,fipTeam:FIP_TEAM,breaks:S};
 const $=id=>document.getElementById(id);
 
 const refresh=()=>{if(ctx.games.length) $("list").innerHTML=renderList(ctx,side,mode)};
@@ -235,7 +237,17 @@ async function load(){
  }catch(err){showError(err)}
  finally{clearTimeout(slow)}
 }
-const reload=()=>load().then(()=>loadBoxscores(applyBoxscores));
+// the opponent card (hero button): native modal dialog, Esc and focus return come with it
+const dlg=$("opp-dlg");
+let oppTeam=null, oppTrigger=null;
+// a re-render (late box scores, reload) keeps the reader's scroll position
+const showOpponent=()=>{if(!oppTeam) return;const y=dlg.scrollTop;$("opp-body").innerHTML=renderOpponent(oppTeam,ctx);dlg.scrollTop=y};
+$("opp-close").onclick=()=>dlg.close();
+// the dialog itself is hit only on the backdrop: .opp-in covers its whole box
+dlg.onclick=e=>{if(e.target===dlg) dlg.close()};
+// a reload while open replaces the hero, and its button with it: focus the new one
+dlg.onclose=()=>{if(!oppTrigger?.isConnected) document.querySelector("#next .opp-btn")?.focus()};
+const reload=()=>load().then(()=>loadBoxscores(applyBoxscores)).then(ok=>{ctx.boxscoresLoad=ok?"ready":"failed";if(dlg.open) showOpponent()});
 // section links: hidden while their section is, the one on screen marked as current
 const navLinks=[...document.querySelectorAll(".secnav a")];
 function syncNav(){navLinks.forEach(a=>{a.hidden=document.querySelector(a.getAttribute("href")).hidden})}
@@ -249,6 +261,8 @@ document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{side=
 document.querySelectorAll(".bar button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;pressOnly("data-mode",mode);refresh()});
 // rendered markup: disclosure rows (round table, CUS players) and the scorers filter
 document.addEventListener("click",e=>{
+ const o=e.target.closest("[data-opponent]");
+ if(o){oppTeam=o.dataset.opponent;oppTrigger=o;showOpponent();dlg.showModal();return}
  const t=e.target.closest(".tbx,.pl-btn");
  if(t){const open=t.getAttribute("aria-expanded")!=="true";t.setAttribute("aria-expanded",open);$(t.getAttribute("aria-controls")).hidden=!open;return}
  const f=e.target.closest("[data-scorers]");

@@ -75,6 +75,18 @@ test("hero: countdown in words, directions and calendar links, a share button", 
   assert.match(html, /<button type="button" id="share">.*Condividi<\/button>/);
 });
 
+test("hero: the opponent's side is a button that opens its card, the CUS side is not", () => {
+  const home = renderNext(context([game(2, "2026-10-09")]));
+  const away = renderNext(context([game(3, "2026-10-09", { home: "Olimpia Cagliari", away: "CUS Cagliari", is_home: false, fip_opponent: "OLIMPIA CAGLIARI" })]));
+  const button = (fip, inner) => new RegExp(`<button type="button" class="opp-btn" data-opponent="${fip}" aria-haspopup="dialog"><span class="sr-only">Scheda avversario: </span>${inner}</button>`);
+
+  assert.match(home, /<div class="m">CUS Cagliari - /);
+  assert.match(home, button("AVVERSARIO 2", "Avversario 2"));
+  assert.match(away, button("OLIMPIA CAGLIARI", "Olimpia Cagliari"));
+  assert.match(away, /<\/button> - CUS Cagliari<\/div>/);
+  assert.doesNotMatch(renderCard(game(2, "2026-10-09"), context([])), /opp-btn/);
+});
+
 test("last result: the latest played game with its verdict, nothing before the first", () => {
   const html = renderLast(context([played(1, "2026-10-03", 55, 62), played(2, "2026-10-05", 70, 60), game(3, "2026-10-18")]));
 

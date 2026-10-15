@@ -222,3 +222,28 @@ footer a{color:var(--ink)}
 .update-notice button:disabled{opacity:.75;cursor:progress}
 /* keep the last games reachable above the notice */
 body:has(.update-notice:not([hidden])) .wrap{padding-bottom:180px}
+/* opponent card: hero trigger and native modal dialog (top layer, the modal tier) */
+.opp-btn{font:inherit;color:inherit;background:none;border:0;padding:2px 0;margin:0;cursor:pointer;text-align:inherit;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--brand-mut)}
+.opp-btn:hover{text-decoration-color:currentColor}
+.next .opp-btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.opp-dlg{width:min(calc(100% - 32px),40rem);max-width:none;max-height:calc(100% - 32px);overflow:auto;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.opp-dlg::backdrop{background:rgba(10,20,40,.6)}
+.opp-in{padding:16px}
+.opp-close{position:sticky;top:0;float:right;z-index:1;font:inherit;font-size:14px;font-weight:600;min-height:44px;padding:6px 14px;border:1px solid var(--ink);border-radius:4px;background:var(--card);color:var(--ink);cursor:pointer}
+.opp-close:hover{background:var(--me-bg)}
+.opp-head{display:flex;gap:12px;align-items:flex-start}
+.opp-head .crest{width:56px;height:56px;margin:0;flex:none}
+.opp-head h2{margin:0;padding:0;border:0;font-size:21px;text-transform:none;line-height:1.2}
+.opp-head p{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.opp-head .badges{margin-top:6px}
+.opp-head .badge{width:22px;height:20px;line-height:20px;font-size:12px}
+.opp-dlg h3{clear:both;font-size:15px;margin:20px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--line)}
+.opp-dlg td:first-child,.opp-dlg th:first-child{text-align:left}
+.opp-games td:last-child{white-space:nowrap}
+.opp-scorers td:nth-child(2),.opp-scorers th:nth-child(2){text-align:right}
+.opp-games .tag.prov{margin-left:4px}
+.opp-empty{margin:0;font-size:14px;color:var(--mut)}
+.opp-dlg .note{margin:6px 0 0}
+.opp-sanc{font-size:13px}
+.opp-sanc ul{margin:0;padding-left:18px}
+.opp-sanc details.sanc{margin:8px 0 0}

@@ -17,9 +17,9 @@ export const ICON = {
 const fmtDay = (d) => d.toLocaleDateString("it-IT", { weekday: "short" }).replace(".", "");
 export const fmtLong = (d) => d.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
 export const fmtWhen = (d, t) => fmtLong(toDate(d, t)) + ", ore " + t;
-const dec = (n) => n.toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-const count = (k, one, many) => k + " " + (k === 1 ? one : many);
-const badges = (list) => list.map((w) => (w ? '<span class="badge win" title="Vittoria">V</span>' : '<span class="badge loss" title="Sconfitta">P</span>')).join("");
+export const dec = (n) => n.toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+export const count = (k, one, many) => k + " " + (k === 1 ? one : many);
+export const badges = (list) => list.map((w) => (w ? '<span class="badge win" title="Vittoria">V</span>' : '<span class="badge loss" title="Sconfitta">P</span>')).join("");
 const ext = (href, inner, cls = "") => `<a class="${cls}" href="${href}" target="_blank" rel="noopener">${inner}</a>`;
 const verdict = (m) => (won(m) ? '<span class="vp win">Vinta</span>' : '<span class="vp loss">Persa</span>');
 
@@ -118,13 +118,20 @@ export function renderList(ctx, side, mode) {
   return out || `<p class="state">${emptyList(ctx, side, mode)}</p>`;
 }
 
+// the opponent's side opens its card (opponent-view.js, wired in index.html); the CUS side stays text
+function heroTeams(m, ctx) {
+  const home = crest(ctx, fipHome(m, ctx)) + esc(m.home), away = esc(m.away) + crest(ctx, fipAway(m, ctx), "away");
+  const card = (inner) => `<button type="button" class="opp-btn" data-opponent="${esc(m.fip_opponent)}" aria-haspopup="dialog"><span class="sr-only">Scheda avversario: </span>${inner}</button>`;
+  return m.is_home ? `${home} - ${card(away)}` : `${card(home)} - ${away}`;
+}
+
 export function renderNext(ctx) {
   const m = nextGame(ctx);
   if (!m) return "<div class='m'>Stagione regolare conclusa</div>";
   const c = countdownText(daysUntil(m, ctx.today), m.time);
   const refs = m.referees.length ? `<small>Arbitri: ${m.referees.map(esc).join("; ")}</small>` : "";
   const rows = changeRows(m, fmtWhen), moved = rows.length ? `<small>Spostata dalla FIP. ${rows.map((r) => `${esc(r.label)} prima: <del>${esc(r.before)}</del>`).join("; ")}</small>` : "";
-  return `<small>Prossima partita</small><div class="m">${crest(ctx, fipHome(m, ctx))}${esc(m.home)} - ${esc(m.away)}${crest(ctx, fipAway(m, ctx), "away")}</div>
+  return `<small>Prossima partita</small><div class="m">${heroTeams(m, ctx)}</div>
  <div class="info"><small>${fmtLong(toDate(m.date, m.time))}, ore ${esc(m.time)}</small><small>${esc(m.venue.name)}</small>${moved}${refs}${oppChips(m, ctx)}</div>
  <div class="w">${c.lead ? `<small>${c.lead}</small>` : ""}<b>${c.main}</b>${c.sub ? `<small>${c.sub}</small>` : ""}</div>
  <div class="hero-acts">${ext(mapsUrl(m), ICON.pin + "Indicazioni", "primary")}${ext(gcalUrl(m), ICON.cal + "Calendario")}<button type="button" id="share">${ICON.share}Condividi</button></div>
