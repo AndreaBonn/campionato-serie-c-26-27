@@ -908,8 +908,11 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-10-17",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 59,
+            "away": 67
+          },
           "referees": [
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)",
             "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)"
@@ -950,8 +953,11 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-17",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 73,
+            "away": 74
+          },
           "referees": [
             "ATZENI GIANLUCA di ARBUS (SU)",
             "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
@@ -2472,5 +2478,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-16T04:30:34+00:00"
+  "updated_at": "2026-10-17T18:30:19+00:00"
 }
