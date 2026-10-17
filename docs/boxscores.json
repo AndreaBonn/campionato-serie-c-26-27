@@ -2394,52 +2394,343 @@
     },
     "15": {
       "round": "A3",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 59,
         "away": 67
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 2,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=3&mn=2",
+      "home": {
+        "team": "Calasetta Basket",
+        "players": []
+      },
+      "away": {
+        "team": "Scuola Basket Carbonia",
+        "players": []
+      }
     },
     "18": {
       "round": "A3",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 73,
         "away": 74
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 4,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=3&mn=4",
+      "home": {
+        "team": "Dinamo Academy",
+        "players": []
+      },
+      "away": {
+        "team": "CMB Porto Torres",
+        "players": []
+      }
     },
     "14": {
       "round": "A3",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 92,
         "away": 73
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 1,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=3&mn=1",
+      "home": {
+        "team": "S. Orsola Sassari",
+        "players": [
+          {
+            "id": "148057",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 4
+          },
+          {
+            "id": "173424",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 11
+          },
+          {
+            "id": "146918",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'02",
+            "pts": 5
+          },
+          {
+            "id": "190287",
+            "number": "",
+            "name": "",
+            "role": "play",
+            "age": "'05",
+            "pts": 8
+          },
+          {
+            "id": "156043",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'03",
+            "pts": 21
+          },
+          {
+            "id": "195887",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 8
+          },
+          {
+            "id": "177124",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 14
+          },
+          {
+            "id": "119709",
+            "number": "",
+            "name": "",
+            "role": "play",
+            "age": "'02",
+            "pts": 0
+          },
+          {
+            "id": "196061",
+            "number": "",
+            "name": "",
+            "role": "",
+            "age": "U19",
+            "pts": 1
+          },
+          {
+            "id": "173435",
+            "number": "",
+            "name": "",
+            "role": "play",
+            "age": "'08",
+            "pts": 18
+          },
+          {
+            "id": "229545",
+            "number": "",
+            "name": "",
+            "role": "",
+            "age": "'08",
+            "pts": 2
+          },
+          {
+            "id": "185505",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": 0
+          }
+        ]
+      },
+      "away": {
+        "team": "Sef Torres Sassari",
+        "players": []
+      }
     },
     "16": {
       "round": "A3",
-      "status": "unmatched",
+      "status": "complete",
       "fip_score": {
         "home": 81,
         "away": 74
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 3,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=3&mn=3",
+      "home": {
+        "team": "Sirbones Nuoro",
+        "players": [
+          {
+            "id": "45065",
+            "number": "",
+            "name": "",
+            "role": "centro",
+            "age": "'96",
+            "pts": 8
+          },
+          {
+            "id": "168136",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'01",
+            "pts": 27
+          },
+          {
+            "id": "148791",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'05",
+            "pts": 0
+          },
+          {
+            "id": "196212",
+            "number": "",
+            "name": "",
+            "role": "ala forte",
+            "age": "'06",
+            "pts": 2
+          },
+          {
+            "id": "117929",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'03",
+            "pts": 16
+          },
+          {
+            "id": "229554",
+            "number": "",
+            "name": "",
+            "role": "",
+            "age": "U17",
+            "pts": null
+          },
+          {
+            "id": "195928",
+            "number": "",
+            "name": "",
+            "role": "ala forte",
+            "age": "U19",
+            "pts": null
+          },
+          {
+            "id": "91957",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'01",
+            "pts": 6
+          },
+          {
+            "id": "149201",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'06",
+            "pts": 12
+          },
+          {
+            "id": "131128",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'06",
+            "pts": 6
+          },
+          {
+            "id": "192817",
+            "number": "",
+            "name": "",
+            "role": "play",
+            "age": "'08",
+            "pts": 4
+          }
+        ]
+      },
+      "away": {
+        "team": "Antonianum Quartu S.Elena",
+        "players": [
+          {
+            "id": "38254",
+            "number": "",
+            "name": "",
+            "role": "ala forte",
+            "age": "'83",
+            "pts": 12
+          },
+          {
+            "id": "15482",
+            "number": "",
+            "name": "",
+            "role": "ala piccola",
+            "age": "'88",
+            "pts": 17
+          },
+          {
+            "id": "27287",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'98",
+            "pts": 11
+          },
+          {
+            "id": "173324",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 6
+          },
+          {
+            "id": "205057",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "212254",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'08",
+            "pts": 0
+          },
+          {
+            "id": "173322",
+            "number": "",
+            "name": "",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 14
+          },
+          {
+            "id": "18717",
+            "number": "",
+            "name": "",
+            "role": "play",
+            "age": "'73",
+            "pts": 4
+          },
+          {
+            "id": "35206",
+            "number": "",
+            "name": "",
+            "role": "ala forte",
+            "age": "'86",
+            "pts": 9
+          },
+          {
+            "id": "176016",
+            "number": "",
+            "name": "",
+            "role": "ala forte",
+            "age": "'06",
+            "pts": 1
+          }
+        ]
+      }
     }
   },
-  "updated_at": "2026-10-17T21:01:57+00:00"
+  "updated_at": "2026-10-17T22:18:00+00:00"
 }
