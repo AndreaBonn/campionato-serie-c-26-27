@@ -880,8 +880,11 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-18",
           "time": "18:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 78,
+            "away": 63
+          },
           "referees": [
             "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
             "SEU ALESSANDRA di QUARTUCCIU (CA)"
@@ -2484,5 +2487,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-17T21:01:57+00:00"
+  "updated_at": "2026-10-18T18:18:38+00:00"
 }
