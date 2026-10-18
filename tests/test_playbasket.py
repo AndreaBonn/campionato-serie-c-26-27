@@ -135,3 +135,32 @@ def test_parse_players_row_without_points_cell_raises_parse_error() -> None:
     assert parse_players(html=player_table(info=""), side=0)[0].pts == 12
     with pytest.raises(expected_exception=PlaybasketParseError, match="missing points cell"):
         parse_players(html=no_points, side=0)
+
+
+def test_parse_players_encoded_names_decodes_hidden_value() -> None:
+    html = load(name="playbasket-a2-m1-encoded.html")
+    players = [parse_players(html, side=side) for side in (0, 1)]
+
+    totals = tuple(sum(p.pts for p in team if p.pts is not None) for team in players)
+    assert totals == parse_header(html).score == (73, 69)
+    assert [p.name for p in players[0][:3]] == ["Angius Mattia", "Barreiro Yael", "Boi Massimo"]
+    # each 3-digit group is a UTF-8 byte, not a character
+    assert {p.id: p.name for p in players[1]}["117929"] == "Doglio Nicolò"
+    assert all(p.name and not p.name.startswith("giocatore #") for team in players for p in team)
+
+
+def encoded_table(value: str) -> str:
+    return player_table(
+        info=f'<div class="player"><input type="hidden" value="{value}" />giocatore #0</div>'
+    ).replace("Example Player", "")
+
+
+def test_parse_players_encoded_name_ignores_placeholder() -> None:
+    assert parse_players(html=encoded_table(value="04102e"), side=0)[0].name == "A."
+
+
+@pytest.mark.parametrize(argnames="value", argvalues=["", "04", "0zz", "041x", "100", "0c3"])
+def test_parse_players_malformed_encoded_name_raises_parse_error(value: str) -> None:
+    assert parse_players(html=encoded_table(value="042"), side=0)[0].name == "B"
+    with pytest.raises(expected_exception=PlaybasketParseError, match="encoded name"):
+        parse_players(html=encoded_table(value=value), side=0)

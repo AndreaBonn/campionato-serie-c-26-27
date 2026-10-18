@@ -5,6 +5,10 @@ from urllib.parse import parse_qs, urlsplit
 from bs4 import BeautifulSoup, Tag
 
 SCORE_SUFFIX = re.compile(pattern=r" (?P<home>\d+)-(?P<away>\d+)$")
+# since October 2026 the name sits in a hidden input, one UTF-8 byte per 3 hex digits,
+# decoded by the site's JS; the visible text is a "giocatore #N" placeholder
+ENCODED_NAME = re.compile(pattern=r"(?:0[0-9a-fA-F]{2})+")
+ENCODED_BYTE_DIGITS = 3
 
 
 class PlaybasketParseError(Exception):
@@ -60,8 +64,31 @@ def _optional_text(node: Tag, selector: str) -> str:
     return found.get_text(strip=True) if found else ""
 
 
+def _decode_name(value: str) -> str:
+    if not ENCODED_NAME.fullmatch(value):
+        raise PlaybasketParseError(f"malformed encoded name: {value!r}")
+    data = bytes(
+        int(value[i : i + ENCODED_BYTE_DIGITS], 16)
+        for i in range(0, len(value), ENCODED_BYTE_DIGITS)
+    )
+    try:
+        return data.decode("utf-8")
+    except UnicodeDecodeError as err:
+        raise PlaybasketParseError(f"malformed encoded name: {value!r}") from err
+
+
+def _player_name(link: Tag) -> str:
+    encoded = link.select_one(selector="div.player input[type=hidden]")
+    if encoded is None:
+        text = " ".join(link.find_all(string=True, recursive=False))
+    else:
+        value = encoded.get("value")
+        text = _decode_name(value=value if isinstance(value, str) else "")
+    return " ".join(text.split())
+
+
 def _player(row: Tag, link: Tag) -> PbPlayer:
-    name = " ".join(" ".join(link.find_all(string=True, recursive=False)).split())
+    name = _player_name(link=link)
     href = link.get("href")
     query = parse_qs(qs=urlsplit(url=href if isinstance(href, str) else "").query)
     points = row.select_one(selector="td.divisore")
