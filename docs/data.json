@@ -92,13 +92,16 @@
         "date",
         "time"
       ],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
         "SOLINAS RICCARDO di SESTU (CA)"
       ],
-      "score": null,
+      "score": {
+        "home": 77,
+        "away": 55
+      },
       "sanctions": [],
       "fip_opponent": "OLIMPIA CAGLIARI"
     },
@@ -948,8 +951,11 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-18",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 77,
+            "away": 55
+          },
           "referees": [
             "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
             "SOLINAS RICCARDO di SESTU (CA)"
@@ -2487,5 +2493,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-18T18:18:38+00:00"
+  "updated_at": "2026-10-18T18:38:47+00:00"
 }

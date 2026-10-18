@@ -2742,7 +2742,19 @@
       "url": null,
       "home": null,
       "away": null
+    },
+    "17": {
+      "round": "A3",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 77,
+        "away": 55
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-10-18T18:18:38+00:00"
+  "updated_at": "2026-10-18T18:38:47+00:00"
 }
