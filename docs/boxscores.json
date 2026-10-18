@@ -2386,7 +2386,7 @@
     },
     "18": {
       "round": "A3",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 73,
         "away": 74
@@ -2496,7 +2496,104 @@
       },
       "away": {
         "team": "CMB Porto Torres",
-        "players": []
+        "players": [
+          {
+            "id": "229542",
+            "number": "",
+            "name": "Carletti Mattia",
+            "role": "play",
+            "age": "",
+            "pts": 9
+          },
+          {
+            "id": "140312",
+            "number": "",
+            "name": "Carletti Nicolò",
+            "role": "guardia",
+            "age": "",
+            "pts": 6
+          },
+          {
+            "id": "224501",
+            "number": "",
+            "name": "Cocco Tobias",
+            "role": "",
+            "age": "U19",
+            "pts": 8
+          },
+          {
+            "id": "215544",
+            "number": "",
+            "name": "Doumbia Ben",
+            "role": "ala forte",
+            "age": "U19",
+            "pts": 0
+          },
+          {
+            "id": "80200",
+            "number": "",
+            "name": "Lungheu Antonio",
+            "role": "ala forte",
+            "age": "'98",
+            "pts": 4
+          },
+          {
+            "id": "206474",
+            "number": "",
+            "name": "Mertika Kristian",
+            "role": "ala forte",
+            "age": "'08",
+            "pts": 0
+          },
+          {
+            "id": "206415",
+            "number": "",
+            "name": "Mulas Mattia",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 10
+          },
+          {
+            "id": "21156",
+            "number": "",
+            "name": "Piras Marco",
+            "role": "guardia",
+            "age": "'94",
+            "pts": 6
+          },
+          {
+            "id": "18699",
+            "number": "",
+            "name": "Pisano Alessandro",
+            "role": "play",
+            "age": "'92",
+            "pts": 18
+          },
+          {
+            "id": "106342",
+            "number": "",
+            "name": "Pisano Nicola",
+            "role": "ala forte",
+            "age": "'99",
+            "pts": 10
+          },
+          {
+            "id": "170155",
+            "number": "",
+            "name": "Russu Andrea",
+            "role": "play",
+            "age": "'06",
+            "pts": 0
+          },
+          {
+            "id": "172665",
+            "number": "",
+            "name": "Sanna Gabriele",
+            "role": "guardia",
+            "age": "'06",
+            "pts": 3
+          }
+        ]
       }
     },
     "8": {
@@ -2705,7 +2802,7 @@
     },
     "14": {
       "round": "A3",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 92,
         "away": 73
@@ -2871,6 +2968,14 @@
             "role": "ala piccola",
             "age": "'05",
             "pts": 10
+          },
+          {
+            "id": "195968",
+            "number": "",
+            "name": "Melis Stefano",
+            "role": "",
+            "age": "",
+            "pts": 3
           },
           {
             "id": "131134",
@@ -3132,5 +3237,5 @@
       }
     }
   },
-  "updated_at": "2026-10-18T21:05:38+00:00"
+  "updated_at": "2026-10-18T23:43:39+00:00"
 }
