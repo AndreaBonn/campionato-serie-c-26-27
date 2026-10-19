@@ -3233,9 +3233,90 @@
       },
       "away": {
         "team": "Cus Cagliari",
-        "players": []
+        "players": [
+          {
+            "id": "89746",
+            "number": "",
+            "name": "Bonacci Luca",
+            "role": "ala forte",
+            "age": "'00",
+            "pts": 3
+          },
+          {
+            "id": "190288",
+            "number": "",
+            "name": "Cubeddu Fabio",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 6
+          },
+          {
+            "id": "146970",
+            "number": "",
+            "name": "Diana Alessandro",
+            "role": "ala piccola",
+            "age": "'05",
+            "pts": 7
+          },
+          {
+            "id": "18728",
+            "number": "",
+            "name": "Fancello Matteo",
+            "role": "centro",
+            "age": "'92",
+            "pts": 3
+          },
+          {
+            "id": "18645",
+            "number": "",
+            "name": "Lecis Cocco Ortu Luca",
+            "role": "play",
+            "age": "'91",
+            "pts": 0
+          },
+          {
+            "id": "101977",
+            "number": "",
+            "name": "Loi Giacomo",
+            "role": "play",
+            "age": "'02",
+            "pts": 3
+          },
+          {
+            "id": "119896",
+            "number": "",
+            "name": "Poddighe Matteo",
+            "role": "play",
+            "age": "'03",
+            "pts": 15
+          },
+          {
+            "id": "155238",
+            "number": "",
+            "name": "Tanda Federico",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 2
+          },
+          {
+            "id": "115987",
+            "number": "",
+            "name": "Tocco Luca",
+            "role": "play",
+            "age": "'04",
+            "pts": 13
+          },
+          {
+            "id": "136679",
+            "number": "",
+            "name": "Zedda Nicola",
+            "role": "ala piccola",
+            "age": "'00",
+            "pts": 3
+          }
+        ]
       }
     }
   },
-  "updated_at": "2026-10-18T23:43:39+00:00"
+  "updated_at": "2026-10-19T15:36:03+00:00"
 }

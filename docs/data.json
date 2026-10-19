@@ -991,9 +991,12 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-10-24",
           "time": "18:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "ATZENI GIANLUCA di ARBUS (SU)",
+            "SOLINAS RICCARDO di SESTU (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -1002,9 +1005,12 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-10-24",
           "time": "17:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "MAMELI MARCO di ITTIRI (SS)",
+            "FORTUNATO DIEGO di OLBIA (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1013,9 +1019,12 @@
           "away": "PALL. NUORO",
           "date": "2026-10-24",
           "time": "20:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FIORIN GIANMARCO di CABRAS (OR)",
+            "PUGGIONI SAMUELE di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1024,9 +1033,12 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-10-24",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "GAVINI ANTONIO di SASSARI (SS)",
+            "CRISTIANI NICOLAS di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -2489,9 +2501,9 @@
     },
     "POL. DINAMO": {
       "file": "logos/pol-dinamo.png",
-      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbElJIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--5d42c9b9e16f75acff8149edac0b6dafe3a59b90/dinamo%20sassari_page-0001.jpg"
+      "source": "https://backend.fip.it/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcDhqIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--7fc753538e4b5f5b3894beb0150589410406745c/DINAMO%20LOGO%20VERTICALE%20in%20curve%20copia_page-0001.jpg"
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-18T18:38:47+00:00"
+  "updated_at": "2026-10-19T15:36:03+00:00"
 }
