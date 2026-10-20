@@ -126,9 +126,12 @@
         }
       },
       "changes": [],
-      "status": "designata-nonvisibile",
-      "status_text": "Gara designata: la designazione non è ancora visibile",
-      "referees": [],
+      "status": "designata",
+      "status_text": "Gara designata: la designazione è visibile",
+      "referees": [
+        "FARCI DANIELE di CAGLIARI (CA)",
+        "SEU ALESSANDRA di QUARTUCCIU (CA)"
+      ],
       "score": null,
       "sanctions": [],
       "fip_opponent": "POL. DINAMO"
@@ -1047,9 +1050,12 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-10-25",
           "time": "18:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "LACONI MARCO di VILLASIMIUS (SU)",
+            "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -1058,9 +1064,12 @@
           "away": "POL. DINAMO",
           "date": "2026-10-25",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FARCI DANIELE di CAGLIARI (CA)",
+            "SEU ALESSANDRA di QUARTUCCIU (CA)"
+          ],
           "sanctions": []
         }
       ],
@@ -2505,5 +2514,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-19T15:36:03+00:00"
+  "updated_at": "2026-10-20T13:33:57+00:00"
 }
