@@ -1000,8 +1000,11 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-10-24",
           "time": "18:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 64,
+            "away": 82
+          },
           "referees": [
             "ATZENI GIANLUCA di ARBUS (SU)",
             "SOLINAS RICCARDO di SESTU (CA)"
@@ -1014,8 +1017,11 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-10-24",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 90,
+            "away": 66
+          },
           "referees": [
             "MAMELI MARCO di ITTIRI (SS)",
             "FORTUNATO DIEGO di OLBIA (SS)"
@@ -1042,8 +1048,11 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-10-24",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 60,
+            "away": 78
+          },
           "referees": [
             "GAVINI ANTONIO di SASSARI (SS)",
             "CRISTIANI NICOLAS di SASSARI (SS)"
@@ -2520,5 +2529,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-23T04:47:12+00:00"
+  "updated_at": "2026-10-24T18:23:58+00:00"
 }

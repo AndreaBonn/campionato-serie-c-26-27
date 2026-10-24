@@ -3583,7 +3583,43 @@
           }
         ]
       }
+    },
+    "19": {
+      "round": "A4",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 64,
+        "away": 82
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "20": {
+      "round": "A4",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 90,
+        "away": 66
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "22": {
+      "round": "A4",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 60,
+        "away": 78
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-10-20T04:48:02+00:00"
+  "updated_at": "2026-10-24T18:23:58+00:00"
 }
