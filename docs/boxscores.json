@@ -3586,52 +3586,76 @@
     },
     "19": {
       "round": "A4",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 64,
         "away": 82
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 1,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=4&mn=1",
+      "home": {
+        "team": "Scuola Basket Carbonia",
+        "players": []
+      },
+      "away": {
+        "team": "S. Orsola Sassari",
+        "players": []
+      }
     },
     "20": {
       "round": "A4",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 90,
         "away": 66
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 2,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=4&mn=2",
+      "home": {
+        "team": "Sef Torres Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "Olimpia Cagliari",
+        "players": []
+      }
     },
     "22": {
       "round": "A4",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 60,
         "away": 78
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 4,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=4&mn=4",
+      "home": {
+        "team": "CMB Porto Torres",
+        "players": []
+      },
+      "away": {
+        "team": "Ferrini Quartu S.Elena",
+        "players": []
+      }
     },
     "21": {
       "round": "A4",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 72,
         "away": 77
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 3,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=4&mn=3",
+      "home": {
+        "team": "Aurea Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "Sirbones Nuoro",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-10-24T21:14:33+00:00"
+  "updated_at": "2026-10-24T22:29:15+00:00"
 }
