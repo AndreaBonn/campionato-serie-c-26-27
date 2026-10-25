@@ -126,13 +126,16 @@
         }
       },
       "changes": [],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "FARCI DANIELE di CAGLIARI (CA)",
         "SEU ALESSANDRA di QUARTUCCIU (CA)"
       ],
-      "score": null,
+      "score": {
+        "home": 78,
+        "away": 98
+      },
       "sanctions": [],
       "fip_opponent": "POL. DINAMO"
     },
@@ -1082,8 +1085,11 @@
           "away": "POL. DINAMO",
           "date": "2026-10-25",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 78,
+            "away": 98
+          },
           "referees": [
             "FARCI DANIELE di CAGLIARI (CA)",
             "SEU ALESSANDRA di QUARTUCCIU (CA)"
@@ -2532,5 +2538,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-25T04:38:59+00:00"
+  "updated_at": "2026-10-25T19:02:48+00:00"
 }
