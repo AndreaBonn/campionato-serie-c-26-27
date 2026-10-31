@@ -162,13 +162,16 @@
         }
       },
       "changes": [],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "MANCA MARIO di SASSARI (SS)",
         "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)"
       ],
-      "score": null,
+      "score": {
+        "home": 74,
+        "away": 53
+      },
       "sanctions": [],
       "fip_opponent": "SEF TORRES"
     },
@@ -1152,8 +1155,11 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-31",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 74,
+            "away": 53
+          },
           "referees": [
             "MANCA MARIO di SASSARI (SS)",
             "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)"
@@ -1180,8 +1186,11 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-31",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 71,
+            "away": 82
+          },
           "referees": [
             "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)",
             "SEU CLAUDIA di QUARTUCCIU (CA)"
@@ -2572,5 +2581,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-30T05:45:53+00:00"
+  "updated_at": "2026-10-31T19:35:21+00:00"
 }
