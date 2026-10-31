@@ -1141,8 +1141,11 @@
           "away": "POL. DINAMO",
           "date": "2026-10-31",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 83,
+            "away": 84
+          },
           "referees": [
             "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
@@ -1172,8 +1175,11 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-31",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 100,
+            "away": 69
+          },
           "referees": [
             "SEU ALESSANDRA di QUARTUCCIU (CA)",
             "SOLINAS RICCARDO di SESTU (CA)"
@@ -2581,5 +2587,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-31T19:35:21+00:00"
+  "updated_at": "2026-10-31T19:58:49+00:00"
 }
