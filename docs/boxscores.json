@@ -4873,7 +4873,19 @@
         "team": "Antonianum Quartu S.Elena",
         "players": []
       }
+    },
+    "25": {
+      "round": "A5",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 107,
+        "away": 66
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-10-31T22:52:22+00:00"
+  "updated_at": "2026-11-01T19:55:15+00:00"
 }

@@ -1127,8 +1127,11 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-11-01",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 107,
+            "away": 66
+          },
           "referees": [
             "FARCI NICOLA di SETTIMO SAN PIETRO (CA)",
             "GAVINI ANTONIO di SASSARI (SS)"
@@ -2590,5 +2593,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-10-31T22:52:22+00:00"
+  "updated_at": "2026-11-01T19:55:15+00:00"
 }
