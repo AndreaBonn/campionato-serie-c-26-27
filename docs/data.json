@@ -196,9 +196,12 @@
         }
       },
       "changes": [],
-      "status": "designata-nonvisibile",
-      "status_text": "Gara designata: la designazione non è ancora visibile",
-      "referees": [],
+      "status": "designata",
+      "status_text": "Gara designata: la designazione è visibile",
+      "referees": [
+        "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
+        "FIORIN GIANMARCO di CABRAS (OR)"
+      ],
       "score": null,
       "sanctions": [],
       "fip_opponent": "FERRINI PISANO ARREDAMENTI"
@@ -1235,9 +1238,12 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-08",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
+            "FIORIN GIANMARCO di CABRAS (OR)"
+          ],
           "sanctions": []
         },
         {
@@ -1260,9 +1266,12 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-08",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "MAMELI MARCO di ITTIRI (SS)",
+            "MASIA LEONARDO ANTONIO di PORTO TORRES (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1271,9 +1280,12 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-11-08",
           "time": "18:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
+            "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -2602,5 +2614,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-02T18:20:46+00:00"
+  "updated_at": "2026-11-03T11:56:12+00:00"
 }
