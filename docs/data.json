@@ -162,8 +162,8 @@
         }
       },
       "changes": [],
-      "status": "ufficioso",
-      "status_text": "Risultato ufficioso",
+      "status": "omologata",
+      "status_text": "",
       "referees": [
         "MANCA MARIO di SASSARI (SS)",
         "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)"
@@ -1130,7 +1130,7 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-11-01",
           "time": "19:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 107,
             "away": 66
@@ -1147,7 +1147,7 @@
           "away": "POL. DINAMO",
           "date": "2026-10-31",
           "time": "19:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 83,
             "away": 84
@@ -1156,7 +1156,9 @@
             "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
           ],
-          "sanctions": []
+          "sanctions": [
+            "soc. G.S.DIL. BASKET FERRINI:Ammenda di Euro 50.00 per offese verbali isolate di un proprio sostenitore nei confronti di un giocatore avversario [art. 27,4ad RG]"
+          ]
         },
         {
           "n": 27,
@@ -1164,7 +1166,7 @@
           "away": "CUS CAGLIARI",
           "date": "2026-10-31",
           "time": "17:30",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 74,
             "away": 53
@@ -1181,7 +1183,7 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-10-31",
           "time": "19:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 100,
             "away": 69
@@ -1198,7 +1200,7 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-10-31",
           "time": "18:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 71,
             "away": 82
@@ -1215,7 +1217,7 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-10-31",
           "time": "20:00",
-          "status": "ufficioso",
+          "status": "omologata",
           "score": {
             "home": 69,
             "away": 68
@@ -1224,7 +1226,9 @@
             "FANCELLU MATTEO di SASSARI (SS)",
             "CRISTIANI NICOLAS di SASSARI (SS)"
           ],
-          "sanctions": []
+          "sanctions": [
+            "soc. A.DIL. BASKET S. ORSOLA:Ammenda di Euro 100.00 per offese verbali collettive e frequenti dei propri sostenitori nei confronti di due giocatori avversari e nei confronti del primo arbitro [art. 27,4bd RG.]"
+          ]
         }
       ],
       "pdf_url": "https://backend.fip.it/api/v1/giornata.pdf?regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_andata_ritorno=1&giornata=5"
@@ -2477,121 +2481,121 @@
       "position": 1,
       "team": "FERRINI PISANO ARREDAMENTI",
       "points": 8,
-      "played": 4,
+      "played": 5,
       "won": 4,
-      "lost": 0,
-      "points_for": 311,
-      "points_against": 247
+      "lost": 1,
+      "points_for": 394,
+      "points_against": 331
     },
     {
       "position": 2,
-      "team": "BASKET S. ORSOLA",
-      "points": 6,
-      "played": 4,
-      "won": 3,
+      "team": "PALL. NUORO",
+      "points": 8,
+      "played": 5,
+      "won": 4,
       "lost": 1,
-      "points_for": 303,
-      "points_against": 270
+      "points_for": 404,
+      "points_against": 359
     },
     {
       "position": 3,
-      "team": "PALL. NUORO",
-      "points": 6,
-      "played": 4,
-      "won": 3,
+      "team": "BASKET S. ORSOLA",
+      "points": 8,
+      "played": 5,
+      "won": 4,
       "lost": 1,
-      "points_for": 304,
-      "points_against": 290
+      "points_for": 372,
+      "points_against": 338
     },
     {
       "position": 4,
       "team": "SEF TORRES",
-      "points": 4,
-      "played": 4,
-      "won": 2,
+      "points": 6,
+      "played": 5,
+      "won": 3,
       "lost": 2,
-      "points_for": 322,
-      "points_against": 318
+      "points_for": 396,
+      "points_against": 371
     },
     {
       "position": 5,
-      "team": "C.M.B. PORTO TORRES",
-      "points": 4,
-      "played": 4,
-      "won": 2,
+      "team": "OLIMPIA CAGLIARI",
+      "points": 6,
+      "played": 5,
+      "won": 3,
       "lost": 2,
-      "points_for": 268,
-      "points_against": 270
+      "points_for": 398,
+      "points_against": 359
     },
     {
       "position": 6,
       "team": "POL. DINAMO",
-      "points": 4,
-      "played": 4,
-      "won": 2,
+      "points": 6,
+      "played": 5,
+      "won": 3,
       "lost": 2,
-      "points_for": 316,
-      "points_against": 304
+      "points_for": 400,
+      "points_against": 387
     },
     {
       "position": 7,
-      "team": "OLIMPIA CAGLIARI",
+      "team": "C.M.B. PORTO TORRES",
       "points": 4,
-      "played": 4,
+      "played": 5,
       "won": 2,
-      "lost": 2,
-      "points_for": 291,
-      "points_against": 293
+      "lost": 3,
+      "points_for": 337,
+      "points_against": 370
     },
     {
       "position": 8,
-      "team": "SCUOLA BASKET CARBONIA",
+      "team": "FISIOKONS AUREA SASSARI",
       "points": 4,
-      "played": 4,
+      "played": 5,
       "won": 2,
-      "lost": 2,
-      "points_for": 274,
-      "points_against": 298
+      "lost": 3,
+      "points_for": 364,
+      "points_against": 379
     },
     {
       "position": 9,
-      "team": "BASKET ANTONIANUM",
-      "points": 2,
-      "played": 4,
-      "won": 1,
+      "team": "SCUOLA BASKET CARBONIA",
+      "points": 4,
+      "played": 5,
+      "won": 2,
       "lost": 3,
-      "points_for": 268,
-      "points_against": 280
+      "points_for": 340,
+      "points_against": 405
     },
     {
       "position": 10,
-      "team": "CAMPING LA SALINA CALASETTA",
+      "team": "BASKET ANTONIANUM",
       "points": 2,
-      "played": 4,
+      "played": 5,
       "won": 1,
-      "lost": 3,
-      "points_for": 286,
-      "points_against": 299
+      "lost": 4,
+      "points_for": 336,
+      "points_against": 349
     },
     {
       "position": 11,
-      "team": "FISIOKONS AUREA SASSARI",
+      "team": "CAMPING LA SALINA CALASETTA",
       "points": 2,
-      "played": 4,
+      "played": 5,
       "won": 1,
-      "lost": 3,
-      "points_for": 282,
-      "points_against": 308
+      "lost": 4,
+      "points_for": 357,
+      "points_against": 381
     },
     {
       "position": 12,
       "team": "CUS CAGLIARI",
       "points": 2,
-      "played": 4,
+      "played": 5,
       "won": 1,
-      "lost": 3,
-      "points_for": 246,
-      "points_against": 294
+      "lost": 4,
+      "points_for": 299,
+      "points_against": 368
     }
   ],
   "notices": [],
@@ -2614,5 +2618,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-03T11:56:12+00:00"
+  "updated_at": "2026-11-04T12:06:52+00:00"
 }
