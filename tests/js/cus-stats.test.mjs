@@ -89,3 +89,39 @@ test("CUS players: each name toggles its own detail row, closed until opened", (
   assert.deepEqual(details, buttons);
   assert.doesNotMatch(html, /<details class="cus-player">/);
 });
+
+test("CUS players: a roster line gives average age, birth-year range and roles with Italian plurals", () => {
+  const players = [
+    { id: "a", name: "a", role: "ala piccola", age: "'91", pts: 4 },
+    { id: "b", name: "b", role: "ala piccola", age: "'07", pts: 6 },
+    { id: "c", name: "c", role: "play", age: "'04", pts: 8 },
+  ];
+  const html = renderCusPlayers({ 1: boxscore(players) }, [round(1, "2026-10-03")], TEAM);
+
+  // ages in 2026: 35, 19, 22
+  assert.match(html, /<p class="roster">Rosa: 3 giocatori a referto, età media 25,3 anni \(nati fra il 1991 e il 2007\)\. Ruoli: 1 play, 2 ali piccole\.<\/p>/);
+});
+
+test("CUS players: the roster line says how many players lack age or role, and leaves out a zero count", () => {
+  const players = [
+    { id: "a", name: "a", role: "centro", age: "'00", pts: 4 },
+    { id: "b", name: "b", role: "", age: "", pts: 6 },
+  ];
+  const html = renderCusPlayers({ 1: boxscore(players) }, [round(1, "2026-10-03")], TEAM);
+
+  assert.match(html, /Ruoli: 1 centro\. Età e ruolo mancanti su playbasket\.it per 1 giocatore\.<\/p>/);
+
+  const full = renderCusPlayers({ 1: boxscore([players[0]]) }, [round(1, "2026-10-03")], TEAM);
+  assert.match(full, /Ruoli: 1 centro\.<\/p>/);
+  assert.doesNotMatch(full, /mancant/);
+});
+
+test("CUS players: different missing counts for age and role are given separately", () => {
+  const players = [
+    { id: "a", name: "a", role: "", age: "'00", pts: 4 },
+    { id: "b", name: "b", role: "", age: "", pts: 6 },
+  ];
+  const html = renderCusPlayers({ 1: boxscore(players) }, [round(1, "2026-10-03")], TEAM);
+
+  assert.match(html, /età media 26 anni \(nati nel 2000\)\. Età mancante per 1 giocatore, ruolo per 2 giocatori\.<\/p>/);
+});

@@ -78,6 +78,39 @@ function playerStats(appearances, games) {
   };
 }
 
+// playbasket.it gives the birth year as two digits ("'04"): one not after the season's is a 2000s
+// year, the rest are 1900s (no Serie C player is over 99 or born after the season starts).
+const TWO_DIGIT_YEAR = /^'(\d{2})$/;
+export function birthYear(age, seasonYear) {
+  const match = TWO_DIGIT_YEAR.exec(age ?? "");
+  if (!match) return null;
+  const yy = Number(match[1]);
+  return yy <= seasonYear % 100 ? 2000 + yy : 1900 + yy;
+}
+
+// Court order, from the ball handler to the post; any other wording follows in first-seen order
+const ROLE_ORDER = ["play", "guardia", "ala piccola", "ala forte", "centro"];
+const roleRank = (role) => (ROLE_ORDER.includes(role) ? ROLE_ORDER.indexOf(role) : ROLE_ORDER.length);
+
+// Age profile and role split of a roster; `players` carry playbasket's `role` and `age` strings.
+// Age is the one reached in `seasonYear`: playbasket publishes the birth year only.
+export function rosterProfile(players, seasonYear) {
+  const years = players.map((player) => birthYear(player.age, seasonYear)).filter((year) => year !== null);
+  const counts = new Map();
+  for (const { role } of players.filter((player) => player.role)) counts.set(role, (counts.get(role) ?? 0) + 1);
+  const roles = [...counts].map(([role, count]) => ({ role, count }));
+  return {
+    total: players.length,
+    averageAge: ratio(years.reduce((sum, year) => sum + seasonYear - year, 0), years.length),
+    oldest: years.length ? Math.min(...years) : null,
+    youngest: years.length ? Math.max(...years) : null,
+    // stable sort: unknown roles keep their first-seen order
+    roles: roles.sort((a, b) => roleRank(a.role) - roleRank(b.role)),
+    withoutAge: players.length - years.length,
+    withoutRole: players.filter((player) => !player.role).length,
+  };
+}
+
 export function cusPlayerStats(boxscores, rounds, team) {
   const games = rounds.flatMap((round) => round.games)
     .filter((game) => game.home === team || game.away === team);
