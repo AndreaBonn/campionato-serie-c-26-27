@@ -58,7 +58,7 @@ function standingsRow(r, rows, fipTeam, logos, starts, ranges) {
   const possSm = range ? `<small class="poss-sm">Possibile ${fmtRange(range)}</small>` : "";
   const cls = `${r.team === fipTeam ? "me" : ""} ${isStandingsCut(r.position, rows.length) ? "cut" : ""}`;
   const mark = crestHtml(logos, r.team) || `<span class="initials" aria-hidden="true">${esc(teamInitials(r.team))}</span>`;
-  return `${zone}<tr class="${cls}"><td>${r.position}</td><td><span class="tm">${mark}<span>${esc(displayTeamName(r.team))}${possSm}</span></span></td><td>${r.points}</td><td>${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td class="pfps">${r.points_for}</td><td class="pfps">${r.points_against}</td><td>${signed(r.points_for - r.points_against)}</td>${poss}</tr>`;
+  return `${zone}<tr class="${cls}"><td>${r.position}</td><td><span class="tm">${mark}<span>${esc(displayTeamName(r.team))}${possSm}</span></span></td><td>${r.points}</td><td class="gp">${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td class="pfps">${r.points_for}</td><td class="pfps">${r.points_against}</td><td>${signed(r.points_for - r.points_against)}</td>${poss}</tr>`;
 }
 
 export function renderStandings(rows, fipTeam, logos, allRanges = null) {
@@ -69,7 +69,7 @@ export function renderStandings(rows, fipTeam, logos, allRanges = null) {
   const possHead = ranges ? '<th class="poss"><abbr title="Posizioni finali ancora possibili">Poss.</abbr></th>' : "";
   const possLegend = ranges ? " · Poss. posizioni finali ancora possibili" : "";
   const decided = ranges ? decidedBlock(ranges, fipTeam) : "";
-  const head = `<tr><th>#</th><th>Squadra</th><th>Punti</th>${abbr("G", "Gare giocate")}${abbr("V", "Vinte")}${abbr("P", "Perse")}<th class="pfps"><abbr title="Punti fatti">PF</abbr></th><th class="pfps"><abbr title="Punti subiti">PS</abbr></th><th><abbr title="Differenza punti">+/-</abbr></th>${possHead}</tr>`;
+  const head = `<tr><th>#</th><th>Squadra</th><th>Punti</th><th class="gp"><abbr title="Gare giocate">G</abbr></th>${abbr("V", "Vinte")}${abbr("P", "Perse")}<th class="pfps"><abbr title="Punti fatti">PF</abbr></th><th class="pfps"><abbr title="Punti subiti">PS</abbr></th><th><abbr title="Differenza punti">+/-</abbr></th>${possHead}</tr>`;
   return `<h2>Classifica</h2>${zone}${decided}<div class="scroll"><table class="standings"><thead>${head}</thead><tbody>${body}</tbody></table></div>
  <p class="legend-mini">G giocate · V vinte · P perse · PF punti fatti · PS punti subiti · +/- differenza punti${possLegend}</p>
  <details class="howto"><summary>Come leggere la classifica</summary><p>Classifica ufficiale FIP: conta solo i risultati omologati dal Giudice Sportivo. Le linee separano le prime 8 e le ultime 3: nel 2025/26 erano le squadre ammesse a playoff e playout, la formula 2026/27 non è ancora nota. Le squadre compaiono con la denominazione registrata dalla FIP, che può includere lo sponsor; gli stemmi sono quelli caricati dalle società sul sito FIP, le iniziali stanno al posto di quelli mancanti.</p></details>`;

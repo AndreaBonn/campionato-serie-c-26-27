@@ -134,3 +134,10 @@ test("standings: on phones the possible positions move under the team name", () 
   assert.match(html, /<th class="poss"><abbr title="Posizioni finali ancora possibili">Poss\.<\/abbr><\/th>/);
   assert.doesNotMatch(renderStandings(rows, CUS, LOGOS), /poss-sm/);
 });
+
+test("standings: the games-played column is marked to hide on phones, header and cells", () => {
+  const html = renderStandings(table(12), CUS, LOGOS);
+
+  assert.match(html, /<th class="gp"><abbr title="Gare giocate">G<\/abbr><\/th>/);
+  assert.equal((html.match(/<td class="gp">1<\/td>/g) ?? []).length, 12);
+});

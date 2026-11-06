@@ -211,7 +211,8 @@ footer a{color:var(--ink)}
  .g{grid-template-columns:52px 1fr;padding:10px}.d b{font-size:24px}
  .teams{display:flex;flex-direction:column;gap:2px}.teams em{display:none}
  .next{padding:14px 16px;column-gap:12px}.next .m{font-size:20px}.next .w{grid-row:1/span 2;align-self:start}.next .w b{font-size:24px}.next .info{grid-column:1/-1}
- .pfps,.opt,.team-col,.poss{display:none}
+ /* games played is nearly the same for every team: the first column to give up on phones */
+ .pfps,.opt,.team-col,.poss,.gp{display:none}
  small.poss-sm{display:block}
  small.team-sm{display:block}
 }
