@@ -181,14 +181,14 @@ export function positionRanges(standings, rounds, { maxEnumerated = MAX_ENUMERAT
  * What is already settled, team by team, in standings order; teams with nothing settled are left out.
  * `playoff`/`playout`: true in that zone whatever happens, false out of it, null still open.
  * No zone facts when the league is too short for the two zones to be apart; `playout: 0` (a league
- * without playout) leaves `playout` null.
+ * without playout) leaves `playout` null, and `playoff: 0` (format not known) `playoff`.
  */
 export function decidedFacts(ranges, { playoff, playout }) {
   const total = ranges.size, firstPlayout = total - playout + 1, zones = total > playoff + playout;
   const facts = [...ranges].map(([team, { best, worst }]) => ({
     team,
     position: best === worst ? best : null,
-    playoff: !zones ? null : worst <= playoff ? true : best > playoff ? false : null,
+    playoff: !zones || !playoff ? null : worst <= playoff ? true : best > playoff ? false : null,
     playout: !zones || !playout ? null : best >= firstPlayout ? true : worst < firstPlayout ? false : null,
   }));
   return facts.filter((f) => f.position !== null || f.playoff !== null || f.playout !== null);

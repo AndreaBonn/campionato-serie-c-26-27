@@ -145,3 +145,11 @@ test("decidedFacts: a league without playout never calls a team safe from it", (
     { team: "D", position: 4, playoff: false, playout: null },
   ]);
 });
+
+test("decidedFacts: with no zones at all (playoff and playout 0) only exact positions are reported", () => {
+  const ranges = new Map([["A", { best: 1, worst: 1 }], ["B", { best: 2, worst: 3 }], ["C", { best: 2, worst: 3 }]]);
+
+  assert.deepEqual(decidedFacts(ranges, { playoff: 0, playout: 0 }), [
+    { team: "A", position: 1, playoff: null, playout: null },
+  ]);
+});
