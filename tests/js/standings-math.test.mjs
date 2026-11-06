@@ -135,3 +135,13 @@ test("no games at all, or no rounds, give no ranges rather than every position d
   assert.equal(positionRanges(table({ A: 0, B: 0 }), []).size, 0);
   assert.equal(positionRanges(table({ A: 0, B: 0 }), undefined).size, 0);
 });
+
+test("decidedFacts: a league without playout never calls a team safe from it", () => {
+  const ranges = new Map([["A", { best: 1, worst: 2 }], ["B", { best: 1, worst: 4 }], ["C", { best: 3, worst: 4 }], ["D", { best: 4, worst: 4 }]]);
+
+  assert.deepEqual(decidedFacts(ranges, { playoff: 2, playout: 0 }), [
+    { team: "A", position: null, playoff: true, playout: null },
+    { team: "C", position: null, playoff: false, playout: null },
+    { team: "D", position: 4, playoff: false, playout: null },
+  ]);
+});
