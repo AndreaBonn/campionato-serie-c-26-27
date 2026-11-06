@@ -79,6 +79,7 @@ import {noticeHeadline,noticePrefix} from "./notice-rules.js";
 import {esc,roundLabel as label,place,formSummary,pickRound,isFipNoticeLink} from "./page-rules.js";
 import {relativeAge} from "./view-rules.js";
 import {renderStandings,renderRoundTable} from "./tables-view.js";
+import {positionRanges} from "./standings-math.js";
 import {fmtWhen,nextGame,renderList,renderNext,renderLast,renderForm} from "./games-view.js";
 import {renderScorers,loadBoxscores} from "./boxscores.js";
 import {renderCusPlayers} from "./cus-stats.js";
@@ -124,7 +125,7 @@ function showForm(){
 function renderStandingsBox(rows){
  const el=$("standings");
  el.hidden=false;
- el.innerHTML=renderStandings(rows,FIP_TEAM,ctx.logos);
+ el.innerHTML=renderStandings(rows,FIP_TEAM,ctx.logos,positionRanges(rows,ctx.rounds));
 }
 function setRound(i){
  const sel=$("round-select");

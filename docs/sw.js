@@ -22,6 +22,7 @@ const SHELL = [
   "boxscores.js",
   "cus-stats-rules.js",
   "cus-stats.js",
+  "standings-math.js",
   "opponent-rules.js",
   "opponent-view.js",
   "logo-cus.png",

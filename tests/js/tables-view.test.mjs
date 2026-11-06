@@ -82,3 +82,55 @@ test("round table: sanctions closed under a count, each with its game", () => {
 
   assert.match(html, /<details class="sanc"><summary>Provvedimenti del Giudice Sportivo \(2\)<\/summary><ul><li><b>A - B:<\/b> Ammenda 1<\/li>/);
 });
+
+const fullRanges = (rows) => new Map(rows.map((r) => [r.team, { best: 1, worst: rows.length }]));
+
+test("standings: with every position still open, no 'Possibile' column and no 'Già deciso' block", () => {
+  const rows = table(12);
+  const html = renderStandings(rows, CUS, LOGOS, fullRanges(rows));
+
+  assert.equal(html, renderStandings(rows, CUS, LOGOS));
+  assert.doesNotMatch(html, /Possibile|Già deciso/);
+});
+
+test("standings: once a range narrows, every row shows its possible positions and zone rows span the new column", () => {
+  const rows = table(12);
+  const ranges = fullRanges(rows);
+  ranges.set("TEAM 1", { best: 1, worst: 1 }).set("TEAM 2", { best: 2, worst: 5 });
+  const html = renderStandings(rows, CUS, LOGOS, ranges);
+
+  assert.match(html, /<th class="poss"><abbr title="Posizioni finali ancora possibili">Poss\.<\/abbr><\/th><\/tr>/);
+  assert.match(html, /<td>\+10<\/td><td class="poss">1ª<\/td><\/tr>/);
+  assert.match(html, /<td class="poss">2ª-5ª<\/td>/);
+  assert.match(html, /<td class="poss">1ª-12ª<\/td>/);
+  assert.match(html, /<tr class="zone-row"><td colspan="10">Zona playoff/);
+});
+
+test("standings: 'Già deciso' groups teams by what is settled, in standings order, the CUS name marked", () => {
+  const rows = table(12);
+  const ranges = fullRanges(rows);
+  ranges.set("TEAM 1", { best: 1, worst: 1 }).set("TEAM 2", { best: 2, worst: 6 }).set("TEAM 3", { best: 2, worst: 8 })
+    .set(CUS, { best: 9, worst: 9 }).set("TEAM 12", { best: 10, worst: 12 }).set("TEAM 11", { best: 9, worst: 12 });
+  const html = renderStandings(rows, CUS, LOGOS, ranges);
+  const items = [...html.matchAll(/<li><b>([^<]+)<\/b>: (.+?)<\/li>/g)].map((m) => [m[1], m[2]]);
+
+  assert.deepEqual(items, [
+    ["Matematicamente 1ª, ai playoff", "Team 1."],
+    ["Matematicamente ai playoff", "Team 2, Team 3."],
+    ["Matematicamente 9ª, fuori dai playoff, salva dai playout", '<span class="me">CUS Cagliari</span>.'],
+    ["Matematicamente fuori dai playoff", "Team 11."],
+    ["Matematicamente ai playout", "Team 12."],
+  ]);
+  assert.ok(html.indexOf("Già deciso") < html.indexOf("<table"));
+  assert.match(html, /art\. 62 del Regolamento Esecutivo Gare/);
+});
+
+test("standings: on phones the possible positions move under the team name", () => {
+  const rows = table(12);
+  const ranges = fullRanges(rows).set("TEAM 1", { best: 1, worst: 2 });
+  const html = renderStandings(rows, CUS, LOGOS, ranges);
+
+  assert.match(html, /<span>Team 1<small class="poss-sm">Possibile 1ª-2ª<\/small><\/span>/);
+  assert.match(html, /<th class="poss"><abbr title="Posizioni finali ancora possibili">Poss\.<\/abbr><\/th>/);
+  assert.doesNotMatch(renderStandings(rows, CUS, LOGOS), /poss-sm/);
+});
