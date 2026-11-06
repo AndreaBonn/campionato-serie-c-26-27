@@ -250,13 +250,48 @@ dlg.onclick=e=>{if(e.target===dlg) dlg.close()};
 dlg.onclose=()=>{if(!oppTrigger?.isConnected) document.querySelector("#next .opp-btn")?.focus()};
 const reload=()=>load().then(()=>loadBoxscores(applyBoxscores)).then(ok=>{ctx.boxscoresLoad=ok?"ready":"failed";if(dlg.open) showOpponent()});
 // section links: hidden while their section is, the one on screen marked as current
-const navLinks=[...document.querySelectorAll(".secnav a")];
-function syncNav(){navLinks.forEach(a=>{a.hidden=document.querySelector(a.getAttribute("href")).hidden})}
-const spy=new IntersectionObserver(entries=>entries.forEach(e=>{
- if(!e.isIntersecting) return;
- navLinks.forEach(a=>a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+e.target.id));
-}),{rootMargin:"-30% 0px -60% 0px"});
+const secnav=document.querySelector(".secnav");
+const navLinks=[...secnav.querySelectorAll("a")];
+const pill=document.createElement("span");
+pill.className="secnav-pill"; pill.setAttribute("aria-hidden","true"); pill.hidden=true;
+secnav.prepend(pill); secnav.classList.add("has-pill");
+const reducedMotion=matchMedia("(prefers-reduced-motion: reduce)");
+// the pill slides under the current link only when the current section changes; it appears in place,
+// and re-layouts (resize, sections shown late) jump without fighting a reader dragging the bar
+function movePill(slide=false){
+ const a=navLinks.find(l=>l.hasAttribute("aria-current")&&!l.hidden);
+ const animate=slide&&!pill.hidden&&!reducedMotion.matches;
+ pill.hidden=!a;
+ if(!a) return;
+ pill.style.transition=animate?"":"none";
+ pill.style.transform=`translateX(${a.offsetLeft}px)`; pill.style.width=a.offsetWidth+"px";
+ // narrow screens scroll the bar: keep the current link centred in it, without moving the page
+ secnav.scrollTo({left:a.offsetLeft-(secnav.clientWidth-a.offsetWidth)/2,behavior:animate?"smooth":"auto"});
+}
+function setCurrent(id){
+ const link=navLinks.find(a=>a.getAttribute("href")==="#"+id);
+ if(link?.hasAttribute("aria-current")) return;
+ navLinks.forEach(a=>a.toggleAttribute("aria-current",a===link));
+ movePill(true);
+}
+function syncNav(){navLinks.forEach(a=>{a.hidden=document.querySelector(a.getAttribute("href")).hidden});movePill()}
+const spy=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting) setCurrent(e.target.id)}),{rootMargin:"-30% 0px -60% 0px"});
 navLinks.forEach(a=>spy.observe(document.querySelector(a.getAttribute("href"))));
+// a tapped link becomes current at once: the last sections may never reach the spy's band
+// a modified click opens a new tab and leaves this page where it is
+secnav.addEventListener("click",e=>{
+ if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button!==0) return;
+ const a=e.target.closest("a");
+ if(a) setCurrent(a.getAttribute("href").slice(1));
+});
+addEventListener("resize",()=>movePill());
+document.fonts?.ready.then(()=>movePill());
+if(matchMedia("(hover: hover) and (pointer: fine)").matches&&!reducedMotion.matches){
+ secnav.addEventListener("pointermove",e=>{
+  const r=secnav.getBoundingClientRect();
+  secnav.style.setProperty("--gx",`${e.clientX-r.left}px`); secnav.style.setProperty("--gy",`${e.clientY-r.top}px`);
+ });
+}
 const pressOnly=(attr,value)=>document.querySelectorAll(`.bar button[${attr}]`).forEach(x=>x.setAttribute("aria-pressed",x.getAttribute(attr)===value));
 document.querySelectorAll(".bar button[data-f]").forEach(b=>b.onclick=()=>{side=b.dataset.f;pressOnly("data-f",side);refresh()});
 document.querySelectorAll(".bar button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;pressOnly("data-mode",mode);refresh()});

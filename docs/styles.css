@@ -1,7 +1,7 @@
 /* --brand and --home are the blue and red of the CUS Cagliari crest; --ink is the text colour,
    equal to --brand in the light theme and lifted for contrast in the dark one */
-:root{color-scheme:light dark;--bg:#eef1f5;--card:#fff;--ink:#1c3f7a;--mut:#5b6474;--line:#d3d9e2;--brand:#1c3f7a;--on-brand:#fff;--brand-mut:#b8c2d6;--brand-hover:#3c5a8d;--home:#c8102e;--away:#1c3f7a;--chg:#b45309;--chg-bg:#fef3c7;--chg-ink:#78350f;--chg-strong:#451a03;--win:#166534;--loss:#991b1b;--win-ink:#166534;--loss-ink:#991b1b;--me-bg:#e8eef8;--chip-bg:#f4f6f9;--focus:#c8102e;--skel:#e4e8ee;--ok:#16a34a}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1a2e;--card:#16233d;--ink:#dbe4f3;--mut:#9fb0cc;--line:#2a3b5c;--brand:#2b5aa8;--brand-mut:#c9d6ee;--brand-hover:#3a6bbd;--away:#3b67b3;--chg-bg:#3b2a10;--chg-ink:#fcd9a8;--chg-strong:#fff1dc;--win-ink:#4ade80;--loss-ink:#f87171;--me-bg:#22345a;--chip-bg:#1b2b4a;--focus:#f87171;--skel:#22345a;--ok:#4ade80}}
+:root{color-scheme:light dark;--bg:#eef1f5;--card:#fff;--ink:#1c3f7a;--mut:#5b6474;--line:#d3d9e2;--brand:#1c3f7a;--on-brand:#fff;--brand-mut:#b8c2d6;--brand-hover:#3c5a8d;--home:#c8102e;--away:#1c3f7a;--chg:#b45309;--chg-bg:#fef3c7;--chg-ink:#78350f;--chg-strong:#451a03;--win:#166534;--loss:#991b1b;--win-ink:#166534;--loss-ink:#991b1b;--me-bg:#e8eef8;--chip-bg:#f4f6f9;--focus:#c8102e;--skel:#e4e8ee;--ok:#16a34a;--glass-bg:rgba(255,255,255,.72);--glass-edge:rgba(28,63,122,.14);--glass-hi:rgba(255,255,255,.85);--glass-shadow:rgba(28,63,122,.16);--glare:rgba(255,255,255,.7)}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1a2e;--card:#16233d;--ink:#dbe4f3;--mut:#9fb0cc;--line:#2a3b5c;--brand:#2b5aa8;--brand-mut:#c9d6ee;--brand-hover:#3a6bbd;--away:#3b67b3;--chg-bg:#3b2a10;--chg-ink:#fcd9a8;--chg-strong:#fff1dc;--win-ink:#4ade80;--loss-ink:#f87171;--me-bg:#22345a;--chip-bg:#1b2b4a;--focus:#f87171;--skel:#22345a;--ok:#4ade80;--glass-bg:rgba(22,35,61,.7);--glass-edge:rgba(201,214,238,.16);--glass-hi:rgba(255,255,255,.08);--glass-shadow:rgba(0,0,0,.45);--glare:rgba(201,214,238,.16)}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}
 .wrap{max-width:860px;margin:0 auto;padding:16px 16px 48px}
@@ -20,10 +20,22 @@ h1{margin:0;font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.01em
 .offline{background:var(--chg-bg);color:var(--chg-ink);border-radius:4px;padding:8px 12px;font-size:14px;margin:0 0 12px}
 .offline[hidden]{display:none}
 /* section links, sticky (layer 200) */
-.secnav{position:sticky;top:0;z-index:200;display:flex;gap:6px;overflow-x:auto;background:var(--bg);padding:8px 0;margin:0 0 14px;border-bottom:1px solid var(--line);scrollbar-width:none}
-.secnav a{flex:none;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:var(--card);min-height:36px;display:inline-flex;align-items:center}
-.secnav a[aria-current]{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+/* liquid glass: frosted capsule over the scrolling page, a brand pill sliding under the current link,
+   a glare following a mouse pointer. --glare-now is registered so the glare can fade in and out */
+@property --glare-now{syntax:"<color>";inherits:false;initial-value:transparent}
+.secnav{position:sticky;top:8px;z-index:200;display:flex;gap:2px;overflow-x:auto;padding:6px;margin:0 0 14px;border-radius:12px;background:radial-gradient(circle 90px at var(--gx,50%) var(--gy,50%),var(--glare-now,transparent),transparent),var(--glass-bg);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 0 0 1px var(--glass-edge),inset 0 1px 0 var(--glass-hi),0 8px 24px -6px var(--glass-shadow),0 1px 3px var(--glass-shadow);transition:--glare-now .3s ease;scrollbar-width:none}
+.secnav::-webkit-scrollbar{display:none}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.secnav:hover{--glare-now:var(--glare)}}
+.secnav a{position:relative;z-index:1;flex:none;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;padding:6px 12px;border-radius:8px;min-height:36px;display:inline-flex;align-items:center;transition:color .2s ease .12s}
+@media(hover:hover){.secnav a:not([aria-current]):hover{background:var(--glass-edge)}}
+.secnav a[aria-current]{color:var(--on-brand)}
+/* without the script's pill (module failed) the current link paints its own background */
+.secnav:not(.has-pill) a[aria-current]{background:var(--brand)}
 .secnav a[hidden]{display:none}
+.secnav-pill{position:absolute;top:6px;bottom:6px;left:0;width:0;border-radius:8px;background:var(--brand);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 8px -2px var(--glass-shadow);transition:transform .5s cubic-bezier(.34,1.4,.64,1),width .5s cubic-bezier(.34,1.4,.64,1);pointer-events:none}
+.secnav-pill[hidden]{display:none}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.secnav{background:var(--card)}}
+@media(prefers-reduced-motion:reduce){.secnav,.secnav a,.secnav-pill{transition:none}}
 /* next game */
 .next{background:var(--brand);color:var(--on-brand);border-radius:6px;padding:18px 20px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:4px 24px}
 .next small{display:block;color:var(--brand-mut);font-size:14px}
