@@ -5967,7 +5967,31 @@
           }
         ]
       }
+    },
+    "35": {
+      "round": "A6",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 69,
+        "away": 67
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "36": {
+      "round": "A6",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 98,
+        "away": 107
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-11-03T02:17:33+00:00"
+  "updated_at": "2026-11-07T19:40:40+00:00"
 }
