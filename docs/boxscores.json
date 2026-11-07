@@ -5970,28 +5970,58 @@
     },
     "35": {
       "round": "A6",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 69,
         "away": 67
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 2,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=2",
+      "home": {
+        "team": "Scuola Basket Carbonia",
+        "players": []
+      },
+      "away": {
+        "team": "Sef Torres Sassari",
+        "players": []
+      }
     },
     "36": {
       "round": "A6",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 98,
         "away": 107
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 3,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=3",
+      "home": {
+        "team": "Dinamo Academy",
+        "players": []
+      },
+      "away": {
+        "team": "Sirbones Nuoro",
+        "players": []
+      }
+    },
+    "32": {
+      "round": "A6",
+      "status": "partial",
+      "fip_score": {
+        "home": 83,
+        "away": 69
+      },
+      "mn": 1,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=1",
+      "home": {
+        "team": "Aurea Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "S. Orsola Sassari",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-11-07T19:40:40+00:00"
+  "updated_at": "2026-11-07T23:06:59+00:00"
 }
