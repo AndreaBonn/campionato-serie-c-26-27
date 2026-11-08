@@ -86,6 +86,16 @@ test("round table: sanctions closed under a count, each with its game", () => {
 
 const fullRanges = (rows) => new Map(rows.map((r) => [r.team, { best: 1, worst: rows.length }]));
 
+test("Poss. appears when only the best bound narrows from first to second", () => {
+  const rows = table(12);
+  const ranges = fullRanges(rows).set("TEAM 1", { best: 2, worst: 12 });
+  const html = renderStandings(rows, CUS, LOGOS, ranges);
+
+  assert.match(html, /<th class="poss"><abbr title="Posizioni finali ancora possibili">Poss\.<\/abbr><\/th>/);
+  assert.match(html, /<td class="poss">2ª-12ª<\/td>/);
+  assert.equal((html.match(/<td class="poss">1ª-12ª<\/td>/g) ?? []).length, 11);
+});
+
 
 test("standings: with every position still open, no 'Possibile' column and no 'Già deciso' block", () => {
   const rows = table(12);
