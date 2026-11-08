@@ -53,9 +53,10 @@ def test_build_ics_declares_rome_timezone_and_refresh_hint() -> None:
 
 
 def test_build_ics_escapes_commas_and_semicolons() -> None:
-    lines = unfold(build_ics(games=[game()], dtstamp=STAMP, page_url=PAGE_URL))
+    venue = {"name": "Palestra; Esperia", "address": "Via Pessagno snc 09126 CAGLIARI (CA)"}
+    lines = unfold(build_ics(games=[game(venue=venue)], dtstamp=STAMP, page_url=PAGE_URL))
 
-    assert "LOCATION:Palestra Esperia\\, Via Pessagno snc 09126 CAGLIARI (CA)" in lines
+    assert r"LOCATION:Palestra\; Esperia\, Via Pessagno snc 09126 CAGLIARI (CA)" in lines
 
 
 def test_build_ics_summary_carries_score_when_played() -> None:
@@ -176,7 +177,7 @@ def test_build_ics_description_is_one_escaped_line_with_every_part_in_order() ->
 
     assert (
         "DESCRIPTION:Serie C regionale\\, 3ª giornata di andata\\, gara n. 17"
-        "\\nArbitri: ROSSI MARIO di CAGLIARI (CA)\; BIANCHI LUCA di SASSARI (SS)"
+        "\\nArbitri: ROSSI MARIO di CAGLIARI (CA)\\; BIANCHI LUCA di SASSARI (SS)"
         "\\nModificata dalla FIP rispetto al comunicato ufficiale"
         f"\\nAggiornamenti: {PAGE_URL}"
     ) in lines
