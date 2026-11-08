@@ -109,3 +109,33 @@ test("suspensions: served in full once enough games have a result; other clubs' 
   const single = [round("A1", game(1, "2026-10-04", "SEF TORRES", "A", { home: 1, away: 0 }, { sanctions: ["soc. SEF TORRES A.S.D.:LUCA ROSSI squalifica per 1 gara per proteste"] }))];
   assert.deepEqual(suspensions("SEF TORRES", single).map((s) => [s.player, s.games, s.left]), [["LUCA ROSSI", 1, 1]]);
 });
+
+test("performance: with two losses the biggest is the widest by margin, not the closest to zero", () => {
+  const rounds = [
+    round("A1", game(1, "2026-10-04", TEAM, "A", { home: 55, away: 60 })),
+    round("A2", game(2, "2026-10-11", "B", TEAM, { home: 80, away: 65 })),
+    round("A3", game(3, "2026-10-18", TEAM, "C", { home: 62, away: 63 })),
+  ];
+
+  const p = performance(TEAM, rounds);
+
+  assert.deepEqual([p.biggestLoss.round, p.biggestLoss.own, p.biggestLoss.their], ["A2", 65, 80]);
+  assert.equal(p.biggestWin, null);
+});
+
+test("performance: with two wins the biggest is the widest by margin", () => {
+  const rounds = [
+    round("A1", game(1, "2026-10-04", TEAM, "A", { home: 61, away: 60 })),
+    round("A2", game(2, "2026-10-11", "B", TEAM, { home: 50, away: 70 })),
+  ];
+
+  assert.equal(performance(TEAM, rounds).biggestWin.round, "A2");
+});
+
+test("remaining: an opponent's position is unknown while the standings list nobody as having played", () => {
+  const rounds = [round("A1", game(1, "2026-10-04", TEAM, "SEF TORRES"))];
+  const notStarted = [{ position: 1, team: "SEF TORRES", played: 0 }, { position: 2, team: TEAM, played: 0 }];
+
+  assert.equal(remainingGames(TEAM, rounds, notStarted)[0].opponentPosition, null);
+  assert.equal(remainingGames(TEAM, rounds, STANDINGS)[0].opponentPosition, 1);
+});
