@@ -93,3 +93,19 @@ test("opponent sanctions: an unattributed text in the team's games is kept apart
 
   assert.deepEqual(opponentSanctions("SEF TORRES", rounds), { own: [], unattributed: [{ round: "A1", n: 3, text }] });
 });
+
+test("sanction: a word shared by both teams of the game is not distinctive, a word found in one team only is", () => {
+  const league = ["ALFA FOO", "BETA FOO", "GAMMA DELTA"];
+
+  assert.equal(attributeSanction("soc. FOO:Ammenda", "ALFA FOO", "BETA FOO", league), null);
+  assert.equal(attributeSanction("soc. ALFA FOO:Ammenda", "ALFA FOO", "BETA FOO", league), "home");
+  assert.equal(attributeSanction("soc. BETA FOO:Ammenda", "ALFA FOO", "BETA FOO", league), "away");
+});
+
+test("sanction: a word of one team that another club of the league also carries is not distinctive", () => {
+  const league = ["ALFA FOO", "BAR", "FOO ZED"];
+
+  // ALFA names the home team only, BAR the away team only; FOO also names a third club, so it breaks no tie
+  assert.equal(attributeSanction("soc. ALFA BAR FOO:Ammenda", "ALFA FOO", "BAR", league), null);
+  assert.equal(attributeSanction("soc. ALFA FOO:Ammenda", "ALFA FOO", "BAR", league), "home");
+});
