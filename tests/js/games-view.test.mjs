@@ -109,3 +109,75 @@ test("list: the hero hint only when the next game matches the home/away filter",
   assert.match(renderList(ctx, "home", "upcoming"), /Nessuna partita con questo filtro\./);
   assert.match(renderList(ctx, "away", "upcoming"), /è la prossima, in alto/);
 });
+
+test("card: Giudice Sportivo sanctions open a «Provvedimenti» card with the text escaped, none without them", () => {
+  const withSanctions = renderCard(played(4, "2026-10-03", 70, 60, { sanctions: ["soc. X:Ammenda <b>250</b> & altro"] }), context([]));
+
+  assert.match(withSanctions, /<div class="sanc-card"><strong>Provvedimenti del Giudice Sportivo su questa gara<\/strong><ul><li>soc\. X:Ammenda &lt;b&gt;250&lt;\/b&gt; &amp; altro<\/li><\/ul><\/div>/);
+  assert.doesNotMatch(renderCard(played(4, "2026-10-03", 70, 60, { sanctions: [] }), context([])), /sanc-card/);
+  assert.doesNotMatch(renderCard(played(4, "2026-10-03", 70, 60), context([])), /Provvedimenti/);
+});
+
+test("card: a return game quotes the first leg score in the order of the first leg, home then away", () => {
+  const firstLeg = played(1, "2026-10-03", 50, 61, { home: "Avversario 1", away: "CUS Cagliari", is_home: false });
+  const returnGame = game(9, "2026-12-13", { round: "R1", away: "Avversario 1" });
+
+  const html = renderCard(returnGame, context([firstLeg, returnGame]));
+
+  assert.match(html, /<div class="leg">All'andata: Avversario 1 - CUS Cagliari 50-61<\/div>/);
+  assert.doesNotMatch(renderCard(firstLeg, context([firstLeg, returnGame])), /All'andata/);
+});
+
+test("card: an unofficial result is tagged «ufficioso» without the alert class", () => {
+  const html = renderCard(played(2, "2026-10-03", 70, 60, { status: "ufficioso" }), context([]));
+
+  assert.match(html, /<span class="tag prov">ufficioso<\/span>/);
+  assert.doesNotMatch(html, /tag prov alert/);
+});
+
+test("card: a suspended homologation is tagged with the alert class, a homologated result has no tag", () => {
+  const suspended = renderCard(played(2, "2026-10-03", 70, 60, { status: "sospesa" }), context([]));
+
+  assert.match(suspended, /<span class="tag prov alert">omologazione sospesa<\/span>/);
+  assert.doesNotMatch(renderCard(played(2, "2026-10-03", 70, 60), context([])), /tag prov/);
+});
+
+test("card: designated referees are listed, a designation not yet published says so, none shows nothing", () => {
+  const named = renderCard(game(2, "2026-10-11", { status: "designata", referees: ["Rossi Mario", "Bianchi <Luca>"] }), context([]));
+  const hidden = renderCard(game(2, "2026-10-11", { status: "designata-nonvisibile" }), context([]));
+
+  assert.match(named, /<div class="ref">Arbitri: Rossi Mario; Bianchi &lt;Luca&gt;<\/div>/);
+  assert.match(hidden, /<div class="ref pend">Arbitri designati; i nomi non sono ancora stati pubblicati\.<\/div>/);
+  assert.doesNotMatch(renderCard(game(2, "2026-10-11"), context([])), /class="ref/);
+});
+
+test("card: the CUS name is bold on its own side, home or away", () => {
+  const home = renderCard(game(2, "2026-10-11"), context([]));
+  const away = renderCard(game(3, "2026-10-11", { home: "Olimpia Cagliari", away: "CUS Cagliari", is_home: false }), context([]));
+
+  assert.match(home, /<strong>CUS Cagliari<\/strong>.*<em>-<\/em>.*Avversario 2/s);
+  assert.doesNotMatch(home, /<strong>Avversario/);
+  assert.match(away, /Olimpia Cagliari.*<em>-<\/em>.*<strong>CUS Cagliari<\/strong>/s);
+  assert.doesNotMatch(away, /<strong>Olimpia/);
+});
+
+test("list: a break goes before the first game after it, under its month heading", () => {
+  const ctx = context([played(1, "2026-12-20", 70, 60), game(2, "2027-01-10")], { breaks: [["2026-12-24", "Pausa natalizia"]] });
+
+  const html = renderList(ctx, "all", "all");
+
+  assert.match(html, /<h2>dicembre 2026<\/h2>.*Gara n\. 1.*<p class="sosta">Pausa natalizia<\/p><h2>gennaio 2027<\/h2>.*Gara n\. 2/s);
+});
+
+test("hero: once every game has a result the season is over", () => {
+  assert.match(renderNext(context([played(1, "2026-10-03", 55, 62)])), /<div class='m'>Stagione regolare conclusa<\/div>/);
+  assert.doesNotMatch(renderNext(context([game(2, "2026-10-11")])), /Stagione regolare conclusa/);
+});
+
+test("form strip: several games read «Ultime N» with one badge each", () => {
+  const html = renderForm(formSummary([played(1, "2026-10-03", 70, 60), played(2, "2026-10-10", 50, 61), played(3, "2026-10-17", 80, 70)]));
+
+  assert.match(html, /<b>2-1<\/b> vinte e perse/);
+  assert.match(html, /Ultime 3: <span class="badge win" title="Vittoria">V<\/span><span class="badge loss" title="Sconfitta">P<\/span><span class="badge win"/);
+  assert.doesNotMatch(html, /Ultima:/);
+});
