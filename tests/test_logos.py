@@ -288,3 +288,29 @@ def test_shrink_logo_transparent_background_counts_as_white_page() -> None:
 
     with Image.open(BytesIO(shrink_logo(out.getvalue()))) as shrunk:
         assert shrunk.size == (100, 120)
+
+
+def test_sync_logos_value_error_keeps_old_file_and_downloads_other_crest(tmp_path: Path) -> None:
+    old_file = tmp_path / "cus-cagliari.png"
+    old_file.write_bytes(b"previous crest")
+    entry = {"file": "logos/cus-cagliari.png", "source": DINAMO_URL}
+    downloads: list[str] = []
+
+    def download(url: str) -> bytes:
+        downloads.append(url)
+        if url == CUS_URL:
+            raise ValueError("logo response exceeds size limit")
+        return crest()
+
+    logos = sync_logos(
+        sources={"CUS CAGLIARI": CUS_URL, "POL. DINAMO": DINAMO_URL},
+        previous={"CUS CAGLIARI": entry}, directory=tmp_path, download=download,
+    )
+
+    assert downloads == [CUS_URL, DINAMO_URL]
+    assert logos == {
+        "CUS CAGLIARI": entry,
+        "POL. DINAMO": {"file": "logos/pol-dinamo.png", "source": DINAMO_URL},
+    }
+    assert old_file.read_bytes() == b"previous crest"
+    assert Image.open(tmp_path / "pol-dinamo.png").format == "PNG"
