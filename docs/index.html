@@ -125,7 +125,8 @@ function showForm(){
 function renderStandingsBox(rows){
  const el=$("standings");
  el.hidden=false;
- el.innerHTML=renderStandings(rows,FIP_TEAM,ctx.logos,positionRanges(rows,ctx.rounds));
+ ctx.ranges=positionRanges(rows,ctx.rounds);
+ el.innerHTML=renderStandings(rows,FIP_TEAM,ctx.logos,ctx.ranges);
 }
 function setRound(i){
  const sel=$("round-select");
@@ -242,12 +243,19 @@ async function load(){
 const dlg=$("opp-dlg");
 let oppTeam=null, oppTrigger=null;
 // a re-render (late box scores, reload) keeps the reader's scroll position
-const showOpponent=()=>{if(!oppTeam) return;const y=dlg.scrollTop;$("opp-body").innerHTML=renderOpponent(oppTeam,ctx);dlg.scrollTop=y};
+// and the blocks they opened (same team, same sections, so the same order)
+const showOpponent=()=>{if(!oppTeam) return;const y=dlg.scrollTop,body=$("opp-body");
+ const opened=[...body.querySelectorAll("details")].map(d=>d.open);
+ body.innerHTML=renderOpponent(oppTeam,ctx);
+ if(dlg.open) body.querySelectorAll("details").forEach((d,i)=>{d.open=opened[i]??false});
+ dlg.scrollTop=y};
 $("opp-close").onclick=()=>dlg.close();
 // the dialog itself is hit only on the backdrop: .opp-in covers its whole box
 dlg.onclick=e=>{if(e.target===dlg) dlg.close()};
-// a reload while open replaces the hero, and its button with it: focus the new one
-dlg.onclose=()=>{if(!oppTrigger?.isConnected) document.querySelector("#next .opp-btn")?.focus()};
+// a reload while open re-renders the hero or the standings, and the button with it: focus the
+// new button of the same team in the same section
+let oppSection=null;
+dlg.onclose=()=>{if(!oppTrigger?.isConnected) (document.querySelector(`#${oppSection} [data-opponent="${CSS.escape(oppTeam)}"]`)??document.querySelector("#next .opp-btn"))?.focus()};
 const reload=()=>load().then(()=>loadBoxscores(applyBoxscores)).then(ok=>{ctx.boxscoresLoad=ok?"ready":"failed";if(dlg.open) showOpponent()});
 // section links: hidden while their section is, the one on screen marked as current
 const secnav=document.querySelector(".secnav");
@@ -298,7 +306,7 @@ document.querySelectorAll(".bar button[data-mode]").forEach(b=>b.onclick=()=>{mo
 // rendered markup: disclosure rows (round table, CUS players) and the scorers filter
 document.addEventListener("click",e=>{
  const o=e.target.closest("[data-opponent]");
- if(o){oppTeam=o.dataset.opponent;oppTrigger=o;showOpponent();dlg.showModal();return}
+ if(o){oppTeam=o.dataset.opponent;oppTrigger=o;oppSection=o.closest("[id]")?.id;showOpponent();dlg.showModal();return}
  const t=e.target.closest(".tbx,.pl-btn");
  if(t){const open=t.getAttribute("aria-expanded")!=="true";t.setAttribute("aria-expanded",open);$(t.getAttribute("aria-controls")).hidden=!open;return}
  const f=e.target.closest("[data-scorers]");

@@ -27,7 +27,7 @@ function usefulRanges(ranges, total) {
   return [...ranges.values()].some((r) => r.best > 1 || r.worst < total) ? ranges : null;
 }
 
-function zoneWords({ position, playoff, playout }) {
+export function zoneWords({ position, playoff, playout }) {
   const words = position === null ? [] : [ordinal(position)];
   if (playoff === true) return [...words, "ai playoff"];
   if (playout === true) return [...words, "ai playout"];
@@ -55,10 +55,11 @@ function standingsRow(r, rows, fipTeam, logos, starts, ranges) {
   const range = ranges?.get(r.team);
   const poss = ranges ? `<td class="poss">${range ? fmtRange(range) : ""}</td>` : "";
   // phones hide the column (styles.css) and read the range under the name instead
-  const possSm = range ? `<small class="poss-sm">Possibile ${fmtRange(range)}</small>` : "";
+  // the leading space keeps the button's accessible name readable ("Team 1 Possibile ...")
+  const possSm = range ? ` <small class="poss-sm">Possibile ${fmtRange(range)}</small>` : "";
   const cls = `${r.team === fipTeam ? "me" : ""} ${isStandingsCut(r.position, rows.length) ? "cut" : ""}`;
   const mark = crestHtml(logos, r.team) || `<span class="initials" aria-hidden="true">${esc(teamInitials(r.team))}</span>`;
-  return `${zone}<tr class="${cls}"><td>${r.position}</td><td><span class="tm">${mark}<span>${esc(displayTeamName(r.team))}${possSm}</span></span></td><td>${r.points}</td><td class="gp">${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td class="pfps">${r.points_for}</td><td class="pfps">${r.points_against}</td><td>${signed(r.points_for - r.points_against)}</td>${poss}</tr>`;
+  return `${zone}<tr class="${cls}"><td>${r.position}</td><td><span class="tm">${mark}<button type="button" class="opp-btn tm-btn" data-opponent="${esc(r.team)}" aria-haspopup="dialog"><span class="sr-only">Scheda squadra: </span>${esc(displayTeamName(r.team))}${possSm}</button></span></td><td>${r.points}</td><td class="gp">${r.played}</td><td>${r.won}</td><td>${r.lost}</td><td class="pfps">${r.points_for}</td><td class="pfps">${r.points_against}</td><td>${signed(r.points_for - r.points_against)}</td>${poss}</tr>`;
 }
 
 export function renderStandings(rows, fipTeam, logos, allRanges = null) {

@@ -34,9 +34,10 @@ function detailRow(p, i) {
 }
 
 // Ages are the ones reached in the first year of the 2026/27 season
-const SEASON_START_YEAR = 2026;
+export const SEASON_START_YEAR = 2026;
 const ROLE_PLURALS = { guardia: "guardie", "ala piccola": "ali piccole", "ala forte": "ali forti", centro: "centri" };
-const roleCount = ({ role, count }) => `${count} ${count === 1 ? role : ROLE_PLURALS[role] ?? role}`;
+// role is playbasket.it text: escaped like every other string from the page
+const roleCount = ({ role, count }) => `${count} ${esc(count === 1 ? role : ROLE_PLURALS[role] ?? role)}`;
 const playersCount = (n) => `${n} ${n === 1 ? "giocatore" : "giocatori"}`;
 
 function missingNote({ withoutAge, withoutRole }) {
@@ -48,7 +49,7 @@ function missingNote({ withoutAge, withoutRole }) {
 }
 
 // One line on the roster as a whole: every player listed in at least one CUS box score
-function rosterLine(players) {
+export function rosterLine(players) {
   const r = rosterProfile(players, SEASON_START_YEAR);
   const span = r.oldest === r.youngest ? `nati nel ${r.oldest}` : `nati fra il ${r.oldest} e il ${r.youngest}`;
   const age = r.averageAge === null ? "" : `, età media ${fmtAvg(r.averageAge).replace(/,0$/, "")} anni (${span})`;

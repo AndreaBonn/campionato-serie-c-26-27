@@ -1,5 +1,5 @@
 // Pure rules of the opponent card: no DOM, no browser API, tested with node --test.
-import { scorers } from "./scorer-rules.js";
+import { cusPlayerStats } from "./cus-stats-rules.js";
 
 const byStart = (a, b) => (a.date + a.time).localeCompare(b.date + b.time);
 const leagueGames = (rounds) => rounds.flatMap((r) => r.games.map((g) => ({ ...g, round: r.round })));
@@ -21,7 +21,8 @@ export function opponentGames(team, rounds) {
 // fetch is an error, not an empty list: it says so unless earlier box scores are still shown.
 export function scorersState(boxscores, rounds, team, load) {
   if (load === "loading") return { state: "loading", rows: [] };
-  const rows = scorers(boxscores, rounds).filter((r) => r.team === team);
+  // every player listed for this team, a mid-season move counted on both sides
+  const rows = cusPlayerStats(boxscores, rounds, team).players;
   if (rows.length) return { state: "list", rows };
   return { state: load === "failed" ? "failed" : "empty", rows };
 }

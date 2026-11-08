@@ -39,7 +39,7 @@ test("opponent games: games without a score and other teams' games are left out"
 test("scorers state: loading until boxscores.json is settled, then the list, empty, or failed with nothing to show", () => {
   const rounds = [round("A1", game(1, "2026-10-03", "TEAM A", "TEAM B"))];
   const side = (id, pts) => ({ team: "x", players: [{ id, number: "", name: "P " + id, role: "", age: "", pts }] });
-  const boxscores = { 1: { home: side("a1", 12), away: side("b1", 9) } };
+  const boxscores = { 1: { fip_score: { home: 12, away: 9 }, home: side("a1", 12), away: side("b1", 9) } };
 
   assert.deepEqual(scorersState({}, rounds, "TEAM A", "loading"), { state: "loading", rows: [] });
   assert.deepEqual(scorersState({}, rounds, "TEAM A", "ready"), { state: "empty", rows: [] });

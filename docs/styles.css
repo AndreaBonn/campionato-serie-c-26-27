@@ -269,3 +269,18 @@ body:has(.update-notice:not([hidden])) .wrap{padding-bottom:180px}
 .opp-sanc{font-size:13px}
 .opp-sanc ul{margin:0;padding-left:18px}
 .opp-sanc details.sanc{margin:8px 0 0}
+.tm-btn{text-align:left;padding:8px 0;text-decoration-thickness:1px;text-underline-offset:3px}
+.opp-dlg .roster{font-size:14px;margin:0 0 6px}
+.opp-head p.opp-range{font-weight:600;color:var(--ink)}
+.opp-next small{color:var(--mut);font-size:12px}
+.opp-next td:first-child small{display:block}
+.opp-next .d{white-space:nowrap}
+.opp-next td:nth-child(2),.opp-next th:nth-child(2){text-align:left}
+.opp-scorers td small{display:block;font-size:12px;color:var(--mut)}
+.opp-scorers td:nth-child(n+2),.opp-scorers th:nth-child(n+2){text-align:right}
+.opp-vs table{border-left:3px solid var(--brand-mut)}
+.opp-more{margin:16px 0 0;font-size:14px}
+.opp-more summary{font-weight:600;cursor:pointer;padding:12px 0}
+.opp-more ul,.opp-bans ul{margin:4px 0 0;padding-left:18px}
+.opp-bans{border-left:3px solid var(--loss);padding-left:10px;margin:0 0 10px}
+.opp-bans p{margin:0}
