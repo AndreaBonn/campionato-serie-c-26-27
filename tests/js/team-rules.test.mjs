@@ -139,3 +139,28 @@ test("remaining: an opponent's position is unknown while the standings list nobo
   assert.equal(remainingGames(TEAM, rounds, notStarted)[0].opponentPosition, null);
   assert.equal(remainingGames(TEAM, rounds, STANDINGS)[0].opponentPosition, 1);
 });
+
+test("performance: equal margins keep the earliest game", () => {
+  const rounds = [
+    round("A2", game(2, "2026-10-11", TEAM, "B", { home: 55, away: 65 })),
+    round("A1", game(1, "2026-10-04", TEAM, "A", { home: 50, away: 60 })),
+    round("A3", game(3, "2026-10-18", TEAM, "C", { home: 70, away: 60 })),
+    round("A4", game(4, "2026-10-25", TEAM, "D", { home: 80, away: 70 })),
+  ];
+
+  const p = performance(TEAM, rounds);
+
+  assert.equal(p.biggestLoss.round, "A1");
+  assert.equal(p.biggestWin.round, "A3");
+});
+
+test("suspensions: a ban of ten games is read in full, not as its first digit", () => {
+  const ten = "soc. SEF TORRES A.S.D.:LUCA ROSSI squalifica per 10 gare per aggressione";
+  const rounds = [
+    round("A1", game(1, "2026-10-04", "SEF TORRES", "A", { home: 70, away: 60 }, { sanctions: [ten] })),
+    round("A2", game(2, "2026-10-11", "B", "SEF TORRES", { home: 60, away: 50 })),
+    round("A3", game(3, "2026-10-18", "SEF TORRES", "C", { home: 60, away: 50 })),
+  ];
+
+  assert.deepEqual(suspensions("SEF TORRES", rounds), [{ player: "LUCA ROSSI", games: 10, round: "A1", n: 1, served: 2, left: 8 }]);
+});
