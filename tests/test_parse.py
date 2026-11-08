@@ -324,3 +324,13 @@ def test_parse_standings_distinct_numbers_preserves_column_meanings() -> None:
         position=4, team="CUS CAGLIARI", points=14, played=10, won=7, lost=3,
         points_for=821, points_against=756,
     )]
+
+
+def test_parse_matches_three_teams_raises_parse_error() -> None:
+    with pytest.raises(ParseError, match="expected 2 teams"):
+        parse_matches(match_block(teams=3))
+
+
+def test_parse_standings_nine_cells_raises_parse_error() -> None:
+    with pytest.raises(ParseError, match="unexpected standings row"):
+        parse_standings(standings_table([*STANDING_ROW, "123"]))
