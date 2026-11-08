@@ -277,3 +277,17 @@ def test_merge_game_preserves_round_and_status_description() -> None:
 
     assert game["round"] == "R1"
     assert game["status_text"] == "Gara non ancora designata"
+
+
+def test_build_data_cus_match_in_second_round_is_merged() -> None:
+    calendar = {"fip_team": TEAM, "venues": VENUES, "games": [BASE]}
+    other = replace(FIP, number=1, home="SEF TORRES", away="PALL. NUORO")
+
+    data = build_data(calendar=calendar, rounds={"A1": [other], "R1": [FIP]}, standings=[])
+
+    assert [(g["n"], g["round"], g["home"]) for g in data["games"]] == [
+        (69, "R1", "CUS Cagliari"),
+    ]
+    assert [(r["round"], [g["n"] for g in r["games"]]) for r in data["rounds"]] == [
+        ("A1", [1]), ("R1", [69]),
+    ]
