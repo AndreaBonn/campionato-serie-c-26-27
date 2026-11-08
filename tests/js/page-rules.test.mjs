@@ -295,6 +295,13 @@ test("team profile is null before the team's first result", () => {
 const table = (cusIndex, points) => points.map((p, i) => row(i + 1, i === cusIndex ? "CUS CAGLIARI" : "T" + i, p));
 const POINTS = [20, 18, 16, 14, 12, 10, 8, 8, 6, 4, 2, 0];
 
+test("days until counts one calendar day across the autumn clock change", () => {
+  const today = new Date("2027-10-30T00:00:00");
+
+  assert.equal(daysUntil(game({ date: "2027-10-31" }), today), 1);
+  assert.equal(daysUntil(game({ date: "2027-11-01" }), new Date("2027-10-31T00:00:00")), 1);
+});
+
 
 test("first leg picks andata even when a played return leg is listed first", () => {
   const andata = played(64, 71, { round: "A3" });
