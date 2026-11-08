@@ -7,6 +7,29 @@ process.env.TZ = "Europe/Rome";
 
 const CUS = "CUS CAGLIARI";
 
+test("standings rows mark CUS and both zone cuts", () => {
+  const html = renderStandings(table(12), CUS, LOGOS);
+
+  assert.match(html, /<tr class="me cut"><td>9<\/td>/);
+  assert.match(html, /<tr class=" cut"><td>8<\/td>/);
+  assert.match(html, /<tr class=" "><td>7<\/td>/);
+});
+
+test("round table marks unofficial and suspended scores with their warning level", () => {
+  const html = renderRoundTable({ games: [
+    fipGame(1, CUS, "A", { status: "ufficioso" }),
+    fipGame(2, "B", "C", { status: "sospesa" }),
+  ] }, CUS, {});
+
+  assert.match(html, /<small class="prov">ufficioso<\/small>/);
+  assert.match(html, /<small class="prov alert">omologazione sospesa<\/small>/);
+  assert.match(html, /<tr class="me"><td>[^<]+<\/td><td><b>CUS Cagliari<\/b> - A<\/td>/);
+});
+
+test("crest preserves the caller's extra CSS class", () => {
+  assert.match(crestHtml(LOGOS, CUS, "hero-crest"), /<img class="crest hero-crest" src="logos\/cus-cagliari.png"/);
+});
+
 const row = (position, team, extra = {}) => ({
   position, team, points: 2, played: 1, won: 1, lost: 0, points_for: 70, points_against: 60, ...extra,
 });
