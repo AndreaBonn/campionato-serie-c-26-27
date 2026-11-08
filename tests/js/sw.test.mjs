@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import vm from "node:vm";
 
@@ -217,4 +217,17 @@ test("install caches every stylesheet the page links, so the app opens styled of
   const cached = storage.get("cus-basket-dev");
   assert.deepEqual(sheets, ["styles.css"]);
   assert.deepEqual(sheets.filter((name) => !cached.has(new URL(name, PAGE).href)), []);
+});
+
+test("install: every cached file exists under docs/, one missing file would fail the whole install", async () => {
+  const { handlers, calls } = loadWorker();
+
+  await dispatchLifecycle(handlers.install);
+
+  const base = new URL(".", PAGE).href;
+  const paths = calls.shell.map((r) => r.url.slice(base.length) || "index.html");
+  const missing = paths.filter((p) => !existsSync(new URL("../../docs/" + p, import.meta.url)));
+  assert.ok(paths.includes("icons/icon-192.png"));
+  assert.ok(paths.length > 20);
+  assert.deepEqual(missing, []);
 });
