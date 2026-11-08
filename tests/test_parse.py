@@ -315,3 +315,12 @@ def test_parse_matches_crest_url_is_trimmed() -> None:
     [match] = parse_matches(html)
 
     assert (match.home_logo, match.away_logo) == ("https://backend.fip.it/a.png", "")
+
+
+def test_parse_standings_distinct_numbers_preserves_column_meanings() -> None:
+    html = standings_table(["4", "CUS CAGLIARI", "14", "10", "7", "3", "821", "756"])
+
+    assert parse_standings(html) == [Standing(
+        position=4, team="CUS CAGLIARI", points=14, played=10, won=7, lost=3,
+        points_for=821, points_against=756,
+    )]
