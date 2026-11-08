@@ -125,3 +125,32 @@ test("CUS players: different missing counts for age and role are given separatel
 
   assert.match(html, /età media 26 anni \(nati nel 2000\)\. Età mancante per 1 giocatore, ruolo per 2 giocatori\.<\/p>/);
 });
+
+test("CUS players: a player name from playbasket.it is escaped in the table", () => {
+  const hostile = "<img src=x onerror=alert(1)>";
+  const html = renderCusPlayers({ 1: boxscore([player(hostile, 12), player("Rossi", 4)]) }, [round(1, "2026-10-03")], TEAM);
+
+  assert.match(html, /<button type="button" class="pl-btn"[^>]*>&lt;img src=x onerror=alert\(1\)&gt;<\/button>/);
+  assert.match(html, />Rossi<\/button>/);
+  assert.doesNotMatch(html, /<img/);
+});
+
+test("CUS players: the detail row gives the average in wins and in losses, each in its own place", () => {
+  const lost = { round: "A2", games: [{ n: 2, date: "2026-10-10", home: TEAM, away: "OPPONENT 2", score: { home: 50, away: 60 } }] };
+  const rounds = [round(1, "2026-10-03"), lost, round(3, "2026-10-17")];
+  const boxscores = {
+    1: boxscore([player("Rossi", 20)]),
+    2: { status: "complete", fip_score: { home: 50, away: 60 }, home: side(player("Rossi", 6)), away: side() },
+    3: boxscore([player("Rossi", 10)]),
+  };
+
+  const html = renderCusPlayers(boxscores, rounds, TEAM);
+
+  assert.match(html, /<p>Media nelle vittorie: 15,0 · Media nelle sconfitte: 6,0\.<\/p>/);
+});
+
+test("CUS players: a dash for the average in losses of a player who never lost", () => {
+  const html = renderCusPlayers({ 1: boxscore([player("Rossi", 12)]) }, [round(1, "2026-10-03")], TEAM);
+
+  assert.match(html, /<p>Media nelle vittorie: 12,0 · Media nelle sconfitte: -\.<\/p>/);
+});
