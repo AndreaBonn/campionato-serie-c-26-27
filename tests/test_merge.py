@@ -270,3 +270,10 @@ def test_merge_game_without_sanctions_has_empty_list() -> None:
     game = merge_game(base=BASE, venues=VENUES, match=FIP, fip_team=TEAM)
 
     assert game["sanctions"] == []
+
+
+def test_merge_game_preserves_round_and_status_description() -> None:
+    game = merge_game(base=BASE, venues=VENUES, match=FIP, fip_team=TEAM)
+
+    assert game["round"] == "R1"
+    assert game["status_text"] == "Gara non ancora designata"
