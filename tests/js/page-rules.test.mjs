@@ -63,6 +63,10 @@ test("calendar stamp is the local wall-clock start", () => {
   assert.equal(calendarStamp(game()), "20261115T190000");
 });
 
+test("calendar stamp pads single-digit months and days", () => {
+  assert.equal(calendarStamp(game({ date: "2027-02-05", time: "09:05" })), "20270205T090500");
+});
+
 test("calendar stamp of a late game end rolls over to the next day", () => {
   assert.equal(calendarStamp(game({ time: "22:30" }), 2), "20261116T003000");
 });
