@@ -63,3 +63,8 @@ test("safe source url rejects a non-https, a different host and a script scheme"
   assert.equal(safeSourceUrl("javascript:alert(1)"), null);
   assert.equal(safeSourceUrl(null), null);
 });
+
+test("safe source url rejects a foreign page that only carries the playbasket.it address in its query", () => {
+  assert.equal(safeSourceUrl("https://evil.example/?u=https://www.playbasket.it/"), null);
+  assert.equal(safeSourceUrl("https://www.playbasket.it/?mn=6"), "https://www.playbasket.it/?mn=6");
+});
