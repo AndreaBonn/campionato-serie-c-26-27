@@ -4,6 +4,15 @@ import { test } from "node:test";
 import { decidedFacts, positionRanges } from "../../docs/standings-math.js";
 
 
+test("a settled leader's game still changes an open chaser's range", () => {
+  // A stays first. B loses the tie to C at 2 points, but passes C by beating A.
+  const games = rounds(g("C", "B", 80, 70), todo("A", "B"));
+  const ranges = positionRanges(table({ A: 10, B: 2, C: 2 }), games);
+
+  assert.deepEqual(range(ranges, "A"), [1, 1]);
+  assert.deepEqual(range(ranges, "B"), [2, 3]);
+});
+
 
 // played (homologated) game and game still to play
 const g = (home, away, hs, as) => ({ home, away, score: { home: hs, away: as }, status: "omologata" });
