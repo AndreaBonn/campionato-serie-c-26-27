@@ -797,3 +797,12 @@ def test_sync_boxscores_cet_midnight_passes_italian_day_and_real_sleep(
     assert client.sleep is time.sleep
     assert client.fetch is fetch.fetch_playbasket_match
     assert json.loads((tmp_path / "boxscores.json").read_text())["boxscores"] == {}
+
+
+def test_write_if_changed_completed_write_leaves_only_json(tmp_path: Path) -> None:
+    target = tmp_path / "data.json"
+
+    assert write_if_changed(path=target, data={"games": [69]}, now=NOW)
+
+    assert sorted(path.name for path in tmp_path.iterdir()) == ["data.json"]
+    assert json.loads(target.read_text()) == {"games": [69], "updated_at": NOW}
