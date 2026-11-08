@@ -223,3 +223,20 @@ def test_build_ics_timezone_uses_italian_last_sunday_dst_rules() -> None:
         "END:STANDARD",
         "END:VTIMEZONE",
     ]
+
+
+def test_build_ics_event_url_points_to_page() -> None:
+    lines = unfold(build_ics(games=[game()], dtstamp=STAMP, page_url=PAGE_URL))
+
+    assert f"URL:{PAGE_URL}" in lines
+
+
+def test_build_ics_description_marks_only_changed_games() -> None:
+    games = [game(changes=["time"]), game(n=18, changes=[])]
+    lines = unfold(build_ics(games=games, dtstamp=STAMP, page_url=PAGE_URL))
+    descriptions = [line for line in lines if line.startswith("DESCRIPTION:")]
+
+    assert len(descriptions) == 2
+    assert "Modificata dalla FIP" in descriptions[0]
+    assert "Modificata dalla FIP" not in descriptions[1]
+    assert "gara n. 18" in descriptions[1]
