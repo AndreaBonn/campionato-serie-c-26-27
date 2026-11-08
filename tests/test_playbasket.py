@@ -182,3 +182,9 @@ def test_parse_players_name_normalizes_inner_whitespace() -> None:
     players = parse_players(html=html, side=0)
 
     assert players[0].name == "Example Player"
+
+
+def test_parse_players_uppercase_hex_name_decodes_utf8() -> None:
+    players = parse_players(html=encoded_table(value="04C0C30B2"), side=0)
+
+    assert players[0].name == "Lò"
