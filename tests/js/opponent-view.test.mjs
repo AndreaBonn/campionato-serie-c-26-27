@@ -148,3 +148,14 @@ test("card: playbasket roles are escaped in the roster line and in the table", (
   assert.doesNotMatch(html, /<img src=x/);
   assert.match(html, /1 &lt;img src=x onerror=alert\(1\)&gt;/);
 });
+
+test("card: a ban whose games were all played after it reads «scontata»", () => {
+  const rounds = [
+    { round: "A1", games: [game(1, "2026-10-04", TEAM, CUS, { home: 58, away: 66 }, { sanctions: ["soc. A.S.D. OLIMPIA CAGLIARI:MARIO ROSSI squalifica per 1 gara per proteste"] })] },
+    { round: "A2", games: [game(2, "2026-10-11", "SEF TORRES", TEAM, { home: 60, away: 75 })] },
+  ];
+  const html = renderOpponent(TEAM, full({ rounds }));
+
+  assert.match(html, /<li>Mario Rossi: 1 gara di squalifica \(1ª and\.\), scontata<\/li>/);
+  assert.doesNotMatch(html, /da scontare<\/b>/);
+});
