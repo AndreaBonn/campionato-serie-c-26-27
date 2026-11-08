@@ -95,7 +95,7 @@ def test_collect_boxscores_skips_frozen_pages_and_stops_at_expected_match() -> N
     result = collect_boxscores(
         rounds=rounds, previous=previous, today=date(2026, 11, 1), client=expired.client(),
     )
-    assert result["6"] == {**previous["6"], "status": "incomplete"}
+    assert result == {**previous, "6": {**previous["6"], "status": "incomplete"}}
     assert previous["6"]["status"] == "partial"
     assert expired.calls == []
 
