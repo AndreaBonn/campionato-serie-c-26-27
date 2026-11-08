@@ -142,6 +142,23 @@ def test_app_version_changes_when_a_file_is_renamed(tmp_path: Path) -> None:
     assert app_version(docs) != before
 
 
+def test_app_version_does_not_depend_on_directory_listing_order(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    for name in ("a.html", "b.css", "c.js"):
+        (tmp_path / name).write_text(name, encoding="utf-8")
+    real_rglob = Path.rglob
+
+    def listed(reverse: bool) -> str:
+        monkeypatch.setattr(
+            Path, "rglob",
+            lambda self, pattern: iter(sorted(real_rglob(self, pattern), reverse=reverse)),
+        )
+        return app_version(tmp_path)
+
+    assert listed(reverse=False) == listed(reverse=True)
+
+
 def test_app_version_creation_order_does_not_change_twelve_character_hash(tmp_path: Path) -> None:
     first = tmp_path / "first"
     second = tmp_path / "second"
