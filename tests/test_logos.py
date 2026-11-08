@@ -314,3 +314,15 @@ def test_sync_logos_value_error_keeps_old_file_and_downloads_other_crest(tmp_pat
     }
     assert old_file.read_bytes() == b"previous crest"
     assert Image.open(tmp_path / "pol-dinamo.png").format == "PNG"
+
+
+def test_sync_logos_missing_nested_directory_creates_and_writes_crest(tmp_path: Path) -> None:
+    directory = tmp_path / "new" / "logos"
+
+    logos = sync_logos(
+        sources={"CUS CAGLIARI": CUS_URL}, previous={}, directory=directory,
+        download=lambda url: crest(),
+    )
+
+    assert logos == {"CUS CAGLIARI": {"file": "logos/cus-cagliari.png", "source": CUS_URL}}
+    assert Image.open(directory / "cus-cagliari.png").format == "PNG"
