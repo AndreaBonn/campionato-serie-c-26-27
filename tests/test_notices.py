@@ -196,3 +196,19 @@ def test_merge_notices_sorts_all_sources_newest_first() -> None:
 
 def test_merge_notices_no_sources_returns_empty() -> None:
     assert merge_notices() == []
+
+
+def test_select_notices_formula_accepts_c_regionale_and_requires_topic() -> None:
+    posts = [
+        post("C regionale: formula dei playoff", slug="regional"),
+        post("Serie C: calendario", slug="calendar"),
+    ]
+
+    notices = select_notices(posts=posts, since=SINCE, kind=KIND_FORMULA)
+
+    assert notices == [{
+        "date": "2026-10-20",
+        "title": "C regionale: formula dei playoff",
+        "link": "https://sardegna.fip.it/regional/",
+        "kind": "formula",
+    }]
