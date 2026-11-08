@@ -6021,7 +6021,43 @@
         "team": "S. Orsola Sassari",
         "players": []
       }
+    },
+    "31": {
+      "round": "A6",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 65,
+        "away": 73
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "33": {
+      "round": "A6",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 88,
+        "away": 90
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
+    },
+    "34": {
+      "round": "A6",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 66,
+        "away": 78
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-11-07T23:06:59+00:00"
+  "updated_at": "2026-11-08T20:00:16+00:00"
 }

@@ -196,13 +196,16 @@
         }
       },
       "changes": [],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
         "FIORIN GIANMARCO di CABRAS (OR)"
       ],
-      "score": null,
+      "score": {
+        "home": 65,
+        "away": 73
+      },
       "sanctions": [],
       "fip_opponent": "FERRINI PISANO ARREDAMENTI"
     },
@@ -1242,8 +1245,11 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-08",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 65,
+            "away": 73
+          },
           "referees": [
             "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
             "FIORIN GIANMARCO di CABRAS (OR)"
@@ -1273,8 +1279,11 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-08",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 88,
+            "away": 90
+          },
           "referees": [
             "MAMELI MARCO di ITTIRI (SS)",
             "MASIA LEONARDO ANTONIO di PORTO TORRES (SS)"
@@ -1287,8 +1296,11 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-11-08",
           "time": "18:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 66,
+            "away": 78
+          },
           "referees": [
             "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
@@ -2627,5 +2639,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-07T23:06:59+00:00"
+  "updated_at": "2026-11-08T20:00:16+00:00"
 }
