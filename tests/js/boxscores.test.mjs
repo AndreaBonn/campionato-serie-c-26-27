@@ -5,6 +5,14 @@ import { loadBoxscores, renderBoxscoreBody, renderScorers } from "../../docs/box
 
 const CUS = "CUS CAGLIARI";
 
+test("scorers without a team filter press Tutto il girone", () => {
+  const { boxscores, rounds } = manyScorers(2);
+  const html = renderScorers(boxscores, rounds, CUS);
+
+  assert.match(html, /data-scorers="" aria-pressed="true">Tutto il girone/);
+  assert.match(html, /data-scorers="CUS CAGLIARI" aria-pressed="false">Solo CUS/);
+});
+
 const player = (id, name, pts) => ({ id, number: "", name, role: "", age: "", pts });
 const side = (...players) => ({ team: "playbasket name", players });
 const game = (n, home = CUS, away = "OPPONENT") => ({ n, home, away, date: "2026-10-03" });
