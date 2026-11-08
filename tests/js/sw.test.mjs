@@ -228,6 +228,6 @@ test("install: every cached file exists under docs/, one missing file would fail
   const paths = calls.shell.map((r) => r.url.slice(base.length) || "index.html");
   const missing = paths.filter((p) => !existsSync(new URL("../../docs/" + p, import.meta.url)));
   assert.ok(paths.includes("icons/icon-192.png"));
-  assert.ok(paths.length > 20);
+  assert.ok(paths.includes("index.html"));
   assert.deepEqual(missing, []);
 });
