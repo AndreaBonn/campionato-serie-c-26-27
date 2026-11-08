@@ -159,3 +159,35 @@ test("card: a ban whose games were all played after it reads «scontata»", () =
   assert.match(html, /<li>Mario Rossi: 1 gara di squalifica \(1ª and\.\), scontata<\/li>/);
   assert.doesNotMatch(html, /da scontare<\/b>/);
 });
+
+test("card: an even average margin has no sign and a lost last game is a losing streak", () => {
+  const rounds = [
+    { round: "A1", games: [game(1, "2026-10-04", TEAM, "SEF TORRES", { home: 60, away: 55 })] },
+    { round: "A2", games: [game(2, "2026-10-11", CUS, TEAM, { home: 70, away: 65 })] },
+  ];
+  const html = renderOpponent(TEAM, full({ rounds }));
+
+  assert.match(html, /<li>Scarto medio: 0,0 punti a partita<\/li>/);
+  assert.match(html, /<li>Serie in corso: 1 sconfitta<\/li>/);
+});
+
+test("card: two wins in a row read «di fila» and no widest loss is listed", () => {
+  const rounds = [
+    { round: "A1", games: [game(1, "2026-10-04", TEAM, "SEF TORRES", { home: 60, away: 55 })] },
+    { round: "A2", games: [game(2, "2026-10-11", CUS, TEAM, { home: 65, away: 70 })] },
+  ];
+  const html = renderOpponent(TEAM, full({ rounds }));
+
+  assert.match(html, /<li>Serie in corso: 2 vittorie di fila<\/li>/);
+  assert.match(html, /Vittoria più larga:/);
+  assert.doesNotMatch(html, /Sconfitta più larga/);
+});
+
+test("card: a narrowed range with no settled zone shows the span without «matematicamente»", () => {
+  const ranges = new Map(Array.from({ length: 12 }, (_, i) => [`T${i}`, { best: 1, worst: 12 }]));
+  ranges.set(TEAM, { best: 4, worst: 11 });
+  const html = renderOpponent(TEAM, full({ ranges }));
+
+  assert.match(html, /Posizione finale possibile: fra la 4ª e la 11ª<\/p>/);
+  assert.doesNotMatch(html, /matematicamente/);
+});
