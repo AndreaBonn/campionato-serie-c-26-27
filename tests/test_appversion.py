@@ -140,3 +140,20 @@ def test_app_version_changes_when_a_file_is_renamed(tmp_path: Path) -> None:
     (docs / "index.html").rename(docs / "index2.html")
 
     assert app_version(docs) != before
+
+
+def test_app_version_creation_order_does_not_change_twelve_character_hash(tmp_path: Path) -> None:
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    first.mkdir()
+    second.mkdir()
+    files = [("index.html", b"page"), ("styles.css", b"style"), ("app.js", b"script")]
+    for name, content in files:
+        (first / name).write_bytes(content)
+    for name, content in reversed(files):
+        (second / name).write_bytes(content)
+
+    version = app_version(first)
+
+    assert version == app_version(second)
+    assert len(version) == 12
