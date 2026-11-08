@@ -296,6 +296,21 @@ const table = (cusIndex, points) => points.map((p, i) => row(i + 1, i === cusInd
 const POINTS = [20, 18, 16, 14, 12, 10, 8, 8, 6, 4, 2, 0];
 
 
+test("first leg picks andata even when a played return leg is listed first", () => {
+  const andata = played(64, 71, { round: "A3" });
+  const ritorno = played(80, 60, { round: "R3", home: "CUS Cagliari", away: "Olimpia Cagliari", is_home: true });
+
+  assert.equal(firstLegOf(ritorno, [ritorno, andata]), andata);
+});
+
+test("ninth of twelve is outside playoffs and two points behind eighth", () => {
+  assert.deepEqual(zoneStatus(table(8, POINTS), "CUS CAGLIARI"), {
+    position: 9,
+    playoff: { inside: false, margin: -2 },
+    playout: { inside: false, margin: 2, firstOut: 10 },
+  });
+});
+
 
 test("zone status inside the playoff spots: margin over the 9th and over the playout", () => {
   assert.deepEqual(zoneStatus(table(5, POINTS), "CUS CAGLIARI"), {
