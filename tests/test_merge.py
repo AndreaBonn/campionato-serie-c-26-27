@@ -291,3 +291,12 @@ def test_build_data_cus_match_in_second_round_is_merged() -> None:
     assert [(r["round"], [g["n"] for g in r["games"]]) for r in data["rounds"]] == [
         ("A1", [1]), ("R1", [69]),
     ]
+
+
+def test_merge_game_venue_name_strips_surrounding_whitespace() -> None:
+    spaced = replace(FIP, venue="  PALACUS  ,  Via Is Mirrionis 3  ")
+
+    game = merge_game(base=BASE, venues=VENUES, match=spaced, fip_team=TEAM)
+
+    assert game["venue"] == {"name": "PALACUS", "address": "Via Is Mirrionis 3"}
+    assert game["changes"] == []
