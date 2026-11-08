@@ -100,6 +100,23 @@ def test_collect_boxscores_skips_frozen_pages_and_stops_at_expected_match() -> N
     assert expired.calls == []
 
 
+def test_collect_boxscores_wrong_hint_skips_pages_of_frozen_games() -> None:
+    rounds = load_rounds()
+    previous = collect_boxscores(
+        rounds=rounds, previous={}, today=TODAY, client=FixtureClient().client(),
+    )
+    del previous["6"]
+    rounds[0]["games"] = [game for game in rounds[0]["games"] if game["n"] == 6]
+    fake = FixtureClient()
+
+    result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY, client=fake.client())
+
+    assert fake.calls == [(1, 1, 6)]
+    assert result["6"]["mn"] == 6
+    assert result["6"]["status"] == "complete"
+    assert {n: entry for n, entry in result.items() if n != "6"} == previous
+
+
 def test_collect_boxscores_searches_remaining_pages_when_hint_is_wrong() -> None:
     rounds = load_rounds()
     rounds[0]["games"] = [game for game in rounds[0]["games"] if game["n"] == 6]
