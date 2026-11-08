@@ -245,6 +245,45 @@ def test_collect_boxscores_read_errors_keep_previous_state(failure: Exception) -
     assert result == previous
 
 
+def test_collect_boxscores_partial_exactly_14_days_old_stays_partial_on_failure() -> None:
+    rounds = [make_round(code="A1", number=1, game_date="2026-10-04")]
+    previous = {"1": saved_entry(code="A1")}
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        raise URLError(reason="offline")
+
+    result = collect_boxscores(
+        rounds=rounds, previous=previous, today=TODAY,
+        client=PlaybasketClient(fetch=fetch, sleep=lambda _: None),
+    )
+
+    assert result == previous
+    assert result["1"]["status"] == "partial"
+    assert calls == [1]
+
+
+def test_collect_boxscores_expired_partial_with_changed_score_stays_partial_on_failure() -> None:
+    rounds = [make_round(code="A1", number=1)]
+    previous = {"1": saved_entry(code="A1")}
+    previous["1"]["fip_score"] = {"home": 0, "away": 20}
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        raise URLError(reason="offline")
+
+    result = collect_boxscores(
+        rounds=rounds, previous=previous, today=TODAY,
+        client=PlaybasketClient(fetch=fetch, sleep=lambda _: None),
+    )
+
+    assert result == previous
+    assert result["1"]["status"] == "partial"
+    assert calls == [1]
+
+
 def test_collect_boxscores_failed_page_still_freezes_expired_partial_of_the_round() -> None:
     rounds = [make_round(code="A1", number=1)]
     rounds[0]["games"] += make_round(code="A1", number=2, game_date="2026-10-17")["games"]
