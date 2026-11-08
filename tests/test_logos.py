@@ -326,3 +326,10 @@ def test_sync_logos_missing_nested_directory_creates_and_writes_crest(tmp_path: 
 
     assert logos == {"CUS CAGLIARI": {"file": "logos/cus-cagliari.png", "source": CUS_URL}}
     assert Image.open(directory / "cus-cagliari.png").format == "PNG"
+
+
+def test_shrink_logo_webp_crest_is_converted_to_png() -> None:
+    scan = image_bytes(size=(100, 100), box=(20, 30, 60, 80), fmt="WEBP")
+
+    with Image.open(BytesIO(shrink_logo(scan))) as logo:
+        assert logo.format == "PNG"
