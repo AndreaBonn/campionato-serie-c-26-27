@@ -154,3 +154,19 @@ test("CUS players: a dash for the average in losses of a player who never lost",
 
   assert.match(html, /<p>Media nelle vittorie: 12,0 · Media nelle sconfitte: -\.<\/p>/);
 });
+
+test("CUS players: the roster line pluralises guard, power forward and center in Italian", () => {
+  const two = (role, id) => [1, 2].map((i) => ({ id: id + i, name: id + i, role, age: "'00", pts: 4 }));
+  const players = [...two("guardia", "g"), ...two("ala forte", "f"), ...two("centro", "c")];
+  const html = renderCusPlayers({ 1: boxscore(players) }, [round(1, "2026-10-03")], TEAM);
+
+  assert.match(html, /Ruoli: 2 guardie, 2 ali forti, 2 centri\.<\/p>/);
+});
+
+test("CUS players: every detail row spans the eight columns of the table", () => {
+  const html = renderCusPlayers({ 1: boxscore([player("Rossi", 12)]) }, [round(1, "2026-10-03")], TEAM);
+  const header = html.match(/<thead><tr>(.*?)<\/tr><\/thead>/)[1];
+
+  assert.equal((header.match(/<th/g) ?? []).length, 8);
+  assert.match(html, /<tr class="pl-detail" id="pl-0" hidden><td colspan="8">/);
+});
