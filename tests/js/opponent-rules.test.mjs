@@ -109,3 +109,12 @@ test("sanction: a word of one team that another club of the league also carries 
   assert.equal(attributeSanction("soc. ALFA BAR FOO:Ammenda", "ALFA FOO", "BAR", league), null);
   assert.equal(attributeSanction("soc. ALFA FOO:Ammenda", "ALFA FOO", "BAR", league), "home");
 });
+
+test("opponent sanctions: listed oldest game first even when the rounds come in another order", () => {
+  const rounds = [
+    round("A2", game(8, "2026-10-11", "SCUOLA BASKET CARBONIA", "PALL. NUORO", { home: 66, away: 64 }, { sanctions: [NUORO_FINE] })),
+    round("A1", game(3, "2026-10-03", "PALL. NUORO", "SEF TORRES", { home: 70, away: 60 }, { sanctions: [NUORO_FINE] })),
+  ];
+
+  assert.deepEqual(opponentSanctions("PALL. NUORO", rounds).own.map((s) => s.round), ["A1", "A2"]);
+});

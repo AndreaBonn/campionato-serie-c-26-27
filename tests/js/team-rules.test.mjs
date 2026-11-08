@@ -164,3 +164,14 @@ test("suspensions: a ban of ten games is read in full, not as its first digit", 
 
   assert.deepEqual(suspensions("SEF TORRES", rounds), [{ player: "LUCA ROSSI", games: 10, round: "A1", n: 1, served: 2, left: 8 }]);
 });
+
+test("suspensions: oldest game first even when the rounds come in another order, served counted after each", () => {
+  const ban = (name) => `soc. SEF TORRES A.S.D.:${name} squalifica per 3 gare per proteste`;
+  const rounds = [
+    round("A3", game(3, "2026-10-18", "SEF TORRES", "C", { home: 60, away: 50 })),
+    round("A2", game(2, "2026-10-11", "B", "SEF TORRES", { home: 60, away: 50 }, { sanctions: [ban("PAOLO NERI")] })),
+    round("A1", game(1, "2026-10-04", "SEF TORRES", "A", { home: 70, away: 60 }, { sanctions: [ban("LUCA ROSSI")] })),
+  ];
+
+  assert.deepEqual(suspensions("SEF TORRES", rounds).map((s) => [s.player, s.round, s.served]), [["LUCA ROSSI", "A1", 2], ["PAOLO NERI", "A2", 1]]);
+});
