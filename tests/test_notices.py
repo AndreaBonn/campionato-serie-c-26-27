@@ -212,3 +212,14 @@ def test_select_notices_formula_accepts_c_regionale_and_requires_topic() -> None
         "link": "https://sardegna.fip.it/regional/",
         "kind": "formula",
     }]
+
+
+def test_select_notices_play_out_title_strips_surrounding_spaces() -> None:
+    notices = select_notices(posts=[post("  Serie C: date dei play-out \n")], since=SINCE)
+
+    assert notices == [{
+        "date": "2026-10-20",
+        "title": "Serie C: date dei play-out",
+        "link": "https://sardegna.fip.it/x/",
+        "kind": "formula",
+    }]
