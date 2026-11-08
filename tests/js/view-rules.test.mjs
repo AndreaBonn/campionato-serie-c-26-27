@@ -82,3 +82,9 @@ test("last played: the latest game with a result, null before the first", () => 
   assert.equal(lastPlayed([g(1, { home: 1, away: 0 }), g(2, { home: 2, away: 1 }), g(3, null)]).n, 2);
   assert.equal(lastPlayed([g(1, null)]), null);
 });
+
+test("relative age: exactly 24 hours reads «ieri», a minute less still counts in hours", () => {
+  assert.equal(relativeAge(ago(DAY), NOW), "ieri");
+  assert.equal(relativeAge(ago(DAY - MIN), NOW), "23 ore fa");
+  assert.equal(relativeAge(ago(2 * DAY), NOW), "2 giorni fa");
+});
