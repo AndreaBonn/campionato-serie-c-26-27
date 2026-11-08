@@ -146,14 +146,15 @@ def match_round(fip_games: list[FipGame], pages: dict[int, PbHeader]) -> MatchRe
 def classify(
     totals: tuple[int, int] | None, fip_score: FipScore, game_date: date, today: date,
 ) -> BoxscoreStatus:
-    """Classify a fresh attempt; None totals mean no matched page."""
-    if totals is None:
-        return BOXSCORE_STATUS_UNMATCHED
+    """Classify a fresh attempt; None totals mean no matched page.
+
+    Past the retry window anything short of a complete match is incomplete.
+    """
     if totals == (fip_score["home"], fip_score["away"]):
         return BOXSCORE_STATUS_COMPLETE
-    if (today - game_date).days <= BOXSCORE_RETRY_DAYS:
-        return BOXSCORE_STATUS_PARTIAL
-    return BOXSCORE_STATUS_INCOMPLETE
+    if (today - game_date).days > BOXSCORE_RETRY_DAYS:
+        return BOXSCORE_STATUS_INCOMPLETE
+    return BOXSCORE_STATUS_UNMATCHED if totals is None else BOXSCORE_STATUS_PARTIAL
 
 
 def _needs_attempt(game: ScheduledGame, entry: BoxscoreEntry | None, today: date) -> bool:

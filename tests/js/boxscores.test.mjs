@@ -60,6 +60,17 @@ test("scorers: the note counts the incomplete box scores, and is silent when the
   assert.doesNotMatch(renderScorers(complete, rounds, CUS), /incompleti/);
 });
 
+test("scorers: a game frozen as incomplete without a matched page is not counted as a box score", () => {
+  const rounds = [{ round: "A1", games: [game(1), game(2, "X", "Y"), game(3, "Z", "W")] }];
+  const boxscores = {
+    1: entry({ status: "partial" }),
+    2: entry({ status: "incomplete", mn: null, url: null, home: null, away: null }),
+    3: entry({ status: "incomplete" }),
+  };
+
+  assert.match(renderScorers(boxscores, rounds, CUS), / 2 tabellini incompleti\./);
+});
+
 test("scorers: CUS rows are highlighted, averages in Italian format, a dash for a player who never entered", () => {
   const rounds = [{ round: "A1", games: [game(1)] }, { round: "A2", games: [game(2, "X", CUS)] }];
   const boxscores = {

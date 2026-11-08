@@ -137,7 +137,8 @@ def test_match_round_empty_pages_reports_no_candidate() -> None:
         ((62, 54), date(2026, 10, 17), "partial"),
         ((61, 54), date(2026, 10, 18), "incomplete"),
         (None, date(2026, 10, 7), "unmatched"),
-        (None, date(2026, 10, 18), "unmatched"),
+        (None, date(2026, 10, 17), "unmatched"),
+        (None, date(2026, 10, 18), "incomplete"),
     ],
 )
 def test_classify_totals_and_retry_boundary_return_status(

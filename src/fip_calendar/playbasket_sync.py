@@ -20,6 +20,7 @@ from fip_calendar.config import (
     BOXSCORE_RETRY_DAYS,
     BOXSCORE_STATUS_INCOMPLETE,
     BOXSCORE_STATUS_PARTIAL,
+    BOXSCORE_STATUS_UNMATCHED,
     PLAYBASKET_DELAY_S,
     PLAYBASKET_FIRST_HALF,
     PLAYBASKET_MATCHES_PER_ROUND,
@@ -131,7 +132,7 @@ def _freeze_expired(
             expired = (today - date.fromisoformat(game["date"])).days > BOXSCORE_RETRY_DAYS
             if (
                 entry
-                and entry["status"] == BOXSCORE_STATUS_PARTIAL
+                and entry["status"] in (BOXSCORE_STATUS_PARTIAL, BOXSCORE_STATUS_UNMATCHED)
                 and expired
                 and game["score"] == entry["fip_score"]
             ):

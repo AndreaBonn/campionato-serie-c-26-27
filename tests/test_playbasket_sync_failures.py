@@ -54,6 +54,56 @@ def test_collect_boxscores_network_outage_preserves_previous_and_counts_attempts
     assert "playbasket: 1 pages requested" in caplog.text
 
 
+def unmatched_entry(code: str) -> BoxscoreEntry:
+    entry = saved_entry(code=code, status="unmatched")
+    entry["mn"] = None
+    entry["url"] = None
+    return entry
+
+
+def test_collect_boxscores_unmatched_past_the_window_is_frozen_as_incomplete() -> None:
+    rounds = [make_round(code="A1", number=1, game_date="2026-10-03")]
+    previous = {"1": unmatched_entry(code="A1")}
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        return PAGE
+
+    result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
+                               client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+    assert result == {"1": {**previous["1"], "status": "incomplete"}}
+    assert calls == []
+
+
+def test_collect_boxscores_frozen_unmatched_reopens_when_the_fip_score_changes() -> None:
+    rounds = [make_round(code="A1", number=1, game_date="2026-10-03")]
+    previous = {"1": unmatched_entry(code="A1")}
+    previous["1"]["status"] = "incomplete"
+    previous["1"]["fip_score"] = {"home": 60, "away": 55}
+    calls: list[int] = []
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        calls.append(mn)
+        raise URLError(reason="offline")
+
+    collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
+                      client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+    assert calls == [1]
+
+
+def test_collect_boxscores_unmatched_inside_the_window_stays_unmatched() -> None:
+    rounds = [make_round(code="A1", number=1, game_date="2026-10-04")]
+    previous = {"1": unmatched_entry(code="A1")}
+
+    def fetch(half: int, round_number: int, mn: int) -> str:
+        raise URLError(reason="offline")
+
+    result = collect_boxscores(rounds=rounds, previous=previous, today=TODAY,
+                               client=PlaybasketClient(fetch=fetch, sleep=lambda _: None))
+    assert result == previous
+
+
 @pytest.mark.parametrize(argnames="broken", argvalues=["<html></html>", BROKEN_PLAYERS])
 def test_collect_boxscores_parse_failure_rolls_back_entire_round(
     broken: str, caplog: pytest.LogCaptureFixture,
@@ -97,7 +147,8 @@ def test_collect_boxscores_budget_stops_at_40_without_freezing_unvisited_games(
     ]
     assert sleeps == [5.0] * 39
     assert set(result) == {str(n) for n in range(1, 7)}
-    assert result["1"] == {"round": "A1", "status": "unmatched",
+    # no page matched and the game is past its 14 days: frozen at the first attempt
+    assert result["1"] == {"round": "A1", "status": "incomplete",
                            "fip_score": {"home": 62, "away": 55},
                            "mn": None, "url": None, "home": None, "away": None}
     assert "playbasket: 40 pages requested" in caplog.text

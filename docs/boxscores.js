@@ -59,8 +59,10 @@ function scorersFilter(rows, fipTeam, only) {
   return `<div class="fchips" role="group" aria-label="Filtra i marcatori">${chip("", "Tutto il girone")}${chip(fipTeam, "Solo CUS")}<select data-scorers-team aria-label="Marcatori di una squadra"><option value="">Per squadra</option>${options}</select></div>`;
 }
 
-// Matched box scores still short of the FIP score, for the note under the table (plan.md A6)
-const incompleteCount = (boxscores) => Object.values(boxscores).filter((e) => INCOMPLETE_STATUSES.has(e.status)).length;
+// Matched box scores still short of the FIP score, for the note under the table (plan.md A6).
+// An unmatched game frozen as incomplete has no rosters: it is not a box score to count.
+const incompleteCount = (boxscores) =>
+  Object.values(boxscores).filter((e) => e.home && e.away && INCOMPLETE_STATUSES.has(e.status)).length;
 
 // League scorers table, rendered after "Risultati del girone". The caller decides when to show
 // the section (hidden until boxscores.json loads); here only the empty state before the first
