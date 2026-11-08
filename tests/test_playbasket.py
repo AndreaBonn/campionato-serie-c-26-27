@@ -164,3 +164,21 @@ def test_parse_players_malformed_encoded_name_raises_parse_error(value: str) -> 
     assert parse_players(html=encoded_table(value="042"), side=0)[0].name == "B"
     with pytest.raises(expected_exception=PlaybasketParseError, match="encoded name"):
         parse_players(html=encoded_table(value=value), side=0)
+
+
+def test_parse_players_jersey_number_is_preserved() -> None:
+    html = player_table(info="").replace("&nbsp;", "23")
+
+    players = parse_players(html=html, side=0)
+
+    assert players == (
+        PbPlayer(id="173425", number="23", name="Example Player", role="", age="", pts=12),
+    )
+
+
+def test_parse_players_name_normalizes_inner_whitespace() -> None:
+    html = player_table(info="").replace("Example Player", "  Example\n   Player  ")
+
+    players = parse_players(html=html, side=0)
+
+    assert players[0].name == "Example Player"
