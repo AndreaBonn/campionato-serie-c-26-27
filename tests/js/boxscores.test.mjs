@@ -4,6 +4,7 @@ import { afterEach, test } from "node:test";
 import { loadBoxscores, renderBoxscoreBody, renderScorers } from "../../docs/boxscores.js";
 
 const CUS = "CUS CAGLIARI";
+
 const player = (id, name, pts) => ({ id, number: "", name, role: "", age: "", pts });
 const side = (...players) => ({ team: "playbasket name", players });
 const game = (n, home = CUS, away = "OPPONENT") => ({ n, home, away, date: "2026-10-03" });

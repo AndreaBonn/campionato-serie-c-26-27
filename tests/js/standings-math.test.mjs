@@ -3,6 +3,8 @@ import { test } from "node:test";
 
 import { decidedFacts, positionRanges } from "../../docs/standings-math.js";
 
+
+
 // played (homologated) game and game still to play
 const g = (home, away, hs, as) => ({ home, away, score: { home: hs, away: as }, status: "omologata" });
 const todo = (home, away, status = "non-designata") => ({ home, away, score: null, status });

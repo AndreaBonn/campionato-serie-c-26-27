@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { cusPlayerStats } from "../../docs/cus-stats-rules.js";
+import { birthYear, cusPlayerStats } from "../../docs/cus-stats-rules.js";
+
+test("birthYear rejects three digits rather than reading a two-digit prefix", () => {
+  assert.equal(birthYear("'123", 2026), null);
+  assert.equal(birthYear("'12", 2026), 2012);
+});
+
 
 const TEAM = "CUS CAGLIARI";
 const SCORE = { home: 80, away: 60 };

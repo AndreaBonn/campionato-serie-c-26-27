@@ -6,6 +6,7 @@ import { crestHtml, renderRoundTable, renderStandings } from "../../docs/tables-
 process.env.TZ = "Europe/Rome";
 
 const CUS = "CUS CAGLIARI";
+
 const row = (position, team, extra = {}) => ({
   position, team, points: 2, played: 1, won: 1, lost: 0, points_for: 70, points_against: 60, ...extra,
 });
@@ -84,6 +85,7 @@ test("round table: sanctions closed under a count, each with its game", () => {
 });
 
 const fullRanges = (rows) => new Map(rows.map((r) => [r.team, { best: 1, worst: rows.length }]));
+
 
 test("standings: with every position still open, no 'Possibile' column and no 'Già deciso' block", () => {
   const rows = table(12);
