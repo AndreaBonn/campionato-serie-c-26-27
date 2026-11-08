@@ -738,3 +738,35 @@ def test_main_notice_outage_reuses_published_notices_and_logos(
     assert data["notices"] == [notice]
     assert data["logos"] == {"CUS CAGLIARI": entry}
     assert (tmp_path / "logos" / "cus-cagliari.png").read_bytes() == b"previous crest"
+
+
+def test_collect_logos_fixture_sources_downloads_and_maps_backend_crest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from io import BytesIO
+
+    from PIL import Image
+
+    from fip_calendar.parse import parse_matches
+
+    rounds = {"R1": parse_matches(
+        (FIXTURES / "serie-c-ritorno-1-non-designata.html").read_text(encoding="utf-8")
+    )}
+    out = BytesIO()
+    Image.new("RGB", (16, 16), "blue").save(out, format="PNG")
+    downloads: list[str] = []
+
+    def download(url: str) -> bytes:
+        downloads.append(url)
+        return out.getvalue()
+
+    monkeypatch.setattr(cli, "LOGOS_DIR", tmp_path / "logos")
+    monkeypatch.setattr(cli, "fetch_logo", download)
+
+    logos = cli.collect_logos(rounds=rounds, fallback_path=tmp_path / "data.json")
+
+    source = next(m.home_logo for m in rounds["R1"] if m.number == 69)
+    assert source.startswith("https://backend.fip.it/")
+    assert source in downloads
+    assert logos["CUS CAGLIARI"] == {"file": "logos/cus-cagliari.png", "source": source}
+    assert Image.open(tmp_path / "logos" / "cus-cagliari.png").size == (16, 16)
