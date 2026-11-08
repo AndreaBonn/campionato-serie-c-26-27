@@ -770,3 +770,30 @@ def test_collect_logos_fixture_sources_downloads_and_maps_backend_crest(
     assert source in downloads
     assert logos["CUS CAGLIARI"] == {"file": "logos/cus-cagliari.png", "source": source}
     assert Image.open(tmp_path / "logos" / "cus-cagliari.png").size == (16, 16)
+
+
+def test_sync_boxscores_cet_midnight_passes_italian_day_and_real_sleep(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import time
+    from datetime import date
+
+    from fip_calendar.playbasket_sync import PlaybasketClient
+
+    monkeypatch.setattr(cli, "BOXSCORES_PATH", tmp_path / "boxscores.json")
+    seen: dict[str, object] = {}
+
+    def collect_boxscores(**kwargs: object) -> dict[str, object]:
+        seen.update(kwargs)
+        return {}
+
+    monkeypatch.setattr(cli, "collect_boxscores", collect_boxscores)
+
+    assert cli.sync_boxscores(rounds=[], now=datetime.fromisoformat("2026-11-07T23:30:00+00:00"))
+
+    assert seen["today"] == date(2026, 11, 8)
+    client = seen["client"]
+    assert isinstance(client, PlaybasketClient)
+    assert client.sleep is time.sleep
+    assert client.fetch is fetch.fetch_playbasket_match
+    assert json.loads((tmp_path / "boxscores.json").read_text())["boxscores"] == {}
