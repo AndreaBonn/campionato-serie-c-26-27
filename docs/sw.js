@@ -4,7 +4,10 @@ const VERSION = "dev";
 //
 // Network first: fip.it data must never be served stale while online.
 // The cache only answers when the network fails, e.g. no signal inside the gym.
-const CACHE = `cus-basket-${VERSION}`;
+// Cache Storage is per origin, shared by every GitHub Pages repo of the account: activate
+// deletes only this app's older caches, never the other apps'.
+const CACHE_PREFIX = "cus-basket-";
+const CACHE = `${CACHE_PREFIX}${VERSION}`;
 const SHELL = [
   "./",
   "index.html",
@@ -46,7 +49,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith(CACHE_PREFIX) && k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
