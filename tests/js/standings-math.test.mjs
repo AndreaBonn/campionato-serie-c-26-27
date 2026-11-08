@@ -3,6 +3,53 @@ import { test } from "node:test";
 
 import { decidedFacts, positionRanges } from "../../docs/standings-math.js";
 
+test("art. 62.5 distinguishes overall ratios 1.0344 and 1.0399", () => {
+  // No direct encounters: equal head-to-head wins and ratios lead to overall ratios.
+  const games = rounds(g("A", "C", 10344, 10000), g("B", "D", 10399, 10000));
+  const ranges = positionRanges(table({ C: 10, A: 2, B: 2, D: 0 }), games);
+
+  assert.deepEqual(range(ranges, "B"), [2, 2]);
+  assert.deepEqual(range(ranges, "A"), [3, 3]);
+});
+
+test("sixteen relevant games are enumerated but seventeen use the points bound", () => {
+  // Only one chaser can reach A; A swept both, so enumeration proves first place.
+  // The points bound alone allows either chaser to tie and places A as low as third.
+  for (const [count, expected] of [[16, [1, 1]], [17, [1, 3]]]) {
+    const games = rounds(g("A", "B", 80, 70), g("B", "A", 70, 80),
+      g("A", "C", 80, 70), g("C", "A", 70, 80),
+      ...Array.from({ length: count }, () => todo("B", "C")));
+    const ranges = positionRanges(table({ A: count * 2, B: 0, C: 0 }), games);
+
+    assert.deepEqual(range(ranges, "A"), expected, `${count} remaining games`);
+  }
+});
+
+test("points bound excludes teams already below a mid-table team", () => {
+  const ranges = positionRanges(table({ A: 10, B: 6, C: 0 }), rounds(todo("A", "B")), { maxEnumerated: 0 });
+
+  assert.deepEqual(range(ranges, "B"), [2, 2]);
+});
+
+test("a 20-0 forfeit beats a finite overall points ratio", () => {
+  const games = rounds(g("A", "C", 20, 0), g("B", "C", 80, 70));
+  const ranges = positionRanges(table({ C: 10, A: 2, B: 2 }), games);
+
+  assert.deepEqual(range(ranges, "A"), [2, 2]);
+  assert.deepEqual(range(ranges, "B"), [3, 3]);
+});
+
+test("a best position equal to the playoff cut leaves qualification open", () => {
+  const ranges = new Map([
+    ["A", { best: 1, worst: 1 }], ["B", { best: 2, worst: 4 }],
+    ["C", { best: 3, worst: 4 }], ["D", { best: 3, worst: 4 }],
+    ["E", { best: 5, worst: 5 }],
+  ]);
+
+  assert.deepEqual(decidedFacts(ranges, { playoff: 2, playout: 1 }).find((f) => f.team === "B"),
+    { team: "B", position: null, playoff: null, playout: false });
+});
+
 
 test("a settled leader's game still changes an open chaser's range", () => {
   // A stays first. B loses the tie to C at 2 points, but passes C by beating A.
