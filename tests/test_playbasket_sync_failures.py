@@ -1,6 +1,7 @@
 import logging
 from copy import deepcopy
 from datetime import date
+from http.client import IncompleteRead
 from urllib.error import URLError
 
 import pytest
@@ -229,7 +230,7 @@ def test_collect_boxscores_corrected_score_retries_frozen_page_and_reuses_parsed
 
 @pytest.mark.parametrize(
     argnames="failure",
-    argvalues=[TimeoutError("read timed out"), ConnectionResetError("reset"),
+    argvalues=[IncompleteRead(b""), TimeoutError("read timed out"), ConnectionResetError("reset"),
                UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start byte")],
 )
 def test_collect_boxscores_read_errors_keep_previous_state(failure: Exception) -> None:
