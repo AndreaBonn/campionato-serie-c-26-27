@@ -24,3 +24,15 @@ def test_playbasket_team_aliases_cover_all_first_round_fixture_teams() -> None:
         teams.update(match.groups())
 
     assert set(config.PLAYBASKET_TEAM_ALIASES) == teams
+
+
+def test_config_fip_request_delay_is_one_second() -> None:
+    assert config.REQUEST_DELAY_S == 1.0
+
+
+def test_config_crest_side_is_128_pixels() -> None:
+    assert config.LOGO_MAX_SIDE_PX == 128
+
+
+def test_config_page_url_points_to_published_calendar() -> None:
+    assert config.PAGE_URL == "https://andreabonn.github.io/campionato-serie-c-26-27/"
