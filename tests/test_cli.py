@@ -713,3 +713,28 @@ def test_main_fixture_sync_publishes_standings_rounds_and_cus_event(
     feed = (tmp_path / "calendario.ics").read_text().replace("\n ", "")
     assert "SUMMARY:CUS Cagliari - Basket S. Orsola\n" in feed
     assert "URL:https://andreabonn.github.io/campionato-serie-c-26-27/\n" in feed
+
+
+def test_main_notice_outage_reuses_published_notices_and_logos(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _configure_fixture_main(tmp_path, monkeypatch)
+    notice = {"date": "2026-10-20", "title": "Formula Serie C", "link": "https://x/"}
+    entry = {"file": "logos/cus-cagliari.png", "source": "https://backend.fip.it/old.png"}
+    (tmp_path / "logos").mkdir()
+    (tmp_path / "logos" / "cus-cagliari.png").write_bytes(b"previous crest")
+    (tmp_path / "data.json").write_text(json.dumps({
+        "notices": [notice], "logos": {"CUS CAGLIARI": entry},
+    }))
+
+    def offline(term: str, after: str) -> list[dict[str, object]]:
+        raise URLError("FIP Sardegna unavailable")
+
+    monkeypatch.setattr(cli, "fetch_posts", offline)
+
+    assert cli.main() == 0
+
+    data = json.loads((tmp_path / "data.json").read_text())
+    assert data["notices"] == [notice]
+    assert data["logos"] == {"CUS CAGLIARI": entry}
+    assert (tmp_path / "logos" / "cus-cagliari.png").read_bytes() == b"previous crest"
