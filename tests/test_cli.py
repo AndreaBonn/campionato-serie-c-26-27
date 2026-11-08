@@ -674,3 +674,42 @@ def test_main_box_score_bug_still_publishes_fip_data_and_check_time(
     assert (tmp_path / "data.json").exists()
     assert not (tmp_path / "boxscores.json").exists()
     assert "box scores not updated" in caplog.text
+
+
+def _configure_fixture_main(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _patch_main_paths(tmp_path, monkeypatch)
+    calendar = {
+        "fip_team": "CUS CAGLIARI",
+        "venues": {"palacus": {"name": "PALACUS", "address": "Cagliari"}},
+        "games": [{"round": "R1", "n": 69, "date": "2026-12-20", "time": "18:00",
+                   "home": "CUS Cagliari", "away": "Basket S. Orsola", "venue": "palacus"}],
+    }
+    (tmp_path / "calendario.json").write_text(json.dumps(calendar))
+    html = (FIXTURES / "serie-c-ritorno-1-non-designata.html").read_text(encoding="utf-8")
+    monkeypatch.setattr(cli, "fetch_round", lambda half_code, round_number: html)
+    monkeypatch.setattr(cli, "fetch_posts", lambda term, after: [])
+    monkeypatch.setattr("fip_calendar.cli.time.sleep", lambda seconds: None)
+
+    def offline_logo(url: str) -> bytes:
+        raise URLError("crest unavailable")
+
+    monkeypatch.setattr(cli, "fetch_logo", offline_logo)
+    monkeypatch.setattr(cli, "fetch_playbasket_match", lambda half, number, mn: "")
+
+
+def test_main_fixture_sync_publishes_standings_rounds_and_cus_event(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _configure_fixture_main(tmp_path, monkeypatch)
+
+    assert cli.main() == 0
+
+    data = json.loads((tmp_path / "data.json").read_text())
+    assert len(data["standings"]) == 12
+    assert next(s for s in data["standings"] if s["team"] == "CUS CAGLIARI")["played"] == 0
+    assert [r["round"] for r in data["rounds"]] == ["R1"]
+    assert [g["n"] for g in data["rounds"][0]["games"]] == [67, 68, 69, 70, 71, 72]
+    assert data["rounds"][0]["games"][2]["home"] == "CUS CAGLIARI"
+    feed = (tmp_path / "calendario.ics").read_text().replace("\n ", "")
+    assert "SUMMARY:CUS Cagliari - Basket S. Orsola\n" in feed
+    assert "URL:https://andreabonn.github.io/campionato-serie-c-26-27/\n" in feed
