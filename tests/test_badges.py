@@ -86,6 +86,13 @@ def test_tests_badge_reports_skipped_without_turning_red() -> None:
     assert badge["color"] == "brightgreen"
 
 
+def test_tests_badge_with_only_skipped_tests_is_not_green() -> None:
+    badge = badge_for_tests(ResultCounts(passed=0, failed=0, skipped=3))
+
+    assert badge["message"] == "0 passed, 3 skipped"
+    assert badge["color"] == "red"
+
+
 def test_tests_badge_without_reports_says_error() -> None:
     badge = badge_for_tests(None)
 
