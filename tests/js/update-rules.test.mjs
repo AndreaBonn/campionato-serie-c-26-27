@@ -3,7 +3,6 @@ import { test } from "node:test";
 
 import {
   isCheckDue,
-  MIN_CHECK_INTERVAL_MS,
   shouldAnnounce,
   shouldReloadOnControllerChange,
 } from "../../docs/update-rules.js";
@@ -27,13 +26,13 @@ test("first check of the session is always due", () => {
 test("quick app switches do not hit the server again", () => {
   const lastCheck = 1_000_000;
 
-  assert.equal(isCheckDue({ now: lastCheck + MIN_CHECK_INTERVAL_MS - 1, lastCheck }), false);
+  assert.equal(isCheckDue({ now: lastCheck + 600_000 - 1, lastCheck }), false);
 });
 
 test("a check is due again once the interval has passed", () => {
   const lastCheck = 1_000_000;
 
-  assert.equal(isCheckDue({ now: lastCheck + MIN_CHECK_INTERVAL_MS, lastCheck }), true);
+  assert.equal(isCheckDue({ now: lastCheck + 600_000, lastCheck }), true);
 });
 
 test("control handover after an accepted update reloads the page", () => {
