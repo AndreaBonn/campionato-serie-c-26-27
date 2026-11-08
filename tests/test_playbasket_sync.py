@@ -79,6 +79,21 @@ def test_collect_boxscores_serializes_original_names_players_and_constructed_url
     assert json.loads(s=json.dumps(obj=result)) == result
 
 
+def test_collect_boxscores_saved_score_is_independent_of_rounds() -> None:
+    rounds = load_rounds()
+    result = collect_boxscores(
+        rounds=rounds, previous={}, today=TODAY, client=FixtureClient().client(),
+    )
+    source_score = next(game for game in rounds[0]["games"] if game["n"] == 6)["score"]
+    assert source_score is not None
+    assert result["6"]["fip_score"] == source_score == {"home": 62, "away": 55}
+
+    source_score["home"] = 63
+
+    assert result["6"]["fip_score"] == {"home": 62, "away": 55}
+    assert source_score == {"home": 63, "away": 55}
+
+
 def test_collect_boxscores_skips_frozen_pages_and_stops_at_expected_match() -> None:
     rounds = load_rounds()
     previous = collect_boxscores(

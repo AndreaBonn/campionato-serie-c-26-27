@@ -46,6 +46,27 @@ def test_matched_page_with_player_points_does_not_warn(caplog: pytest.LogCapture
     assert caplog.text == ""
 
 
+def test_matched_page_without_points_warns_only_for_nonzero_fip_score(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    entry = collect_with_page(page=TITLE_ONLY, game_date="2026-10-17")
+    assert entry["status"] == "partial"
+    assert "A1 n=6 mn=1: no player points" in caplog.text
+    caplog.clear()
+    rounds = orsola_cus(game_date="2026-10-17")
+    rounds[0]["games"][0]["score"] = {"home": 0, "away": 0}
+    page = TITLE_ONLY.replace("62-55", "0-0")
+
+    result = collect_boxscores(
+        rounds=rounds, previous={}, today=TODAY,
+        client=PlaybasketClient(fetch=lambda half, round_number, mn: page, sleep=lambda _: None),
+    )
+
+    assert result["6"]["status"] == "complete"
+    assert result["6"]["fip_score"] == {"home": 0, "away": 0}
+    assert caplog.text == ""
+
+
 def test_game_frozen_as_incomplete_is_logged(caplog: pytest.LogCaptureFixture) -> None:
     previous: dict[str, BoxscoreEntry] = {"6": {
         "round": "A1", "status": "partial", "fip_score": {"home": 62, "away": 55},
