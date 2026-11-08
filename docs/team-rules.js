@@ -67,9 +67,10 @@ export function scheduleStrength(remaining) {
   return known.length ? known.reduce((a, b) => a + b, 0) / known.length : null;
 }
 
-// "soc. CLUB:FIRST LAST squalifica per 2 gare per ...": the Giudice Sportivo's wording for a
-// player banned for a number of games. Bans by date or for officials are not matched.
-const BAN = /^soc\.[^:]+:\s*(.+?)\s+squalifica per (\d+) gar[ae]\b/i;
+// "soc. CLUB:FIRST LAST squalifica [tesserato] per 2 gare per ...": the Giudice Sportivo's
+// wording for a player banned for a number of games (game 843 of DR2 Sud A 2026/27 reads
+// "squalifica tesserato per 1 gara"). Bans by date or for officials are not matched.
+const BAN = /^soc\.[^:]+:\s*(.+?)\s+squalifica (?:tesserato )?per (\d+) gar[ae]\b/i;
 
 // Game bans of the team's players, oldest first. `served` counts the team's games with a result
 // after the sanctioned one: an estimate, since FIP does not publish when a ban is served and a

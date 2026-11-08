@@ -110,6 +110,17 @@ test("suspensions: served in full once enough games have a result; other clubs' 
   assert.deepEqual(suspensions("SEF TORRES", single).map((s) => [s.player, s.games, s.left]), [["LUCA ROSSI", 1, 1]]);
 });
 
+// Verbatim from the Giudice Sportivo on game 843 of DR2 Sud A 2026/27: "squalifica tesserato per".
+const CUCCU = "soc. A.S.D. S.S.D. CALASETTA BASKET:RICCARDO CUCCU squalifica tesserato per 1 gara per comportamento minaccioso, intimidatorio e violento a livello di tentativo nei confronti di un avversario [art. 33,2/1e RG]";
+
+test("suspensions: the 'squalifica tesserato per N gara' wording is a game ban too", () => {
+  const rounds = [round("A4", game(843, "2026-10-25", "A.S.D. S.S.D. CALASETTA BASKET", "B", { home: 60, away: 70 }, { sanctions: [CUCCU] }))];
+
+  const rows = suspensions("A.S.D. S.S.D. CALASETTA BASKET", rounds);
+
+  assert.deepEqual(rows, [{ player: "RICCARDO CUCCU", games: 1, round: "A4", n: 843, served: 0, left: 1 }]);
+});
+
 test("performance: with two losses the biggest is the widest by margin, not the closest to zero", () => {
   const rounds = [
     round("A1", game(1, "2026-10-04", TEAM, "A", { home: 55, away: 60 })),
