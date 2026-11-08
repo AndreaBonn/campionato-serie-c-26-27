@@ -185,6 +185,18 @@ def test_select_pending_state_rules_preserve_inputs(
     assert (rounds, previous) == original
 
 
+def test_select_pending_reversed_games_assign_mn_by_game_number() -> None:
+    rounds: list[RoundDict] = [{"round": "A1", "games": [
+        {**game(number=n), "date": "2026-10-03"} for n in [6, 5, 4]
+    ]}]
+    original = deepcopy(x=rounds)
+
+    pending = select_pending(rounds=rounds, previous={}, today=date(2026, 10, 7))
+
+    assert [(item.game["n"], item.mn) for item in pending] == [(4, 1), (5, 2), (6, 3)]
+    assert rounds == original
+
+
 def test_select_pending_prioritizes_expiring_games_then_natural_round_order() -> None:
     rounds: list[RoundDict] = [
         {"round": code, "games": [{**game(number=n), "date": game_date}]}
