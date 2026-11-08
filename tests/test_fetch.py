@@ -277,3 +277,20 @@ def test_fetch_logo_redirect_within_the_fip_backend_is_followed(
     monkeypatch.setattr(fetch, "urlopen", fake)
 
     assert fetch_logo("https://backend.fip.it/x/logo.png") == b"png"
+
+
+def test_fetch_logo_bounds_response_read_to_limit_plus_one(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    limits: list[int] = []
+
+    class BoundedResponse(FakeResponse):
+        def read(self, limit: int = -1) -> bytes:
+            limits.append(limit)
+            return super().read(limit=limit)
+
+    response = BoundedResponse(body=b"crest", final_url="https://backend.fip.it/logo.png")
+    monkeypatch.setattr(fetch, "urlopen", lambda request, timeout: response)
+
+    assert fetch_logo("https://backend.fip.it/logo.png") == b"crest"
+    assert limits == [8_000_001]
