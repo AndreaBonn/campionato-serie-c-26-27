@@ -173,3 +173,20 @@ def test_main_with_one_report_missing_says_error(tmp_path: Path) -> None:
 
     tests = json.loads((out / "tests.json").read_text(encoding="utf-8"))
     assert tests["message"] == "error"
+
+
+def test_read_coverage_invalid_reports_return_none_and_unknown_badge(tmp_path: Path) -> None:
+    for content in ('{"totals":', '{}', '{"totals": null}'):
+        report = write(tmp_path / "coverage.json", content)
+
+        percent = read_coverage(report)
+
+        assert percent is None
+        assert badge_for_coverage(percent) == {
+            "schemaVersion": 1,
+            "label": "coverage",
+            "message": "unknown",
+            "color": "lightgrey",
+        }
+    valid = write(tmp_path / "valid.json", '{"totals": {"percent_covered": 81}}')
+    assert read_coverage(valid) == 81.0
