@@ -1353,9 +1353,12 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-11-14",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
+            "FARCI DANIELE di CAGLIARI (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -1364,9 +1367,12 @@
           "away": "POL. DINAMO",
           "date": "2026-11-14",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FARCI NICOLA di SETTIMO SAN PIETRO (CA)",
+            "SOLINAS RICCARDO di SESTU (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -1386,9 +1392,11 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-11-14",
           "time": "17:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "CAPPELLONI RICCARDO di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1397,9 +1405,12 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-14",
           "time": "19:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "ATZENI GIANLUCA di ARBUS (SU)",
+            "MANCA MARIO di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1408,9 +1419,12 @@
           "away": "C.M.B. PORTO TORRES",
           "date": "2026-11-14",
           "time": "20:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FORTUNATO DIEGO di OLBIA (SS)",
+            "PUGGIONI SAMUELE di SASSARI (SS)"
+          ],
           "sanctions": []
         }
       ],
@@ -2639,5 +2653,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-08T20:00:16+00:00"
+  "updated_at": "2026-11-09T18:47:01+00:00"
 }
