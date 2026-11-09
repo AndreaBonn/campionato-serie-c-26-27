@@ -6006,7 +6006,7 @@
     },
     "32": {
       "round": "A6",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 83,
         "away": 69
@@ -6015,49 +6015,261 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=1",
       "home": {
         "team": "Aurea Sassari",
-        "players": []
+        "players": [
+          {
+            "id": "87758",
+            "number": "",
+            "name": "Desole Aldo Vincenzo",
+            "role": "play",
+            "age": "'00",
+            "pts": 12
+          },
+          {
+            "id": "232235",
+            "number": "",
+            "name": "Dore Andrea",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "226708",
+            "number": "",
+            "name": "Efevberha Michael James",
+            "role": "guardia",
+            "age": "'84",
+            "pts": 31
+          },
+          {
+            "id": "195969",
+            "number": "",
+            "name": "Garau Vincenzo",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": 0
+          },
+          {
+            "id": "147875",
+            "number": "",
+            "name": "Kuznetsov Vitalii",
+            "role": "ala forte",
+            "age": "'05",
+            "pts": 13
+          },
+          {
+            "id": "67758",
+            "number": "",
+            "name": "Langiu Gerardo Antonio",
+            "role": "guardia",
+            "age": "'97",
+            "pts": 2
+          },
+          {
+            "id": "69189",
+            "number": "",
+            "name": "Langiu Luis Enrique",
+            "role": "guardia",
+            "age": "'00",
+            "pts": 2
+          },
+          {
+            "id": "176503",
+            "number": "",
+            "name": "Lizzeri Alessandro",
+            "role": "play",
+            "age": "'05",
+            "pts": 0
+          },
+          {
+            "id": "190289",
+            "number": "",
+            "name": "Macciocu Nicola",
+            "role": "guardia",
+            "age": "'07",
+            "pts": 0
+          },
+          {
+            "id": "196073",
+            "number": "",
+            "name": "Mura Federico",
+            "role": "ala piccola",
+            "age": "U19",
+            "pts": null
+          },
+          {
+            "id": "133332",
+            "number": "",
+            "name": "Usai Andrea",
+            "role": "play",
+            "age": "'03",
+            "pts": 20
+          },
+          {
+            "id": "131131",
+            "number": "",
+            "name": "Vasselli Marco",
+            "role": "ala forte",
+            "age": "'05",
+            "pts": 3
+          }
+        ]
       },
       "away": {
         "team": "S. Orsola Sassari",
-        "players": []
+        "players": [
+          {
+            "id": "173425",
+            "number": "",
+            "name": "Angius Riccardo",
+            "role": "play",
+            "age": "'07",
+            "pts": 14
+          },
+          {
+            "id": "148057",
+            "number": "",
+            "name": "Aroni Alessandro",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 5
+          },
+          {
+            "id": "173424",
+            "number": "",
+            "name": "Camboni Marco",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 0
+          },
+          {
+            "id": "146918",
+            "number": "",
+            "name": "Carta Giovanni",
+            "role": "ala piccola",
+            "age": "'02",
+            "pts": 4
+          },
+          {
+            "id": "190287",
+            "number": "",
+            "name": "Casu Simone",
+            "role": "play",
+            "age": "'05",
+            "pts": 10
+          },
+          {
+            "id": "156043",
+            "number": "",
+            "name": "Cecchini Livio",
+            "role": "ala piccola",
+            "age": "'03",
+            "pts": 0
+          },
+          {
+            "id": "195887",
+            "number": "",
+            "name": "Giordo Alessandro",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 19
+          },
+          {
+            "id": "177124",
+            "number": "",
+            "name": "Gueye Moustapha",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": 6
+          },
+          {
+            "id": "119709",
+            "number": "",
+            "name": "Manca Luigi",
+            "role": "play",
+            "age": "'02",
+            "pts": null
+          },
+          {
+            "id": "196061",
+            "number": "",
+            "name": "Petretto Federico",
+            "role": "",
+            "age": "U19",
+            "pts": null
+          },
+          {
+            "id": "148048",
+            "number": "",
+            "name": "Scanu Manunta Jesus Daniel",
+            "role": "ala piccola",
+            "age": "'04",
+            "pts": null
+          },
+          {
+            "id": "173435",
+            "number": "",
+            "name": "Usai Giacomo",
+            "role": "play",
+            "age": "'08",
+            "pts": 11
+          }
+        ]
       }
     },
     "31": {
       "round": "A6",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 65,
         "away": 73
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 4,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=4",
+      "home": {
+        "team": "Cus Cagliari",
+        "players": []
+      },
+      "away": {
+        "team": "Ferrini Quartu S.Elena",
+        "players": []
+      }
     },
     "33": {
       "round": "A6",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 88,
         "away": 90
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 5,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=5",
+      "home": {
+        "team": "CMB Porto Torres",
+        "players": []
+      },
+      "away": {
+        "team": "Calasetta Basket",
+        "players": []
+      }
     },
     "34": {
       "round": "A6",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 66,
         "away": 78
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 6,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=6",
+      "home": {
+        "team": "Antonianum Quartu S.Elena",
+        "players": []
+      },
+      "away": {
+        "team": "Olimpia Cagliari",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-11-08T20:00:16+00:00"
+  "updated_at": "2026-11-09T06:22:28+00:00"
 }
