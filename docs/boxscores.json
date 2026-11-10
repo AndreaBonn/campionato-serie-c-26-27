@@ -6598,7 +6598,7 @@
     },
     "31": {
       "round": "A6",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 65,
         "away": 73
@@ -6691,7 +6691,7 @@
             "name": "Deering Philip Giuseppe",
             "role": "",
             "age": "",
-            "pts": 0
+            "pts": null
           },
           {
             "id": "62788",
@@ -6715,7 +6715,7 @@
             "name": "Madau Lussorio",
             "role": "ala piccola",
             "age": "'07",
-            "pts": 0
+            "pts": 2
           },
           {
             "id": "205676",
@@ -6723,7 +6723,7 @@
             "name": "Murru Riccardo",
             "role": "ala piccola",
             "age": "'08",
-            "pts": 0
+            "pts": null
           },
           {
             "id": "15398",
@@ -6739,7 +6739,7 @@
             "name": "Picci Lorenzo",
             "role": "",
             "age": "",
-            "pts": 0
+            "pts": null
           },
           {
             "id": "176495",
@@ -6795,7 +6795,104 @@
       "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=6&mn=5",
       "home": {
         "team": "CMB Porto Torres",
-        "players": []
+        "players": [
+          {
+            "id": "214792",
+            "number": "",
+            "name": "Barabino Marco",
+            "role": "ala piccola",
+            "age": "'08",
+            "pts": 5
+          },
+          {
+            "id": "229542",
+            "number": "",
+            "name": "Carletti Mattia",
+            "role": "play",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "140312",
+            "number": "",
+            "name": "Carletti Nicolò",
+            "role": "guardia",
+            "age": "",
+            "pts": 9
+          },
+          {
+            "id": "224501",
+            "number": "",
+            "name": "Cocco Tobias",
+            "role": "",
+            "age": "U19",
+            "pts": 19
+          },
+          {
+            "id": "80200",
+            "number": "",
+            "name": "Lungheu Antonio",
+            "role": "ala forte",
+            "age": "'98",
+            "pts": 21
+          },
+          {
+            "id": "206474",
+            "number": "",
+            "name": "Mertika Kristian",
+            "role": "ala forte",
+            "age": "'08",
+            "pts": null
+          },
+          {
+            "id": "206415",
+            "number": "",
+            "name": "Mulas Mattia",
+            "role": "ala piccola",
+            "age": "'07",
+            "pts": 0
+          },
+          {
+            "id": "18699",
+            "number": "",
+            "name": "Pisano Alessandro",
+            "role": "play",
+            "age": "'92",
+            "pts": 19
+          },
+          {
+            "id": "106342",
+            "number": "",
+            "name": "Pisano Nicola",
+            "role": "ala forte",
+            "age": "'99",
+            "pts": 15
+          },
+          {
+            "id": "21148",
+            "number": "",
+            "name": "Pitzalis Andrea",
+            "role": "ala forte",
+            "age": "'90",
+            "pts": null
+          },
+          {
+            "id": "170155",
+            "number": "",
+            "name": "Russu Andrea",
+            "role": "play",
+            "age": "'06",
+            "pts": null
+          },
+          {
+            "id": "172665",
+            "number": "",
+            "name": "Sanna Gabriele",
+            "role": "guardia",
+            "age": "'06",
+            "pts": 0
+          }
+        ]
       },
       "away": {
         "team": "Calasetta Basket",
@@ -7015,5 +7112,5 @@
       }
     }
   },
-  "updated_at": "2026-11-10T12:37:35+00:00"
+  "updated_at": "2026-11-10T21:49:03+00:00"
 }
