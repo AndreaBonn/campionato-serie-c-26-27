@@ -6786,7 +6786,7 @@
     },
     "33": {
       "round": "A6",
-      "status": "partial",
+      "status": "complete",
       "fip_score": {
         "home": 88,
         "away": 90
@@ -6896,7 +6896,80 @@
       },
       "away": {
         "team": "Calasetta Basket",
-        "players": []
+        "players": [
+          {
+            "id": "230387",
+            "number": "",
+            "name": "Aversano Joel",
+            "role": "",
+            "age": "",
+            "pts": null
+          },
+          {
+            "id": "216684",
+            "number": "",
+            "name": "Bernardi Samuel Omar",
+            "role": "",
+            "age": "",
+            "pts": 15
+          },
+          {
+            "id": "147742",
+            "number": "",
+            "name": "Ceban Mihail",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 11
+          },
+          {
+            "id": "157455",
+            "number": "",
+            "name": "Granieri Giacomo",
+            "role": "play",
+            "age": "'06",
+            "pts": 5
+          },
+          {
+            "id": "190713",
+            "number": "",
+            "name": "Guadagno Riccardo",
+            "role": "ala piccola",
+            "age": "'06",
+            "pts": 7
+          },
+          {
+            "id": "229547",
+            "number": "",
+            "name": "Hassan Waheid",
+            "role": "",
+            "age": "",
+            "pts": 16
+          },
+          {
+            "id": "112562",
+            "number": "",
+            "name": "Tarahija Faris",
+            "role": "ala piccola",
+            "age": "'01",
+            "pts": 10
+          },
+          {
+            "id": "22785",
+            "number": "",
+            "name": "Werlich Alessandro",
+            "role": "ala piccola",
+            "age": "'95",
+            "pts": 6
+          },
+          {
+            "id": "100745",
+            "number": "",
+            "name": "Zucca Stefano",
+            "role": "guardia",
+            "age": "'02",
+            "pts": 20
+          }
+        ]
       }
     },
     "34": {
@@ -7112,5 +7185,5 @@
       }
     }
   },
-  "updated_at": "2026-11-10T21:49:03+00:00"
+  "updated_at": "2026-11-12T16:48:48+00:00"
 }
