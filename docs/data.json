@@ -1360,8 +1360,11 @@
           "away": "FISIOKONS AUREA SASSARI",
           "date": "2026-11-14",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 77,
+            "away": 72
+          },
           "referees": [
             "PUTZULU ALBERTO di QUARTU SANT'ELENA (CA)",
             "FARCI DANIELE di CAGLIARI (CA)"
@@ -1374,8 +1377,11 @@
           "away": "POL. DINAMO",
           "date": "2026-11-14",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 111,
+            "away": 86
+          },
           "referees": [
             "FARCI NICOLA di SETTIMO SAN PIETRO (CA)",
             "SOLINAS RICCARDO di SESTU (CA)"
@@ -1402,8 +1408,11 @@
           "away": "BASKET ANTONIANUM",
           "date": "2026-11-14",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 77,
+            "away": 72
+          },
           "referees": [
             "CAPPELLONI RICCARDO di SASSARI (SS)",
             "FIORIN GIANMARCO di CABRAS (OR)"
@@ -1416,8 +1425,11 @@
           "away": "FERRINI PISANO ARREDAMENTI",
           "date": "2026-11-14",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 65,
+            "away": 87
+          },
           "referees": [
             "ATZENI GIANLUCA di ARBUS (SU)",
             "MANCA MARIO di SASSARI (SS)"
@@ -2664,5 +2676,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-14T11:27:43+00:00"
+  "updated_at": "2026-11-14T20:08:45+00:00"
 }
