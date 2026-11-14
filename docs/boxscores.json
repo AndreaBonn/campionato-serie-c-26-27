@@ -7186,52 +7186,94 @@
     },
     "37": {
       "round": "A7",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 77,
         "away": 72
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 1,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=7&mn=1",
+      "home": {
+        "team": "Olimpia Cagliari",
+        "players": []
+      },
+      "away": {
+        "team": "Aurea Sassari",
+        "players": []
+      }
     },
     "38": {
       "round": "A7",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 111,
         "away": 86
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 2,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=7&mn=2",
+      "home": {
+        "team": "Calasetta Basket",
+        "players": []
+      },
+      "away": {
+        "team": "Dinamo Academy",
+        "players": []
+      }
     },
     "40": {
       "round": "A7",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 77,
         "away": 72
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 4,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=7&mn=4",
+      "home": {
+        "team": "Sef Torres Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "Antonianum Quartu S.Elena",
+        "players": []
+      }
     },
     "41": {
       "round": "A7",
-      "status": "unmatched",
+      "status": "partial",
       "fip_score": {
         "home": 65,
         "away": 87
       },
-      "mn": null,
-      "url": null,
-      "home": null,
-      "away": null
+      "mn": 5,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=7&mn=5",
+      "home": {
+        "team": "Sirbones Nuoro",
+        "players": []
+      },
+      "away": {
+        "team": "Ferrini Quartu S.Elena",
+        "players": []
+      }
+    },
+    "42": {
+      "round": "A7",
+      "status": "partial",
+      "fip_score": {
+        "home": 67,
+        "away": 59
+      },
+      "mn": 6,
+      "url": "https://www.playbasket.it/sardegna/match.php?lt=2&lr=SA&lp=CA&lc=C%2FM&lg=1&season=2027&lf=M&gtt=1&gtn=7&mn=6",
+      "home": {
+        "team": "S. Orsola Sassari",
+        "players": []
+      },
+      "away": {
+        "team": "CMB Porto Torres",
+        "players": []
+      }
     }
   },
-  "updated_at": "2026-11-14T20:08:45+00:00"
+  "updated_at": "2026-11-14T23:55:27+00:00"
 }
