@@ -1005,9 +1005,9 @@
             "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
           ],
           "sanctions": [
-            "soc. POLISPORTIVA DINAMO SSD ARL:ARNALDO DELLACA' squalifica per 2 gare per comportamento offensivo nei confronti di avversario e per non aver immediatamente abbandonato il terreno di gioco, dopo essere stato espulso [art. 33,3/1b RG,art. 36 RG]",
             "soc. POLISPORTIVA DINAMO SSD ARL:Ammenda di Euro 50.00 per offese isolate dei propri sostenitori nei confronti degli arbitri [art. 27,4ad RG]",
-            "soc. CENTRO MINIBK P.TORRES A. DIL.:Ammenda di Euro 50.00 per offese isolate dei propri sostenitori nei confronti degli arbitri [art. 27,4ad RG]"
+            "soc. CENTRO MINIBK P.TORRES A. DIL.:Ammenda di Euro 50.00 per offese isolate dei propri sostenitori nei confronti degli arbitri [art. 27,4ad RG]",
+            "soc. POLISPORTIVA DINAMO SSD ARL:ARNALDO DELLACA' squalifica per 2 gare per comportamento offensivo nei confronti di avversario e per non aver immediatamente abbandonato il terreno di gioco, dopo essere stato espulso [art. 33,3/1b RG,art. 36 RG]"
           ]
         }
       ],
@@ -1505,7 +1505,7 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-21",
           "time": "19:00",
-          "status": "non-designata",
+          "status": "designata-nonvisibile",
           "score": null,
           "referees": [],
           "sanctions": []
@@ -2664,5 +2664,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-13T12:11:43+00:00"
+  "updated_at": "2026-11-14T11:27:43+00:00"
 }
