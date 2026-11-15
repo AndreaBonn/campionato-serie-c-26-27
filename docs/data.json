@@ -235,13 +235,16 @@
         "date",
         "time"
       ],
-      "status": "designata",
-      "status_text": "Gara designata: la designazione è visibile",
+      "status": "ufficioso",
+      "status_text": "Risultato ufficioso",
       "referees": [
         "SEU ALESSANDRA di QUARTUCCIU (CA)",
         "SEU CLAUDIA di QUARTUCCIU (CA)"
       ],
-      "score": null,
+      "score": {
+        "home": 76,
+        "away": 75
+      },
       "sanctions": [],
       "fip_opponent": "SCUOLA BASKET CARBONIA"
     },
@@ -1394,8 +1397,11 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-11-15",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 76,
+            "away": 75
+          },
           "referees": [
             "SEU ALESSANDRA di QUARTUCCIU (CA)",
             "SEU CLAUDIA di QUARTUCCIU (CA)"
@@ -2679,5 +2685,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-15T06:26:26+00:00"
+  "updated_at": "2026-11-15T20:37:21+00:00"
 }

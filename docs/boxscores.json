@@ -7273,7 +7273,19 @@
         "team": "CMB Porto Torres",
         "players": []
       }
+    },
+    "39": {
+      "round": "A7",
+      "status": "unmatched",
+      "fip_score": {
+        "home": 76,
+        "away": 75
+      },
+      "mn": null,
+      "url": null,
+      "home": null,
+      "away": null
     }
   },
-  "updated_at": "2026-11-14T23:55:27+00:00"
+  "updated_at": "2026-11-15T20:37:21+00:00"
 }
