@@ -1471,9 +1471,12 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-11-21",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "CAPPELLONI RICCARDO di SASSARI (SS)",
+            "FANCELLU MATTEO di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1493,9 +1496,12 @@
           "away": "SEF TORRES",
           "date": "2026-11-21",
           "time": "20:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FORTUNATO DIEGO di OLBIA (SS)",
+            "PUGGIONI SAMUELE di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1515,9 +1521,12 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-11-21",
           "time": "17:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "ATZENI GIANLUCA di ARBUS (SU)",
+            "CRISTIANI NICOLAS di SASSARI (SS)"
+          ],
           "sanctions": []
         },
         {
@@ -1526,9 +1535,12 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-21",
           "time": "19:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
+            "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
+          ],
           "sanctions": []
         }
       ],
@@ -2685,5 +2697,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-15T20:37:21+00:00"
+  "updated_at": "2026-11-16T18:31:01+00:00"
 }
