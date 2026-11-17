@@ -269,9 +269,12 @@
         }
       },
       "changes": [],
-      "status": "designata-nonvisibile",
-      "status_text": "Gara designata: la designazione non è ancora visibile",
-      "referees": [],
+      "status": "designata",
+      "status_text": "Gara designata: la designazione è visibile",
+      "referees": [
+        "FARCI NICOLA di SETTIMO SAN PIETRO (CA)",
+        "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
+      ],
       "score": null,
       "sanctions": [],
       "fip_opponent": "PALL. NUORO"
@@ -1485,9 +1488,12 @@
           "away": "SCUOLA BASKET CARBONIA",
           "date": "2026-11-22",
           "time": "18:30",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "ERRIU FRAU ALESSANDRO di CAGLIARI (CA)",
+            "FARCI DANIELE di CAGLIARI (CA)"
+          ],
           "sanctions": []
         },
         {
@@ -1510,9 +1516,12 @@
           "away": "PALL. NUORO",
           "date": "2026-11-22",
           "time": "18:00",
-          "status": "designata-nonvisibile",
+          "status": "designata",
           "score": null,
-          "referees": [],
+          "referees": [
+            "FARCI NICOLA di SETTIMO SAN PIETRO (CA)",
+            "MONTISCI SALVATORE di SANT'ANDREA FRIUS (SU)"
+          ],
           "sanctions": []
         },
         {
@@ -2697,5 +2706,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-16T18:31:01+00:00"
+  "updated_at": "2026-11-17T13:21:50+00:00"
 }
