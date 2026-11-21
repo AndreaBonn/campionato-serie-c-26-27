@@ -1480,8 +1480,11 @@
           "away": "OLIMPIA CAGLIARI",
           "date": "2026-11-21",
           "time": "18:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 74,
+            "away": 86
+          },
           "referees": [
             "CAPPELLONI RICCARDO di SASSARI (SS)",
             "FANCELLU MATTEO di SASSARI (SS)"
@@ -1536,8 +1539,11 @@
           "away": "BASKET S. ORSOLA",
           "date": "2026-11-21",
           "time": "17:30",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 72,
+            "away": 78
+          },
           "referees": [
             "ATZENI GIANLUCA di ARBUS (SU)",
             "CRISTIANI NICOLAS di SASSARI (SS)"
@@ -1550,8 +1556,11 @@
           "away": "CAMPING LA SALINA CALASETTA",
           "date": "2026-11-21",
           "time": "19:00",
-          "status": "designata",
-          "score": null,
+          "status": "ufficioso",
+          "score": {
+            "home": 100,
+            "away": 67
+          },
           "referees": [
             "COCCO ALESSANDRO di QUARTU SANT'ELENA (CA)",
             "SADDI NICOLA di QUARTU SANT'ELENA (CA)"
@@ -2712,5 +2721,5 @@
     }
   },
   "fip_url": "https://fip.it/risultati/?group=campionati-regionali&regione_codice=SA&comitato_codice=RSA&sesso=M&codice_campionato=C1&codice_fase=1&codice_girone=85305&codice_ar=1&giornata=1",
-  "updated_at": "2026-11-20T07:11:47+00:00"
+  "updated_at": "2026-11-21T21:14:17+00:00"
 }
